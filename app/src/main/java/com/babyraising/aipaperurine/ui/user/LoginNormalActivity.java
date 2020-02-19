@@ -1,6 +1,7 @@
-package com.babyraising.aipaperurine.ui;
+package com.babyraising.aipaperurine.ui.user;
 
 import android.app.AlertDialog;
+import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -17,8 +18,8 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 
-@ContentView(R.layout.activity_login)
-public class LoginActivity extends BaseActivity {
+@ContentView(R.layout.activity_login_normal)
+public class LoginNormalActivity extends BaseActivity {
 
     private AlertDialog tipDialog;
 
@@ -28,16 +29,14 @@ public class LoginActivity extends BaseActivity {
     @ViewInject(R.id.phone)
     private EditText phone;
 
-    @ViewInject(R.id.code)
-    private EditText code;
+    @ViewInject(R.id.password)
+    private EditText password;
 
-    @ViewInject(R.id.send_code)
-    private Button sendCode;
+    @ViewInject(R.id.register)
+    private TextView register;
 
-    @Event(R.id.send_code)
-    private void sendCodeClick(View view) {
-
-    }
+    @ViewInject(R.id.forget)
+    private TextView forget;
 
     @Event(R.id.login)
     private void loginClick(View view) {
@@ -49,8 +48,18 @@ public class LoginActivity extends BaseActivity {
 
     }
 
-    @Event(R.id.change_pw_login)
-    private void changePwLoginClick(View view) {
+    @Event(R.id.code_login)
+    private void codeLoginClick(View view) {
+
+    }
+
+    @Event(R.id.register)
+    private void registerClick(View view) {
+
+    }
+
+    @Event(R.id.forget)
+    private void forgetClick(View view) {
 
     }
 
@@ -58,6 +67,15 @@ public class LoginActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         initTipDialog();
+        initView();
+    }
+
+    private void initView() {
+        register.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
+        register.getPaint().setAntiAlias(true);//抗锯齿
+
+        forget.getPaint().setFlags(Paint.UNDERLINE_TEXT_FLAG); //下划线
+        forget.getPaint().setAntiAlias(true);//抗锯齿
     }
 
     private void initTipDialog() {
@@ -87,5 +105,6 @@ public class LoginActivity extends BaseActivity {
         });
 
         tipDialog.setCancelable(false);
+//        tipDialog.show();
     }
 }
