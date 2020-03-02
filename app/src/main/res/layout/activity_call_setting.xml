@@ -1,0 +1,403 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical"
+    tools:context=".ui.info.CallSettingActivity">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#f5f5f5"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:id="@+id/layout_back"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:background="#ffffff"
+                android:orientation="horizontal"
+                android:paddingTop="18dip">
+
+                <ImageView
+                    android:layout_width="23dip"
+                    android:layout_height="23dip"
+                    android:layout_marginLeft="15dip"
+                    android:src="@mipmap/back" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="2dip"
+                    android:text="报警设置"
+                    android:textColor="#1e1e1e"
+                    android:textSize="18sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dip"
+                android:background="#ffffff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="17.5dip">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dip"
+                    android:text="连接设备"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical">
+
+                    <ImageView
+                        android:layout_width="24dip"
+                        android:layout_height="24dip"
+                        android:layout_marginRight="15dip"
+                        android:src="@mipmap/iconmonstr_right_chakanxiangqing" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--设备编号-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="38dip"
+                android:background="#ffffff"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/connect_device_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dip"
+                    android:text="设备编号 00-000"
+                    android:textColor="#999999"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <!--尿醒提醒-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dip"
+                android:layout_marginTop="10dip"
+                android:background="#ffffff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dip"
+                    android:text="尿湿提醒"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开"
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_wake"
+                        android:layout_width="51dip"
+                        android:layout_height="24.5dip"
+                        android:layout_marginLeft="6dip"
+                        android:layout_marginRight="16dip" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--尿量区间-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="138dip"
+                android:layout_marginTop="1dip"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="25.5dip"
+                    android:layout_marginRight="15dip">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="湿尿异常区间"
+                        android:textColor="#999999"
+                        android:textSize="12sp" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="单位：湿尿程度"
+                        android:textColor="#999999"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--踢被提醒-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dip"
+                android:layout_marginTop="10dip"
+                android:background="#ffffff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dip"
+                    android:text="踢被提醒"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开"
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_kick"
+                        android:layout_width="51dip"
+                        android:layout_height="24.5dip"
+                        android:layout_marginLeft="6dip"
+                        android:layout_marginRight="16dip" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--踢被区间-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="138dip"
+                android:layout_marginTop="1dip"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="25.5dip"
+                    android:layout_marginRight="15dip">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="单位：摄氏度"
+                        android:textColor="#999999"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--防窒息提醒-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dip"
+                android:layout_marginTop="10dip"
+                android:background="#ffffff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dip"
+                    android:text="防窒息提醒"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开"
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_anti"
+                        android:layout_width="51dip"
+                        android:layout_height="24.5dip"
+                        android:layout_marginLeft="6dip"
+                        android:layout_marginRight="16dip" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--防窒息区间-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="138dip"
+                android:layout_marginTop="1dip"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+                <RelativeLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="25.5dip"
+                    android:layout_marginRight="15dip">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_alignParentRight="true"
+                        android:text="单位：摄氏度"
+                        android:textColor="#999999"
+                        android:textSize="12sp" />
+                </RelativeLayout>
+            </LinearLayout>
+
+            <!--趴睡姿势提醒-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="65dip"
+                android:layout_marginTop="10dip"
+                android:background="#ffffff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dip"
+                    android:text="趴睡姿势提醒"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="开"
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+
+                    <CheckBox
+                        android:id="@+id/cb_ps"
+                        android:layout_width="51dip"
+                        android:layout_height="24.5dip"
+                        android:layout_marginLeft="6dip"
+                        android:layout_marginRight="16dip" />
+                </LinearLayout>
+            </LinearLayout>
+
+            <!--强烈震动报警-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="100dip"
+                android:layout_marginTop="10dip"
+                android:background="#ffffff"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dip"
+                    android:layout_marginTop="25dip"
+                    android:text="强烈震动报警"
+                    android:textColor="#1E1E1E"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dip"
+                    android:layout_marginTop="10.5dip"
+                    android:layout_marginRight="16dip"
+                    android:text="注：当发生强烈震动报警时，您的宝宝可能正处于危险，我们不提 供关闭按钮，时刻保护宝宝安全。"
+                    android:textColor="#F866AA"
+                    android:textSize="12sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="55dip"
+                android:layout_marginTop="10dip"
+                android:background="#ffffff"
+                android:gravity="center_vertical"
+                android:orientation="horizontal"
+                android:paddingTop="17.5dip">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dip"
+                    android:text="删除设备"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="right|center_vertical">
+
+                    <ImageView
+                        android:layout_width="24dip"
+                        android:layout_height="24dip"
+                        android:layout_marginRight="15dip"
+                        android:src="@mipmap/iconmonstr_right_chakanxiangqing" />
+                </LinearLayout>
+
+            </LinearLayout>
+
+            <!--设备编号-->
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="38dip"
+                android:layout_marginBottom="75dip"
+                android:background="#ffffff"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/delete_device_no"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="16dip"
+                    android:text="设备编号 00-000"
+                    android:textColor="#999999"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+        </LinearLayout>
+    </ScrollView>
+</LinearLayout>
