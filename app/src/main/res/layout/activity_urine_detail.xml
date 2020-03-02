@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f3f6f2"
     android:orientation="vertical"
     tools:context=".ui.info.UrineDetailActivity">
 
@@ -122,5 +123,125 @@
                     android:src="@mipmap/iconmonstr_angel_right_thin_riqi" />
             </LinearLayout>
         </RadioGroup>
+
+        <!--内容选择-->
+        <RadioGroup
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:layout_marginTop="20dip"
+            android:layout_marginRight="15dip"
+            android:orientation="horizontal">
+
+            <RadioButton
+                android:id="@+id/bt1_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/select_urine_detail_type"
+                android:button="@null"
+                android:checked="true"
+                android:padding="10dip"
+                android:text="用片统计"
+                android:textColor="@color/select_urine_detail_type"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="0dip"
+                android:layout_height="1dip"
+                android:layout_weight="1"
+                android:background="@null"></View>
+
+            <RadioButton
+                android:id="@+id/bt2_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/select_urine_detail_type"
+                android:button="@null"
+                android:padding="10dip"
+                android:text="尿量统计"
+                android:textColor="@color/select_urine_detail_type"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="0dip"
+                android:layout_height="1dip"
+                android:layout_weight="1"
+                android:background="@null"></View>
+
+            <RadioButton
+                android:id="@+id/bt3_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/select_urine_detail_type"
+                android:button="@null"
+                android:padding="10dip"
+                android:text="强提醒次数"
+                android:textColor="@color/select_urine_detail_type"
+                android:textSize="14sp" />
+
+            <View
+                android:layout_width="0dip"
+                android:layout_height="1dip"
+                android:layout_weight="1"
+                android:background="@null"></View>
+
+            <RadioButton
+                android:id="@+id/bt4_type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:background="@drawable/select_urine_detail_type"
+                android:button="@null"
+                android:padding="10dip"
+                android:text="更换记录"
+                android:textColor="@color/select_urine_detail_type"
+                android:textSize="14sp" />
+
+        </RadioGroup>
     </LinearLayout>
+
+    <!--用片统计start-->
+    <LinearLayout
+        android:id="@+id/layout_detail1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </LinearLayout>
+    <!--用片统计end-->
+
+    <!--尿量统计start-->
+    <LinearLayout
+        android:id="@+id/layout_detail2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </LinearLayout>
+    <!--尿量统计end-->
+
+    <!--强提醒次数start-->
+    <LinearLayout
+        android:id="@+id/layout_detail3"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+    </LinearLayout>
+    <!--强提醒次数end-->
+
+    <!--更换记录start-->
+    <LinearLayout
+        android:id="@+id/layout_detail4"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <android.support.v7.widget.RecyclerView
+            android:id="@+id/rv_detail4"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+        </android.support.v7.widget.RecyclerView>
+    </LinearLayout>
+    <!--更换记录end-->
 </LinearLayout>

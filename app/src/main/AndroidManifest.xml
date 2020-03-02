@@ -10,14 +10,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.info.UrineDetailActivity"></activity>
-        <activity android:name=".ui.info.PickSizeActivity"></activity>
-        <activity android:name=".ui.info.ChangeInfoActivity">
+        <activity android:name=".ui.info.UrineDetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
+        </activity>
+        <activity android:name=".ui.info.PickSizeActivity"></activity>
+        <activity android:name=".ui.info.ChangeInfoActivity">
+
         </activity>
         <activity android:name=".ui.user.ForgetActivity" />
         <activity android:name=".ui.user.RegisterActivity" />
