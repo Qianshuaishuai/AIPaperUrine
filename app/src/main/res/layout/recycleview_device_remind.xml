@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="85dip"
+    android:layout_marginLeft="15dip"
+    android:layout_marginRight="15dip"
+    android:layout_marginBottom="10dip"
+    android:background="@drawable/shape_device_remind_bg"
+    android:orientation="horizontal">
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="match_parent"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/tip"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:layout_marginTop="23dip"
+            android:text="尿湿提醒"
+            android:textColor="#1e1e1e"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:layout_marginTop="12dip"
+            android:text="2019年x月xx日"
+            android:textColor="#d4d4d4"
+            android:textSize="13sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="right|center_vertical"
+        android:orientation="horizontal">
+
+        <ImageView
+            android:src="@mipmap/iconmonstrl_right_chakanxiangqing"
+            android:layout_width="24dip"
+            android:layout_height="24dip"
+            android:layout_marginRight="15dip" />
+    </LinearLayout>
+</LinearLayout>
