@@ -1,0 +1,173 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.main.HomeFragment">
+
+    <ScrollView
+        android:layout_width="match_parent"
+        android:layout_height="match_parent">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="90dip"
+                android:background="@mipmap/bg_dingbu_beijing">
+
+                <LinearLayout
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_alignParentBottom="true"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginBottom="8dip"
+                    android:gravity="bottom"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:id="@+id/layout_tab_find"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_tab_find"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="发现"
+                            android:textColor="#FFFFFF"
+                            android:textSize="24sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:id="@+id/view_tab_find"
+                            android:layout_width="20dip"
+                            android:layout_height="4dip"
+                            android:layout_marginTop="8dip"
+                            android:background="#ffffff"></View>
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:id="@+id/layout_tab_rank"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="11.5dip"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <TextView
+                            android:id="@+id/tv_tab_rank"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:text="排行榜"
+                            android:textColor="#FFFFFF"
+                            android:textSize="14sp"
+                            android:textStyle="bold" />
+
+                        <View
+                            android:id="@+id/view_tab_rank"
+                            android:layout_width="20dip"
+                            android:layout_height="4dip"
+                            android:layout_marginTop="8dip"
+                            android:background="#ffffff"
+                            android:visibility="invisible"></View>
+                    </LinearLayout>
+                </LinearLayout>
+
+            </RelativeLayout>
+
+            <!--发现页-->
+            <LinearLayout
+                android:id="@+id/layout_find"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:background="#f6f3f7"
+                android:orientation="vertical">
+
+                <RadioGroup
+                    android:id="@+id/group_find"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="15dip"
+                    android:layout_marginRight="15dip"
+                    android:orientation="horizontal">
+
+                    <RadioButton
+                        android:id="@+id/rb_find_1"
+                        android:layout_width="75dip"
+                        android:layout_height="34dip"
+                        android:background="@drawable/select_find_tab"
+                        android:button="@null"
+                        android:checked="true"
+                        android:gravity="center"
+                        android:text="宝宝安全"
+                        android:textColor="@color/select_find_tab"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="0dip"
+                        android:layout_height="1dip"
+                        android:layout_weight="1"
+                        android:background="@null"></View>
+
+                    <RadioButton
+                        android:id="@+id/rb_find_2"
+                        android:layout_width="75dip"
+                        android:layout_height="34dip"
+                        android:background="@drawable/select_find_tab"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="生活健康"
+                        android:textColor="@color/select_find_tab"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="0dip"
+                        android:layout_height="1dip"
+                        android:layout_weight="1"
+                        android:background="@null"></View>
+
+                    <RadioButton
+                        android:id="@+id/rb_find_3"
+                        android:layout_width="75dip"
+                        android:layout_height="34dip"
+                        android:background="@drawable/select_find_tab"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="宝宝护理"
+                        android:textColor="@color/select_find_tab"
+                        android:textSize="14sp" />
+
+                    <View
+                        android:layout_width="0dip"
+                        android:layout_height="1dip"
+                        android:layout_weight="1"
+                        android:background="@null"></View>
+
+                    <RadioButton
+                        android:id="@+id/rb_find_4"
+                        android:layout_width="75dip"
+                        android:layout_height="34dip"
+                        android:background="@drawable/select_find_tab"
+                        android:button="@null"
+                        android:gravity="center"
+                        android:text="宝宝喂养"
+                        android:textColor="@color/select_find_tab"
+                        android:textSize="14sp" />
+                </RadioGroup>
+
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_find"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
+
+</RelativeLayout>

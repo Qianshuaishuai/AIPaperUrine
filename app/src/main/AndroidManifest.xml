@@ -10,15 +10,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.info.SleepPostureActivity"></activity>
-        <activity android:name=".ui.info.DataShareActivity">
+        <activity android:name=".ui.main.FindDetailActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.info.CallSettingActivity"></activity>
+        <activity android:name=".ui.info.SleepPostureActivity" />
+        <activity android:name=".ui.info.DataShareActivity"></activity>
+        <activity android:name=".ui.info.CallSettingActivity" />
         <activity android:name=".ui.info.RemindDetailActivity" />
         <activity android:name=".ui.info.DeviceRemindActivity" />
         <activity android:name=".ui.info.UrineDetailActivity" />
@@ -29,7 +30,7 @@
         <activity android:name=".ui.user.LoginNormalActivity" />
         <activity android:name=".ui.user.LoginThirdActivity" />
         <activity android:name=".ui.user.LoginActivity" />
-        <activity android:name=".ui.main.MainActivity" />
+        <activity android:name=".ui.main.MainActivity"></activity>
     </application>
 
 </manifest>
