@@ -21,13 +21,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.store.GoodActivity">
+        <activity
+            android:name=".ui.store.SureOrderActivity"
+            android:windowSoftInputMode="adjustPan">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity android:name=".ui.store.GoodActivity"></activity>
         <activity android:name=".ui.main.RankShareActivity" />
         <activity android:name=".ui.main.FindDetailActivity" />
         <activity android:name=".ui.info.SleepPostureActivity" />
@@ -43,7 +46,7 @@
         <activity android:name=".ui.user.LoginNormalActivity" />
         <activity android:name=".ui.user.LoginThirdActivity" />
         <activity android:name=".ui.user.LoginActivity" />
-        <activity android:name=".ui.main.MainActivity"></activity>
+        <activity android:name=".ui.main.MainActivity" />
     </application>
 
 </manifest>
