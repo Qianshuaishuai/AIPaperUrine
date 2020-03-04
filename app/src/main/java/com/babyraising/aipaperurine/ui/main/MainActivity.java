@@ -24,7 +24,7 @@ import org.xutils.view.annotation.ViewInject;
 import java.lang.reflect.Field;
 
 @ContentView(R.layout.activity_main)
-public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener,FindFragment.OnFragmentInteractionListener {
+public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener, FindFragment.OnFragmentInteractionListener, StoreFragment.OnFragmentInteractionListener {
 
     @ViewInject(R.id.navigation)
     private BottomNavigationView navigation;
@@ -34,7 +34,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
     private HomeFragment homeFragment;
     private FindFragment findFragment;
-    private HomeFragment meFragment;
+    private StoreFragment storeFragment;
     private HomeFragment fourFragment;
     private Fragment[] fragments;
     private int lastfragment = 0;
@@ -100,9 +100,9 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         //加入fragment
         homeFragment = new HomeFragment();
         findFragment = new FindFragment();
-        meFragment = new HomeFragment();
+        storeFragment = new StoreFragment();
         fourFragment = new HomeFragment();
-        fragments = new Fragment[]{homeFragment, findFragment, meFragment, fourFragment};
+        fragments = new Fragment[]{homeFragment, findFragment, storeFragment, fourFragment};
 
         getSupportFragmentManager().beginTransaction().replace(R.id.layout, homeFragment).show(homeFragment).commit();
 

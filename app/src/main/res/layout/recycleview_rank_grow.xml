@@ -1,0 +1,104 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="76dip"
+    android:background="#ffffff"
+    android:orientation="vertical"
+    android:paddingLeft="15dip">
+
+    <LinearLayout
+        android:id="@+id/layout_type1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal"
+        android:visibility="gone">
+
+        <TextView
+            android:id="@+id/rank_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:text="1"
+            android:textColor="#F866AA"
+            android:textSize="24sp" />
+
+        <ImageView
+            android:id="@+id/icon"
+            android:layout_width="45dip"
+            android:layout_height="45dip"
+            android:layout_marginLeft="18.5dip"
+            android:background="#ff0f0f" />
+
+        <TextView
+            android:id="@+id/name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:text="用户名"
+            android:textColor="#1E1E1E"
+            android:textSize="15sp" />
+    </LinearLayout>
+
+    <LinearLayout
+        android:id="@+id/layout_type2"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:gravity="center_vertical"
+        android:orientation="horizontal">
+
+        <TextView
+            android:id="@+id/me_rank_num"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="5dip"
+            android:text="我的排/名"
+            android:textColor="#F866AA"
+            android:textSize="15sp" />
+
+        <ImageView
+            android:id="@+id/me_icon"
+            android:layout_width="45dip"
+            android:layout_height="45dip"
+            android:layout_marginLeft="24dip"
+            android:background="#ff0f0f" />
+
+        <TextView
+            android:layout_width="158dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:text="您还未完善资料，完善后才 可加入排行榜"
+            android:textColor="#999999"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/me_name"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="20dip"
+            android:text="用户名"
+            android:textColor="#1E1E1E"
+            android:textSize="15sp"
+            android:visibility="gone" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center_vertical|right"
+            android:orientation="horizontal">
+
+            <ImageView
+                android:layout_width="24dip"
+                android:layout_height="24dip"
+                android:layout_marginRight="15dip"
+                android:src="@mipmap/iconmonstrl_right_chakanxiangqing" />
+        </LinearLayout>
+
+
+    </LinearLayout>
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dip"
+        android:background="#f0f0f0"></View>
+</LinearLayout>

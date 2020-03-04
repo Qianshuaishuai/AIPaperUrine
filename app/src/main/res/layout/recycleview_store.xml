@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="170dip"
+    android:layout_height="252dip"
+    android:background="@drawable/shape_device_remind_bg"
+    android:orientation="vertical">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="169.5dip"
+        android:layout_height="169.5dip"
+        android:background="#ff0f0f" />
+
+    <TextView
+        android:id="@+id/name"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dip"
+        android:layout_marginTop="8dip"
+        android:text="商品名称"
+        android:textColor="#1e1e1e"
+        android:textSize="14sp" />
+
+    <TextView
+        android:id="@+id/subtitle"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dip"
+        android:layout_marginTop="4dip"
+        android:ellipsize="end"
+        android:maxEms="11"
+        android:singleLine="true"
+        android:text="花王尿不湿婴儿纸尿布夏季夏季夏季"
+        android:textColor="#999999"
+        android:textSize="12sp" />
+
+    <TextView
+        android:id="@+id/price"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="8dip"
+        android:layout_marginTop="10dip"
+        android:text="￥123.00"
+        android:textColor="#F866AA"
+        android:textSize="14sp" />
+</LinearLayout>

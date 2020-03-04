@@ -90,7 +90,7 @@
             <LinearLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="#FF74FF"
+                android:background="@mipmap/img_tanchuang_jianbiandise"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
