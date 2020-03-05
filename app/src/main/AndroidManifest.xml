@@ -21,8 +21,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".message.DeviceMessageActivity"></activity>
-        <activity android:name=".message.MessageActivity" />
+        <activity android:name=".ui.person.PersonCollectActivity"></activity>
+        <activity android:name=".ui.message.DeviceMessageActivity" />
+        <activity android:name=".ui.message.MessageActivity" />
         <activity android:name=".ui.address.AddressEditActivity" />
         <activity android:name=".ui.pay.PayResultActivity" />
         <activity android:name=".ui.pay.PayActivity">

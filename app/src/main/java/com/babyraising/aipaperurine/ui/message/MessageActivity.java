@@ -1,6 +1,5 @@
-package com.babyraising.aipaperurine.message;
+package com.babyraising.aipaperurine.ui.message;
 
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 
 import com.babyraising.aipaperurine.R;
@@ -8,8 +7,8 @@ import com.babyraising.aipaperurine.base.BaseActivity;
 
 import org.xutils.view.annotation.ContentView;
 
-@ContentView(R.layout.activity_device_message)
-public class DeviceMessageActivity extends BaseActivity {
+@ContentView(R.layout.activity_message)
+public class MessageActivity extends BaseActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
