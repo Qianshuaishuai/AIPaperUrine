@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.pay.PayResultActivity"></activity>
+        <activity android:name=".ui.address.AddressEditActivity"></activity>
+        <activity android:name=".ui.pay.PayResultActivity" />
         <activity android:name=".ui.pay.PayActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -32,7 +33,7 @@
         <activity android:name=".ui.address.AddressManagerActivity" />
         <activity
             android:name=".ui.store.SureOrderActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.store.GoodActivity" />
         <activity android:name=".ui.main.RankShareActivity" />
         <activity android:name=".ui.main.FindDetailActivity" />

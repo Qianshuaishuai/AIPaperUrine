@@ -241,6 +241,34 @@
                         android:textStyle="bold" />
                 </LinearLayout>
 
+                <LinearLayout
+                    android:id="@+id/coupon_count_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="9dip"
+                    android:layout_marginRight="15dip"
+                    android:gravity="right|bottom"
+                    android:orientation="horizontal"
+                    android:visibility="gone">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:text="优惠"
+                        android:textColor="#1e1e1e"
+                        android:textSize="14sp" />
+
+                    <TextView
+                        android:id="@+id/coupon_price"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dip"
+                        android:text="-￥20"
+                        android:textColor="#F87EB7"
+                        android:textSize="14sp"
+                        android:textStyle="bold" />
+                </LinearLayout>
+
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
