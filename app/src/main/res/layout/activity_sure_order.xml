@@ -358,6 +358,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/coupon_layout"
                 android:layout_width="match_parent"
                 android:layout_height="55dip"
                 android:layout_below="@+id/detail_layout"
@@ -440,4 +441,49 @@
                 android:textSize="16sp" />
         </LinearLayout>
     </LinearLayout>
+
+    <!--优惠券页面-->
+    <RelativeLayout
+        android:id="@+id/coupon_detail_layout"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4e000000"
+        android:visibility="gone">
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/shape_sure_order_coupon_bg"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="23dip"
+                android:layout_marginTop="12dip"
+                android:layout_marginRight="5dip"
+                android:gravity="right"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="23dip"
+                    android:layout_height="23dip"
+                    android:src="@mipmap/ic_common_close" />
+            </LinearLayout>
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="2dip"
+                android:text="优惠券"
+                android:textColor="#1E1E1E"
+                android:textSize="18sp" />
+
+            <android.support.v7.widget.RecyclerView
+                android:id="@+id/rv_coupon"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"></android.support.v7.widget.RecyclerView>
+        </LinearLayout>
+    </RelativeLayout>
 </RelativeLayout>

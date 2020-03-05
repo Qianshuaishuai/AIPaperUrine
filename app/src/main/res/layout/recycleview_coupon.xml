@@ -1,0 +1,110 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="293dip"
+    android:layout_height="111dip"
+    android:background="@mipmap/img_youhuiquankuang"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="84dip"
+        android:orientation="horizontal">
+
+        <LinearLayout
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center_vertical"
+            android:gravity="bottom"
+            android:orientation="horizontal">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="23.5dip"
+                android:text="￥"
+                android:textColor="#F866AA"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/price"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="10"
+                android:textColor="#F83D94"
+                android:textSize="26sp" />
+        </LinearLayout>
+
+        <View
+            android:layout_width="1dip"
+            android:layout_height="51.15dip"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="23dip"
+            android:background="#ffffff"></View>
+
+        <LinearLayout
+            android:layout_width="120dip"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="22dip"
+            android:layout_marginTop="10dip"
+            android:orientation="vertical">
+
+            <TextView
+                android:id="@+id/type"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="抵用券"
+                android:textColor="#F866AA"
+                android:textSize="14sp" />
+
+            <TextView
+                android:id="@+id/condition"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dip"
+                android:text="满100可用"
+                android:textColor="#F866AA"
+                android:textSize="12sp" />
+
+            <TextView
+                android:id="@+id/valid"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="3dip"
+                android:text="有效期至2019-09-01"
+                android:textColor="#F866AA"
+                android:textSize="12sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal">
+
+            <RelativeLayout
+                android:id="@+id/use_status"
+                android:layout_width="28dip"
+                android:layout_height="66dip"
+                android:layout_gravity="center_vertical"
+                android:layout_marginRight="22dip"
+                android:background="@drawable/shape_coupon_bt_bg"
+                android:gravity="center">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_vertical"
+                    android:background="@drawable/shape_coupon_bt_bg"
+                    android:ems="1"
+                    android:gravity="center"
+                    android:maxEms="1"
+                    android:text="立即使用"
+                    android:textColor="#ffffff"
+                    android:textSize="12.35sp" />
+
+            </RelativeLayout>
+
+
+        </LinearLayout>
+    </LinearLayout>
+</LinearLayout>
