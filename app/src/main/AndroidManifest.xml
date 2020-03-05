@@ -21,16 +21,19 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity
-            android:name=".ui.store.SureOrderActivity"
-            android:windowSoftInputMode="adjustPan">
+        <activity android:name=".ui.pay.PayResultActivity"></activity>
+        <activity android:name=".ui.pay.PayActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.store.GoodActivity"></activity>
+        <activity android:name=".ui.address.AddressManagerActivity" />
+        <activity
+            android:name=".ui.store.SureOrderActivity"
+            android:windowSoftInputMode="adjustPan"></activity>
+        <activity android:name=".ui.store.GoodActivity" />
         <activity android:name=".ui.main.RankShareActivity" />
         <activity android:name=".ui.main.FindDetailActivity" />
         <activity android:name=".ui.info.SleepPostureActivity" />
