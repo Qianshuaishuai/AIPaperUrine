@@ -1,0 +1,58 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="105dip"
+    android:layout_marginLeft="15dip"
+    android:layout_marginTop="10dip"
+    android:layout_marginRight="15dip"
+    android:background="@drawable/shape_device_remind_bg"
+    android:orientation="horizontal">
+
+    <ImageView
+        android:id="@+id/icon"
+        android:layout_width="98dip"
+        android:layout_height="82dip"
+        android:layout_gravity="center_vertical"
+        android:layout_marginLeft="15dip"
+        android:background="#f0f0ff" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_marginLeft="10dip"
+        android:orientation="vertical">
+
+        <TextView
+            android:id="@+id/title"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dip"
+            android:layout_marginRight="15dip"
+            android:text="不正确穿戴纸尿片的危害？险情发生时还来得及 吗？"
+            android:textColor="#1e1e1e"
+            android:textSize="15sp" />
+
+        <TextView
+            android:id="@+id/subtitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dip"
+            android:layout_marginRight="15dip"
+            android:ellipsize="end"
+            android:maxEms="16"
+            android:singleLine="true"
+            android:text="杨半仙·香港大学深圳医院·主治..."
+            android:textColor="#666666"
+            android:textSize="14sp" />
+
+        <TextView
+            android:id="@+id/time"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="8dip"
+            android:layout_marginRight="15dip"
+            android:text="2019-08-30 14:00:00"
+            android:textColor="#999999"
+            android:textSize="10sp" />
+    </LinearLayout>
+</LinearLayout>

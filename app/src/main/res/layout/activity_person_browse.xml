@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f6f3f7"
-    tools:context=".ui.person.PersonGoodActivity">
+    tools:context=".ui.person.PersonBrowseActivity">
 
     <LinearLayout
         android:id="@+id/layout_back"
@@ -25,13 +25,13 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dip"
-            android:text="我的点赞"
+            android:text="最近浏览"
             android:textColor="#ffffff"
             android:textSize="18sp" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_person_good"
+        android:id="@+id/rv_person_browse"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dip"></android.support.v7.widget.RecyclerView>
@@ -40,7 +40,7 @@
         android:id="@+id/more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rv_person_good"
+        android:layout_below="@+id/rv_person_browse"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dip"
         android:text="点击显示更多"

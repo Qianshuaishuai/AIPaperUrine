@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.person.PersonGoodActivity"></activity>
+        <activity android:name=".ui.person.PersonBrowseActivity"></activity>
+        <activity android:name=".ui.person.PersonGoodActivity" />
         <activity android:name=".ui.person.PersonCollectActivity" />
         <activity android:name=".ui.message.DeviceMessageActivity" />
         <activity android:name=".ui.message.MessageActivity" />
