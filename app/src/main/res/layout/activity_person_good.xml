@@ -5,7 +5,7 @@
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f6f3f7"
-    tools:context=".ui.person.PersonCollectActivity">
+    tools:context=".ui.person.PersonGoodActivity">
 
     <LinearLayout
         android:id="@+id/layout_back"
@@ -31,7 +31,7 @@
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
-        android:id="@+id/rv_person_collect"
+        android:id="@+id/rv_person_good"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_marginTop="80dip"></android.support.v7.widget.RecyclerView>
@@ -40,7 +40,7 @@
         android:id="@+id/more"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/rv_person_collect"
+        android:layout_below="@+id/rv_person_good"
         android:layout_centerHorizontal="true"
         android:layout_marginTop="36dip"
         android:text="点击显示更多"
