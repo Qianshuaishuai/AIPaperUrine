@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="#f6f3f7"
+    android:orientation="vertical"
+    tools:context=".ui.person.ChangeSignActivity">
+
+    <LinearLayout
+        android:id="@+id/layout_back"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:paddingTop="12dip"
+        android:paddingBottom="12dip">
+
+        <ImageView
+            android:layout_width="23dip"
+            android:layout_height="23dip"
+            android:layout_marginLeft="15dip"
+            android:src="@mipmap/back" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical"
+            android:orientation="horizontal">
+
+            <Button
+                android:id="@+id/save"
+                android:layout_width="50dip"
+                android:layout_height="31dip"
+                android:layout_marginRight="15dip"
+                android:background="@drawable/shape_address_save_bg"
+                android:text="保存"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
+
+        </LinearLayout>
+    </LinearLayout>
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="200dip"
+        android:layout_marginTop="0.5dip"
+        android:background="#ffffff"
+        android:orientation="vertical">
+
+        <EditText
+            android:id="@+id/sign_txt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:layout_marginTop="18dip"
+            android:background="@null"
+            android:hint="输入多行"
+            android:maxLines="5"
+            android:textColor="#1e1e1e"
+            android:textSize="16sp" />
+
+        <TextView
+            android:id="@+id/sign_count"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentRight="true"
+            android:layout_alignParentBottom="true"
+            android:layout_marginRight="15dip"
+            android:layout_marginBottom="12dip"
+            android:text="0/100"
+            android:textColor="#d4d4d4"
+            android:textSize="12sp" />
+    </RelativeLayout>
+</LinearLayout>
