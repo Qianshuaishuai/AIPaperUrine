@@ -21,7 +21,14 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.person.PersonGrowthActivity"></activity>
+        <activity android:name=".ui.order.OrderActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
+        <activity android:name=".ui.person.PersonGrowthActivity" />
         <activity android:name=".ui.person.ChangeSignActivity" />
         <activity android:name=".ui.person.MailEditActivity" />
         <activity android:name=".ui.person.GrowthActivity" />
@@ -34,11 +41,7 @@
         <activity android:name=".ui.address.AddressEditActivity" />
         <activity android:name=".ui.pay.PayResultActivity" />
         <activity android:name=".ui.pay.PayActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
 
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
         </activity>
         <activity android:name=".ui.address.AddressManagerActivity" />
         <activity
