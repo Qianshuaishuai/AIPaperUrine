@@ -1,0 +1,46 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="264dip"
+    android:layout_height="158dip"
+    android:background="@drawable/shape_dialog_bg"
+    android:gravity="center">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="28dip"
+        android:gravity="center"
+        android:text="售后申请提交成功"
+        android:textColor="#1e1e1e"
+        android:textSize="18sp" />
+
+    <TextView
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@id/title"
+        android:layout_marginTop="16dip"
+        android:gravity="center"
+        android:text="@string/refund_tip"
+        android:textColor="#999999"
+        android:textSize="14sp" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/sure"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F97EB7"
+            android:gravity="center"
+            android:text="确认"
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
+
+    </LinearLayout>
+</RelativeLayout>
