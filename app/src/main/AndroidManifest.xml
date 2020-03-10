@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.order.OrderDetailActivity"></activity>
+        <activity android:name=".ui.person.CouponActivity"></activity>
+        <activity android:name=".ui.order.OrderDetailActivity" />
         <activity android:name=".ui.person.RefundDetailBActivity" />
         <activity android:name=".ui.person.RefundDetailActivity" />
         <activity android:name=".ui.person.ExpressActivity" />
