@@ -21,7 +21,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.setting.VersionActivity"></activity>
+        <activity android:name=".ui.setting.ChangePhoneActivity"></activity>
+        <activity android:name=".ui.setting.VersionActivity" />
         <activity android:name=".ui.setting.AboutActivity" />
         <activity android:name=".ui.setting.AdviceActivity" />
         <activity android:name=".ui.setting.AccountActivity" />
