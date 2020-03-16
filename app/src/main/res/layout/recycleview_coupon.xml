@@ -29,7 +29,7 @@
                 android:id="@+id/price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="10"
+                android:text=""
                 android:textColor="#F83D94"
                 android:textSize="26sp" />
         </LinearLayout>
@@ -52,7 +52,7 @@
                 android:id="@+id/type"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="抵用券"
+                android:text=""
                 android:textColor="#F866AA"
                 android:textSize="14sp" />
 
@@ -61,7 +61,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="7dip"
-                android:text="满100可用"
+                android:text=""
                 android:textColor="#F866AA"
                 android:textSize="12sp" />
 
@@ -70,7 +70,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="3dip"
-                android:text="有效期至2019-09-01"
+                android:text=""
                 android:textColor="#F866AA"
                 android:textSize="12sp" />
         </LinearLayout>
@@ -82,7 +82,7 @@
             android:orientation="horizontal">
 
             <RelativeLayout
-                android:id="@+id/use_status"
+                android:id="@+id/layout_use_status"
                 android:layout_width="28dip"
                 android:layout_height="66dip"
                 android:layout_gravity="center_vertical"
@@ -91,6 +91,7 @@
                 android:gravity="center">
 
                 <TextView
+                    android:id="@+id/use_status"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_gravity="center_vertical"
@@ -98,7 +99,7 @@
                     android:ems="1"
                     android:gravity="center"
                     android:maxEms="1"
-                    android:text="立即使用"
+                    android:text=""
                     android:textColor="#ffffff"
                     android:textSize="12.35sp" />
 
@@ -118,7 +119,7 @@
             android:id="@+id/tip"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:text="优惠券使用详情：（此处展示后台设置的备用信息）"
+            android:text=""
             android:textColor="#F87EB7"
             android:textSize="12sp" />
     </LinearLayout>

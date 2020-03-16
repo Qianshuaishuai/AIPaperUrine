@@ -1,14 +1,28 @@
 package com.babyraising.aipaperurine.ui.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
+import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.babyraising.aipaperurine.PaperUrineApplication;
 import com.babyraising.aipaperurine.R;
+import com.babyraising.aipaperurine.base.BaseFragment;
+import com.babyraising.aipaperurine.bean.UserBean;
+
+import org.xutils.common.util.DensityUtil;
+import org.xutils.image.ImageOptions;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -18,7 +32,8 @@ import com.babyraising.aipaperurine.R;
  * Use the {@link HomeFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class HomeFragment extends Fragment {
+@ContentView(R.layout.fragment_home)
+public class HomeFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -28,7 +43,15 @@ public class HomeFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private UserBean userBean;
+
     private OnFragmentInteractionListener mListener;
+
+    @ViewInject(R.id.card_name)
+    private TextView cardName;
+
+    @ViewInject(R.id.card_icon)
+    private ImageView cardIcon;
 
     public HomeFragment() {
         // Required empty public constructor
@@ -59,13 +82,6 @@ public class HomeFragment extends Fragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
-    }
-
-    @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_home, container, false);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -105,5 +121,30 @@ public class HomeFragment extends Fragment {
     public interface OnFragmentInteractionListener {
         // TODO: Update argument type and name
         void onFragmentInteraction(Uri uri);
+    }
+
+    @Override
+    public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
+        super.onViewCreated(view, savedInstanceState);
+        initView();
+        initData();
+    }
+
+    private void initData() {
+        userBean = ((PaperUrineApplication) getActivity().getApplication()).getUserInfo();
+
+        if (userBean.getNICKNAME().equals("")) {
+            cardName.setText("尚未设置昵称");
+        } else {
+            cardName.setText(userBean.getNICKNAME());
+        }
+
+        ImageOptions options = new ImageOptions.Builder().
+                setRadius(DensityUtil.dip2px(60)).build();
+        x.image().bind(cardIcon, userBean.getHEADIMG(), options);
+    }
+
+    private void initView() {
+
     }
 }

@@ -111,11 +111,12 @@
 
                     <Button
                         android:id="@+id/send_code"
-                        android:layout_width="wrap_content"
+                        android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:layout_gravity="right"
                         android:layout_marginBottom="6dip"
                         android:background="@null"
+                        android:gravity="right"
                         android:paddingLeft="0dip"
                         android:paddingTop="0dip"
                         android:paddingRight="0dip"
@@ -153,17 +154,19 @@
 
         <LinearLayout
             android:id="@+id/register_layout"
-            android:layout_marginTop="10dip"
-            android:gravity="center_horizontal"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginTop="10dip"
+            android:gravity="center_horizontal"
             android:orientation="horizontal">
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="没有账号？"
                 android:textColor="#666666"
                 android:textSize="12sp" />
+
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"

@@ -35,13 +35,7 @@
         <activity android:name=".ui.person.RefundDetailActivity" />
         <activity android:name=".ui.person.ExpressActivity" />
         <activity android:name=".ui.order.RefundActivity" />
-        <activity android:name=".ui.order.OrderActivity">
-            <intent-filter>
-                <action android:name="android.intent.action.MAIN" />
-
-                <category android:name="android.intent.category.LAUNCHER" />
-            </intent-filter>
-        </activity>
+        <activity android:name=".ui.order.OrderActivity"></activity>
         <activity android:name=".ui.person.PersonGrowthActivity" />
         <activity android:name=".ui.person.ChangeSignActivity" />
         <activity android:name=".ui.person.MailEditActivity" />
@@ -71,8 +65,14 @@
         <activity android:name=".ui.info.PickSizeActivity" />
         <activity android:name=".ui.info.ChangeInfoActivity" />
         <activity android:name=".ui.user.ForgetActivity" />
-        <activity android:name=".ui.user.RegisterActivity" />
-        <activity android:name=".ui.user.LoginNormalActivity" />
+        <activity android:name=".ui.user.RegisterActivity"></activity>
+        <activity android:name=".ui.user.LoginNormalActivity">
+            <intent-filter>
+                <action android:name="android.intent.action.MAIN" />
+
+                <category android:name="android.intent.category.LAUNCHER" />
+            </intent-filter>
+        </activity>
         <activity android:name=".ui.user.LoginThirdActivity" />
         <activity android:name=".ui.user.LoginActivity" />
         <activity android:name=".ui.main.MainActivity" />

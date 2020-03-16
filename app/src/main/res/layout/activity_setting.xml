@@ -202,7 +202,7 @@
     </LinearLayout>
 
     <Button
-        android:id="@+id/sure"
+        android:id="@+id/logout"
         android:layout_width="match_parent"
         android:layout_height="55dip"
         android:layout_alignParentBottom="true"
