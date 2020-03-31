@@ -1,18 +1,276 @@
 package com.babyraising.aipaperurine.ui.main;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.Button;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
+import android.widget.TextView;
 
+import com.babyraising.aipaperurine.Constant;
+import com.babyraising.aipaperurine.PaperUrineApplication;
 import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.base.BaseActivity;
+import com.babyraising.aipaperurine.bean.InformationBean;
+import com.babyraising.aipaperurine.bean.UserBean;
+import com.babyraising.aipaperurine.response.CommonResponse;
+import com.babyraising.aipaperurine.response.CouponResponse;
+import com.babyraising.aipaperurine.response.InformationResponse;
+import com.babyraising.aipaperurine.util.T;
+import com.google.gson.Gson;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 @ContentView(R.layout.activity_find_detail)
 public class FindDetailActivity extends BaseActivity {
 
+    private UserBean bean;
+    private InformationBean infoBean;
+    private String infoId;
+
+    @Event(R.id.layout_back)
+    private void layoutBack(View view) {
+        finish();
+    }
+
+    @ViewInject(R.id.title)
+    private TextView title;
+
+    @ViewInject(R.id.icon)
+    private ImageView icon;
+
+    @ViewInject(R.id.name)
+    private TextView name;
+
+    @ViewInject(R.id.time)
+    private TextView time;
+
+    @ViewInject(R.id.reading_count)
+    private TextView reading_count;
+
+    @ViewInject(R.id.word_count)
+    private TextView word_count;
+
+    @ViewInject(R.id.content)
+    private TextView content;
+
+    @ViewInject(R.id.cb_sc)
+    private CheckBox cb_sc;
+
+    @ViewInject(R.id.cb_dz)
+    private CheckBox cb_dz;
+
+    @ViewInject(R.id.bt_share)
+    private Button bt_share;
+
+    @Event(R.id.bt_share)
+    private void share(View view) {
+
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
+        initView();
+        initData();
+    }
+
+    private void initData() {
+        bean = ((PaperUrineApplication) getApplication()).getUserInfo();
+        Intent intent = getIntent();
+        infoId = intent.getStringExtra("infoId");
+        if (TextUtils.isEmpty(infoId)) {
+            T.s("获取文章详情失败");
+            return;
+        }
+
+        updateData();
+    }
+
+    private void initView() {
+
+    }
+
+    private void updateData() {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_INFORMATION);
+        params.addQueryStringParameter("APPUSER_ID", bean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", bean.getONLINE_ID());
+        params.addQueryStringParameter("INFORMATION_ID", infoId);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                InformationResponse response = gson.fromJson(result, InformationResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        infoBean = response.getData();
+                        updateView();
+                        break;
+                    default:
+                        T.s("获取文章详情失败");
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+    }
+
+    private void updateView() {
+        x.image().bind(icon, infoBean.getPIC());
+        title.setText(infoBean.getTITLE());
+        name.setText(infoBean.getPUBLISHNAME());
+        time.setText(infoBean.getPUBLISHTIME());
+        reading_count.setText("阅读数 " + infoBean.getREADNUM());
+        word_count.setText("字数 " + infoBean.getDETAIL().length());
+        content.setText(infoBean.getDETAIL());
+        if (infoBean.getIS_STAR().equals("1")) {
+            cb_dz.setChecked(true);
+        } else if (infoBean.getIS_STAR().equals("2")) {
+            cb_dz.setChecked(false);
+        }
+
+        if (infoBean.getIS_COLLECT().equals("1")) {
+            cb_sc.setChecked(true);
+        } else if (infoBean.getIS_COLLECT().equals("2")) {
+            cb_sc.setChecked(false);
+        }
+
+        cb_sc.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                String type = b ? "1" : "2";
+                collect(type);
+            }
+        });
+
+        cb_dz.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                String type = b ? "1" : "2";
+                star(type);
+            }
+        });
+    }
+
+    private void collect(final String type) {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_INFORMATIONCOLLECT);
+        params.addQueryStringParameter("APPUSER_ID", bean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", bean.getONLINE_ID());
+        params.addQueryStringParameter("INFORMATION_ID", infoId);
+        params.addQueryStringParameter("TYPE", type);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        if (type == "1") {
+                            T.s("收藏成功");
+                        } else if (type == "2") {
+                            T.s("取消收藏成功");
+                        }
+
+                        break;
+                    default:
+                        if (type == "1") {
+                            T.s("收藏失败");
+                        } else if (type == "2") {
+                            T.s("取消收藏失败");
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    private void star(final String type) {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_INFORMATIONSTAR);
+        params.addQueryStringParameter("APPUSER_ID", bean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", bean.getONLINE_ID());
+        params.addQueryStringParameter("INFORMATION_ID", infoId);
+        params.addQueryStringParameter("TYPE", type);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        if (type == "1") {
+                            T.s("点赞成功");
+                        } else if (type == "2") {
+                            T.s("取消点赞成功");
+                        }
+                        break;
+                    default:
+                        if (type == "1") {
+                            T.s("点赞失败");
+                        } else if (type == "2") {
+                            T.s("取消点赞失败");
+                        }
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 }

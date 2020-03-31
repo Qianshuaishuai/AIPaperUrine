@@ -25,18 +25,26 @@
         <TextView
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="2dip"
             android:text="商品"
             android:textColor="#1e1e1e"
             android:textSize="18sp" />
     </LinearLayout>
 
-    <ImageView
+    <!--<ImageView-->
+    <!--android:id="@+id/iv_icon"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="235.5dip"-->
+    <!--android:layout_below="@+id/layout_back"-->
+    <!--android:background="#f0f0f0" />-->
+
+    <com.youth.banner.Banner
         android:id="@+id/iv_icon"
         android:layout_width="match_parent"
         android:layout_height="235.5dip"
         android:layout_below="@+id/layout_back"
-        android:background="#f0f0f0" />
+        app:indicator_drawable_selected="@drawable/shape_banner_indicator_selected"
+        app:indicator_drawable_unselected="@drawable/shape_banner_indicator_unselected"
+        app:indicator_margin="3dip" />
 
     <ScrollView
         android:layout_width="match_parent"
@@ -113,7 +121,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="12dip"
-                    android:text="广州"
+                    android:text=""
                     android:textColor="#1e1e1e"
                     android:textSize="13sp" />
 
@@ -307,6 +315,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout1"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dip"
@@ -314,24 +323,27 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/name1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dip"
-                    android:text="系列"
+                    android:text=""
                     android:textColor="#1e1e1e"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/set"
+                    android:id="@+id/value1"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="68.5dip"
-                    android:text="纱布尿布"
+                    android:layout_marginRight="15dip"
+                    android:text=""
                     android:textColor="#999999"
                     android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout2"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dip"
@@ -339,24 +351,26 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/name2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dip"
-                    android:text="适用年龄"
                     android:textColor="#1e1e1e"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/age"
+                    android:id="@+id/value2"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="35dip"
-                    android:text="新生 1-3岁"
+                    android:layout_marginLeft="68.5dip"
+                    android:layout_marginRight="15dip"
+                    android:text=""
                     android:textColor="#999999"
                     android:textSize="16sp" />
             </LinearLayout>
 
             <LinearLayout
+                android:id="@+id/layout3"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dip"
@@ -364,19 +378,19 @@
                 android:orientation="horizontal">
 
                 <TextView
+                    android:id="@+id/name3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dip"
-                    android:text="尺码"
                     android:textColor="#1e1e1e"
                     android:textSize="16sp" />
 
                 <TextView
-                    android:id="@+id/size"
+                    android:id="@+id/value3"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="68.5dip"
-                    android:text="70*50"
+                    android:layout_marginRight="15dip"
                     android:textColor="#999999"
                     android:textSize="16sp" />
             </LinearLayout>
@@ -386,7 +400,8 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="36dip"
                 android:gravity="top"
-                android:orientation="horizontal">
+                android:orientation="horizontal"
+                android:visibility="gone">
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -447,8 +462,7 @@
                 <ImageView
                     android:id="@+id/simple_icon"
                     android:layout_width="88dip"
-                    android:layout_height="88dip"
-                    android:background="#fff000" />
+                    android:layout_height="88dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -460,7 +474,9 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dip"
-                        android:text="商品名称"
+                        android:ellipsize="end"
+                        android:singleLine="true"
+                        android:text=""
                         android:textColor="#1e1e1e"
                         android:textSize="14sp" />
 
@@ -472,7 +488,8 @@
                         android:layout_marginTop="6dip"
                         android:ellipsize="end"
                         android:maxLength="20"
-                        android:text="商品介绍商品介绍商品介绍 商品介绍..."
+                        android:singleLine="true"
+                        android:text=""
                         android:textColor="#999999"
                         android:textSize="14sp" />
 

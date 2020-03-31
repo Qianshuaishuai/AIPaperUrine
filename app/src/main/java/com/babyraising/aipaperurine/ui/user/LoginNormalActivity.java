@@ -74,6 +74,7 @@ public class LoginNormalActivity extends BaseActivity {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 RegisterResponse response = gson.fromJson(result, RegisterResponse.class);
+                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         T.s("登录成功");

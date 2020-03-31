@@ -11,7 +11,7 @@ public class MyGrowthBean {
     private String NEED_GROWTH;
     private String CONTINUITTY_SIGNIN_NUM;
     private String DIAPER_ALL;
-    private List<MyGrowthDetailBean> LIST;
+    private List<GrowthPointBean> LIST;
 
     public String getNICKNAME() {
         return NICKNAME;
@@ -77,11 +77,11 @@ public class MyGrowthBean {
         this.DIAPER_ALL = DIAPER_ALL;
     }
 
-    public List<MyGrowthDetailBean> getLIST() {
+    public List<GrowthPointBean> getLIST() {
         return LIST;
     }
 
-    public void setLIST(List<MyGrowthDetailBean> LIST) {
+    public void setLIST(List<GrowthPointBean> LIST) {
         this.LIST = LIST;
     }
 }

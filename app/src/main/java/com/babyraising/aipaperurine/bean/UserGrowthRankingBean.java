@@ -9,6 +9,7 @@ public class UserGrowthRankingBean {
     private String MyWeekGrowthRanking;
     private String DIAPER_ALL;
     private String URINE_VOLUME_ALL;
+    private String SIGNIN_ALL;
     private String TIP;
 
     public String getHEADIMG() {
@@ -81,5 +82,13 @@ public class UserGrowthRankingBean {
 
     public void setTIP(String TIP) {
         this.TIP = TIP;
+    }
+
+    public String getSIGNIN_ALL() {
+        return SIGNIN_ALL;
+    }
+
+    public void setSIGNIN_ALL(String SIGNIN_ALL) {
+        this.SIGNIN_ALL = SIGNIN_ALL;
     }
 }

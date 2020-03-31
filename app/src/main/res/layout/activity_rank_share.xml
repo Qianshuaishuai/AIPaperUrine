@@ -63,8 +63,7 @@
                         android:layout_width="56dip"
                         android:layout_height="56dip"
                         android:layout_marginLeft="15dip"
-                        android:layout_marginTop="16dip"
-                        android:background="#ff3f33" />
+                        android:layout_marginTop="16dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

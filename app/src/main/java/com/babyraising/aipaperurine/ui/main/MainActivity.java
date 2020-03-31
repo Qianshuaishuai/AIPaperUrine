@@ -15,11 +15,21 @@ import android.os.Bundle;
 import android.view.MenuItem;
 import android.widget.FrameLayout;
 
+import com.babyraising.aipaperurine.Constant;
+import com.babyraising.aipaperurine.PaperUrineApplication;
 import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.base.BaseActivity;
+import com.babyraising.aipaperurine.bean.UserBean;
+import com.babyraising.aipaperurine.response.PersonResponse;
+import com.babyraising.aipaperurine.util.T;
+import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 import java.lang.reflect.Field;
 
@@ -39,11 +49,14 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     private Fragment[] fragments;
     private int lastfragment = 0;
 
+    private UserBean userBean;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         initNavigationBar();
+        getPersonInfo();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -183,4 +196,47 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         }
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+    }
+
+    private void getPersonInfo(){
+        userBean = ((PaperUrineApplication)getApplication()).getUserInfo();
+
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_PERSONINFO);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                PersonResponse response = gson.fromJson(result, PersonResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        ((PaperUrineApplication)getApplication()).savePersonInfo(response.getData());
+                        break;
+
+                    default:
+                        T.s("获取个人信息失败");
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                T.s("请求出错，请检查网络");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
 }

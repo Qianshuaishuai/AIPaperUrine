@@ -7,6 +7,7 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,7 @@ import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.base.BaseFragment;
 import com.babyraising.aipaperurine.bean.UserBean;
 
+import org.w3c.dom.Text;
 import org.xutils.common.util.DensityUtil;
 import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ContentView;
@@ -132,8 +134,7 @@ public class HomeFragment extends BaseFragment {
 
     private void initData() {
         userBean = ((PaperUrineApplication) getActivity().getApplication()).getUserInfo();
-
-        if (userBean.getNICKNAME().equals("")) {
+        if (TextUtils.isEmpty(userBean.getNICKNAME())) {
             cardName.setText("尚未设置昵称");
         } else {
             cardName.setText(userBean.getNICKNAME());

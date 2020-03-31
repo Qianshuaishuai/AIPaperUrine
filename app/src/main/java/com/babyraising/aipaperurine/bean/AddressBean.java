@@ -2,9 +2,18 @@ package com.babyraising.aipaperurine.bean;
 
 public class AddressBean {
     private String ADDRESS_ID;
+    private String ADDRESS;
     private String CNAME;
     private String CPHONE;
     private String ISDEFAULT;
+
+    public String getADDRESS() {
+        return ADDRESS;
+    }
+
+    public void setADDRESS(String ADDRESS) {
+        this.ADDRESS = ADDRESS;
+    }
 
     public String getADDRESS_ID() {
         return ADDRESS_ID;

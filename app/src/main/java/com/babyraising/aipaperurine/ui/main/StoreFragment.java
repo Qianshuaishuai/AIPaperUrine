@@ -1,21 +1,43 @@
 package com.babyraising.aipaperurine.ui.main;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.babyraising.aipaperurine.Constant;
+import com.babyraising.aipaperurine.PaperUrineApplication;
 import com.babyraising.aipaperurine.R;
+import com.babyraising.aipaperurine.adapter.GoodsAdapter;
+import com.babyraising.aipaperurine.base.BaseFragment;
+import com.babyraising.aipaperurine.bean.GoodsForStoreBean;
+import com.babyraising.aipaperurine.bean.HomeCarouselBean;
+import com.babyraising.aipaperurine.bean.UserBean;
+import com.babyraising.aipaperurine.response.GoodsListResponse;
+import com.babyraising.aipaperurine.response.HomeCarouselResponse;
+import com.babyraising.aipaperurine.response.ListMyYuyueResponse;
+import com.babyraising.aipaperurine.ui.store.GoodActivity;
 import com.babyraising.aipaperurine.util.BannerImageLoader;
+import com.babyraising.aipaperurine.util.T;
+import com.google.gson.Gson;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -28,7 +50,8 @@ import java.util.List;
  * Use the {@link StoreFragment#newInstance} factory method to
  * create an instance of this fragment.
  */
-public class StoreFragment extends Fragment {
+@ContentView(R.layout.fragment_store)
+public class StoreFragment extends BaseFragment {
     // TODO: Rename parameter arguments, choose names that match
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
@@ -38,10 +61,19 @@ public class StoreFragment extends Fragment {
     private String mParam1;
     private String mParam2;
 
+    private UserBean bean;
+
+    @ViewInject(R.id.banner)
     private Banner banner;
+
+    @ViewInject(R.id.rv_store)
+    private RecyclerView rvStore;
 
     private OnFragmentInteractionListener mListener;
     private List<String> bannerImages = new ArrayList<>();
+    private List<HomeCarouselBean> bannerBeans = new ArrayList<>();
+    private List<GoodsForStoreBean> goodsList = new ArrayList<>();
+    private GoodsAdapter adapter;
 
     public StoreFragment() {
         // Required empty public constructor
@@ -75,40 +107,125 @@ public class StoreFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
-                             Bundle savedInstanceState) {
-        // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_store, container, false);
-    }
-
-    @Override
     public void onViewCreated(@NonNull View view, @Nullable Bundle savedInstanceState) {
         super.onViewCreated(view, savedInstanceState);
 
         initView();
+        initData();
+        initStoreList();
+    }
+
+    private void initData() {
+        bean = ((PaperUrineApplication) getActivity().getApplication()).getUserInfo();
+    }
+
+    private void initStoreList() {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_GOODSLIST);
+        params.addQueryStringParameter("APPUSER_ID", bean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", bean.getONLINE_ID());
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                GoodsListResponse response = gson.fromJson(result, GoodsListResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        goodsList.clear();
+                        for (int a = 0; a < response.getData().size(); a++) {
+                            goodsList.add(response.getData().get(a));
+                        }
+                        adapter.notifyDataSetChanged();
+                        break;
+                    default:
+                        System.out.println("获取失败:" + result);
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
     private void initView() {
 
-        bannerImages.add("http://resource.360eliteclub.com//test/B1CF0D2F-C910-4ECB-B6EE-904D869DF143.png");
-        bannerImages.add("http://resource.360eliteclub.com//test/B1CF0D2F-C910-4ECB-B6EE-904D869DF143.png");
-        bannerImages.add("http://resource.360eliteclub.com//test/B1CF0D2F-C910-4ECB-B6EE-904D869DF143.png");
-
-        banner = getActivity().findViewById(R.id.banner);
-        //设置图片加载器
-        banner.setImageLoader(new BannerImageLoader());
-        //设置图片集合
-        banner.setImages(bannerImages);
-        //banner设置方法全部调用完毕时最后调用
-        banner.start();
-
-        banner.setOnBannerListener(new OnBannerListener() {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_HOMECAROUSEL);
+        x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
-            public void OnBannerClick(int position) {
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                HomeCarouselResponse response = gson.fromJson(result, HomeCarouselResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        for (int a = 0; a < response.getData().size(); a++) {
+                            bannerImages.add(response.getData().get(a).getHOMEPIC());
+                            bannerBeans.add(response.getData().get(a));
+                        }
+
+                        //设置图片加载器
+                        banner.setImageLoader(new BannerImageLoader());
+                        //设置图片集合
+                        banner.setImages(bannerImages);
+                        //banner设置方法全部调用完毕时最后调用
+                        banner.start();
+
+                        banner.setOnBannerListener(new OnBannerListener() {
+                            @Override
+                            public void OnBannerClick(int position) {
+                                System.out.println(bannerBeans.get(position).getGOODS_ID());
+                            }
+                        });
+                        break;
+                    default:
+                        System.out.println("获取失败:" + result);
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
 
             }
         });
 
+        adapter = new GoodsAdapter(goodsList);
+        adapter.setOnItemClickListener(new GoodsAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                startGoodDetailActivity(position);
+            }
+        });
+        GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
+        rvStore.setLayoutManager(manager);
+        rvStore.setAdapter(adapter);
+    }
+
+    private void startGoodDetailActivity(int position) {
+        Intent intent = new Intent(getActivity(), GoodActivity.class);
+        intent.putExtra("goodsId", goodsList.get(position).getGOODS_ID());
+        startActivity(intent);
     }
 
     // TODO: Rename method, update argument and hook method into UI event

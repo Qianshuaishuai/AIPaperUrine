@@ -2,6 +2,7 @@ package com.babyraising.aipaperurine.bean;
 
 public class InformationBean {
     private String INFORMATION_ID;
+    private String TITLE;
     private String PIC;
     private String INFO;
     private String IS_STAR;
@@ -108,5 +109,13 @@ public class InformationBean {
 
     public void setPUBLISHTIME(String PUBLISHTIME) {
         this.PUBLISHTIME = PUBLISHTIME;
+    }
+
+    public String getTITLE() {
+        return TITLE;
+    }
+
+    public void setTITLE(String TITLE) {
+        this.TITLE = TITLE;
     }
 }

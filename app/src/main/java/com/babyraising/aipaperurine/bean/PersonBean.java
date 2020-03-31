@@ -6,7 +6,7 @@ public class PersonBean {
     private String LEVEL;
     private String PHONE;
     private String JOINDAYS;
-    private String STANUM;
+    private String STARNUM;
     private String COLLECTNUM;
     private String READNUM;
     private String POINT;
@@ -51,12 +51,12 @@ public class PersonBean {
         this.JOINDAYS = JOINDAYS;
     }
 
-    public String getSTANUM() {
-        return STANUM;
+    public String getSTARNUM() {
+        return STARNUM;
     }
 
-    public void setSTANUM(String STANUM) {
-        this.STANUM = STANUM;
+    public void setSTARNUM(String STARNUM) {
+        this.STARNUM = STARNUM;
     }
 
     public String getCOLLECTNUM() {

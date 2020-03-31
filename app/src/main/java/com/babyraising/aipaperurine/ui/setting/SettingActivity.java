@@ -15,6 +15,8 @@ import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.base.BaseActivity;
 import com.babyraising.aipaperurine.bean.UserBean;
 import com.babyraising.aipaperurine.response.RegisterResponse;
+import com.babyraising.aipaperurine.ui.user.LoginActivity;
+import com.babyraising.aipaperurine.util.CacheUtil;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
 
@@ -22,6 +24,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
+import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 @ContentView(R.layout.activity_setting)
@@ -30,6 +33,9 @@ public class SettingActivity extends BaseActivity {
     private UserBean userBean;
     private AlertDialog tipDialog;
     private TextView titleTextView;
+
+    @ViewInject(R.id.tv_cache)
+    private TextView cache;
 
     @Event(R.id.layout_back)
     private void layoutBack(View view) {
@@ -44,7 +50,15 @@ public class SettingActivity extends BaseActivity {
 
     @Event(R.id.layout_clear_cache)
     private void layoutClearCache(View view) {
-        finish();
+        CacheUtil.clearAllCache(this);
+
+        try {
+            cache.setText(CacheUtil.getTotalCacheSize(this));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+        T.s("清除缓存成功");
     }
 
     @Event(R.id.layout_advice)
@@ -78,6 +92,7 @@ public class SettingActivity extends BaseActivity {
                 switch (response.getResult()) {
                     case 0:
                         T.s("登出成功");
+                        startLoginActivity();
                         break;
 
                     default:
@@ -104,6 +119,12 @@ public class SettingActivity extends BaseActivity {
         });
     }
 
+    private void startLoginActivity() {
+        Intent intent = new Intent(this, LoginActivity.class);
+        startActivity(intent);
+        finish();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -113,6 +134,12 @@ public class SettingActivity extends BaseActivity {
 
     private void initData() {
         userBean = ((PaperUrineApplication) getApplication()).getUserInfo();
+
+        try {
+            cache.setText(CacheUtil.getTotalCacheSize(this));
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     private void initTipDialog() {

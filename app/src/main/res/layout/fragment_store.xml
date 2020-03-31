@@ -25,6 +25,7 @@
     </LinearLayout>
 
     <com.youth.banner.Banner
+        app:image_scale_type="fit_center"
         android:id="@+id/banner"
         android:layout_width="match_parent"
         android:layout_height="145dip"
@@ -41,7 +42,7 @@
         android:layout_height="wrap_content"
         android:layout_below="@+id/banner"
         android:layout_marginLeft="15dip"
-        android:layout_marginTop="30dip"
+        android:layout_marginTop="24dip"
         android:text="商品列表"
         android:textColor="#1e1e1e"
         android:textSize="16sp" />
@@ -51,5 +52,7 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_below="@+id/tip"
-        android:layout_marginTop="14dip"></android.support.v7.widget.RecyclerView>
+        android:layout_marginLeft="15dip"
+        android:layout_marginRight="15dip"
+        android:paddingBottom="60dip"></android.support.v7.widget.RecyclerView>
 </RelativeLayout>

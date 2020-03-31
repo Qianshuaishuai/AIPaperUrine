@@ -23,15 +23,24 @@ import com.babyraising.aipaperurine.response.PersonResponse;
 import com.babyraising.aipaperurine.response.RegisterResponse;
 import com.babyraising.aipaperurine.response.WaitReadResponse;
 import com.babyraising.aipaperurine.ui.address.AddressManagerActivity;
+import com.babyraising.aipaperurine.ui.info.ChangeInfoActivity;
 import com.babyraising.aipaperurine.ui.message.MessageActivity;
 import com.babyraising.aipaperurine.ui.order.OrderActivity;
 import com.babyraising.aipaperurine.ui.person.CouponActivity;
 import com.babyraising.aipaperurine.ui.person.GrowthActivity;
+import com.babyraising.aipaperurine.ui.person.IntegralActivity;
+import com.babyraising.aipaperurine.ui.person.PersonBrowseActivity;
+import com.babyraising.aipaperurine.ui.person.PersonCollectActivity;
+import com.babyraising.aipaperurine.ui.person.PersonGoodActivity;
+import com.babyraising.aipaperurine.ui.person.PersonGrowthActivity;
 import com.babyraising.aipaperurine.ui.person.SignActivity;
 import com.babyraising.aipaperurine.ui.setting.SettingActivity;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.common.Callback;
 import org.xutils.common.util.DensityUtil;
 import org.xutils.http.RequestParams;
@@ -93,6 +102,12 @@ public class PersonFragment extends BaseFragment {
         startActivity(intent);
     }
 
+    @Event(R.id.person_layout)
+    private void personLayout(View view) {
+        Intent intent = new Intent(getActivity(), ChangeInfoActivity.class);
+        startActivity(intent);
+    }
+
     @Event(R.id.message)
     private void messageLayoutClick(View view) {
         Intent intent = new Intent(getActivity(), MessageActivity.class);
@@ -101,7 +116,7 @@ public class PersonFragment extends BaseFragment {
 
     @Event(R.id.growth_layout)
     private void GrowthLayout(View view) {
-        Intent intent = new Intent(getActivity(), GrowthActivity.class);
+        Intent intent = new Intent(getActivity(), PersonGrowthActivity.class);
         startActivity(intent);
     }
 
@@ -126,6 +141,30 @@ public class PersonFragment extends BaseFragment {
     @Event(R.id.address_layout)
     private void addressLayout(View view) {
         Intent intent = new Intent(getActivity(), AddressManagerActivity.class);
+        startActivity(intent);
+    }
+
+    @Event(R.id.layout_star)
+    private void starLayout(View view) {
+        Intent intent = new Intent(getActivity(), PersonGoodActivity.class);
+        startActivity(intent);
+    }
+
+    @Event(R.id.layout_collect)
+    private void collectLayout(View view) {
+        Intent intent = new Intent(getActivity(), PersonCollectActivity.class);
+        startActivity(intent);
+    }
+
+    @Event(R.id.layout_browse)
+    private void browseLayout(View view) {
+        Intent intent = new Intent(getActivity(), PersonBrowseActivity.class);
+        startActivity(intent);
+    }
+
+    @Event(R.id.layout_integral)
+    private void integralLayout(View view) {
+        Intent intent = new Intent(getActivity(), IntegralActivity.class);
         startActivity(intent);
     }
 
@@ -160,6 +199,11 @@ public class PersonFragment extends BaseFragment {
         }
     }
 
+    @Override
+    public void onStart() {
+        super.onStart();
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -183,6 +227,60 @@ public class PersonFragment extends BaseFragment {
         super.onDetach();
         mListener = null;
     }
+
+    @Override
+    public void onStop() {
+        super.onStop();
+    }
+
+    private void getPersonInfo() {
+        userBean = ((PaperUrineApplication) getActivity().getApplication()).getUserInfo();
+
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_PERSONINFO);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                PersonResponse response = gson.fromJson(result, PersonResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        System.out.println(result);
+                        ((PaperUrineApplication) getActivity().getApplication()).savePersonInfo(response.getData());
+                        personBean = ((PaperUrineApplication) getActivity().getApplication()).getPersonInfo();
+                        updateView();
+                        break;
+
+                    default:
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                T.s("请求出错，请检查网络");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+//    @Subscribe(threadMode = ThreadMode.MAIN)
+//    public void onMessageEvent(UpdatePersonInfoEvent event) {
+//        personBean = ((PaperUrineApplication) getActivity().getApplication()).getPersonInfo();
+//        updateView();
+//    }
+
 
     /**
      * This interface must be implemented by activities that contain this
@@ -251,47 +349,19 @@ public class PersonFragment extends BaseFragment {
 
     private void initData() {
         userBean = ((PaperUrineApplication) getActivity().getApplication()).getUserInfo();
+        personBean = ((PaperUrineApplication) getActivity().getApplication()).getPersonInfo();
+        updateView();
+    }
 
-        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_PERSONINFO);
-        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
-        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Gson gson = new Gson();
-                PersonResponse response = gson.fromJson(result, PersonResponse.class);
-                switch (response.getResult()) {
-                    case 0:
-                        ((PaperUrineApplication) getActivity().getApplication()).savePersonInfo(response.getData());
-                        personBean = response.getData();
-                        updateView();
-                        break;
+    @Override
+    public void onResume() {
+        super.onResume();
+        getPersonInfo();
 
-                    default:
-                        T.s("获取个人信息失败");
-                        break;
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                T.s("请求出错，请检查网络");
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
     }
 
     private void updateView() {
-        if (personBean.getNICKNAME().equals("")) {
+        if (TextUtils.isEmpty(personBean.getNICKNAME())) {
             name.setText("尚未设置昵称");
         } else {
             name.setText(personBean.getNICKNAME());
@@ -302,12 +372,11 @@ public class PersonFragment extends BaseFragment {
 
         day.setText(personBean.getJOINDAYS() + "天");
 
-        dzCount.setText(personBean.getSTANUM());
+        dzCount.setText(personBean.getSTARNUM());
         scCount.setText(personBean.getCOLLECTNUM());
         integralCount.setText(personBean.getPOINT());
         browseCount.setText(personBean.getREADNUM());
-
-        if (TextUtils.isEmpty(personBean.getSTANUM())) {
+        if (TextUtils.isEmpty(personBean.getSTARNUM())) {
             dzCount.setText("0");
         }
 

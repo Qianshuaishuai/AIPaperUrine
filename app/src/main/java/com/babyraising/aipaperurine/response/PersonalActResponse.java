@@ -2,10 +2,12 @@ package com.babyraising.aipaperurine.response;
 
 import com.babyraising.aipaperurine.bean.PersonalActBean;
 
+import java.util.List;
+
 public class PersonalActResponse {
     private int result;
     private String msg;
-    private PersonalActBean data;
+    private List<PersonalActBean> data;
 
     public int getResult() {
         return result;
@@ -23,11 +25,11 @@ public class PersonalActResponse {
         this.msg = msg;
     }
 
-    public PersonalActBean getData() {
+    public List<PersonalActBean> getData() {
         return data;
     }
 
-    public void setData(PersonalActBean data) {
+    public void setData(List<PersonalActBean> data) {
         this.data = data;
     }
 }

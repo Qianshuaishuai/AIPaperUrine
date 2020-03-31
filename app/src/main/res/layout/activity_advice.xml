@@ -65,6 +65,7 @@
             android:layout_marginTop="18dip"
             android:background="@null"
             android:hint="请描述你的问题和意见，感谢支持"
+            android:maxLength="100"
             android:maxLines="5"
             android:textColor="#1e1e1e"
             android:textSize="16sp" />

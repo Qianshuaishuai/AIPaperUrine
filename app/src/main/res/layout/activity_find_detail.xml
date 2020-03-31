@@ -48,7 +48,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dip"
-                android:text="不正确穿戴纸尿片的危害？险情发生时还来 得及吗？"
+                android:text=""
                 android:textColor="#1e1e1e"
                 android:textSize="18sp" />
 
@@ -63,8 +63,7 @@
                 <ImageView
                     android:id="@+id/icon"
                     android:layout_width="38dip"
-                    android:layout_height="38dip"
-                    android:background="#f3f300" />
+                    android:layout_height="38dip" />
 
                 <LinearLayout
                     android:layout_width="wrap_content"
@@ -76,7 +75,7 @@
                         android:id="@+id/name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="AI育婴官方"
+                        android:text=""
                         android:textColor="#1e1e1e"
                         android:textSize="16sp" />
 
@@ -84,7 +83,7 @@
                         android:id="@+id/time"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="2019.8.11"
+                        android:text=""
                         android:textColor="#999999"
                         android:textSize="12sp" />
                 </LinearLayout>
@@ -99,7 +98,7 @@
                         android:id="@+id/reading_count"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
-                        android:text="阅读 189"
+                        android:text=""
                         android:textColor="#999999"
                         android:textSize="12sp" />
 
@@ -108,17 +107,18 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="14dip"
-                        android:text="字数 1100"
+                        android:text=""
                         android:textColor="#999999"
                         android:textSize="12sp" />
                 </LinearLayout>
             </LinearLayout>
 
             <TextView
+                android:id="@+id/content"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="20dip"
-                android:text="家有小宝宝，换尿布是家长每天都要做的事情，可不少 的新手爸妈每天几次看似不经意给宝宝换纸尿裤的动作， 却对宝宝健康会有或大或小的伤害。来看看爸妈常犯的 错误有哪些？"
+                android:text=""
                 android:textColor="#1e1e1e"
                 android:textSize="14sp" />
         </LinearLayout>
@@ -146,8 +146,7 @@
                 android:layout_width="20dip"
                 android:layout_height="20dip"
                 android:background="@drawable/select_sc_big"
-                android:button="@null"
-                android:checked="true" />
+                android:button="@null" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -211,7 +210,7 @@
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="4dip"
-                android:text="收藏"
+                android:text="分享"
                 android:textColor="#1e1e1e"
                 android:textSize="10sp" />
         </LinearLayout>

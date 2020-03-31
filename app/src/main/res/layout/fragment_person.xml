@@ -7,6 +7,7 @@
     tools:context=".ui.main.HomeFragment">
 
     <RelativeLayout
+        android:id="@+id/person_layout"
         android:layout_width="match_parent"
         android:layout_height="180dp"
         android:background="@mipmap/bg_geren">
@@ -127,6 +128,7 @@
         android:orientation="horizontal">
 
         <LinearLayout
+            android:id="@+id/layout_star"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -152,6 +154,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_collect"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -177,6 +180,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_browse"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"
@@ -202,6 +206,7 @@
         </LinearLayout>
 
         <LinearLayout
+            android:id="@+id/layout_integral"
             android:layout_width="0dip"
             android:layout_height="match_parent"
             android:layout_weight="1"

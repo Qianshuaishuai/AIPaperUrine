@@ -27,8 +27,7 @@
             android:id="@+id/icon"
             android:layout_width="45dip"
             android:layout_height="45dip"
-            android:layout_marginLeft="18.5dip"
-            android:background="#ff0f0f" />
+            android:layout_marginLeft="18.5dip" />
 
         <TextView
             android:id="@+id/name"
@@ -45,7 +44,8 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:gravity="center_vertical"
-        android:orientation="horizontal">
+        android:orientation="horizontal"
+        android:visibility="gone">
 
         <TextView
             android:id="@+id/me_rank_num"
@@ -60,10 +60,10 @@
             android:id="@+id/me_icon"
             android:layout_width="45dip"
             android:layout_height="45dip"
-            android:layout_marginLeft="24dip"
-            android:background="#ff0f0f" />
+            android:layout_marginLeft="24dip" />
 
         <TextView
+            android:id="@+id/tip"
             android:layout_width="158dip"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dip"
