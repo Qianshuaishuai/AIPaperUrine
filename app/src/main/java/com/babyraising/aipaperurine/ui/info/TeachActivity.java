@@ -1,19 +1,15 @@
 package com.babyraising.aipaperurine.ui.info;
 
-import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.View;
-import android.widget.TextView;
+import android.widget.MediaController;
+import android.widget.VideoView;
 
 import com.babyraising.aipaperurine.Constant;
-import com.babyraising.aipaperurine.PaperUrineApplication;
 import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.base.BaseActivity;
-import com.babyraising.aipaperurine.bean.UserBean;
-import com.babyraising.aipaperurine.response.MessageInfoResponse;
-import com.babyraising.aipaperurine.response.MessageResponse;
+import com.babyraising.aipaperurine.response.CourseResponse;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
 
@@ -24,56 +20,38 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
-@ContentView(R.layout.activity_remind_detail)
-public class RemindDetailActivity extends BaseActivity {
+@ContentView(R.layout.activity_teach)
+public class TeachActivity extends BaseActivity {
 
-    private UserBean userBean;
-    private String MESSAGE_ID = "";
+    @ViewInject(R.id.videoView)
+    private VideoView videoView;
 
     @Event(R.id.layout_back)
-    private void layoutBack(View view) {
+    private void back(View view) {
         finish();
     }
-
-    @ViewInject(R.id.remind_detail)
-    private TextView remindDetail;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        initView();
         initData();
     }
 
     private void initData() {
-        userBean = ((PaperUrineApplication) getApplication()).getUserInfo();
-
-        Intent intent = getIntent();
-        MESSAGE_ID = intent.getStringExtra("message-id");
-
-        if (MESSAGE_ID == "") {
-            T.s("获取信息详情失败");
-            finish();
-            return;
-        }
-
-        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_MESSAGEINFO);
-        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
-        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
-        params.addQueryStringParameter("MESSAGE_ID", MESSAGE_ID);
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_GETCOURSE);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
-                System.out.println(result);
                 Gson gson = new Gson();
-                MessageInfoResponse response = gson.fromJson(result, MessageInfoResponse.class);
+                CourseResponse response = gson.fromJson(result, CourseResponse.class);
                 switch (response.getResult()) {
                     case 0:
-                        remindDetail.setText(response.getData().getDETAIL());
+                        initNetVideo(response.getData().getVIDEO());
                         break;
 
                     default:
-                        T.s("获取信息详情失败");
+                        T.s("获取视频教程失败");
                         break;
                 }
             }
@@ -93,5 +71,19 @@ public class RemindDetailActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void initView() {
+
+    }
+
+    //播放网络视频
+    private void initNetVideo(String videoUrl) {
+        //设置有进度条可以拖动快进
+        MediaController localMediaController = new MediaController(this);
+        videoView.setMediaController(localMediaController);
+        String url = videoUrl;
+        videoView.setVideoPath(url);
+        videoView.start();
     }
 }

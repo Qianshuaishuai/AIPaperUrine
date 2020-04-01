@@ -28,6 +28,7 @@ import org.xutils.x;
 public class MailEditActivity extends BaseActivity {
 
     private UserBean userBean;
+    private boolean isCheck = false;
 
     @ViewInject(R.id.mail)
     private EditText mail;
@@ -42,18 +43,22 @@ public class MailEditActivity extends BaseActivity {
 
     @Event(R.id.save)
     private void save(View view) {
-
+        checkEmail();
     }
 
     @Event(R.id.send)
     private void send(View view) {
+        if (mail.getText().toString().length() <= 0) {
+            T.s("邮箱不能为空");
+            return;
+        }
         sendEmail();
     }
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+//        checkEmail();
         initData();
     }
 
@@ -73,10 +78,11 @@ public class MailEditActivity extends BaseActivity {
                 EditImgResponse response = gson.fromJson(result, EditImgResponse.class);
                 switch (response.getResult()) {
                     case 0:
-                        T.s("更换成功");
+                        T.s("绑定成功");
+                        finish();
                         break;
                     default:
-                        T.s("更换失败");
+                        T.s("绑定失败");
                         break;
                 }
             }
@@ -109,9 +115,11 @@ public class MailEditActivity extends BaseActivity {
                 switch (response.getResult()) {
                     case 0:
                         T.s("验证通过");
+                        bindEmail();
                         break;
                     default:
                         T.s("未验证通过");
+                        isCheck = false;
                         break;
                 }
             }

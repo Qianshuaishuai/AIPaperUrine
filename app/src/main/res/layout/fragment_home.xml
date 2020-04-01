@@ -62,7 +62,7 @@
                         android:ellipsize="end"
                         android:maxLength="6"
                         android:singleLine="true"
-                        android:text="大宝"
+                        android:text="宝宝"
                         android:textColor="#1E1E1E"
                         android:textSize="18sp" />
 
@@ -82,7 +82,7 @@
                             android:id="@+id/card_time"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:text="2019.12.25 14:25:12"
+                            android:text="设备未链接，点击绑定"
                             android:textColor="#18C083"
                             android:textSize="13sp" />
                     </LinearLayout>
@@ -397,11 +397,12 @@
                     android:layout_marginRight="15dip">
 
                     <ImageView
+                        android:id="@+id/teach_pic"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent"
-                        android:background="#f0f000" />
+                        android:layout_height="match_parent" />
 
                     <LinearLayout
+                        android:id="@+id/layout_teach"
                         android:layout_width="88dip"
                         android:layout_height="29dip"
                         android:layout_alignParentRight="true"

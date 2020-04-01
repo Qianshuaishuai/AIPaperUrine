@@ -12,9 +12,9 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" /> <!-- 用于申请调用A-GPS模块 -->
     <uses-permission android:name="android.permission.ACCESS_LOCATION_EXTRA_COMMANDS" />
     <uses-permission android:name="android.permission.CALL_PHONE" />
-
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
+    <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
 
     <application
         android:name=".PaperUrineApplication"
@@ -24,7 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.setting.ChangePasswordActivity"></activity>
+        <activity android:name=".ui.info.TeachActivity"></activity>
+        <activity android:name=".ui.setting.ChangePasswordActivity" />
         <activity android:name=".ui.setting.ChangePhoneActivity" />
         <activity android:name=".ui.setting.VersionActivity" />
         <activity android:name=".ui.setting.AboutActivity" />
@@ -38,7 +39,7 @@
         <activity android:name=".ui.person.RefundDetailActivity" />
         <activity android:name=".ui.person.ExpressActivity" />
         <activity android:name=".ui.order.RefundActivity" />
-        <activity android:name=".ui.order.OrderActivity"></activity>
+        <activity android:name=".ui.order.OrderActivity" />
         <activity android:name=".ui.person.PersonGrowthActivity" />
         <activity android:name=".ui.person.ChangeSignActivity" />
         <activity android:name=".ui.person.MailEditActivity" />
@@ -68,11 +69,9 @@
         <activity android:name=".ui.info.PickSizeActivity" />
         <activity
             android:name=".ui.info.ChangeInfoActivity"
-            android:windowSoftInputMode="adjustPan">
-
-        </activity>
+            android:windowSoftInputMode="adjustPan"></activity>
         <activity android:name=".ui.user.ForgetActivity" />
-        <activity android:name=".ui.user.RegisterActivity"></activity>
+        <activity android:name=".ui.user.RegisterActivity" />
         <activity android:name=".ui.user.LoginNormalActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />

@@ -111,7 +111,7 @@
         android:layout_marginRight="34dip"
         android:layout_marginBottom="10dip"
         android:background="@drawable/shape_good_button_bg"
-        android:text="再次发送验证邮件"
+        android:text="发送验证邮件"
         android:textColor="#ffffff"
         android:textSize="16sp" />
 </LinearLayout>

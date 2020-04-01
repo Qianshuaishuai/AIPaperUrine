@@ -52,6 +52,7 @@
 
         <!--日期选择-->
         <RadioGroup
+            android:id="@+id/group_date"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dip"
@@ -126,6 +127,7 @@
 
         <!--内容选择-->
         <RadioGroup
+            android:id="@+id/group_type"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginLeft="15dip"
