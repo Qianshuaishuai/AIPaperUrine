@@ -5,4 +5,6 @@
     <color name="colorAccent">#D81B60</color>
 
     <color name="colorCommon">#F866AA</color>
+    <color name="colorWhite">#FFFFFF</color>
+    <color name="colorSign">#F866AA</color>
 </resources>

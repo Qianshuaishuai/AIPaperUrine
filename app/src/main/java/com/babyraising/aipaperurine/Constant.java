@@ -23,6 +23,7 @@ public class Constant {
     public static final String URL_USERGROWTHRANKING = "user/userGowthRanking";
     public static final String URL_ADDADVISE = "user/addAdvise";
     public static final String URL_SIGNININFO = "user/signinInfo";
+    public static final String URL_SIGNIN = "user/signin";
     public static final String URL_GROWTHPOINTLIST = "user/growthPointList";
     public static final String URL_MYGROWTH = "user/myGrowth";
     public static final String URL_BINDEMAIL = "user/bindEmail";
