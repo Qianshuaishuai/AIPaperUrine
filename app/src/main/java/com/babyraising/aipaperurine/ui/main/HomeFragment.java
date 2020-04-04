@@ -7,17 +7,22 @@ import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.babyraising.aipaperurine.Constant;
 import com.babyraising.aipaperurine.PaperUrineApplication;
 import com.babyraising.aipaperurine.R;
+import com.babyraising.aipaperurine.adapter.MemberAdapter;
 import com.babyraising.aipaperurine.base.BaseFragment;
+import com.babyraising.aipaperurine.bean.MemberListBean;
 import com.babyraising.aipaperurine.bean.UserBean;
 import com.babyraising.aipaperurine.response.CourseResponse;
 import com.babyraising.aipaperurine.response.MemberListResponse;
@@ -35,6 +40,9 @@ import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -56,6 +64,8 @@ public class HomeFragment extends BaseFragment {
     private String mParam2;
 
     private UserBean userBean;
+    private List<MemberListBean> memberList;
+    private MemberAdapter adapter;
 
     private OnFragmentInteractionListener mListener;
 
@@ -67,6 +77,12 @@ public class HomeFragment extends BaseFragment {
 
     @ViewInject(R.id.teach_pic)
     private ImageView teachPic;
+
+    @ViewInject(R.id.rv_member)
+    private RecyclerView rvMember;
+
+    @ViewInject(R.id.baby_layout)
+    private LinearLayout babyLayout;
 
     @Event(R.id.layout_teach)
     private void layoutTeach(View view) {
@@ -150,6 +166,7 @@ public class HomeFragment extends BaseFragment {
         initView();
         initData();
         initTeachs();
+        getMemberList();
     }
 
     private void initTeachs() {
@@ -201,7 +218,18 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initView() {
+        memberList = new ArrayList<>();
+        adapter = new MemberAdapter(memberList);
+        adapter.setOnItemClickListener(new MemberAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
 
+            }
+        });
+
+        LinearLayoutManager manager = new LinearLayoutManager(getActivity());
+        rvMember.setLayoutManager(manager);
+        rvMember.setAdapter(adapter);
     }
 
     private void getMemberList() {
@@ -214,7 +242,18 @@ public class HomeFragment extends BaseFragment {
                 switch (response.getResult()) {
                     case 0:
                         if (response.getData().size() == 0) {
+                            rvMember.setVisibility(View.GONE);
+                            babyLayout.setVisibility(View.VISIBLE);
+                        } else {
+                            rvMember.setVisibility(View.VISIBLE);
+                            babyLayout.setVisibility(View.GONE);
 
+                            memberList.clear();
+                            for (int m = 0; m < response.getData().size(); m++) {
+                                memberList.add(response.getData().get(m));
+                            }
+
+                            adapter.notifyDataSetChanged();
                         }
                         break;
 
