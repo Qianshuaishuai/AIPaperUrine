@@ -1,5 +1,6 @@
 package com.babyraising.aipaperurine.ui.order;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -237,6 +238,7 @@ public class OrderActivity extends BaseActivity {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 ListMyYuyueResponse response = gson.fromJson(result, ListMyYuyueResponse.class);
+
                 switch (response.getResult()) {
                     case 0:
                         orderList.clear();
@@ -244,7 +246,6 @@ public class OrderActivity extends BaseActivity {
                             orderList.add(response.getData().get(m));
                         }
                         adapter.notifyDataSetChanged();
-                        System.out.println(result);
                         break;
                     default:
                         T.s("获取订单列表失败");
@@ -282,5 +283,11 @@ public class OrderActivity extends BaseActivity {
         rvOrder.setAdapter(adapter);
         rvOrder.setLayoutManager(manager);
 
+    }
+
+    public void orderDetail(String orderId) {
+        Intent intent = new Intent(this, OrderDetailActivity.class);
+        intent.putExtra("orderId",orderId);
+        startActivity(intent);
     }
 }

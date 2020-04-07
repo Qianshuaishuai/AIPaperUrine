@@ -67,97 +67,10 @@
                 android:background="@drawable/shape_info_card_bg"
                 android:orientation="vertical">
 
-                <RadioGroup
+                <android.support.v7.widget.RecyclerView
+                    android:id="@+id/rv_size"
                     android:layout_width="match_parent"
-                    android:layout_height="match_parent"
-                    android:layout_marginLeft="15dip"
-                    android:layout_marginRight="15dip"
-                    android:orientation="vertical">
-
-                    <RadioButton
-                        android:id="@+id/bt1_size"
-                        android:layout_width="100dip"
-                        android:layout_height="40dip"
-                        android:layout_marginTop="14dip"
-                        android:background="@drawable/select_pick_size"
-                        android:button="@null"
-                        android:checked="false"
-                        android:gravity="center"
-                        android:text="M"
-                        android:textColor="@color/select_pick_size"
-                        android:textSize="17sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dip"
-                        android:text="适用于0-6个人月或体重小于3kg的宝宝。"
-                        android:textColor="#d4d4d4"
-                        android:textSize="14sp" />
-
-                    <RadioButton
-                        android:id="@+id/bt2_size"
-                        android:layout_width="100dip"
-                        android:layout_height="40dip"
-                        android:layout_marginTop="21dip"
-                        android:background="@drawable/select_pick_size"
-                        android:button="@null"
-                        android:checked="false"
-                        android:gravity="center"
-                        android:text="L"
-                        android:textColor="@color/select_pick_size"
-                        android:textSize="17sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dip"
-                        android:text="适用于0-6个人月或体重小于3kg的宝宝。"
-                        android:textColor="#d4d4d4"
-                        android:textSize="14sp" />
-
-                    <RadioButton
-                        android:id="@+id/bt3_size"
-                        android:layout_width="100dip"
-                        android:layout_height="40dip"
-                        android:layout_marginTop="21dip"
-                        android:background="@drawable/select_pick_size"
-                        android:button="@null"
-                        android:checked="false"
-                        android:gravity="center"
-                        android:text="XL"
-                        android:textColor="@color/select_pick_size"
-                        android:textSize="17sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dip"
-                        android:text="适用于0-6个人月或体重小于3kg的宝宝。"
-                        android:textColor="#d4d4d4"
-                        android:textSize="14sp" />
-
-                    <RadioButton
-                        android:id="@+id/bt4_size"
-                        android:layout_width="100dip"
-                        android:layout_height="40dip"
-                        android:layout_marginTop="21dip"
-                        android:background="@drawable/select_pick_size"
-                        android:button="@null"
-                        android:checked="false"
-                        android:gravity="center"
-                        android:text="XXL"
-                        android:textColor="@color/select_pick_size"
-                        android:textSize="17sp" />
-
-                    <TextView
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="10dip"
-                        android:text="适用于0-6个人月或体重小于3kg的宝宝。"
-                        android:textColor="#d4d4d4"
-                        android:textSize="14sp" />
-                </RadioGroup>
+                    android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
             </LinearLayout>
 
             <!--选择品牌-->
@@ -187,6 +100,7 @@
                     android:orientation="horizontal">
 
                     <TextView
+                        android:id="@+id/brand_name"
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="15dip"
@@ -210,7 +124,7 @@
                 </LinearLayout>
 
                 <!--选择弹框-->
-                <RadioGroup
+                <LinearLayout
                     android:id="@+id/group_brand"
                     android:layout_width="128dip"
                     android:layout_height="166dip"
@@ -220,54 +134,11 @@
                     android:orientation="vertical"
                     android:visibility="gone">
 
-                    <RadioButton
-                        android:id="@+id/bt1_brand"
-                        android:layout_width="128dip"
-                        android:layout_height="40dip"
-                        android:background="@drawable/select_top_pick_brand"
-                        android:button="@null"
-                        android:checked="false"
-                        android:gravity="center"
-                        android:text="花王"
-                        android:textColor="@color/select_pick_size"
-                        android:textSize="14sp" />
-
-                    <RadioButton
-                        android:id="@+id/bt2_brand"
-                        android:layout_width="128dip"
-                        android:layout_height="40dip"
-                        android:background="@drawable/select_middle_pick_brand"
-                        android:button="@null"
-                        android:checked="false"
-                        android:gravity="center"
-                        android:text="方宝适"
-                        android:textColor="@color/select_pick_size"
-                        android:textSize="14sp" />
-
-                    <RadioButton
-                        android:id="@+id/bt3_brand"
-                        android:layout_width="128dip"
-                        android:layout_height="40dip"
-                        android:background="@drawable/select_middle_pick_brand"
-                        android:button="@null"
-                        android:checked="false"
-                        android:gravity="center"
-                        android:text="雀氏"
-                        android:textColor="@color/select_pick_size"
-                        android:textSize="14sp" />
-
-                    <RadioButton
-                        android:id="@+id/bt4_brand"
-                        android:layout_width="128dip"
-                        android:layout_height="40dip"
-                        android:background="@drawable/select_bottom_pick_brand"
-                        android:button="@null"
-                        android:checked="false"
-                        android:gravity="center"
-                        android:text="monny"
-                        android:textColor="@color/select_pick_size"
-                        android:textSize="14sp" />
-                </RadioGroup>
+                    <android.support.v7.widget.RecyclerView
+                        android:id="@+id/rv_brand"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+                </LinearLayout>
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>

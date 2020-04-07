@@ -3,6 +3,9 @@ package com.babyraising.aipaperurine.ui.store;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -13,8 +16,11 @@ import android.widget.TextView;
 
 import com.babyraising.aipaperurine.Constant;
 import com.babyraising.aipaperurine.R;
+import com.babyraising.aipaperurine.adapter.TagAdapter;
 import com.babyraising.aipaperurine.base.BaseActivity;
+import com.babyraising.aipaperurine.bean.GoodBean;
 import com.babyraising.aipaperurine.bean.GoodsInfoBean;
+import com.babyraising.aipaperurine.bean.SureOrderBean;
 import com.babyraising.aipaperurine.response.GoodsInfoResponse;
 import com.babyraising.aipaperurine.response.HomeCarouselResponse;
 import com.babyraising.aipaperurine.util.BannerImageLoader;
@@ -35,6 +41,9 @@ import java.util.List;
 
 @ContentView(R.layout.activity_good)
 public class GoodActivity extends BaseActivity {
+
+    private GoodsInfoBean goodBean;
+    private SureOrderBean sureOrderBean;
 
     @ViewInject(R.id.buy)
     private Button buyBt;
@@ -99,6 +108,24 @@ public class GoodActivity extends BaseActivity {
     @ViewInject(R.id.color)
     private TextView color;
 
+    @ViewInject(R.id.tv_tag1)
+    private TextView tvTag1;
+
+    @ViewInject(R.id.rv_tag1)
+    private RecyclerView rvTag1;
+
+    @ViewInject(R.id.tv_tag2)
+    private TextView tvTag2;
+
+    @ViewInject(R.id.rv_tag2)
+    private RecyclerView rvTag2;
+
+    @ViewInject(R.id.tv_tag3)
+    private TextView tvTag3;
+
+    @ViewInject(R.id.rv_tag3)
+    private RecyclerView rvTag3;
+
     @ViewInject(R.id.simple_icon)
     private ImageView simpleIcon;
 
@@ -116,6 +143,10 @@ public class GoodActivity extends BaseActivity {
 
     @ViewInject(R.id.iv_icon)
     private Banner banner;
+
+    private String selectValue1 = "";
+    private String selectValue2 = "";
+    private String selectValue3 = "";
 
     @Event(R.id.sure)
     private void sure(View view) {
@@ -139,6 +170,20 @@ public class GoodActivity extends BaseActivity {
     private void sureBuy(View view) {
         buyBt.setVisibility(View.VISIBLE);
         buyLayout.setVisibility(View.GONE);
+
+        sureBuy();
+    }
+
+    private void sureBuy() {
+        sureOrderBean.setGoodCount(simpleCount.getText().toString());
+        sureOrderBean.setSelectValue1(selectValue1);
+        sureOrderBean.setSelectValue1(selectValue2);
+        sureOrderBean.setSelectValue1(selectValue3);
+
+        Gson gson = new Gson();
+        Intent intent = new Intent(this, SureOrderActivity.class);
+        intent.putExtra("sureOrderBean", gson.toJson(sureOrderBean));
+        startActivity(intent);
     }
 
     @Event(R.id.iv_reduce)
@@ -188,8 +233,11 @@ public class GoodActivity extends BaseActivity {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 GoodsInfoResponse response = gson.fromJson(result, GoodsInfoResponse.class);
+
                 switch (response.getResult()) {
                     case 0:
+                        goodBean = response.getData();
+                        sureOrderBean.setGoodsInfoBean(goodBean);
                         updateView(response.getData());
                         break;
                     default:
@@ -248,23 +296,92 @@ public class GoodActivity extends BaseActivity {
 
         if (TextUtils.isEmpty(bean.getATTRIBUTE_NAME1())) {
             layout1.setVisibility(View.GONE);
+            tvTag1.setVisibility(View.GONE);
+            rvTag1.setVisibility(View.GONE);
         } else {
             name1.setText(bean.getATTRIBUTE_NAME1());
             value1.setText(bean.getATTRIBUTE_VALUE1());
+
+            final String[] tag1Value = bean.getATTRIBUTE_VALUE1().split(",");
+            List<String> tag1List = new ArrayList<>();
+            for (int s = 0; s < tag1Value.length; s++) {
+                tag1List.add(tag1Value[s]);
+            }
+
+            final TagAdapter adapter1 = new TagAdapter(tag1List);
+            GridLayoutManager manager1 = new GridLayoutManager(this, 5);
+            rvTag1.setLayoutManager(manager1);
+            rvTag1.setAdapter(adapter1);
+            adapter1.setOnItemClickListener(new TagAdapter.OnItemClickListener() {
+                @Override
+                public void onClick(int position) {
+                    adapter1.setCurrentPosition(position);
+                    adapter1.notifyDataSetChanged();
+                    selectValue1 = tag1Value[position];
+                }
+            });
+            tvTag1.setText(bean.getATTRIBUTE_NAME1());
+            selectValue1 = tag1Value[0];
         }
 
         if (TextUtils.isEmpty(bean.getATTRIBUTE_NAME2())) {
             layout2.setVisibility(View.GONE);
+            tvTag2.setVisibility(View.GONE);
+            rvTag2.setVisibility(View.GONE);
         } else {
             name2.setText(bean.getATTRIBUTE_NAME2());
             value2.setText(bean.getATTRIBUTE_VALUE2());
+
+            final String[] tag2Value = bean.getATTRIBUTE_VALUE2().split(",");
+            List<String> tag2List = new ArrayList<>();
+            for (int s = 0; s < tag2Value.length; s++) {
+                tag2List.add(tag2Value[s]);
+            }
+
+            final TagAdapter adapter2 = new TagAdapter(tag2List);
+            GridLayoutManager manager2 = new GridLayoutManager(this, 5);
+            rvTag2.setLayoutManager(manager2);
+            rvTag2.setAdapter(adapter2);
+            adapter2.setOnItemClickListener(new TagAdapter.OnItemClickListener() {
+                @Override
+                public void onClick(int position) {
+                    adapter2.setCurrentPosition(position);
+                    adapter2.notifyDataSetChanged();
+                    selectValue2 = tag2Value[position];
+                }
+            });
+            tvTag2.setText(bean.getATTRIBUTE_NAME2());
+            selectValue2 = tag2Value[0];
         }
 
         if (TextUtils.isEmpty(bean.getATTRIBUTE_NAME3())) {
             layout3.setVisibility(View.GONE);
+            tvTag3.setVisibility(View.GONE);
+            rvTag3.setVisibility(View.GONE);
         } else {
             name3.setText(bean.getATTRIBUTE_NAME3());
             value3.setText(bean.getATTRIBUTE_VALUE3());
+
+            final String[] tag3Value = bean.getATTRIBUTE_VALUE3().split(",");
+            List<String> tag3List = new ArrayList<>();
+            for (int s = 0; s < tag3Value.length; s++) {
+                tag3List.add(tag3Value[s]);
+            }
+
+            final TagAdapter adapter3 = new TagAdapter(tag3List);
+            GridLayoutManager manager3 = new GridLayoutManager(this, 5);
+            rvTag3.setLayoutManager(manager3);
+            rvTag3.setAdapter(adapter3);
+            adapter3.setOnItemClickListener(new TagAdapter.OnItemClickListener() {
+                @Override
+                public void onClick(int position) {
+                    adapter3.setCurrentPosition(position);
+                    adapter3.notifyDataSetChanged();
+                    selectValue3 = tag3Value[position];
+                }
+            });
+            tvTag3.setText(bean.getATTRIBUTE_NAME3());
+            selectValue3 = tag3Value[0];
         }
     }
 

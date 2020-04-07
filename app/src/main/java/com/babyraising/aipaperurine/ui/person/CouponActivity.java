@@ -42,6 +42,8 @@ public class CouponActivity extends BaseActivity {
 
     private String state = "1";
 
+    private int mode = 0;
+
     @ViewInject(R.id.rv_coupon)
     private RecyclerView rvCoupon;
 
@@ -143,6 +145,10 @@ public class CouponActivity extends BaseActivity {
     private void initData() {
         bean = ((PaperUrineApplication) getApplication()).getUserInfo();
         updateList();
+
+        Intent intent = getIntent();
+        mode = intent.getIntExtra("coupon-mode", 0);
+
     }
 
     private void initView() {
@@ -154,7 +160,12 @@ public class CouponActivity extends BaseActivity {
         couponAdapter.setOnItemClickListener(new CouponAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-
+                if (mode == 101) {
+                    Intent data = new Intent();
+                    data.putExtra("couponId", couponList.get(position).getCOUPON_ID());
+                    setResult(10000, data);
+                    finish();
+                }
             }
         });
     }

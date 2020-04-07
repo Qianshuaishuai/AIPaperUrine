@@ -84,6 +84,14 @@ public class HomeFragment extends BaseFragment {
     @ViewInject(R.id.baby_layout)
     private LinearLayout babyLayout;
 
+    @ViewInject(R.id.card_time)
+    private TextView cardTime;
+
+    @Event(R.id.card_time)
+    private void cardTime(View view) {
+
+    }
+
     @Event(R.id.layout_teach)
     private void layoutTeach(View view) {
         Intent intent = new Intent(getActivity(), TeachActivity.class);

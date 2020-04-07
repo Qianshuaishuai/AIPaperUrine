@@ -3,6 +3,7 @@ package com.babyraising.aipaperurine.ui.info;
 import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
 import android.provider.MediaStore;
@@ -100,7 +101,7 @@ public class ChangeInfoActivity extends BaseActivity {
     @ViewInject(R.id.card_sign)
     private TextView cardSign;
 
-    @ViewInject(R.id.layout_all_photo)
+    @ViewInject(R.id.layout_big_photo)
     private RelativeLayout photoLayout;
 
     @Event(R.id.layout_back_top)
@@ -110,7 +111,8 @@ public class ChangeInfoActivity extends BaseActivity {
 
     @Event(R.id.layout_date)
     private void layoutDataClick(View view) {
-        layoutDatePicker.setVisibility(View.VISIBLE);
+//        layoutDatePicker.setVisibility(View.VISIBLE);
+        yearMonthDatePickerDialog.show();
     }
 
     @Event(R.id.layout_email)
@@ -136,7 +138,7 @@ public class ChangeInfoActivity extends BaseActivity {
         photoLayout.setVisibility(View.GONE);
     }
 
-    @Event(R.id.layout_all_photo)
+    @Event(R.id.layout_big_photo)
     private void layoutAllPhoto(View view) {
         photoLayout.setVisibility(View.GONE);
     }
@@ -313,7 +315,10 @@ public class ChangeInfoActivity extends BaseActivity {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_EDITIMG);
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
-        params.addQueryStringParameter("HEADIMG", pic);
+        File picFile = new File(pic);
+        params.addQueryStringParameter("HEADIMG", picFile);
+//        params.addBodyParameter("HEADIMG", new File(pic),"multipart/form-data");
+//        params.addQueryStringParameter("HEADIMG", pic);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -322,6 +327,13 @@ public class ChangeInfoActivity extends BaseActivity {
                 switch (response.getResult()) {
                     case 0:
                         T.s("更换成功");
+                        userBean.setHEADIMG(response.getData().getHEADIMG());
+                        ((PaperUrineApplication) getApplication()).saveUserInfo(userBean);
+
+
+                        ImageOptions options = new ImageOptions.Builder().
+                                setRadius(DensityUtil.dip2px(50)).build();
+                        x.image().bind(cardIcon, userBean.getHEADIMG(), options);
                         break;
                     default:
                         T.s("更换失败");
@@ -346,6 +358,12 @@ public class ChangeInfoActivity extends BaseActivity {
         });
     }
 
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+    }
+
     private void choosePhoto() {
         Intent intentToPickPic = new Intent(Intent.ACTION_PICK, null);
         intentToPickPic.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
@@ -360,11 +378,8 @@ public class ChangeInfoActivity extends BaseActivity {
             case RC_CHOOSE_PHOTO:
                 Uri uri = data.getData();
                 String filePath = FileUtil.getFilePathByUri(this, uri);
-
                 if (!TextUtils.isEmpty(filePath)) {
-                    ImageOptions options = new ImageOptions.Builder().
-                            setRadius(DensityUtil.dip2px(50)).build();
-                    x.image().bind(cardIcon, filePath, options);
+                    updateLoadPic(filePath);
                 } else {
                     T.s("选择照片出错");
                 }
@@ -374,6 +389,7 @@ public class ChangeInfoActivity extends BaseActivity {
                     ImageOptions options = new ImageOptions.Builder().
                             setRadius(DensityUtil.dip2px(50)).build();
                     x.image().bind(cardIcon, mTempPhotoPath, options);
+                    updateLoadPic(mTempPhotoPath);
                 } else {
                     T.s("选择照片出错");
                 }
@@ -400,7 +416,15 @@ public class ChangeInfoActivity extends BaseActivity {
 
         File photoFile = new File(fileDir, "photo.jpeg");
         mTempPhotoPath = photoFile.getAbsolutePath();
-        imageUri = FileProvider.getUriForFile(this, "", photoFile);
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            /*7.0以上要通过FileProvider将File转化为Uri*/
+            imageUri = FileProvider.getUriForFile(this, "", photoFile);
+        } else {
+            /*7.0以下则直接使用Uri的fromFile方法将File转化为Uri*/
+            imageUri = Uri.fromFile(photoFile);
+        }
+        System.out.println(imageUri);
         intentToTakePhoto.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(intentToTakePhoto, RC_TAKE_PHOTO);
     }

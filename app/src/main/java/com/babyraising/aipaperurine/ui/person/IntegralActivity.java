@@ -44,6 +44,8 @@ public class IntegralActivity extends BaseActivity {
     private List<GrowthPointBean> integralList;
     private IntegralAdapter adapter;
     private UserBean userBean;
+    private String currentDate;
+    private List<GrowthPointBean> allList;
 
     @ViewInject(R.id.rv_integral)
     private RecyclerView rvIntegral;
@@ -88,6 +90,15 @@ public class IntegralActivity extends BaseActivity {
     private void initData() {
         userBean = ((PaperUrineApplication) getApplication()).getUserInfo();
         updateList();
+
+        Calendar c = Calendar.getInstance();//
+
+        tvDate.setText(c.get(Calendar.YEAR) + "." + (c.get(Calendar.MONTH) + 1));
+        if (c.get(Calendar.MONTH) + 1 < 10) {
+            currentDate = c.get(Calendar.YEAR) + "-" + "0" + (c.get(Calendar.MONTH) + 1);
+        } else{
+            currentDate = c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1);
+        }
     }
 
     private void initDatePicker() {
@@ -100,10 +111,25 @@ public class IntegralActivity extends BaseActivity {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(DatePicker view, int year, int month, int dayOfMonth) {
-                        tvDate.setText(year + "." + month);
+                        tvDate.setText(year + "." + (month + 1));
+                        if (month + 1 < 10) {
+                            translateDate(year + "-" + "0" + (month + 1));
+                        } else {
+                            translateDate(year + "-" + (month + 1));
+                        }
                     }
                 },
                 mYear, mMonth, mDay);
+    }
+
+    private void translateDate(String date) {
+        integralList.clear();
+        for (int i = 0; i < allList.size(); i++) {
+            if (allList.get(i).getCREATETIME().contains(date)) {
+                integralList.add(allList.get(i));
+            }
+        }
+        adapter.notifyDataSetChanged();
     }
 
     private void updateList() {
@@ -119,11 +145,11 @@ public class IntegralActivity extends BaseActivity {
                 System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
-                        integralList.clear();
+                        allList.clear();
                         for (int m = 0; m < response.getData().size(); m++) {
-                            integralList.add(response.getData().get(m));
+                            allList.add(response.getData().get(m));
                         }
-                        adapter.notifyDataSetChanged();
+                        translateDate(currentDate);
                         break;
                     default:
                         T.s("获取积分明细失败");
@@ -150,6 +176,7 @@ public class IntegralActivity extends BaseActivity {
 
     private void initView() {
         integralList = new ArrayList<>();
+        allList = new ArrayList<>();
         adapter = new IntegralAdapter(integralList);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         rvIntegral.setLayoutManager(manager);

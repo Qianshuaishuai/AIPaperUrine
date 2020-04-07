@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="52dip"
+    android:layout_height="38dip"
+    android:orientation="vertical">
+
+    <RadioButton
+        android:id="@+id/rb_txt"
+        android:layout_width="52dip"
+        android:layout_height="28dip"
+        android:layout_marginTop="10dip"
+        android:background="@drawable/select_good_buy_bt_bg"
+        android:button="@null"
+        android:clickable="false"
+        android:gravity="center"
+        android:text=""
+        android:textColor="@color/select_good_detail_color" />
+</LinearLayout>

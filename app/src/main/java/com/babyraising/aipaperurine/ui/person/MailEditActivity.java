@@ -79,6 +79,8 @@ public class MailEditActivity extends BaseActivity {
                 switch (response.getResult()) {
                     case 0:
                         T.s("绑定成功");
+                        userBean.setEMAIL(mail.getText().toString());
+                        ((PaperUrineApplication) getApplication()).saveUserInfo(userBean);
                         finish();
                         break;
                     default:
@@ -156,11 +158,12 @@ public class MailEditActivity extends BaseActivity {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         T.s("发送成功");
                         break;
-                    case 88:
+                    case 2:
                         T.s("邮箱已验证通过");
                         break;
                     default:

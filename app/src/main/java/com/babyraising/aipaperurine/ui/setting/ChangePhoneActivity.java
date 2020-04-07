@@ -51,6 +51,9 @@ public class ChangePhoneActivity extends BaseActivity {
     @ViewInject(R.id.current_phone)
     private TextView current_phone;
 
+    @ViewInject(R.id.tv_current_phone)
+    private TextView tvCurrentPhone;
+
     @ViewInject(R.id.input_phone)
     private EditText input_phone;
 
@@ -79,13 +82,36 @@ public class ChangePhoneActivity extends BaseActivity {
                     case 555:
                         titleTextView.setText("手机号不存在");
                         tipDialog.show();
-                        break;
+                        return;
                     case 666:
                         titleTextView.setText("手机号已注册");
                         tipDialog.show();
-                        break;
+                        return;
                     case 0:
                         T.s("发送成功");
+                        send_code.setClickable(false);
+                        codeNotClickTime = 60;
+                        send_code.setTextColor(Color.GRAY);
+                        timer = new Timer();
+                        timerTask = new TimerTask() {
+                            @Override
+                            public void run() {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        send_code.setText(codeNotClickTime + "秒");
+                                        codeNotClickTime--;
+                                        if (codeNotClickTime == 0) {
+                                            timer.cancel();
+                                            send_code.setClickable(true);
+                                            send_code.setText("发送验证码");
+                                            send_code.setTextColor(getResources().getColor(R.color.colorCommon));
+                                        }
+                                    }
+                                });
+                            }
+                        };
+                        timer.schedule(timerTask, 0, 1000);
                         break;
                 }
             }
@@ -105,29 +131,7 @@ public class ChangePhoneActivity extends BaseActivity {
 
             }
         });
-        send_code.setClickable(false);
-        codeNotClickTime = 60;
-        send_code.setTextColor(Color.GRAY);
-        timer = new Timer();
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        send_code.setText(codeNotClickTime + "秒");
-                        codeNotClickTime--;
-                        if (codeNotClickTime == 0) {
-                            timer.cancel();
-                            send_code.setClickable(true);
-                            send_code.setText("发送验证码");
-                            send_code.setTextColor(getResources().getColor(R.color.colorCommon));
-                        }
-                    }
-                });
-            }
-        };
-        timer.schedule(timerTask, 0, 1000);
+
     }
 
     @Event(R.id.commit)
@@ -193,6 +197,7 @@ public class ChangePhoneActivity extends BaseActivity {
     private void initData() {
         userBean = ((PaperUrineApplication) getApplication()).getUserInfo();
         current_phone.setText(userBean.getPHONE());
+        tvCurrentPhone.setText("更换手机号码后，下次登录可使用新的手机号登录。当前手 机号：" + userBean.getPHONE());
     }
 
     private void initTipDialog() {

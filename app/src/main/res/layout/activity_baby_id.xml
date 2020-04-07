@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.info.BabyIdActivity">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="48dip"
+        android:background="#ffffff"
+        android:orientation="horizontal"
+        android:paddingTop="12dip"
+        android:paddingBottom="12dip">
+
+        <ImageView
+            android:id="@+id/layout_back"
+            android:layout_width="23dip"
+            android:layout_height="23dip"
+            android:layout_marginLeft="15dip"
+            android:src="@mipmap/back" />
+    </RelativeLayout>
+
+    <TextView
+        android:id="@+id/tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="48dip"
+        android:layout_marginTop="136dip"
+        android:text="已有宝宝"
+        android:textColor="#1E1E1E"
+        android:textSize="17sp"
+        android:textStyle="bold" />
+
+    <EditText
+        android:id="@+id/baby_id"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_below="@+id/tip"
+        android:layout_marginLeft="48dip"
+        android:layout_marginTop="28dip"
+        android:layout_marginRight="48dip"
+        android:gravity="left"
+        android:hint="输入宝宝ID"
+        android:textColor="#1e1e1e"
+        android:textSize="16sp" />
+
+    <Button
+        android:id="@+id/sure"
+        android:layout_width="match_parent"
+        android:layout_height="55dip"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="34dip"
+        android:layout_marginRight="34dip"
+        android:layout_marginBottom="88dip"
+        android:background="@drawable/shape_good_button_bg"
+        android:text="确定"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+</RelativeLayout>

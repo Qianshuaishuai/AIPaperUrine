@@ -5,6 +5,7 @@ public class Constant {
     public static final String RID = "TEST_RID";
 
     public static final String BASE_URL = "http://wechatshare.xinxinchoice.com/api/";
+    public static final int PAY_FOR_ORDER = 10001;
 
     //user部分
     public static final String URL_GET_CODE = "user/getcode";
@@ -71,4 +72,10 @@ public class Constant {
     public static final String URL_GOODSINFO = "mall/goodsInfo";
 
     public static final String URL_LISTMYYUYUE = "mall/listMyYuyue";
+    public static final String URL_SHOWMYYUYUE = "mall/showMyYuyue";
+    public static final String URL_CANCELMYYUYUE = "mall/cancelMyYuyue";
+    public static final String URL_PREYUYUE = "mall/preYuyue";
+    public static final String URL_PREYUYUECOUPON = "mall/preYuyueCoupon";
+    public static final String URL_SUBMITYUYUEORDER = "mall/submitYuyueOrder";
+    public static final String URL_PAYORDER = "mall/payOrder";
 }

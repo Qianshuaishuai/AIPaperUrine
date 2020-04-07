@@ -1,7 +1,6 @@
 package com.babyraising.aipaperurine.ui.main;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
@@ -9,7 +8,11 @@ import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.ImageView;
+import android.widget.MediaController;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
+import android.widget.VideoView;
 
 import com.babyraising.aipaperurine.Constant;
 import com.babyraising.aipaperurine.PaperUrineApplication;
@@ -23,6 +26,8 @@ import com.babyraising.aipaperurine.response.InformationResponse;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
 
+import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlTextView;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
@@ -36,6 +41,9 @@ public class FindDetailActivity extends BaseActivity {
     private UserBean bean;
     private InformationBean infoBean;
     private String infoId;
+
+    @ViewInject(R.id.videoView)
+    private VideoView videoView;
 
     @Event(R.id.layout_back)
     private void layoutBack(View view) {
@@ -61,7 +69,7 @@ public class FindDetailActivity extends BaseActivity {
     private TextView word_count;
 
     @ViewInject(R.id.content)
-    private TextView content;
+    private HtmlTextView content;
 
     @ViewInject(R.id.cb_sc)
     private CheckBox cb_sc;
@@ -71,6 +79,9 @@ public class FindDetailActivity extends BaseActivity {
 
     @ViewInject(R.id.bt_share)
     private Button bt_share;
+
+    @ViewInject(R.id.scrollview)
+    private ScrollView scrollView;
 
     @Event(R.id.bt_share)
     private void share(View view) {
@@ -151,7 +162,9 @@ public class FindDetailActivity extends BaseActivity {
         time.setText(infoBean.getPUBLISHTIME());
         reading_count.setText("阅读数 " + infoBean.getREADNUM());
         word_count.setText("字数 " + infoBean.getDETAIL().length());
-        content.setText(infoBean.getDETAIL());
+//        content.setText(infoBean.getDETAIL());
+        content.setHtml(infoBean.getDETAIL(),
+                new HtmlResImageGetter(this));
         if (infoBean.getIS_STAR().equals("1")) {
             cb_dz.setChecked(true);
         } else if (infoBean.getIS_STAR().equals("2")) {
@@ -179,6 +192,19 @@ public class FindDetailActivity extends BaseActivity {
                 star(type);
             }
         });
+
+        if (!TextUtils.isEmpty(infoBean.getVIDEO())) {
+            videoView.setVisibility(View.VISIBLE);
+            MediaController localMediaController = new MediaController(this);
+            videoView.setMediaController(localMediaController);
+            String url = infoBean.getVIDEO();
+            videoView.setVideoPath(url);
+            videoView.start();
+
+            RelativeLayout.LayoutParams params = (RelativeLayout.LayoutParams) scrollView.getLayoutParams();
+            params.topMargin = 700;
+            scrollView.setLayoutParams(params);
+        }
     }
 
     private void collect(final String type) {

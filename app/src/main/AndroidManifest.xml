@@ -24,7 +24,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.info.TeachActivity"></activity>
+        <activity android:name=".ui.info.BabyIdActivity"></activity>
+        <activity android:name=".ui.info.BabyBindActivity" />
+        <activity android:name=".ui.info.TeachActivity" />
         <activity android:name=".ui.setting.ChangePasswordActivity" />
         <activity android:name=".ui.setting.ChangePhoneActivity" />
         <activity android:name=".ui.setting.VersionActivity" />
@@ -69,7 +71,7 @@
         <activity android:name=".ui.info.PickSizeActivity" />
         <activity
             android:name=".ui.info.ChangeInfoActivity"
-            android:windowSoftInputMode="adjustPan"></activity>
+            android:windowSoftInputMode="adjustPan" />
         <activity android:name=".ui.user.ForgetActivity" />
         <activity android:name=".ui.user.RegisterActivity" />
         <activity android:name=".ui.user.LoginNormalActivity">

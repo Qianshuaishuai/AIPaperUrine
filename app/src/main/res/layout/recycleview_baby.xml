@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
     android:orientation="vertical">
@@ -148,6 +149,7 @@
                 android:orientation="horizontal">
 
                 <ImageView
+                    android:id="@+id/card_data"
                     android:layout_width="26dip"
                     android:layout_height="26dip"
                     android:layout_marginRight="30dip"
@@ -196,17 +198,29 @@
                     android:textSize="18sp" />
             </LinearLayout>
 
-            <LinearLayout
+            <RelativeLayout
                 android:layout_width="160dip"
                 android:layout_height="84dip"
                 android:layout_marginLeft="30dip"
-                android:background="@mipmap/icon_niaoliang_huise"
-                android:gravity="center_horizontal"
                 android:orientation="vertical">
 
+                <com.shsany.managerassistant.view.HalfCircleProgressView
+                    android:id="@+id/cpv"
+                    android:layout_width="160dip"
+                    android:layout_height="84dp"
+                    app:backgroudColor="@color/colorWhite"
+                    app:circleWidth="10dp"
+                    app:name=""
+                    app:padding="5dp"
+                    app:progressColor="@color/colorCommon"
+                    app:textColor="#ffffff"
+                    app:textSize="16sp" />
+
                 <TextView
+                    android:id="@+id/main_beam_tv_tip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="24dip"
                     android:text="尿量"
                     android:textColor="#999999"
@@ -216,11 +230,13 @@
                     android:id="@+id/main_beam_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_below="@+id/main_beam_tv_tip"
+                    android:layout_centerHorizontal="true"
                     android:layout_marginTop="4.5dip"
                     android:text="368ml"
                     android:textColor="#1E1E1E"
                     android:textSize="30sp" />
-            </LinearLayout>
+            </RelativeLayout>
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -285,6 +301,7 @@
                 android:orientation="vertical">
 
                 <TextView
+                    android:id="@+id/size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="S"
@@ -295,7 +312,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dip"
-                    android:text="睡姿"
+                    android:text="码数"
                     android:textColor="#999999"
                     android:textSize="13sp" />
             </LinearLayout>

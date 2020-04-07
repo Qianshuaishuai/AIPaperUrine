@@ -1,5 +1,6 @@
 package com.babyraising.aipaperurine.ui.message;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import com.babyraising.aipaperurine.bean.PersonBean;
 import com.babyraising.aipaperurine.bean.UserBean;
 import com.babyraising.aipaperurine.response.MessageResponse;
 import com.babyraising.aipaperurine.response.RegisterResponse;
+import com.babyraising.aipaperurine.ui.info.RemindDetailActivity;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
 
@@ -153,7 +155,7 @@ public class MessageActivity extends BaseActivity {
         dma.setOnItemClickListener(new DeviceMessageAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-
+                startRemindDetailActivity(dmaList.get(position).getMESSAGE_ID());
             }
         });
 
@@ -165,8 +167,14 @@ public class MessageActivity extends BaseActivity {
         oma.setOnItemClickListener(new OfficeMessageAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-
+                startRemindDetailActivity(omaList.get(position).getMESSAGE_ID());
             }
         });
+    }
+
+    private void startRemindDetailActivity(String messageId){
+        Intent intent = new Intent(this,RemindDetailActivity.class);
+        intent.putExtra("message-id",messageId);
+        startActivity(intent);
     }
 }

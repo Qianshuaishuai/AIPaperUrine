@@ -7,4 +7,8 @@
     <color name="colorCommon">#F866AA</color>
     <color name="colorWhite">#FFFFFF</color>
     <color name="colorSign">#F866AA</color>
+
+    <color name="navpage">#FFE1E8EB</color>
+    <color name="black">#1e1e1e</color>
+    <color name="grey">#999999</color>
 </resources>

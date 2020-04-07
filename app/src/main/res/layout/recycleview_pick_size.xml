@@ -1,0 +1,28 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RadioButton
+        android:id="@+id/bt1_size"
+        android:layout_width="100dip"
+        android:layout_height="40dip"
+        android:layout_marginTop="14dip"
+        android:background="@drawable/select_pick_size"
+        android:button="@null"
+        android:checked="false"
+        android:gravity="center"
+        android:text="M"
+        android:textColor="@color/select_pick_size"
+        android:textSize="17sp" />
+
+    <TextView
+        android:id="@+id/tv_sec"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dip"
+        android:text="适用于0-6个人月或体重小于3kg的宝宝。"
+        android:textColor="#d4d4d4"
+        android:textSize="14sp" />
+</LinearLayout>

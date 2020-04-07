@@ -55,6 +55,7 @@ public class AboutActivity extends BaseActivity {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 AboutUsResponse response = gson.fromJson(result, AboutUsResponse.class);
+                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         x.image().bind(logo, response.getData().getPIC());
@@ -69,7 +70,7 @@ public class AboutActivity extends BaseActivity {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                T.s("请求出错，请检查网络");
+                System.out.println("错误处理:"+ex);
             }
 
             @Override

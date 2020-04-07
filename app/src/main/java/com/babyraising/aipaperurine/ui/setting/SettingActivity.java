@@ -89,6 +89,7 @@ public class SettingActivity extends BaseActivity {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 RegisterResponse response = gson.fromJson(result, RegisterResponse.class);
+                
                 switch (response.getResult()) {
                     case 0:
                         T.s("登出成功");

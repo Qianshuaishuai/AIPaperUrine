@@ -106,7 +106,7 @@
                             android:textSize="12sp" />
 
                         <TextView
-                            android:id="@+id/phone"
+                            android:id="@+id/detail"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="3.5dip"
@@ -152,8 +152,7 @@
                     <ImageView
                         android:id="@+id/icon"
                         android:layout_width="88dip"
-                        android:layout_height="88dip"
-                        android:background="#f0f088" />
+                        android:layout_height="88dip" />
 
                     <LinearLayout
                         android:layout_width="wrap_content"
@@ -309,7 +308,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dip"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -334,7 +334,8 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="24dip"
                     android:gravity="center_vertical"
-                    android:orientation="horizontal">
+                    android:orientation="horizontal"
+                    android:visibility="gone">
 
                     <TextView
                         android:layout_width="wrap_content"

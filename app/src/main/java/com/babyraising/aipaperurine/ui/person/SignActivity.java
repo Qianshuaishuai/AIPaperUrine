@@ -44,6 +44,7 @@ public class SignActivity extends BaseActivity {
     private AlertDialog tipDialog;
     private TextView detail;
     private PopupWindow popupWindow;
+    private int currentDay;
 
     @ViewInject(R.id.sign_day)
     private TextView signDay;
@@ -141,6 +142,9 @@ public class SignActivity extends BaseActivity {
                         signComplete.setText("已签到");
                         signComplete.setTextColor(getResources().getColor(R.color.colorSign));
                         signComplete.setBackgroundResource(R.drawable.shape_sign_bt_selected_bg);
+
+                        integral.setText(currentDay + 1);
+                        updateSignList(currentDay + 1);
                         break;
                     default:
                         T.s("签到失败");
@@ -242,6 +246,7 @@ public class SignActivity extends BaseActivity {
                         signDay.setText(response.getData().getCONTINUITY_SIGNIN_NUM());
                         integral.setText(personBean.getPOINT());
                         updateSignList(Integer.parseInt(response.getData().getCONTINUITY_SIGNIN_NUM()));
+                        currentDay = Integer.parseInt(response.getData().getCONTINUITY_SIGNIN_NUM());
                         switch (response.getData().getHAS_SIGNIN()) {
                             case "1":
                                 signComplete.setClickable(true);

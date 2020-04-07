@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="wrap_content"
+    android:layout_height="wrap_content"
+    android:orientation="vertical">
+
+    <RadioButton
+        android:id="@+id/bt_brand"
+        android:layout_width="128dip"
+        android:layout_height="40dip"
+        android:background="@drawable/select_bottom_pick_brand"
+        android:button="@null"
+        android:checked="false"
+        android:gravity="center"
+        android:text="monny"
+        android:textColor="@color/select_pick_size"
+        android:textSize="14sp" />
+</LinearLayout>
