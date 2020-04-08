@@ -441,4 +441,172 @@
         </RelativeLayout>
     </ScrollView>
 
+    <!--指引绑定-->
+    <RelativeLayout
+        android:id="@+id/layout_introduce"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#4e000000"
+        android:orientation="vertical"
+        android:visibility="gone">
+
+        <ImageView
+            android:layout_width="match_parent"
+            android:layout_height="420dip"
+            android:background="@mipmap/img_shiyongbuzou_six" />
+
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="300dip"
+            android:gravity="center_horizontal"
+            android:orientation="vertical">
+
+            <ImageView
+                android:layout_width="42dip"
+                android:layout_height="72dip"
+                android:src="@mipmap/btn_zhiyingjiantou" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="18dip"
+                android:text="点击绑定设备，开始照顾宝宝~"
+                android:textColor="#fefefe"
+                android:textSize="18sp" />
+
+            <Button
+                android:id="@+id/introduce_close"
+                android:layout_width="202dip"
+                android:layout_height="74.5dip"
+                android:layout_alignParentRight="true"
+                android:background="@mipmap/btn_zhiyingkuang_zhidaolab"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="53dip"
+                android:text="知道啦"
+                android:textColor="#fefefe"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+        </LinearLayout>
+
+
+    </RelativeLayout>
+
+    <!--指引使用-->
+    <ScrollView
+        android:id="@+id/layout_use"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:visibility="gone">
+
+        <RelativeLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:background="#4e000000"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="128dip"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <ImageView
+                    android:layout_width="66dip"
+                    android:layout_height="66dip"
+                    android:layout_marginLeft="30dip"
+                    android:src="@mipmap/img_tianjiabaobaoxinxi" />
+
+                <ImageView
+                    android:layout_width="match_parent"
+                    android:layout_height="48.5dip"
+                    android:layout_marginLeft="4dip"
+                    android:layout_marginRight="93dip"
+                    android:background="@mipmap/img_lianjieshebie" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="125dip"
+                android:layout_height="106.5dip"
+                android:layout_marginLeft="15dip"
+                android:layout_marginTop="190dip"
+                android:background="@mipmap/img_left_yidaokuang"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dip"
+                    android:layout_marginTop="58dip"
+                    android:layout_marginRight="18dip"
+                    android:text="在此可添加 更多宝宝信息"
+                    android:textColor="#fefefe"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="140dip"
+                android:layout_height="107.5dip"
+                android:layout_alignParentRight="true"
+                android:layout_marginTop="174dip"
+                android:layout_marginRight="15dip"
+                android:background="@mipmap/img_right_yidaokuang"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:layout_marginTop="56dip"
+                    android:layout_marginRight="10dip"
+                    android:text="连接设备后，才能 保护宝宝安全哦"
+                    android:textColor="#fefefe"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <Button
+                android:id="@+id/use_close"
+                android:layout_width="202dip"
+                android:layout_height="74.5dip"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="380dip"
+                android:background="@mipmap/btn_zhiyingkuang_zhidaolab"
+                android:gravity="center_vertical|left"
+                android:paddingLeft="53dip"
+                android:text="知道啦"
+                android:textColor="#fefefe"
+                android:textSize="20sp"
+                android:textStyle="bold" />
+
+            <ImageView
+                android:layout_width="match_parent"
+                android:layout_height="63dip"
+                android:layout_centerHorizontal="true"
+                android:layout_marginLeft="15dip"
+                android:layout_marginTop="600dip"
+                android:layout_marginRight="15dip"
+                android:background="@mipmap/img_tianjiabaobao" />
+
+            <LinearLayout
+                android:layout_width="125dip"
+                android:layout_height="106.5dip"
+                android:layout_marginLeft="100dip"
+                android:layout_marginTop="660dip"
+                android:layout_marginBottom="18dip"
+                android:background="@mipmap/img_left_yidaokuang"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="18dip"
+                    android:layout_marginTop="64dip"
+                    android:layout_marginRight="18dip"
+                    android:text="添加新的宝宝"
+                    android:textColor="#fefefe"
+                    android:textSize="14sp" />
+            </LinearLayout>
+        </RelativeLayout>
+    </ScrollView>
 </RelativeLayout>

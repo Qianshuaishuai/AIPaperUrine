@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent"
+    android:background="#ffffff"
+    android:orientation="vertical">
+
+    <RelativeLayout
+        android:layout_width="223dip"
+        android:layout_height="223dip"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="150dip"
+        android:background="@drawable/shape_device_connect_bg1">
+
+        <RelativeLayout
+            android:layout_width="191dip"
+            android:layout_height="191dip"
+            android:layout_centerInParent="true"
+            android:background="@drawable/shape_device_connect_bg2">
+
+            <RelativeLayout
+                android:layout_width="153dip"
+                android:layout_height="153dip"
+                android:layout_centerInParent="true"
+                android:background="@drawable/shape_device_connect_bg3">
+
+                <RelativeLayout
+                    android:layout_width="114dip"
+                    android:layout_height="114dip"
+                    android:layout_centerInParent="true"
+                    android:background="@drawable/shape_device_connect_bg4">
+
+                    <RelativeLayout
+                        android:layout_width="80dip"
+                        android:layout_height="80dip"
+                        android:layout_centerInParent="true"
+                        android:background="@drawable/shape_device_connect_bg5">
+
+                        <TextView
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_centerInParent="true"
+                            android:gravity="center"
+                            android:text="设备连接中..."
+                            android:textColor="#1e1e1e"
+                            android:textSize="13sp" />
+                    </RelativeLayout>
+                </RelativeLayout>
+            </RelativeLayout>
+        </RelativeLayout>
+    </RelativeLayout>
+</RelativeLayout>

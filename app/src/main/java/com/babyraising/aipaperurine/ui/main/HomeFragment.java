@@ -2,6 +2,7 @@ package com.babyraising.aipaperurine.ui.main;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.drawable.ColorDrawable;
 import android.net.Uri;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
@@ -13,8 +14,12 @@ import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.PopupWindow;
+import android.widget.RelativeLayout;
+import android.widget.ScrollView;
 import android.widget.TextView;
 
 import com.babyraising.aipaperurine.Constant;
@@ -69,6 +74,9 @@ public class HomeFragment extends BaseFragment {
 
     private OnFragmentInteractionListener mListener;
 
+    private PopupWindow loginPopupWindow;
+    private PopupWindow bindPopupWindow;
+
     @ViewInject(R.id.card_name)
     private TextView cardName;
 
@@ -87,9 +95,29 @@ public class HomeFragment extends BaseFragment {
     @ViewInject(R.id.card_time)
     private TextView cardTime;
 
+    @ViewInject(R.id.layout_introduce)
+    private RelativeLayout introduceLayout;
+
+    @ViewInject(R.id.layout_use)
+    private ScrollView useLayout;
+
     @Event(R.id.card_time)
     private void cardTime(View view) {
 
+    }
+
+    @Event(R.id.introduce_close)
+    private void introduceClose(View view) {
+        if (introduceLayout.getVisibility() == View.VISIBLE) {
+            introduceLayout.setVisibility(View.GONE);
+        }
+    }
+
+    @Event(R.id.use_close)
+    private void useClose(View view) {
+        if (useLayout.getVisibility() == View.VISIBLE) {
+            useLayout.setVisibility(View.GONE);
+        }
     }
 
     @Event(R.id.layout_teach)
@@ -175,6 +203,8 @@ public class HomeFragment extends BaseFragment {
         initData();
         initTeachs();
         getMemberList();
+        initLoginSuccessDialog();
+        initBindSuccessDialog();
     }
 
     private void initTeachs() {
@@ -284,6 +314,32 @@ public class HomeFragment extends BaseFragment {
             @Override
             public void onFinished() {
 
+            }
+        });
+    }
+
+    private void initLoginSuccessDialog() {
+        View view = LayoutInflater.from(getActivity()).inflate(
+                R.layout.dialog_login_success, null, false);
+
+        Button btClose = (Button) view.findViewById(R.id.bt_close);
+        btClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginPopupWindow.dismiss();
+            }
+        });
+    }
+
+    private void initBindSuccessDialog() {
+        View view = LayoutInflater.from(getActivity()).inflate(
+                R.layout.dialog_bind_success, null, false);
+
+        Button btClose = (Button) view.findViewById(R.id.bt_close);
+        btClose.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                loginPopupWindow.dismiss();
             }
         });
     }
