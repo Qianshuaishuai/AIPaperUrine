@@ -204,18 +204,6 @@
                 android:layout_marginLeft="30dip"
                 android:orientation="vertical">
 
-                <com.shsany.managerassistant.view.HalfCircleProgressView
-                    android:id="@+id/cpv"
-                    android:layout_width="160dip"
-                    android:layout_height="84dp"
-                    app:backgroudColor="@color/colorWhite"
-                    app:circleWidth="10dp"
-                    app:name=""
-                    app:padding="5dp"
-                    app:progressColor="@color/colorCommon"
-                    app:textColor="#ffffff"
-                    app:textSize="16sp" />
-
                 <TextView
                     android:id="@+id/main_beam_tv_tip"
                     android:layout_width="wrap_content"

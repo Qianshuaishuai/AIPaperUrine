@@ -51,8 +51,8 @@ public class LoginNormalActivity extends BaseActivity {
 
     @Event(R.id.login)
     private void loginClick(View view) {
-        phone.setText("186737007151");
-        password.setText("1111");
+        phone.setText("18929391239");
+        password.setText("a123456");
         if (phone.getText().toString().length() != 11) {
             titleTextView.setText("手机号码输入错误， 请重新输入!");
             tipDialog.show();

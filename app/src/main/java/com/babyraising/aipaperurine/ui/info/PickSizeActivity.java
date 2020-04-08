@@ -46,6 +46,7 @@ public class PickSizeActivity extends BaseActivity {
 
     private List<String> brandList;
     private BrandAdapter brandAdapter;
+    private String currentBrandId;
 
     @Event(R.id.layout_back)
     private void back(View view) {
@@ -127,6 +128,7 @@ public class PickSizeActivity extends BaseActivity {
     private void updateView(List<BrandSizeBean> beanList) {
         if (beanList.size() > 0) {
             brandName.setText(beanList.get(0).getBRAND_NAME());
+            currentBrandId = beanList.get(0).getBRAND_ID();
 
             String[] brandSizes = beanList.get(0).getBRAND_SIZES().split(",");
             String[] brandDescs = beanList.get(0).getBRAND_SIZE_DESCS().split(",");
@@ -147,7 +149,7 @@ public class PickSizeActivity extends BaseActivity {
     private void updateData(int position) {
         if (allList.size() > 0) {
             brandName.setText(allList.get(position).getBRAND_NAME());
-
+            currentBrandId = allList.get(position).getBRAND_ID();
             String[] brandSizes = allList.get(position).getBRAND_SIZES().split(",");
             String[] brandDescs = allList.get(position).getBRAND_SIZE_DESCS().split(",");
 
@@ -177,6 +179,7 @@ public class PickSizeActivity extends BaseActivity {
                 Intent data = new Intent();
                 data.putExtra("brandSize", sizeList.get(position).getBRAND_SIZE());
                 data.putExtra("brand", brandName.getText().toString());
+                data.putExtra("brandId", currentBrandId);
                 setResult(10000, data);
                 finish();
             }

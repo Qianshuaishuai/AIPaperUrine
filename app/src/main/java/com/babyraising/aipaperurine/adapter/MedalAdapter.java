@@ -13,12 +13,15 @@ import android.widget.TextView;
 
 import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.bean.CouponMoreBean;
+import com.babyraising.aipaperurine.bean.MedalSimpleBean;
+
+import org.xutils.x;
 
 import java.util.List;
 
 public class MedalAdapter extends RecyclerView.Adapter<MedalAdapter.ViewHolder> {
 
-    private List<CouponMoreBean> mList;
+    private List<MedalSimpleBean> mList;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView tipTxt;
@@ -32,7 +35,7 @@ public class MedalAdapter extends RecyclerView.Adapter<MedalAdapter.ViewHolder> 
 
     }
 
-    public MedalAdapter(List<CouponMoreBean> mList) {
+    public MedalAdapter(List<MedalSimpleBean> mList) {
         this.mList = mList;
     }
 
@@ -53,7 +56,8 @@ public class MedalAdapter extends RecyclerView.Adapter<MedalAdapter.ViewHolder> 
                 }
             }
         });
-
+        holder.icon.setImageResource(mList.get(position).getPIC());
+        holder.tipTxt.setText(mList.get(position).getTAG());
     }
 
     @Override

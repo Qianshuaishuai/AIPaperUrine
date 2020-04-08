@@ -136,15 +136,14 @@ public class SignActivity extends BaseActivity {
                 switch (response.getResult()) {
                     case 0:
                         detail.setText("+" + response.getData().getPOINT() + "分");
+                        integral.setText(currentDay + 1);
+                        updateSignList(currentDay + 1);
                         popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
 
                         signComplete.setClickable(false);
                         signComplete.setText("已签到");
                         signComplete.setTextColor(getResources().getColor(R.color.colorSign));
                         signComplete.setBackgroundResource(R.drawable.shape_sign_bt_selected_bg);
-
-                        integral.setText(currentDay + 1);
-                        updateSignList(currentDay + 1);
                         break;
                     default:
                         T.s("签到失败");

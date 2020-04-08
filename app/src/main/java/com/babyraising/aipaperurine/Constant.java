@@ -59,6 +59,7 @@ public class Constant {
     //成员类
     public static final String URL_ADDMEMBER = "member/addMember";
     public static final String URL_EDITMEMBERIMG = "member/editMemberImg";
+    public static final String URL_EDITMEMBERSIZE = "member/editMemberSize";
     public static final String URL_EDIT_MEMBERINFO = "member/editMemberInfo";
     public static final String URL_MEMBERLIST = "member/memberList";
     public static final String URL_MEMBERINFO = "member/memberInfo";

@@ -11,7 +11,6 @@ import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.bean.AddressBean;
 import com.babyraising.aipaperurine.bean.MemberListBean;
 import com.babyraising.aipaperurine.view.HalfCircleProgressView;
-import com.king.view.circleprogressview.CircleProgressView;
 
 import org.xutils.common.util.DensityUtil;
 import org.xutils.image.ImageOptions;
@@ -46,7 +45,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             mainBeamTv = (TextView) view.findViewById(R.id.main_beam_tv);
             mainSleepTv = (TextView) view.findViewById(R.id.card_message_count);
             mainSize = (TextView) view.findViewById(R.id.card_message_count);
-            cpv = (HalfCircleProgressView) view.findViewById(R.id.cpv);
         }
 
     }

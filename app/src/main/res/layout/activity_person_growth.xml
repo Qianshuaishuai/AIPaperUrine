@@ -153,6 +153,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="match_parent"
+            android:background="#f3f6f9"
             android:orientation="vertical">
 
             <LinearLayout
@@ -230,14 +231,16 @@
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dip"
                     android:layout_marginTop="15dip"
-                    android:text="我的勋章"
+                    android:text="签到勋章"
                     android:textColor="#999999"
                     android:textSize="14sp" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_sign_medal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginBottom="18dip">
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
@@ -263,7 +266,9 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_growth_medal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginBottom="18dip">
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
@@ -289,7 +294,9 @@
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_change_medal"
                     android:layout_width="match_parent"
-                    android:layout_height="wrap_content">
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginBottom="18dip">
 
                 </android.support.v7.widget.RecyclerView>
             </LinearLayout>
