@@ -223,6 +223,7 @@
                     android:textSize="16sp" />
 
                 <RelativeLayout
+                    android:id="@+id/reason_layout"
                     android:layout_width="match_parent"
                     android:layout_height="40dip"
                     android:layout_marginLeft="98dip"

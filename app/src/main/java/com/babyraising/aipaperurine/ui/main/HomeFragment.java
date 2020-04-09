@@ -89,7 +89,7 @@ public class HomeFragment extends BaseFragment {
     @ViewInject(R.id.rv_member)
     private RecyclerView rvMember;
 
-    @ViewInject(R.id.baby_layout)
+    @ViewInject(R.id.baby_layout_simple)
     private LinearLayout babyLayout;
 
     @ViewInject(R.id.card_time)
@@ -243,7 +243,7 @@ public class HomeFragment extends BaseFragment {
     }
 
     private void initData() {
-//        userBean = ((PaperUrineApplication) getActivity().getApplication()).getUserInfo();
+        userBean = ((PaperUrineApplication) getActivity().getApplication()).getUserInfo();
 //        if (TextUtils.isEmpty(userBean.getNICKNAME())) {
 //            cardName.setText("尚未设置昵称");
 //        } else {
@@ -272,6 +272,8 @@ public class HomeFragment extends BaseFragment {
 
     private void getMemberList() {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_MEMBERLIST);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -297,6 +299,7 @@ public class HomeFragment extends BaseFragment {
 
                     default:
                         T.s("获取宝宝列表失败");
+                        System.out.println(result);
                         break;
                 }
             }

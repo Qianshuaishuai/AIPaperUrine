@@ -17,7 +17,7 @@ public class ShowMyYuyueBean {
     private String TOTAL_PRICE;
     private String COUPON_DIS_COUNT;
     private String GROWTH;
-    private List<ShowMyYuyueGoodBean> GOODS;
+    private List<GoodBean> GOODS;
 
     public String getYUYUE_ID() {
         return YUYUE_ID;
@@ -131,11 +131,11 @@ public class ShowMyYuyueBean {
         this.GROWTH = GROWTH;
     }
 
-    public List<ShowMyYuyueGoodBean> getGOODS() {
+    public List<GoodBean> getGOODS() {
         return GOODS;
     }
 
-    public void setGOODS(List<ShowMyYuyueGoodBean> GOODS) {
+    public void setGOODS(List<GoodBean> GOODS) {
         this.GOODS = GOODS;
     }
 }

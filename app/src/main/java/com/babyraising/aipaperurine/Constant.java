@@ -79,4 +79,11 @@ public class Constant {
     public static final String URL_PREYUYUECOUPON = "mall/preYuyueCoupon";
     public static final String URL_SUBMITYUYUEORDER = "mall/submitYuyueOrder";
     public static final String URL_PAYORDER = "mall/payOrder";
+    public static final String URL_SHOWMYYUYUEREFUND = "mail/showMyYuyueRefund";
+    public static final String URL_SUBMITREFUNDNO = "mail/submitRefundNo";
+    public static final String URL_SHOWMYYUYUELOGISTICS = "mail/showMyYuyueLogistics";
+    public static final String URL_SHOWSIMPLEMYYUYUE = "mail/showSimpleMyYuyue";
+    public static final String URL_RECEIVEMYYUYUE = "mail/receiveMyYuyue";
+    public static final String URL_PREREFUNDMYYUYUE = "mail/preRefundMyYuyue";
+    public static final String URL_PREREFUNDNUM = "mail/preRefundNum";
 }

@@ -3,6 +3,7 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
+    android:layout_marginTop="10dip"
     android:orientation="vertical">
 
     <LinearLayout
@@ -93,7 +94,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginBottom="1dip"
-                        android:text="3"
+                        android:text=""
                         android:textColor="#ffffff"
                         android:textSize="9sp" />
                 </LinearLayout>
@@ -116,7 +117,10 @@
         android:layout_width="match_parent"
         android:layout_height="400dip"
         android:layout_below="@+id/card_layout"
-        android:background="#ffffff"
+        android:layout_marginLeft="15dip"
+        android:layout_marginTop="1dip"
+        android:layout_marginRight="15dip"
+        android:background="@drawable/shape_home_card_bg"
         android:orientation="vertical">
 
         <LinearLayout
@@ -171,7 +175,9 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
             android:layout_marginTop="10dip"
+            android:layout_marginRight="15dip"
             android:gravity="bottom|center_horizontal"
             android:orientation="horizontal">
 
@@ -203,6 +209,11 @@
                 android:layout_height="84dip"
                 android:layout_marginLeft="30dip"
                 android:orientation="vertical">
+
+                <com.babyraising.aipaperurine.view.HalfCircleProgressView
+                    android:id="@+id/cpv"
+                    android:layout_width="160dip"
+                    android:layout_height="84dip" />
 
                 <TextView
                     android:id="@+id/main_beam_tv_tip"

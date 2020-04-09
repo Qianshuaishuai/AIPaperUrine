@@ -1,12 +1,15 @@
 package com.babyraising.aipaperurine.ui.pay;
 
+import android.app.AlertDialog;
 import android.content.Intent;
 import android.os.Handler;
 import android.os.Message;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
+import android.view.LayoutInflater;
 import android.view.View;
+import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.RadioButton;
 import android.widget.TextView;
@@ -39,6 +42,7 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.text.DecimalFormat;
 import java.util.Map;
 
 @ContentView(R.layout.activity_pay)
@@ -51,6 +55,8 @@ public class PayActivity extends BaseActivity {
 
     private String YuyueID = "";
     private String REALPAY = "0.0";
+
+    private AlertDialog payTipDialog;
 
     private IWXAPI api;
 
@@ -65,7 +71,7 @@ public class PayActivity extends BaseActivity {
 
     @Event(R.id.layout_back)
     private void back(View view) {
-        finish();
+        payTipDialog.show();
     }
 
     @Event(R.id.sure)
@@ -98,6 +104,7 @@ public class PayActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
 
         initData();
+        initPayTipDialog();
     }
 
     private void initData() {
@@ -114,7 +121,9 @@ public class PayActivity extends BaseActivity {
             return;
         }
 
-        price.setText("￥" + REALPAY);
+        DecimalFormat df = new DecimalFormat("#0.00");
+        float realPay = Float.parseFloat(REALPAY);
+        price.setText("￥" + df.format(realPay));
     }
 
     private void goToPay() {
@@ -239,6 +248,43 @@ public class PayActivity extends BaseActivity {
         Intent intent = new Intent(this, PayResultActivity.class);
         intent.putExtra("realPay", REALPAY);
         startActivity(intent);
+    }
+
+    private void initPayTipDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // 创建一个view，并且将布局加入view中
+        View view = LayoutInflater.from(this).inflate(
+                R.layout.dialog_pay_tip, null, false);
+        // 将view添加到builder中
+        builder.setView(view);
+        // 创建dialog
+        payTipDialog = builder.create();
+        // 初始化控件，注意这里是通过view.findViewById
+        Button cancelButton = (Button) view.findViewById(R.id.cancel);
+        Button sureButton = (Button) view.findViewById(R.id.sure);
+
+        cancelButton.setOnClickListener(new android.view.View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                payTipDialog.cancel();
+            }
+        });
+
+        sureButton.setOnClickListener(new android.view.View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                payTipDialog.cancel();
+                finish();
+            }
+        });
+
+        payTipDialog.setCancelable(false);
+//        tipDialog.show();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)

@@ -147,6 +147,7 @@ public class SignActivity extends BaseActivity {
                         break;
                     default:
                         T.s("签到失败");
+                        System.out.println("签到失败:" + result);
                         break;
                 }
             }

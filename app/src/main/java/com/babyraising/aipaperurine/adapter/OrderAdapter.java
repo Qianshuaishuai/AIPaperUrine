@@ -1,6 +1,8 @@
 package com.babyraising.aipaperurine.adapter;
 
+import android.content.Context;
 import android.graphics.Color;
+import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -8,45 +10,52 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.bean.CouponMoreBean;
 import com.babyraising.aipaperurine.bean.YuYueBean;
+import com.babyraising.aipaperurine.ui.order.OrderActivity;
 
+import java.text.DecimalFormat;
 import java.util.List;
 
 public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> {
 
     private List<YuYueBean> mList;
+    private OrderActivity context;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView orderNumTxt, timeTxt, nameTxt, paramsTxt, statusTipTxt, countTipTxt, priceTipTxt;
         ImageView icon;
         Button bt1, bt2, bt3, bt4;
+        RecyclerView rvOrderGood;
+        LinearLayout btLayout;
 
         public ViewHolder(View view) {
             super(view);
             orderNumTxt = (TextView) view.findViewById(R.id.order_num);
             timeTxt = (TextView) view.findViewById(R.id.time);
-            nameTxt = (TextView) view.findViewById(R.id.name);
-            paramsTxt = (TextView) view.findViewById(R.id.params);
-            statusTipTxt = (TextView) view.findViewById(R.id.status_tip);
+
             countTipTxt = (TextView) view.findViewById(R.id.count_tip);
             priceTipTxt = (TextView) view.findViewById(R.id.price_tip);
 
-            icon = (ImageView) view.findViewById(R.id.icon);
             bt1 = (Button) view.findViewById(R.id.bt_1);
             bt2 = (Button) view.findViewById(R.id.bt_2);
             bt3 = (Button) view.findViewById(R.id.bt_3);
             bt4 = (Button) view.findViewById(R.id.bt_4);
+
+            rvOrderGood = (RecyclerView) view.findViewById(R.id.rv_order_good);
+            btLayout = (LinearLayout) view.findViewById(R.id.bt_layout);
         }
 
     }
 
-    public OrderAdapter(List<YuYueBean> mList) {
+    public OrderAdapter(List<YuYueBean> mList, OrderActivity context) {
         this.mList = mList;
+        this.context = context;
     }
 
     @Override
@@ -67,11 +76,45 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
             }
         });
 
-        YuYueBean data = mList.get(position);
+        DecimalFormat df = new DecimalFormat("#0.00");
+        float realPay = Float.parseFloat(mList.get(position).getREALPAY());
+        holder.orderNumTxt.setText(mList.get(position).getPAYNO());
+        holder.timeTxt.setText(mList.get(position).getCREATETIME());
+        holder.countTipTxt.setText("共" + mList.get(position).getGOODS().size() + "件商品 合计：");
+        holder.priceTipTxt.setText("￥" + df.format(realPay));
 
-        switch (data.getPAYSTATE()){
+        switch (mList.get(position).getPAYSTATE()) {
+            case "1":
+                holder.btLayout.setVisibility(View.VISIBLE);
+                holder.bt3.setVisibility(View.VISIBLE);
+                holder.bt4.setVisibility(View.VISIBLE);
+                holder.bt3.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
 
+                    }
+                });
+
+                holder.bt4.setOnClickListener(new View.OnClickListener() {
+                    @Override
+                    public void onClick(View view) {
+
+                    }
+                });
+                break;
+            case "2":
+                holder.btLayout.setVisibility(View.GONE);
+                break;
+            case "3":
+                holder.btLayout.setVisibility(View.GONE);
+                break;
         }
+
+        OrderGoodAdapter adapter = new OrderGoodAdapter(mList.get(position).getGOODS(), context);
+        LinearLayoutManager manager = new LinearLayoutManager(context);
+
+        holder.rvOrderGood.setAdapter(adapter);
+        holder.rvOrderGood.setLayoutManager(manager);
     }
 
     @Override

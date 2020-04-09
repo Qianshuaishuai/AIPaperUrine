@@ -1,6 +1,7 @@
 package com.babyraising.aipaperurine.adapter;
 
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -45,6 +46,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             mainBeamTv = (TextView) view.findViewById(R.id.main_beam_tv);
             mainSleepTv = (TextView) view.findViewById(R.id.card_message_count);
             mainSize = (TextView) view.findViewById(R.id.card_message_count);
+            cpv = (HalfCircleProgressView)view.findViewById(R.id.cpv);
         }
 
     }
@@ -70,6 +72,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
                 }
             }
         });
+
+        System.out.println( mList.get(position).getHEADIMG());
         ImageOptions options = new ImageOptions.Builder().
                 setRadius(DensityUtil.dip2px(66)).build();
         x.image().bind(holder.cardIcon, mList.get(position).getHEADIMG(), options);
@@ -77,9 +81,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.cardName.setText(mList.get(position).getNICKNAME());
         holder.cardTime.setText(mList.get(position).getCREATETIME());
         holder.cardMessageCount.setText(mList.get(position).getHAS_WAITREAD());
-        holder.mainTempTv.setText(mList.get(position).getTEMPERATURE() + "℃");
-        holder.mainBeamTv.setText(mList.get(position).getURINE_VOLUME() + "ml");
-        holder.mainPercentTv.setText(mList.get(position).getURINE_VOLUME_PERCENT() + "%");
         holder.mainSleepTv.setText(mList.get(position).getSLEEP_TIME());
         holder.mainSize.setText(mList.get(position).getDIAPER_SIZE());
 
@@ -104,7 +105,29 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             }
         });
 
-        int percent = Integer.parseInt(mList.get(position).getURINE_VOLUME_PERCENT());
+
+        if (TextUtils.isEmpty(mList.get(position).getTEMPERATURE())){
+            holder.mainTempTv.setText("0℃");
+        }else{
+            holder.mainTempTv.setText(mList.get(position).getTEMPERATURE() + "℃");
+        }
+
+        if (TextUtils.isEmpty(mList.get(position).getURINE_VOLUME())){
+            holder.mainBeamTv.setText("0ml");
+        }else{
+            holder.mainBeamTv.setText(mList.get(position).getURINE_VOLUME() + "ml");
+        }
+
+        if (TextUtils.isEmpty(mList.get(position).getURINE_VOLUME_PERCENT())){
+            holder.mainPercentTv.setText("0%");
+        }else{
+            holder.mainPercentTv.setText(mList.get(position).getURINE_VOLUME_PERCENT() + "%");
+        }
+
+        int percent = 0;
+        if (!TextUtils.isEmpty(mList.get(position).getURINE_VOLUME_PERCENT())){
+            percent = Integer.parseInt(mList.get(position).getURINE_VOLUME_PERCENT());
+        }
         holder.cpv.setValue(0);
         holder.cpv.setProgress(percent);
     }

@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:background="#f3f6f9"
     android:orientation="vertical"
     tools:context=".ui.order.OrderActivity">
 
@@ -35,6 +36,7 @@
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="48dip"
+        android:background="#ffffff"
         android:gravity="center_vertical"
         android:orientation="horizontal">
 
@@ -226,5 +228,6 @@
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_order"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
+        android:layout_height="match_parent"
+        android:paddingBottom="18dip"></android.support.v7.widget.RecyclerView>
 </LinearLayout>
