@@ -31,6 +31,7 @@ dependencies {
     implementation 'com.youth.banner:banner:1.4.10'
     implementation 'org.sufficientlysecure:html-textview:3.9'
     implementation 'com.tencent.mm.opensdk:wechat-sdk-android-without-mta:+'
+//    implementation 'com.blackflagbin:semicircleprogressview:0.0.3'
     implementation fileTree(include: ['*.jar', '*.aar'], dir: 'libs')
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'

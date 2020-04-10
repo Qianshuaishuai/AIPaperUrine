@@ -55,9 +55,9 @@ public class HalfCircleProgressView extends View {
         mPaint.setColor(mBackgroudColor);
         //绘制圆弧，从9点方向（-180度）开始绘制，偏移角度为进度
         canvas.drawArc(mRectF, -180, 180, false, mPaint);
-        mPaint.setColor(mProgressColor);
+        mPaint.setColor(R.drawable.shape_circle_color);
         //绘制圆弧，从9点方向（-180度）开始绘制，偏移角度为进度
-        canvas.drawArc(mRectF, -180, mProgress, false, mPaint);
+//        canvas.drawArc(mRectF, -180, mProgress, false, mPaint);
 
         Paint textPaint = new Paint();          // 创建画笔
         textPaint.setColor(mTextColor);        // 设置颜色
@@ -66,7 +66,7 @@ public class HalfCircleProgressView extends View {
         textPaint.setTextAlign(Paint.Align.CENTER);
         canvas.drawText(mName == null ? "XXXXXX" : mName, 0, 0, textPaint);
         canvas.translate(0, -height / 3);
-        canvas.drawText(mValue + "%", 0, 0, textPaint);
+//        canvas.drawText(mValue + "%", 0, 0, textPaint);
     }
 
     public HalfCircleProgressView(Context context) {
@@ -81,19 +81,19 @@ public class HalfCircleProgressView extends View {
 
     public HalfCircleProgressView(Context context, AttributeSet attrs, int defStyleAttr) {
         super(context, attrs, defStyleAttr);
-//        TypedArray at = context.obtainStyledAttributes(attrs, R.styleable.HalfCircleProgressView, defStyleAttr, 0);
-        //获取自定义属性和默认值
-        //getColor方法的第一个参数是我们在XML文件中定义的颜色，如果我们没有给我们自定义的View定义颜色，他就会使用第二个参数中的默认值
-//        mBackgroudColor = at.getColor(R.styleable.HalfCircleProgressView_backgroudColor, Color.argb(32, 10, 10, 10));
-//        mProgressColor = at.getColor(R.styleable.HalfCircleProgressView_progressColor, Color.BLUE);
-//        mCircleWidth = at.getDimensionPixelSize(R.styleable.HalfCircleProgressView_circleWidth,
-//                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
-//        mTextColor = at.getColor(R.styleable.HalfCircleProgressView_textColors, Color.BLACK);
-//        mTextSize = at.getDimensionPixelSize(R.styleable.HalfCircleProgressView_textSizes,
-//                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
-//        mName = at.getString(R.styleable.HalfCircleProgressView_name);
-//        mPadding = at.getDimensionPixelSize(R.styleable.HalfCircleProgressView_padding,
-//                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
+        TypedArray at = context.obtainStyledAttributes(attrs, R.styleable.HalfCircleProgressView, defStyleAttr, 0);
+//        获取自定义属性和默认值
+//        getColor方法的第一个参数是我们在XML文件中定义的颜色，如果我们没有给我们自定义的View定义颜色，他就会使用第二个参数中的默认值
+        mBackgroudColor = at.getColor(R.styleable.HalfCircleProgressView_backgroudColor, Color.argb(32, 10, 10, 10));
+        mProgressColor = at.getColor(R.styleable.HalfCircleProgressView_progressColor, Color.BLUE);
+        mCircleWidth = at.getDimensionPixelSize(R.styleable.HalfCircleProgressView_circleWidth,
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
+        mTextColor = at.getColor(R.styleable.HalfCircleProgressView_textColors, Color.BLACK);
+        mTextSize = at.getDimensionPixelSize(R.styleable.HalfCircleProgressView_textSizes,
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 20, getResources().getDisplayMetrics()));
+        mName = at.getString(R.styleable.HalfCircleProgressView_name);
+        mPadding = at.getDimensionPixelSize(R.styleable.HalfCircleProgressView_padding,
+                (int) TypedValue.applyDimension(TypedValue.COMPLEX_UNIT_DIP, 2, getResources().getDisplayMetrics()));
 
     }
 

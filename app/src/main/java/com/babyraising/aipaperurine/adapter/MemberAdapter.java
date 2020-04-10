@@ -46,7 +46,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             mainBeamTv = (TextView) view.findViewById(R.id.main_beam_tv);
             mainSleepTv = (TextView) view.findViewById(R.id.card_message_count);
             mainSize = (TextView) view.findViewById(R.id.card_message_count);
-            cpv = (HalfCircleProgressView)view.findViewById(R.id.cpv);
+            cpv = (HalfCircleProgressView) view.findViewById(R.id.cpv);
         }
 
     }
@@ -73,7 +73,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             }
         });
 
-        System.out.println( mList.get(position).getHEADIMG());
         ImageOptions options = new ImageOptions.Builder().
                 setRadius(DensityUtil.dip2px(66)).build();
         x.image().bind(holder.cardIcon, mList.get(position).getHEADIMG(), options);
@@ -106,30 +105,31 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         });
 
 
-        if (TextUtils.isEmpty(mList.get(position).getTEMPERATURE())){
+        if (TextUtils.isEmpty(mList.get(position).getTEMPERATURE())) {
             holder.mainTempTv.setText("0℃");
-        }else{
+        } else {
             holder.mainTempTv.setText(mList.get(position).getTEMPERATURE() + "℃");
         }
 
-        if (TextUtils.isEmpty(mList.get(position).getURINE_VOLUME())){
+        if (TextUtils.isEmpty(mList.get(position).getURINE_VOLUME())) {
             holder.mainBeamTv.setText("0ml");
-        }else{
+        } else {
             holder.mainBeamTv.setText(mList.get(position).getURINE_VOLUME() + "ml");
         }
 
-        if (TextUtils.isEmpty(mList.get(position).getURINE_VOLUME_PERCENT())){
+        if (TextUtils.isEmpty(mList.get(position).getURINE_VOLUME_PERCENT())) {
             holder.mainPercentTv.setText("0%");
-        }else{
+        } else {
             holder.mainPercentTv.setText(mList.get(position).getURINE_VOLUME_PERCENT() + "%");
         }
 
         int percent = 0;
-        if (!TextUtils.isEmpty(mList.get(position).getURINE_VOLUME_PERCENT())){
+        if (!TextUtils.isEmpty(mList.get(position).getURINE_VOLUME_PERCENT())) {
             percent = Integer.parseInt(mList.get(position).getURINE_VOLUME_PERCENT());
         }
         holder.cpv.setValue(0);
-        holder.cpv.setProgress(percent);
+        holder.cpv.setProgress(180 * percent / 100);
+//        System.out.println(mList.get(position).getSLEEP_POSTURE());
     }
 
     @Override

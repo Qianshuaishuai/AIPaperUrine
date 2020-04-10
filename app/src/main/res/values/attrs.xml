@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <declare-styleable name="HalfCircleProgressView">
+        <attr name="backgroudColor" />    <!--背景圆环宽度-->
+        <attr name="circleWidth" />    <!--进度圆环宽度-->
+        <attr name="name" />        <!--背景圆环颜色-->
+        <attr name="padding" />        <!--进度圆环颜色-->
+        <attr name="progressColor" />   <!--进度圆环开始颜色-->
+        <attr name="textColors" />   <!--进度圆环结束颜色-->
+        <attr name="textColor" />   <!--进度圆环结束颜色-->
+        <attr name="textSizes" />   <!--进度圆环结束颜色-->
+        <attr name="textSize" />       <!--圆环进度-->
+    </declare-styleable>
+</resources>

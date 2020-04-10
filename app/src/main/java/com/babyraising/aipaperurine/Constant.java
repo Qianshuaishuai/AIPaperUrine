@@ -86,4 +86,5 @@ public class Constant {
     public static final String URL_RECEIVEMYYUYUE = "mail/receiveMyYuyue";
     public static final String URL_PREREFUNDMYYUYUE = "mail/preRefundMyYuyue";
     public static final String URL_PREREFUNDNUM = "mail/preRefundNum";
+    public static final String URL_REFUNDMYYUYUE = "mail/refundMyYuyue";
 }

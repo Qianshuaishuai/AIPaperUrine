@@ -4,11 +4,17 @@
     android:layout_height="87dip">
 
     <ImageView
+        android:id="@+id/add"
+        android:layout_width="87dip"
+        android:layout_height="87dip"
+        android:layout_alignParentBottom="true"
+        android:src="@mipmap/btn_shnagchuantupian" />
+
+    <ImageView
         android:id="@+id/icon"
         android:layout_width="85dip"
         android:layout_height="85dip"
-        android:layout_alignParentBottom="true"
-        android:background="#f0f000" />
+        android:layout_alignParentBottom="true" />
 
     <ImageView
         android:id="@+id/delete"

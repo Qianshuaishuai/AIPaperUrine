@@ -79,15 +79,17 @@
         <activity android:name=".ui.user.ForgetActivity" />
         <activity android:name=".ui.user.RegisterActivity" />
         <activity android:name=".ui.user.LoginNormalActivity">
+
+        </activity>
+        <activity android:name=".ui.user.LoginThirdActivity" />
+        <activity android:name=".ui.user.LoginActivity" />
+        <activity android:name=".ui.main.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-        <activity android:name=".ui.user.LoginThirdActivity" />
-        <activity android:name=".ui.user.LoginActivity" />
-        <activity android:name=".ui.main.MainActivity" />
     </application>
 
 </manifest>

@@ -172,18 +172,19 @@
             android:textSize="15sp" />
 
         <!--中间数据显示start-->
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="84dip"
             android:layout_marginLeft="15dip"
             android:layout_marginTop="10dip"
             android:layout_marginRight="15dip"
-            android:gravity="bottom|center_horizontal"
             android:orientation="horizontal">
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/left"
+                android:layout_width="70dip"
                 android:layout_height="wrap_content"
+                android:layout_alignParentBottom="true"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -207,13 +208,20 @@
             <RelativeLayout
                 android:layout_width="160dip"
                 android:layout_height="84dip"
-                android:layout_marginLeft="30dip"
+                android:layout_centerHorizontal="true"
                 android:orientation="vertical">
 
                 <com.babyraising.aipaperurine.view.HalfCircleProgressView
                     android:id="@+id/cpv"
                     android:layout_width="160dip"
-                    android:layout_height="84dip" />
+                    android:layout_height="84dip"
+                    app:backgroudColor="#f3f3f3"
+                    app:circleWidth="10dp"
+                    app:name=""
+                    app:padding="5dp"
+                    app:progressColor="#F866AA"
+                    app:textColor="#ffffff"
+                    app:textSize="1sp" />
 
                 <TextView
                     android:id="@+id/main_beam_tv_tip"
@@ -238,9 +246,11 @@
             </RelativeLayout>
 
             <LinearLayout
-                android:layout_width="wrap_content"
+                android:id="@+id/right"
+                android:layout_width="70dip"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="30dip"
+                android:layout_alignParentRight="true"
+                android:layout_alignParentBottom="true"
                 android:gravity="center_horizontal"
                 android:orientation="vertical">
 
@@ -260,7 +270,7 @@
                     android:textColor="#1E1E1E"
                     android:textSize="18sp" />
             </LinearLayout>
-        </LinearLayout>
+        </RelativeLayout>
         <!--中间数据显示end-->
         <!--中间下部按钮start-->
         <LinearLayout

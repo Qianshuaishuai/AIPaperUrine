@@ -320,13 +320,14 @@ public class ChangeInfoActivity extends BaseActivity {
 //        params.addBodyParameter("HEADIMG", new File(pic),"multipart/form-data");
 //        params.addQueryStringParameter("HEADIMG", pic);
 
-        params.addBodyParameter("HEADIMG", picFile, "image/jpeg");
+        params.addBodyParameter("HEADIMG", picFile, "multipart/form-data");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                System.out.println(result);
                 Gson gson = new Gson();
                 EditImgResponse response = gson.fromJson(result, EditImgResponse.class);
-                System.out.println(result);
+
                 switch (response.getResult()) {
                     case 0:
                         T.s("更换成功");
