@@ -1,11 +1,10 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
     android:background="#f6f3f7"
-    android:orientation="vertical"
     tools:context=".ui.info.PickSizeActivity">
 
     <LinearLayout
@@ -41,7 +40,8 @@
 
     <ScrollView
         android:layout_width="match_parent"
-        android:layout_height="match_parent">
+        android:layout_height="match_parent"
+        android:layout_below="@+id/layout_top">
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -142,4 +142,18 @@
             </RelativeLayout>
         </LinearLayout>
     </ScrollView>
-</LinearLayout>
+
+    <Button
+        android:id="@+id/sure"
+        android:layout_width="match_parent"
+        android:layout_height="55dip"
+        android:layout_alignParentBottom="true"
+        android:layout_marginLeft="34dip"
+        android:layout_marginTop="44dip"
+        android:layout_marginRight="34dip"
+        android:layout_marginBottom="10dip"
+        android:background="@drawable/shape_good_button_bg"
+        android:text="完成"
+        android:textColor="#ffffff"
+        android:textSize="16sp" />
+</RelativeLayout>

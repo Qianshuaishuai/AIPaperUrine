@@ -23,6 +23,7 @@
             android:src="@mipmap/back_baise" />
 
         <TextView
+            android:id="@+id/tv_title"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginTop="2dip"
@@ -60,6 +61,7 @@
                 android:background="@drawable/shape_urine_detail_common_bg"></android.support.v7.widget.RecyclerView>
 
             <TextView
+                android:id="@+id/office_message_tip"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginLeft="15dip"

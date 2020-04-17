@@ -4,6 +4,9 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.babyraising.aipaperurine.R;
@@ -18,6 +21,9 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView singleTxt, nameTxt, phoneTxt, addressTxt;
+        ImageView icDelete;
+        CheckBox cbDefault;
+
 
         public ViewHolder(View view) {
             super(view);
@@ -25,6 +31,8 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
             nameTxt = (TextView) view.findViewById(R.id.name);
             phoneTxt = (TextView) view.findViewById(R.id.phone);
             addressTxt = (TextView) view.findViewById(R.id.address);
+            icDelete = (ImageView)view.findViewById(R.id.cb_delete);
+            cbDefault = (CheckBox)view.findViewById(R.id.cb_default);
         }
 
     }
@@ -58,6 +66,19 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
             holder.singleTxt.setText(mList.get(position).getADDRESS().substring(0, 1));
         }
 
+        holder.cbDefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+
+            }
+        });
+
+        holder.icDelete.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+
+            }
+        });
     }
 
     @Override

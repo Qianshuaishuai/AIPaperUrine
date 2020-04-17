@@ -5,6 +5,8 @@ import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.TextUtils;
 import android.view.View;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.EditText;
 
 import com.babyraising.aipaperurine.Constant;
@@ -17,6 +19,13 @@ import com.babyraising.aipaperurine.response.AddressResponse;
 import com.babyraising.aipaperurine.response.CommonResponse;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
+import com.lljjcoder.Interface.OnCityItemClickListener;
+import com.lljjcoder.bean.CityBean;
+import com.lljjcoder.bean.DistrictBean;
+import com.lljjcoder.bean.ProvinceBean;
+import com.lljjcoder.citywheel.CityConfig;
+import com.lljjcoder.style.citylist.Toast.ToastUtils;
+import com.lljjcoder.style.citypickerview.CityPickerView;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -28,8 +37,11 @@ import org.xutils.x;
 @ContentView(R.layout.activity_address_edit)
 public class AddressEditActivity extends BaseActivity {
 
+    //申明对象
+    CityPickerView mPicker = new CityPickerView();
     private UserBean userBean;
     private String addressId;
+    private String isDefault = "1";
 
     @Event(R.id.layout_back)
     private void layoutBack(View view) {
@@ -47,8 +59,12 @@ public class AddressEditActivity extends BaseActivity {
 
     @Event(R.id.city_layout)
     private void cityLayoutClick(View view) {
-
+        //显示
+        mPicker.showCityPicker();
     }
+
+    @ViewInject(R.id.cb_default)
+    private CheckBox cbDefault;
 
     @ViewInject(R.id.name)
     private EditText name;
@@ -68,7 +84,16 @@ public class AddressEditActivity extends BaseActivity {
     }
 
     private void initView() {
-
+        cbDefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
+                if(b){
+                    isDefault = "1";
+                }else{
+                    isDefault = "2";
+                }
+            }
+        });
     }
 
     private void initData() {
@@ -92,6 +117,15 @@ public class AddressEditActivity extends BaseActivity {
                             name.setText(response.getData().getCNAME());
                             phone.setText(response.getData().getCPHONE());
                             detailAddress.setText(response.getData().getADDRESS());
+                            isDefault = response.getData().getISDEFAULT();
+                            switch (response.getData().getISDEFAULT()){
+                                case "1":
+                                    cbDefault.setChecked(true);
+                                    break;
+                                case "2":
+                                    cbDefault.setChecked(false);
+                                    break;
+                            }
                             break;
                         default:
                             T.s("获取地址详情失败");
@@ -115,6 +149,28 @@ public class AddressEditActivity extends BaseActivity {
                 }
             });
         }
+
+        //预先加载仿iOS滚轮实现的全部数据
+        mPicker.init(this);
+        //添加默认的配置，不需要自己定义，当然也可以自定义相关熟悉，详细属性请看demo
+        CityConfig cityConfig = new CityConfig.Builder().build();
+        mPicker.setConfig(cityConfig);
+
+//监听选择点击事件及返回结果
+        mPicker.setOnCityItemClickListener(new OnCityItemClickListener() {
+            @Override
+            public void onSelected(ProvinceBean province, CityBean city, DistrictBean district) {
+
+                //省份province
+                //城市city
+                //地区district
+            }
+
+            @Override
+            public void onCancel() {
+
+            }
+        });
 
     }
 

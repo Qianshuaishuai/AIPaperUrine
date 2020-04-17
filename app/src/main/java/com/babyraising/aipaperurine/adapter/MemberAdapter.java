@@ -6,11 +6,13 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.TextView;
 
 import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.bean.AddressBean;
 import com.babyraising.aipaperurine.bean.MemberListBean;
+import com.babyraising.aipaperurine.ui.main.HomeFragment;
 import com.babyraising.aipaperurine.view.HalfCircleProgressView;
 
 import org.xutils.common.util.DensityUtil;
@@ -22,20 +24,24 @@ import java.util.List;
 public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder> {
 
     private List<MemberListBean> mList;
+    private HomeFragment context;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cardIcon, cardMessage, cardSetting, cardData;
+        ImageView mainTipIv;
 
         TextView cardName, cardTime, cardMessageCount;
-        TextView mainTipTv, mainPercentTv, mainTempTv, mainBeamTv, mainSleepTv, mainSize;
+        TextView mainTipTv, mainPercentTv, mainTempTv, mainBeamTv, mainSleepTv, mainSize, mainBrand;
 
         HalfCircleProgressView cpv;
+        LinearLayout posLayout, sizeLayout;
 
         public ViewHolder(View view) {
             super(view);
             cardIcon = (ImageView) view.findViewById(R.id.card_icon);
             cardMessage = (ImageView) view.findViewById(R.id.card_message);
             cardSetting = (ImageView) view.findViewById(R.id.card_setting);
+            mainTipIv = (ImageView) view.findViewById(R.id.main_tip_icon);
             cardData = (ImageView) view.findViewById(R.id.card_data);
             cardName = (TextView) view.findViewById(R.id.card_name);
             cardTime = (TextView) view.findViewById(R.id.card_time);
@@ -44,15 +50,19 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             mainPercentTv = (TextView) view.findViewById(R.id.main_percent_tv);
             mainTempTv = (TextView) view.findViewById(R.id.main_temp_tv);
             mainBeamTv = (TextView) view.findViewById(R.id.main_beam_tv);
-            mainSleepTv = (TextView) view.findViewById(R.id.card_message_count);
-            mainSize = (TextView) view.findViewById(R.id.card_message_count);
+            mainSleepTv = (TextView) view.findViewById(R.id.main_sleep_tv);
+            mainSize = (TextView) view.findViewById(R.id.main_size);
+            posLayout = (LinearLayout) view.findViewById(R.id.layout_posture);
+            sizeLayout = (LinearLayout) view.findViewById(R.id.layout_size);
+            mainBrand = (TextView) view.findViewById(R.id.main_brand);
             cpv = (HalfCircleProgressView) view.findViewById(R.id.cpv);
         }
 
     }
 
-    public MemberAdapter(List<MemberListBean> mList) {
+    public MemberAdapter(List<MemberListBean> mList, HomeFragment context) {
         this.mList = mList;
+        this.context = context;
     }
 
     @Override
@@ -76,33 +86,44 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         ImageOptions options = new ImageOptions.Builder().
                 setRadius(DensityUtil.dip2px(66)).build();
         x.image().bind(holder.cardIcon, mList.get(position).getHEADIMG(), options);
-
+//        System.out.println(mList.get(position).getHAS_WAITREAD());
         holder.cardName.setText(mList.get(position).getNICKNAME());
-        holder.cardTime.setText(mList.get(position).getCREATETIME());
         holder.cardMessageCount.setText(mList.get(position).getHAS_WAITREAD());
-        holder.mainSleepTv.setText(mList.get(position).getSLEEP_TIME());
+//        holder.mainSleepTv.setText(mList.get(position).getSLEEP_TIME());
         holder.mainSize.setText(mList.get(position).getDIAPER_SIZE());
 
         holder.cardMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                context.goToMemberMessage(mList.get(position).getMEMBER_ID());
             }
         });
 
         holder.cardSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                context.goToMemberSetting(mList.get(position).getMEMBER_ID());
             }
         });
 
         holder.cardData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                context.goToUrineDetailActivity(mList.get(position).getMEMBER_ID());
             }
         });
+
+        if (TextUtils.isEmpty(mList.get(position).getCREATETIME())) {
+            holder.cardTime.setText("设备未链接，点击绑定");
+            holder.cardTime.setOnClickListener(new View.OnClickListener() {
+                @Override
+                public void onClick(View view) {
+
+                }
+            });
+        } else {
+            holder.cardTime.setText(mList.get(position).getCREATETIME());
+        }
 
 
         if (TextUtils.isEmpty(mList.get(position).getTEMPERATURE())) {
@@ -123,13 +144,33 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             holder.mainPercentTv.setText(mList.get(position).getURINE_VOLUME_PERCENT() + "%");
         }
 
+        if (TextUtils.isEmpty(mList.get(position).getSLEEP_TIME())) {
+            holder.mainSleepTv.setText("0min");
+        } else {
+            holder.mainSleepTv.setText(mList.get(position).getSLEEP_TIME() + "min");
+        }
+
         int percent = 0;
         if (!TextUtils.isEmpty(mList.get(position).getURINE_VOLUME_PERCENT())) {
             percent = Integer.parseInt(mList.get(position).getURINE_VOLUME_PERCENT());
         }
         holder.cpv.setValue(0);
         holder.cpv.setProgress(180 * percent / 100);
+
+        if (percent >= 100) {
+            holder.mainTipIv.setVisibility(View.VISIBLE);
+            holder.mainTipIv.setVisibility(View.VISIBLE);
+        }
+
+        holder.sizeLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.goToPickSizeActivity(mList.get(position).getMEMBER_ID());
+            }
+        });
 //        System.out.println(mList.get(position).getSLEEP_POSTURE());
+
+        holder.mainBrand.setText(mList.get(position).getBRAND_NAME());
     }
 
     @Override

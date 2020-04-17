@@ -32,7 +32,11 @@ import com.babyraising.aipaperurine.bean.UserBean;
 import com.babyraising.aipaperurine.response.CourseResponse;
 import com.babyraising.aipaperurine.response.MemberListResponse;
 import com.babyraising.aipaperurine.response.PersonResponse;
+import com.babyraising.aipaperurine.ui.info.CallSettingActivity;
+import com.babyraising.aipaperurine.ui.info.PickSizeActivity;
 import com.babyraising.aipaperurine.ui.info.TeachActivity;
+import com.babyraising.aipaperurine.ui.info.UrineDetailActivity;
+import com.babyraising.aipaperurine.ui.message.MessageActivity;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
 
@@ -257,7 +261,7 @@ public class HomeFragment extends BaseFragment {
 
     private void initView() {
         memberList = new ArrayList<>();
-        adapter = new MemberAdapter(memberList);
+        adapter = new MemberAdapter(memberList,this);
         adapter.setOnItemClickListener(new MemberAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
@@ -345,5 +349,29 @@ public class HomeFragment extends BaseFragment {
                 loginPopupWindow.dismiss();
             }
         });
+    }
+
+    public void goToMemberSetting(String memberId) {
+        Intent intent = new Intent(getContext(), CallSettingActivity.class);
+        intent.putExtra("memberId", memberId);
+        startActivity(intent);
+    }
+
+    public void goToMemberMessage(String memberId) {
+        Intent intent = new Intent(getContext(), MessageActivity.class);
+        intent.putExtra("memberId", memberId);
+        startActivity(intent);
+    }
+
+    public void goToPickSizeActivity(String memberId) {
+        Intent intent = new Intent(getContext(), PickSizeActivity.class);
+        intent.putExtra("memberId", memberId);
+        startActivity(intent);
+    }
+
+    public void goToUrineDetailActivity(String memberId) {
+        Intent intent = new Intent(getContext(), UrineDetailActivity.class);
+        intent.putExtra("memberId", memberId);
+        startActivity(intent);
     }
 }

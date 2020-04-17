@@ -58,6 +58,7 @@ public class Constant {
 
     //成员类
     public static final String URL_ADDMEMBER = "member/addMember";
+    public static final String URL_DELETEMEMBER = "member/deleteMember";
     public static final String URL_EDITMEMBERIMG = "member/editMemberImg";
     public static final String URL_EDITMEMBERSIZE = "member/editMemberSize";
     public static final String URL_EDIT_MEMBERINFO = "member/editMemberInfo";
@@ -66,6 +67,10 @@ public class Constant {
     public static final String URL_MEMBERDATACAL = "member/memberDataCal";
     public static final String URL_MEMBERCHANGEINFO = "member/memberChangeInfo";
     public static final String URL_MEMBERDATASHARE = "member/memberDataShare";
+    public static final String URL_DEVICEPARAMINFO = "member/deviceParamInfo";
+    public static final String URL_UNBINDDEVICE = "member/unBindDevice";
+    public static final String URL_BINDDEVICE = "member/bindDevice";
+    public static final String URL_EDITDEVICEPARAM = "member/editDeviceParam";
 
     //商城类
     public static final String URL_HOMECAROUSEL = "mall/homecarousel";
@@ -79,12 +84,12 @@ public class Constant {
     public static final String URL_PREYUYUECOUPON = "mall/preYuyueCoupon";
     public static final String URL_SUBMITYUYUEORDER = "mall/submitYuyueOrder";
     public static final String URL_PAYORDER = "mall/payOrder";
-    public static final String URL_SHOWMYYUYUEREFUND = "mail/showMyYuyueRefund";
-    public static final String URL_SUBMITREFUNDNO = "mail/submitRefundNo";
-    public static final String URL_SHOWMYYUYUELOGISTICS = "mail/showMyYuyueLogistics";
-    public static final String URL_SHOWSIMPLEMYYUYUE = "mail/showSimpleMyYuyue";
-    public static final String URL_RECEIVEMYYUYUE = "mail/receiveMyYuyue";
-    public static final String URL_PREREFUNDMYYUYUE = "mail/preRefundMyYuyue";
-    public static final String URL_PREREFUNDNUM = "mail/preRefundNum";
-    public static final String URL_REFUNDMYYUYUE = "mail/refundMyYuyue";
+    public static final String URL_SHOWMYYUYUEREFUND = "mall/showMyYuyueRefund";
+    public static final String URL_SUBMITREFUNDNO = "mall/submitRefundNo";
+    public static final String URL_SHOWMYYUYUELOGISTICS = "mall/showMyYuyueLogistics";
+    public static final String URL_SHOWSIMPLEMYYUYUE = "mall/showSimpleMyYuyue";
+    public static final String URL_RECEIVEMYYUYUE = "mall/receiveMyYuyue";
+    public static final String URL_PREREFUNDMYYUYUE = "mall/preRefundMyYuyue";
+    public static final String URL_PREREFUNDNUM = "mall/preRefundNum";
+    public static final String URL_REFUNDMYYUYUE = "mall/refundMyYuyue";
 }

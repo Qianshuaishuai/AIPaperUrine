@@ -1,72 +1,109 @@
 <?xml version="1.0" encoding="utf-8"?>
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="100dip"
+    android:layout_height="160dip"
     android:background="#ffffff"
-    android:orientation="horizontal">
+    android:orientation="vertical">
 
-    <TextView
-        android:id="@+id/single"
-        android:layout_width="36dip"
-        android:layout_height="36dip"
-        android:layout_gravity="center_vertical"
-        android:layout_marginLeft="15dip"
-        android:background="@drawable/shape_address_simple_name_bg"
-        android:gravity="center"
-        android:text=""
-        android:textColor="#ffffff"
-        android:textSize="16sp" />
+    <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="100dip"
+        android:background="#ffffff"
+        android:orientation="horizontal">
 
-    <LinearLayout
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginLeft="18dip"
-        android:orientation="vertical">
+        <TextView
+            android:id="@+id/single"
+            android:layout_width="36dip"
+            android:layout_height="36dip"
+            android:layout_gravity="center_vertical"
+            android:layout_marginLeft="15dip"
+            android:background="@drawable/shape_address_simple_name_bg"
+            android:gravity="center"
+            android:text=""
+            android:textColor="#ffffff"
+            android:textSize="16sp" />
 
         <LinearLayout
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_marginTop="22dip"
-            android:gravity="bottom"
-            android:orientation="horizontal">
+            android:layout_marginLeft="18dip"
+            android:orientation="vertical">
 
-            <TextView
-                android:id="@+id/name"
+            <LinearLayout
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="大宝"
+                android:layout_marginTop="22dip"
+                android:gravity="bottom"
+                android:orientation="horizontal">
+
+                <TextView
+                    android:id="@+id/name"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:text="大宝"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/phone"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="10dip"
+                    android:text="12345678900"
+                    android:textColor="#999999"
+                    android:textSize="14sp" />
+            </LinearLayout>
+
+            <TextView
+                android:id="@+id/address"
+                android:layout_width="250dip"
+                android:layout_height="wrap_content"
+                android:layout_marginTop="7dip"
+                android:text="广东省深圳市南山区XX村XX路022号XX 村XX路022号"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
-
-            <TextView
-                android:id="@+id/phone"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_marginLeft="10dip"
-                android:text="12345678900"
-                android:textColor="#999999"
                 android:textSize="14sp" />
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/address"
-            android:layout_width="250dip"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="7dip"
-            android:text="广东省深圳市南山区XX村XX路022号XX 村XX路022号"
-            android:textColor="#1e1e1e"
-            android:textSize="14sp" />
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="right|center_vertical">
+
+            <ImageView
+                android:layout_width="24dip"
+                android:layout_height="24dip"
+                android:layout_marginRight="15dip"
+                android:src="@mipmap/iconmonstrl_right_chakanxiangqing" />
+        </LinearLayout>
     </LinearLayout>
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:gravity="right|center_vertical">
+        android:orientation="horizontal">
+
+        <CheckBox
+            android:id="@+id/cb_default"
+            android:layout_width="48dip"
+            android:layout_height="48dip"
+            android:layout_marginLeft="15dip"
+            android:background="@drawable/select_common_checkbox"
+            android:button="@null" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dip"
+            android:text="设为默认地址"
+            android:textColor="#1e1e1e"
+            android:textSize="16sp" />
 
         <ImageView
-            android:layout_width="24dip"
-            android:layout_height="24dip"
-            android:layout_marginRight="15dip"
-            android:src="@mipmap/iconmonstrl_right_chakanxiangqing" />
+            android:id="@+id/cb_delete"
+            android:layout_width="32dip"
+            android:layout_height="32dip"
+            android:layout_marginLeft="15dip"
+            android:layout_marginTop="8dip"
+            android:src="@mipmap/ic_delete" />
     </LinearLayout>
 </LinearLayout>

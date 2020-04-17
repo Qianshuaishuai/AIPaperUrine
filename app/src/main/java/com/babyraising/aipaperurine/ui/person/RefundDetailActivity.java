@@ -114,7 +114,7 @@ public class RefundDetailActivity extends BaseActivity {
 
         Intent intent = getIntent();
         refundId = intent.getStringExtra("refundId");
-
+        System.out.println(refundId);
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_SHOWMYYUYUEREFUND);
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
@@ -223,8 +223,9 @@ public class RefundDetailActivity extends BaseActivity {
                 break;
         }
 
+        x.image().bind(icon,bean.getPICS());
         timeTip.setText(bean.getAPPLYREFUNDTIME());
-        refundAllPrice.setText(bean.getREFUNDAMT());
+//        refundAllPrice.setText(bean.getREFUNDAMT());
         goodName.setText(bean.getTITLE());
         String params = "";
         if (!TextUtils.isEmpty(bean.getBRAND_SIZE())) {

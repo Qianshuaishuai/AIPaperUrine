@@ -1,9 +1,11 @@
 package com.babyraising.aipaperurine.adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.RadioButton;
 import android.widget.TextView;
 
@@ -18,12 +20,12 @@ public class BrandSizeAdapter extends RecyclerView.Adapter<BrandSizeAdapter.View
     private int currentPosition = 0;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
-        RadioButton rbSize;
+        TextView rbSize;
         TextView tvSec;
 
         public ViewHolder(View view) {
             super(view);
-            rbSize = (RadioButton) view.findViewById(R.id.bt1_size);
+            rbSize = (TextView) view.findViewById(R.id.bt1_size);
             tvSec = (TextView) view.findViewById(R.id.tv_sec);
         }
 
@@ -59,10 +61,19 @@ public class BrandSizeAdapter extends RecyclerView.Adapter<BrandSizeAdapter.View
         holder.tvSec.setText(mList.get(position).getBRAND_SIZE_DESC());
 
         if (position == currentPosition) {
-            holder.rbSize.setChecked(true);
+            holder.rbSize.setBackgroundResource(R.drawable.shape_pick_size_selected);
+            holder.rbSize.setTextColor(Color.WHITE);
         } else {
-            holder.rbSize.setChecked(false);
+            holder.rbSize.setBackgroundResource(R.drawable.shape_pick_size_normal);
+            holder.rbSize.setTextColor(Color.GRAY);
         }
+
+//        holder.rbSize.setOnClickListener(new View.OnClickListener() {
+//            @Override
+//            public void onClick(View view) {
+//                currentPosition = position;
+//            }
+//        });
     }
 
     @Override

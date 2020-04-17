@@ -335,6 +335,7 @@
                                 android:orientation="vertical">
 
                                 <TextView
+                                    android:id="@+id/main_size"
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:text="S"
@@ -345,7 +346,7 @@
                                     android:layout_width="wrap_content"
                                     android:layout_height="wrap_content"
                                     android:layout_marginTop="10dip"
-                                    android:text="睡姿"
+                                    android:text="码数"
                                     android:textColor="#999999"
                                     android:textSize="13sp" />
                             </LinearLayout>

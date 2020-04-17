@@ -4,7 +4,7 @@
     android:layout_height="wrap_content"
     android:orientation="vertical">
 
-    <RadioButton
+    <Button
         android:id="@+id/bt_brand"
         android:layout_width="128dip"
         android:layout_height="40dip"

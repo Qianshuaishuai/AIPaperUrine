@@ -40,6 +40,7 @@ public class PickSizeActivity extends BaseActivity {
 
     private UserBean userBean;
     private List<BrandSizeBean> allList;
+    private String memberId;
 
     private List<BrandSizeSimpleBean> sizeList;
     private BrandSizeAdapter adapter;
@@ -47,6 +48,7 @@ public class PickSizeActivity extends BaseActivity {
     private List<String> brandList;
     private BrandAdapter brandAdapter;
     private String currentBrandId;
+    private String currentSize;
 
     @Event(R.id.layout_back)
     private void back(View view) {
@@ -54,7 +56,7 @@ public class PickSizeActivity extends BaseActivity {
     }
 
     @ViewInject(R.id.group_brand)
-    private RadioGroup brandGroup;
+    private LinearLayout brandGroup;
 
     @ViewInject(R.id.brand_name)
     private TextView brandName;
@@ -80,6 +82,11 @@ public class PickSizeActivity extends BaseActivity {
         }
     }
 
+    @Event(R.id.sure)
+    private void sure(View view) {
+        editMemberSize();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -87,8 +94,52 @@ public class PickSizeActivity extends BaseActivity {
         initData();
     }
 
+    private void editMemberSize() {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_GETBRANDSIZE);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+        params.addQueryStringParameter("MEMBER_ID", memberId);
+        params.addQueryStringParameter("DIAPER_BRAND", currentBrandId);
+        params.addQueryStringParameter("DIAPER_SIZE", currentSize);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                BrandSizeResponse response = gson.fromJson(result, BrandSizeResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        finish();
+                        T.s("修改尺码成功");
+                        break;
+
+                    default:
+                        T.s("修改尺码失败");
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                T.s("请求出错，请检查网络");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
     private void initData() {
         userBean = ((PaperUrineApplication) getApplication()).getUserInfo();
+
+        Intent intent = getIntent();
+        memberId = intent.getStringExtra("memberId");
 
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_GETBRANDSIZE);
         x.http().post(params, new Callback.CommonCallback<String>() {
@@ -134,7 +185,7 @@ public class PickSizeActivity extends BaseActivity {
             String[] brandDescs = beanList.get(0).getBRAND_SIZE_DESCS().split(",");
 
             sizeList.clear();
-
+            currentSize = brandSizes[0];
             for (int b = 0; b < brandSizes.length; b++) {
                 BrandSizeSimpleBean bean = new BrandSizeSimpleBean();
                 bean.setBRAND_SIZE(brandSizes[b]);
@@ -144,6 +195,13 @@ public class PickSizeActivity extends BaseActivity {
 
             adapter.notifyDataSetChanged();
         }
+
+        brandList.clear();
+        for (int a = 0; a < allList.size(); a++) {
+            brandList.add(allList.get(a).getBRAND_NAME());
+        }
+
+        brandAdapter.notifyDataSetChanged();
     }
 
     private void updateData(int position) {
@@ -154,7 +212,7 @@ public class PickSizeActivity extends BaseActivity {
             String[] brandDescs = allList.get(position).getBRAND_SIZE_DESCS().split(",");
 
             sizeList.clear();
-
+            currentSize = brandSizes[0];
             for (int b = 0; b < brandSizes.length; b++) {
                 BrandSizeSimpleBean bean = new BrandSizeSimpleBean();
                 bean.setBRAND_SIZE(brandSizes[b]);
@@ -174,14 +232,17 @@ public class PickSizeActivity extends BaseActivity {
         adapter.setOnItemClickListener(new BrandSizeAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
+//                adapter.setCurrentPosition(position);
+//                adapter.notifyDataSetChanged();
+//                Intent data = new Intent();
+//                data.putExtra("brandSize", sizeList.get(position).getBRAND_SIZE());
+//                data.putExtra("brand", brandName.getText().toString());
+//                data.putExtra("brandId", currentBrandId);
+//                setResult(10000, data);
+//                finish();
+                currentSize = sizeList.get(position).getBRAND_SIZE();
                 adapter.setCurrentPosition(position);
                 adapter.notifyDataSetChanged();
-                Intent data = new Intent();
-                data.putExtra("brandSize", sizeList.get(position).getBRAND_SIZE());
-                data.putExtra("brand", brandName.getText().toString());
-                data.putExtra("brandId", currentBrandId);
-                setResult(10000, data);
-                finish();
             }
         });
         LinearLayoutManager manager = new LinearLayoutManager(this);
@@ -189,17 +250,22 @@ public class PickSizeActivity extends BaseActivity {
         rvSize.setLayoutManager(manager);
 
         brandList = new ArrayList<>();
-        brandAdapter = new BrandAdapter(brandList);
+        brandAdapter = new BrandAdapter(brandList, this);
         brandAdapter.setOnItemClickListener(new BrandAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
-                brandGroup.setVisibility(View.GONE);
-                ivBrandMore.setImageResource(R.mipmap.iconmonstr_right_chakanxiangqing);
-                updateData(position);
+
             }
         });
         LinearLayoutManager manager1 = new LinearLayoutManager(this);
         rvBrand.setAdapter(brandAdapter);
         rvBrand.setLayoutManager(manager1);
+    }
+
+    public void changeBrand(int position) {
+        brandGroup.setVisibility(View.GONE);
+        ivBrandMore.setImageResource(R.mipmap.iconmonstr_right_chakanxiangqing);
+        updateData(position);
+        brandAdapter.notifyDataSetChanged();
     }
 }
