@@ -35,7 +35,7 @@ public class RemindDetailActivity extends BaseActivity {
         finish();
     }
 
-    @ViewInject(R.id.remind_detail_tip)
+    @ViewInject(R.id.remind_detail)
     private TextView remindDetail;
 
     @Override

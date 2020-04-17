@@ -134,21 +134,21 @@ public class OrderGoodAdapter extends RecyclerView.Adapter<OrderGoodAdapter.View
                 holder.bt2.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        context.sureOrder(mList.get(position).getYUYUECARD_ID());
                     }
                 });
                 holder.bt3.setText("查看物流");
                 holder.bt3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        context.seeToExpress(mList.get(position).getYUYUECARD_ID());
                     }
                 });
                 holder.bt4.setText("退款");
                 holder.bt4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        context.goToRefundActivity(mList.get(position).getYUYUECARD_ID());
                     }
                 });
                 break;
@@ -182,7 +182,7 @@ public class OrderGoodAdapter extends RecyclerView.Adapter<OrderGoodAdapter.View
                 holder.bt4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        context.goToRefundAActivity(mList.get(position).getGOODS_ID());
+                        context.goToRefundAActivity(mList.get(position).getYUYUECARD_ID());
                     }
                 });
                 break;
@@ -196,7 +196,7 @@ public class OrderGoodAdapter extends RecyclerView.Adapter<OrderGoodAdapter.View
                 holder.bt4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        context.goToRefundBActivity(mList.get(position).getGOODS_ID());
+                        context.goToRefundBActivity(mList.get(position).getYUYUECARD_ID());
                     }
                 });
                 break;
@@ -210,7 +210,7 @@ public class OrderGoodAdapter extends RecyclerView.Adapter<OrderGoodAdapter.View
                 holder.bt4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        context.goToRefundBActivity(mList.get(position).getGOODS_ID());
+                        context.goToRefundBActivity(mList.get(position).getYUYUECARD_ID());
                     }
                 });
                 break;
@@ -224,7 +224,7 @@ public class OrderGoodAdapter extends RecyclerView.Adapter<OrderGoodAdapter.View
                 holder.bt4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-                        context.goToRefundAActivity(mList.get(position).getGOODS_ID());
+                        context.goToRefundAActivity(mList.get(position).getYUYUECARD_ID());
                     }
                 });
                 break;

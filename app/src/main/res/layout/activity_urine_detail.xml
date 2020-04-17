@@ -46,7 +46,8 @@
                     android:layout_width="25dip"
                     android:layout_height="25dip"
                     android:layout_marginRight="15dip"
-                    android:src="@mipmap/btn_fenxiang" />
+                    android:src="@mipmap/btn_fenxiang"
+                    android:visibility="gone" />
             </LinearLayout>
         </LinearLayout>
 
@@ -66,7 +67,7 @@
                 android:background="@null"
                 android:button="@null"
                 android:checked="true"
-                android:text="当日"
+                android:text="日"
                 android:textColor="@color/select_urine_detail_date"
                 android:textSize="16sp" />
 
@@ -74,10 +75,10 @@
                 android:id="@+id/bt2_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dip"
+                android:layout_marginLeft="36dip"
                 android:background="@null"
                 android:button="@null"
-                android:text="近 7 日"
+                android:text="周"
                 android:textColor="@color/select_urine_detail_date"
                 android:textSize="16sp" />
 
@@ -85,10 +86,10 @@
                 android:id="@+id/bt3_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dip"
+                android:layout_marginLeft="36dip"
                 android:background="@null"
                 android:button="@null"
-                android:text="近 14 日"
+                android:text="半月"
                 android:textColor="@color/select_urine_detail_date"
                 android:textSize="16sp" />
 
@@ -96,10 +97,10 @@
                 android:id="@+id/bt4_date"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:layout_marginLeft="20dip"
+                android:layout_marginLeft="36dip"
                 android:background="@null"
                 android:button="@null"
-                android:text="近 30 日"
+                android:text="月"
                 android:textColor="@color/select_urine_detail_date"
                 android:textSize="16sp" />
 
@@ -113,7 +114,7 @@
                     android:id="@+id/tab_date_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="05.19"
+                    android:text="选择日期"
                     android:textColor="#1e1e1e"
                     android:textSize="16sp" />
 
@@ -202,33 +203,356 @@
     </LinearLayout>
 
     <!--用片统计start-->
-    <LinearLayout
+    <ScrollView
         android:id="@+id/layout_detail1"
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:layout_height="match_parent">
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14.5dip"
+                android:layout_marginTop="10dip"
+                android:layout_marginRight="14.5dip"
+                android:background="@drawable/shape_dialog_bg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="20dip"
+                    android:text="数据详情"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/data_detail1"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="20dip"
+                    android:layout_marginRight="15dip"
+                    android:layout_marginBottom="18dip"
+                    android:text=""
+                    android:textColor="#666666"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14.5dip"
+                android:layout_marginTop="10dip"
+                android:layout_marginRight="14.5dip"
+                android:background="@drawable/shape_dialog_bg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="20dip"
+                    android:text="数据分析"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dip"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dip"
+                        android:layout_marginTop="20dip"
+                        android:text="数据点评"
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/data_detail_tip1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dip"
+                        android:layout_marginTop="20dip"
+                        android:text=""
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dip"
+                    android:layout_marginBottom="12dip"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dip"
+                        android:layout_marginTop="20dip"
+                        android:text="改进意见"
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/data_detail_tip2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dip"
+                        android:layout_marginTop="20dip"
+                        android:text=""
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
     <!--用片统计end-->
 
     <!--尿量统计start-->
-    <LinearLayout
+    <ScrollView
         android:id="@+id/layout_detail2"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:visibility="gone">
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14.5dip"
+                android:layout_marginTop="10dip"
+                android:layout_marginRight="14.5dip"
+                android:background="@drawable/shape_dialog_bg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="20dip"
+                    android:text="数据详情"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/data_detail2"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="20dip"
+                    android:layout_marginRight="15dip"
+                    android:layout_marginBottom="18dip"
+                    android:text=""
+                    android:textColor="#666666"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14.5dip"
+                android:layout_marginTop="10dip"
+                android:layout_marginRight="14.5dip"
+                android:background="@drawable/shape_dialog_bg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="20dip"
+                    android:text="数据分析"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dip"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dip"
+                        android:layout_marginTop="20dip"
+                        android:text="数据点评"
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/data_detail2_tip1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dip"
+                        android:layout_marginTop="20dip"
+                        android:text=""
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dip"
+                    android:layout_marginBottom="12dip"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dip"
+                        android:layout_marginTop="20dip"
+                        android:text="改进意见"
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/data_detail2_tip2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dip"
+                        android:layout_marginTop="20dip"
+                        android:text=""
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
     <!--尿量统计end-->
 
     <!--强提醒次数start-->
-    <LinearLayout
+    <ScrollView
         android:id="@+id/layout_detail3"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:orientation="vertical">
+        android:visibility="gone">
 
-    </LinearLayout>
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical">
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14.5dip"
+                android:layout_marginTop="10dip"
+                android:layout_marginRight="14.5dip"
+                android:background="@drawable/shape_dialog_bg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="20dip"
+                    android:text="数据详情"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/data_detail3"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="20dip"
+                    android:layout_marginRight="15dip"
+                    android:layout_marginBottom="18dip"
+                    android:text=""
+                    android:textColor="#666666"
+                    android:textSize="16sp" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:layout_marginLeft="14.5dip"
+                android:layout_marginTop="10dip"
+                android:layout_marginRight="14.5dip"
+                android:background="@drawable/shape_dialog_bg"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="15dip"
+                    android:layout_marginTop="20dip"
+                    android:text="数据分析"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dip"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dip"
+                        android:layout_marginTop="20dip"
+                        android:text="数据点评"
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/data_detail3_tip1"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dip"
+                        android:layout_marginTop="20dip"
+                        android:text=""
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+                </LinearLayout>
+
+                <LinearLayout
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginRight="15dip"
+                    android:layout_marginBottom="12dip"
+                    android:orientation="horizontal">
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dip"
+                        android:layout_marginTop="20dip"
+                        android:text="改进意见"
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+
+                    <TextView
+                        android:id="@+id/data_detail3_tip2"
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="15dip"
+                        android:layout_marginTop="20dip"
+                        android:text=""
+                        android:textColor="#666666"
+                        android:textSize="16sp" />
+                </LinearLayout>
+            </LinearLayout>
+        </LinearLayout>
+    </ScrollView>
     <!--强提醒次数end-->
 
     <!--更换记录start-->

@@ -1,5 +1,6 @@
 package com.babyraising.aipaperurine.ui.info;
 
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -7,6 +8,7 @@ import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 
 import com.babyraising.aipaperurine.Constant;
 import com.babyraising.aipaperurine.PaperUrineApplication;
@@ -56,6 +58,33 @@ public class UrineDetailActivity extends BaseActivity {
     @ViewInject(R.id.layout_detail1)
     private LinearLayout detail1Layout;
 
+    @ViewInject(R.id.data_detail1)
+    private TextView dataDetail1;
+
+    @ViewInject(R.id.data_detail2)
+    private TextView dataDetail2;
+
+    @ViewInject(R.id.data_detail3)
+    private TextView dataDetail3;
+
+    @ViewInject(R.id.data_detail_tip1)
+    private TextView dataDetailTip1;
+
+    @ViewInject(R.id.data_detail2_tip1)
+    private TextView dataDetail2Tip1;
+
+    @ViewInject(R.id.data_detail3_tip1)
+    private TextView dataDetail3Tip1;
+
+    @ViewInject(R.id.data_detail_tip2)
+    private TextView dataDetailTip2;
+
+    @ViewInject(R.id.data_detail2_tip2)
+    private TextView dataDetail2Tip2;
+
+    @ViewInject(R.id.data_detail3_tip2)
+    private TextView dataDetail3Tip2;
+
     @ViewInject(R.id.layout_detail2)
     private LinearLayout detail2Layout;
 
@@ -80,6 +109,9 @@ public class UrineDetailActivity extends BaseActivity {
 
     private void initData() {
         userBean = ((PaperUrineApplication) getApplication()).getUserInfo();
+        Intent intent = getIntent();
+        MEMBER_ID = intent.getStringExtra("memberId");
+
         updateList();
     }
 
@@ -151,7 +183,9 @@ public class UrineDetailActivity extends BaseActivity {
                         MemberDataCal1Response response1 = gson.fromJson(result, MemberDataCal1Response.class);
                         switch (response1.getResult()) {
                             case 0:
-
+                                dataDetail1.setText("共使用尿布" + response1.getData().getDIAPER_CNT() + "片，当日系统用户平均使用尿片" + response1.getData().getAVG_DIAPER_CNT() + "片");
+                                dataDetailTip1.setText(response1.getData().getCOMMENT());
+                                dataDetailTip2.setText(response1.getData().getVIEW());
                                 break;
                             default:
                                 T.s("获取用片统计失败");
@@ -162,7 +196,9 @@ public class UrineDetailActivity extends BaseActivity {
                         MemberDataCal2Response response2 = gson.fromJson(result, MemberDataCal2Response.class);
                         switch (response2.getResult()) {
                             case 0:
-
+                                dataDetail2.setText("宝宝平均总尿量" + response2.getData().getRECOMMEND_VOLUME());
+                                dataDetail2Tip1.setText(response2.getData().getCOMMENT());
+                                dataDetail2Tip2.setText(response2.getData().getVIEW());
                                 break;
                             default:
                                 T.s("获取尿量统计失败");
@@ -173,7 +209,9 @@ public class UrineDetailActivity extends BaseActivity {
                         MemberDataCal3Response response3 = gson.fromJson(result, MemberDataCal3Response.class);
                         switch (response3.getResult()) {
                             case 0:
-
+                                dataDetail3.setText("没有参考值");
+                                dataDetail3Tip1.setText(response3.getData().getCOMMENT());
+                                dataDetail3Tip2.setText(response3.getData().getVIEW());
                                 break;
                             default:
                                 T.s("获取强提醒次数失败");
@@ -184,7 +222,11 @@ public class UrineDetailActivity extends BaseActivity {
                         MemberDataCal4Response response4 = gson.fromJson(result, MemberDataCal4Response.class);
                         switch (response4.getResult()) {
                             case 0:
-
+                                cal4BeanList.clear();
+                                for (int a = 0; a < response4.getData().size(); a++) {
+                                    cal4BeanList.add(response4.getData().get(a));
+                                }
+                                adapter.notifyDataSetChanged();
                                 break;
                             default:
                                 T.s("获取更换记录失败");

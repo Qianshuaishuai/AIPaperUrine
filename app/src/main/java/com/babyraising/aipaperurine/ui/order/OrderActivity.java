@@ -342,7 +342,7 @@ public class OrderActivity extends BaseActivity {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_RECEIVEMYYUYUE);
         params.addQueryStringParameter("APPUSER_ID", bean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", bean.getONLINE_ID());
-        params.addQueryStringParameter("YUYUE_ID", yuyueId);
+        params.addQueryStringParameter("YUYUECARD_ID", yuyueId);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -356,6 +356,7 @@ public class OrderActivity extends BaseActivity {
                         break;
                     default:
                         T.s("确认收货失败");
+                        System.out.println(result);
                         break;
                 }
             }

@@ -94,6 +94,7 @@ public class RefundDetailBActivity extends BaseActivity {
         Intent intent = getIntent();
         refundId = intent.getStringExtra("refundId");
 
+        System.out.println(refundId);
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_SHOWMYYUYUEREFUND);
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
@@ -101,9 +102,9 @@ public class RefundDetailBActivity extends BaseActivity {
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                System.out.println(result);
                 Gson gson = new Gson();
                 ShowMyYuyueRefundResponse response = gson.fromJson(result, ShowMyYuyueRefundResponse.class);
-
                 switch (response.getResult()) {
                     case 0:
                         bean = response.getData();
@@ -186,6 +187,9 @@ public class RefundDetailBActivity extends BaseActivity {
             reasonFail.setText(bean.getMSG());
         }
         reasonDetail.setText(bean.getREFUND_DETAIL());
+        if (TextUtils.isEmpty(bean.getREFUND_DETAIL())){
+            reasonDetail.setVisibility(View.GONE);
+        }
 
         x.image().bind(icon, bean.getPICS());
     }
