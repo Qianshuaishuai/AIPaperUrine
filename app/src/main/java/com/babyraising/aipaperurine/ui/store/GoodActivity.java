@@ -175,10 +175,14 @@ public class GoodActivity extends BaseActivity {
     }
 
     private void sureBuy() {
+        if(simpleCount.getText().toString().equals("0")){
+            T.s("商品数不能为0");
+            return;
+        }
         sureOrderBean.setGoodCount(simpleCount.getText().toString());
         sureOrderBean.setSelectValue1(selectValue1);
-        sureOrderBean.setSelectValue1(selectValue2);
-        sureOrderBean.setSelectValue1(selectValue3);
+        sureOrderBean.setSelectValue2(selectValue2);
+        sureOrderBean.setSelectValue3(selectValue3);
 
         Gson gson = new Gson();
         Intent intent = new Intent(this, SureOrderActivity.class);
@@ -233,7 +237,7 @@ public class GoodActivity extends BaseActivity {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 GoodsInfoResponse response = gson.fromJson(result, GoodsInfoResponse.class);
-
+                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         goodBean = response.getData();
@@ -386,6 +390,6 @@ public class GoodActivity extends BaseActivity {
     }
 
     private void initView() {
-
+        sureOrderBean = new SureOrderBean();
     }
 }

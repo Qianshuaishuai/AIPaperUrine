@@ -12,12 +12,15 @@ import android.widget.TextView;
 import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.bean.AddressBean;
 import com.babyraising.aipaperurine.bean.GrowthPointBean;
+import com.babyraising.aipaperurine.ui.address.AddressEditActivity;
+import com.babyraising.aipaperurine.ui.address.AddressManagerActivity;
 
 import java.util.List;
 
 public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHolder> {
 
     private List<AddressBean> mList;
+    private AddressManagerActivity context;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView singleTxt, nameTxt, phoneTxt, addressTxt;
@@ -31,13 +34,14 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
             nameTxt = (TextView) view.findViewById(R.id.name);
             phoneTxt = (TextView) view.findViewById(R.id.phone);
             addressTxt = (TextView) view.findViewById(R.id.address);
-            icDelete = (ImageView)view.findViewById(R.id.cb_delete);
-            cbDefault = (CheckBox)view.findViewById(R.id.cb_default);
+            icDelete = (ImageView) view.findViewById(R.id.cb_delete);
+            cbDefault = (CheckBox) view.findViewById(R.id.cb_default);
         }
 
     }
 
-    public AddressAdapter(List<AddressBean> mList) {
+    public AddressAdapter(AddressManagerActivity context, List<AddressBean> mList) {
+        this.context = context;
         this.mList = mList;
     }
 
@@ -49,7 +53,7 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -69,16 +73,29 @@ public class AddressAdapter extends RecyclerView.Adapter<AddressAdapter.ViewHold
         holder.cbDefault.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override
             public void onCheckedChanged(CompoundButton compoundButton, boolean b) {
-
+                if (b) {
+                    context.setDefault(mList.get(position).getADDRESS_ID());
+                } else {
+                    holder.cbDefault.setChecked(true);
+                }
             }
         });
 
         holder.icDelete.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-
+                context.deleteAddressId(mList.get(position).getADDRESS_ID());
             }
         });
+
+        switch (mList.get(position).getISDEFAULT()) {
+            case "1":
+                holder.cbDefault.setChecked(false);
+                break;
+            case "2":
+                holder.cbDefault.setChecked(true);
+                break;
+        }
     }
 
     @Override

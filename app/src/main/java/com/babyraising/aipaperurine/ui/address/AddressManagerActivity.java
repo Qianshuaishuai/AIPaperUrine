@@ -16,6 +16,7 @@ import com.babyraising.aipaperurine.base.BaseActivity;
 import com.babyraising.aipaperurine.bean.AddressBean;
 import com.babyraising.aipaperurine.bean.UserBean;
 import com.babyraising.aipaperurine.response.AddressResponse;
+import com.babyraising.aipaperurine.response.CommonResponse;
 import com.babyraising.aipaperurine.response.CouponResponse;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
@@ -60,7 +61,38 @@ public class AddressManagerActivity extends BaseActivity {
 
     private void initData() {
         userBean = ((PaperUrineApplication) getApplication()).getUserInfo();
+    }
 
+    private void initView() {
+        addressBeanList = new ArrayList<>();
+        addressAdapter = new AddressAdapter(this,addressBeanList);
+        addressAdapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
+            @Override
+            public void onClick(int position) {
+                startAddressActivity(addressBeanList.get(position).getADDRESS_ID());
+            }
+        });
+
+        LinearLayoutManager manager = new LinearLayoutManager(this);
+        rvAddress.setAdapter(addressAdapter);
+        rvAddress.setLayoutManager(manager);
+    }
+
+    private void startAddressActivity(String addressId) {
+        Intent intent = new Intent(this, AddressEditActivity.class);
+        if (!TextUtils.isEmpty(addressId)) {
+            intent.putExtra("addressId", addressId);
+        }
+        startActivity(intent);
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getAddressList();
+    }
+
+    private void getAddressList(){
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_ADDRESSLIST);
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
@@ -101,26 +133,79 @@ public class AddressManagerActivity extends BaseActivity {
         });
     }
 
-    private void initView() {
-        addressBeanList = new ArrayList<>();
-        addressAdapter = new AddressAdapter(addressBeanList);
-        addressAdapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
+    public void deleteAddressId(String addressId){
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_DELADDRESS);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+        params.addQueryStringParameter("ADDRESS_ID", addressId);
+        x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
-            public void onClick(int position) {
-                startAddressActivity(addressBeanList.get(position).getADDRESS_ID());
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        T.s("删除成功");
+                        getAddressList();
+                        break;
+                    default:
+                        T.s("删除失败");
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
             }
         });
-
-        LinearLayoutManager manager = new LinearLayoutManager(this);
-        rvAddress.setAdapter(addressAdapter);
-        rvAddress.setLayoutManager(manager);
     }
 
-    private void startAddressActivity(String addressId) {
-        Intent intent = new Intent(this, AddressEditActivity.class);
-        if (!TextUtils.isEmpty(addressId)) {
-            intent.putExtra("addressId", addressId);
-        }
-        startActivity(intent);
+    public void setDefault(String addressId){
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_SETDEFAULTADDRESS);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+        params.addQueryStringParameter("ADDRESS_ID", addressId);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        T.s("设置成功");
+                        getAddressList();
+                        break;
+                    default:
+                        T.s("设置失败");
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 }

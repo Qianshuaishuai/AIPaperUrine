@@ -131,7 +131,7 @@ public class SureOrderActivity extends BaseActivity {
 
         Intent intent = getIntent();
         Gson gson = new Gson();
-
+        System.out.println(intent.getStringExtra("sureOrderBean"));
         sureOrderBean = gson.fromJson(intent.getStringExtra("sureOrderBean"), SureOrderBean.class);
         if (TextUtils.isEmpty(sureOrderBean.getGoodsInfoBean().getGOODS_ID())) {
             T.s("获取订单失败");
