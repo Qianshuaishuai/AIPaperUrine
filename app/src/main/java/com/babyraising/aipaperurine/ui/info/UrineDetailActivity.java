@@ -1,5 +1,6 @@
 package com.babyraising.aipaperurine.ui.info;
 
+import android.app.DatePickerDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -33,6 +34,7 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.List;
 
 @ContentView(R.layout.activity_urine_detail)
@@ -45,9 +47,13 @@ public class UrineDetailActivity extends BaseActivity {
     private String START_DATE = "";
     private String END_DATE = "";
     private String MEMBER_ID = "";
+    private DatePickerDialog yearMonthDatePickerDialog;
 
     @ViewInject(R.id.group_type)
     private RadioGroup typeGroup;
+
+    @ViewInject(R.id.tab_date_tv)
+    private TextView tabDateTv;
 
     @ViewInject(R.id.rv_detail4)
     private RecyclerView rvDetail;
@@ -99,12 +105,18 @@ public class UrineDetailActivity extends BaseActivity {
         finish();
     }
 
+    @Event(R.id.layout_date_picker)
+    private void layoutDatePicker(View view) {
+        yearMonthDatePickerDialog.show();
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         initView();
         initData();
+        initDatePicker();
     }
 
     private void initData() {
@@ -113,6 +125,23 @@ public class UrineDetailActivity extends BaseActivity {
         MEMBER_ID = intent.getStringExtra("memberId");
 
         updateList();
+    }
+
+    private void initDatePicker() {
+        Calendar ca = Calendar.getInstance();
+        int mYear = ca.get(Calendar.YEAR);
+        int mMonth = ca.get(Calendar.MONTH);
+        int mDay = ca.get(Calendar.DAY_OF_MONTH);
+
+        yearMonthDatePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
+                        String result = year + "-" + month + "-" + dayOfMonth;
+                        tabDateTv.setText(result);
+                    }
+                },
+                mYear, mMonth, mDay);
     }
 
     private void initView() {

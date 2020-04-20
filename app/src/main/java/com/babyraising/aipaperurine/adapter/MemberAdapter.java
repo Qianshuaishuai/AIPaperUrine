@@ -13,6 +13,7 @@ import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.bean.AddressBean;
 import com.babyraising.aipaperurine.bean.MemberListBean;
 import com.babyraising.aipaperurine.ui.main.HomeFragment;
+import com.babyraising.aipaperurine.util.T;
 import com.babyraising.aipaperurine.view.HalfCircleProgressView;
 
 import org.xutils.common.util.DensityUtil;
@@ -34,7 +35,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         TextView mainTipTv, mainPercentTv, mainTempTv, mainBeamTv, mainSleepTv, mainSize, mainBrand;
 
         HalfCircleProgressView cpv;
-        LinearLayout posLayout, sizeLayout;
+        LinearLayout posLayout, sizeLayout, cardLayout;
 
         public ViewHolder(View view) {
             super(view);
@@ -53,6 +54,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             mainSleepTv = (TextView) view.findViewById(R.id.main_sleep_tv);
             mainSize = (TextView) view.findViewById(R.id.main_size);
             posLayout = (LinearLayout) view.findViewById(R.id.layout_posture);
+            cardLayout = (LinearLayout) view.findViewById(R.id.card_layout);
             sizeLayout = (LinearLayout) view.findViewById(R.id.layout_size);
             mainBrand = (TextView) view.findViewById(R.id.main_brand);
             cpv = (HalfCircleProgressView) view.findViewById(R.id.cpv);
@@ -73,7 +75,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
     }
 
     @Override
-    public void onBindViewHolder(ViewHolder holder, final int position) {
+    public void onBindViewHolder(final ViewHolder holder, final int position) {
         holder.itemView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -113,14 +115,19 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             }
         });
 
+        holder.cardTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (holder.cardTime.getText().toString().equals("设备未链接，点击绑定")) {
+                    context.goToDeviceConnect(mList.get(position).getMEMBER_ID());
+                } else {
+                    T.s("设备已链接");
+                }
+            }
+        });
+
         if (TextUtils.isEmpty(mList.get(position).getCREATETIME())) {
             holder.cardTime.setText("设备未链接，点击绑定");
-            holder.cardTime.setOnClickListener(new View.OnClickListener() {
-                @Override
-                public void onClick(View view) {
-
-                }
-            });
         } else {
             holder.cardTime.setText(mList.get(position).getCREATETIME());
         }
@@ -171,6 +178,13 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 //        System.out.println(mList.get(position).getSLEEP_POSTURE());
 
         holder.mainBrand.setText(mList.get(position).getBRAND_NAME());
+
+        holder.cardLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.goToBabyInfoSetting(mList.get(position));
+            }
+        });
     }
 
     @Override

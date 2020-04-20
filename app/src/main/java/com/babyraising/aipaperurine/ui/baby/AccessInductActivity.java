@@ -14,6 +14,8 @@ import org.xutils.view.annotation.Event;
 @ContentView(R.layout.activity_access_induct)
 public class AccessInductActivity extends BaseActivity {
 
+    private String memberId = "";
+
     @Event(R.id.layout_back)
     private void back(View view) {
         finish();
@@ -22,6 +24,7 @@ public class AccessInductActivity extends BaseActivity {
     @Event(R.id.next)
     private void next(View view) {
         Intent intent = new Intent(this, MoblieInductActivity.class);
+        intent.putExtra("memberId",memberId);
         startActivity(intent);
         finish();
     }
@@ -39,6 +42,7 @@ public class AccessInductActivity extends BaseActivity {
     }
 
     private void initData() {
-
+        Intent intent = getIntent();
+        memberId = intent.getStringExtra("memberId");
     }
 }

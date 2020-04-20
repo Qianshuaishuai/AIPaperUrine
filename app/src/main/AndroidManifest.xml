@@ -24,7 +24,8 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.user.UserAgreeActivity"></activity>
+        <activity android:name=".ui.baby.DeviceConnectActivity"></activity>
+        <activity android:name=".ui.user.UserAgreeActivity" />
         <activity android:name=".ui.user.PrivacyActivity" />
         <activity android:name=".ui.order.ExpressDetailActivity" />
         <activity android:name=".ui.baby.MoblieInductActivity" />

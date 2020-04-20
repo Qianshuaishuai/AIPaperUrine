@@ -27,12 +27,15 @@ import com.babyraising.aipaperurine.PaperUrineApplication;
 import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.adapter.MemberAdapter;
 import com.babyraising.aipaperurine.base.BaseFragment;
+import com.babyraising.aipaperurine.bean.MemberInfoBean;
 import com.babyraising.aipaperurine.bean.MemberListBean;
 import com.babyraising.aipaperurine.bean.UserBean;
 import com.babyraising.aipaperurine.response.CourseResponse;
 import com.babyraising.aipaperurine.response.MemberListResponse;
 import com.babyraising.aipaperurine.response.PersonResponse;
+import com.babyraising.aipaperurine.ui.baby.AccessInductActivity;
 import com.babyraising.aipaperurine.ui.info.CallSettingActivity;
+import com.babyraising.aipaperurine.ui.info.ChangeBabyInfoActivity;
 import com.babyraising.aipaperurine.ui.info.PickSizeActivity;
 import com.babyraising.aipaperurine.ui.info.TeachActivity;
 import com.babyraising.aipaperurine.ui.info.UrineDetailActivity;
@@ -261,7 +264,7 @@ public class HomeFragment extends BaseFragment {
 
     private void initView() {
         memberList = new ArrayList<>();
-        adapter = new MemberAdapter(memberList,this);
+        adapter = new MemberAdapter(memberList, this);
         adapter.setOnItemClickListener(new MemberAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
@@ -349,6 +352,20 @@ public class HomeFragment extends BaseFragment {
                 loginPopupWindow.dismiss();
             }
         });
+    }
+
+    public void goToBabyInfoSetting(MemberListBean memberBean) {
+        Gson gson = new Gson();
+        Intent intent = new Intent(getContext(), ChangeBabyInfoActivity.class);
+        String beanStr = gson.toJson(memberBean);
+        intent.putExtra("memberBean", beanStr);
+        startActivity(intent);
+    }
+
+    public void goToDeviceConnect(String memberId) {
+        Intent intent = new Intent(getContext(), AccessInductActivity.class);
+        intent.putExtra("memberId", memberId);
+        startActivity(intent);
     }
 
     public void goToMemberSetting(String memberId) {

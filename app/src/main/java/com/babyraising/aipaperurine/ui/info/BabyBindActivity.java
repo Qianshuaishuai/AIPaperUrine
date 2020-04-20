@@ -29,7 +29,9 @@ import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
 import org.xutils.common.util.DensityUtil;
+import org.xutils.common.util.KeyValue;
 import org.xutils.http.RequestParams;
+import org.xutils.http.body.MultipartBody;
 import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -37,7 +39,9 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 @ContentView(R.layout.activity_baby_bind)
 public class BabyBindActivity extends BaseActivity {
@@ -194,12 +198,17 @@ public class BabyBindActivity extends BaseActivity {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_ADDMEMBER);
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
-        params.addQueryStringParameter("HEADIMG", photoPath);
+//        params.addQueryStringParameter("HEADIMG", photoPath);
         params.addQueryStringParameter("NICKNAME", babyName.getText().toString());
         params.addQueryStringParameter("SEX", sexType);
         params.addQueryStringParameter("BIRTHDAY", babyDate.getText().toString());
         params.addQueryStringParameter("DIAPER_BRAND", brand);
         params.addQueryStringParameter("DIAPER_SIZE", brandSize);
+        params.setAsJsonContent(true);
+        List<KeyValue> list = new ArrayList<>();
+        list.add(new KeyValue("HEADIMG", new File(photoPath)));
+        MultipartBody body = new MultipartBody(list, "UTF-8");
+        params.setRequestBody(body);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

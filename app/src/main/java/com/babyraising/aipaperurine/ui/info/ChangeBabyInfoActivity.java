@@ -39,7 +39,9 @@ import com.google.gson.Gson;
 
 import org.xutils.common.Callback;
 import org.xutils.common.util.DensityUtil;
+import org.xutils.common.util.KeyValue;
 import org.xutils.http.RequestParams;
+import org.xutils.http.body.MultipartBody;
 import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -47,7 +49,9 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.io.File;
+import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.List;
 
 import cn.aigestudio.datepicker.views.DatePicker;
 
@@ -312,10 +316,16 @@ public class ChangeBabyInfoActivity extends BaseActivity {
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
         params.addQueryStringParameter("MEMBER_ID", memberBean.getMEMBER_ID());
-        File picFile = new File(pic);
-        params.addQueryStringParameter("HEADIMG", picFile);
+//        File picFile = new File(pic);
+//        params.addQueryStringParameter("HEADIMG", picFile);
 //        params.addBodyParameter("HEADIMG", new File(pic),"multipart/form-data");
 //        params.addQueryStringParameter("HEADIMG", pic);
+
+        params.setAsJsonContent(true);
+        List<KeyValue> list = new ArrayList<>();
+        list.add(new KeyValue("HEADIMG", new File(pic)));
+        MultipartBody body = new MultipartBody(list, "UTF-8");
+        params.setRequestBody(body);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

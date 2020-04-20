@@ -105,6 +105,7 @@
                 android:textSize="16sp" />
 
             <LinearLayout
+                android:id="@+id/layout_date_picker"
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:gravity="center_vertical|right"
