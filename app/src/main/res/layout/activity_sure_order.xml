@@ -74,17 +74,17 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginTop="19dip"
-                            android:text="用户名"
+                            android:text=""
                             android:textColor="#1e1e1e"
                             android:textSize="16sp" />
 
                         <TextView
-                            android:id="@+id/address"
+                            android:id="@+id/phone"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="10.5dip"
                             android:layout_marginTop="19dip"
-                            android:text="12345678900"
+                            android:text=""
                             android:textColor="#999999"
                             android:textSize="14sp" />
                     </LinearLayout>
@@ -110,7 +110,7 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="3.5dip"
-                            android:text="广东省深圳市南山区XX村XX路 022号XX村XX路022号"
+                            android:text=""
                             android:textColor="#1e1e1e"
                             android:textSize="14sp" />
                     </LinearLayout>

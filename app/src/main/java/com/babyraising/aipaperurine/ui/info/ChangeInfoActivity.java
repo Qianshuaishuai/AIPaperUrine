@@ -1,8 +1,11 @@
 package com.babyraising.aipaperurine.ui.info;
 
 import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
+import android.os.AsyncTask;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Environment;
@@ -20,6 +23,7 @@ import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.babyraising.aipaperurine.Constant;
 import com.babyraising.aipaperurine.PaperUrineApplication;
@@ -30,16 +34,26 @@ import com.babyraising.aipaperurine.bean.UserBean;
 import com.babyraising.aipaperurine.response.CouponResponse;
 import com.babyraising.aipaperurine.response.EditImgResponse;
 import com.babyraising.aipaperurine.response.EditUserResponse;
+import com.babyraising.aipaperurine.ui.address.AddressEditActivity;
 import com.babyraising.aipaperurine.ui.person.ChangeSignActivity;
 import com.babyraising.aipaperurine.ui.person.MailEditActivity;
 import com.babyraising.aipaperurine.ui.person.SignActivity;
+import com.babyraising.aipaperurine.ui.picker.CityPickerDialog;
+import com.babyraising.aipaperurine.ui.picker.Util;
+import com.babyraising.aipaperurine.ui.picker.address.City;
+import com.babyraising.aipaperurine.ui.picker.address.County;
+import com.babyraising.aipaperurine.ui.picker.address.Province;
 import com.babyraising.aipaperurine.util.FileUtil;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
 
+import org.apache.http.util.EncodingUtils;
+import org.json.JSONArray;
 import org.xutils.common.Callback;
 import org.xutils.common.util.DensityUtil;
+import org.xutils.common.util.KeyValue;
 import org.xutils.http.RequestParams;
+import org.xutils.http.body.MultipartBody;
 import org.xutils.image.ImageOptions;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
@@ -47,6 +61,9 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.List;
@@ -58,6 +75,8 @@ public class ChangeInfoActivity extends BaseActivity {
 
     private UserBean userBean;
     private PersonBean personBean;
+
+    private ArrayList<Province> provinces = new ArrayList<Province>();
 
     public static final int RC_TAKE_PHOTO = 1;
     public static final int RC_CHOOSE_PHOTO = 2;
@@ -151,7 +170,11 @@ public class ChangeInfoActivity extends BaseActivity {
 
     @Event(R.id.layout_city)
     private void layoutCityClick(View view) {
-
+        if (provinces.size() > 0) {
+            showAddressDialog();
+        } else {
+            new InitAreaTask(this).execute(0);
+        }
     }
 
     @Event(R.id.commit)
@@ -264,9 +287,15 @@ public class ChangeInfoActivity extends BaseActivity {
 
         if (!TextUtils.isEmpty(city)) {
             params.addQueryStringParameter("CITY", city);
-            params.addQueryStringParameter("PROVICE_CODE", provinceCode);
-            params.addQueryStringParameter("CITY_CODE", cityCode);
-            params.addQueryStringParameter("DISTRICT_CODE", ditCode);
+            if (!TextUtils.isEmpty(provinceCode)) {
+                params.addQueryStringParameter("PROVICE_CODE", provinceCode);
+            }
+            if (!TextUtils.isEmpty(cityCode)) {
+                params.addQueryStringParameter("CITY_CODE", cityCode);
+            }
+            if (!TextUtils.isEmpty(ditCode)) {
+                params.addQueryStringParameter("DISTRICT_CODE", ditCode);
+            }
         }
 
         if (!TextUtils.isEmpty(birthday)) {
@@ -315,12 +344,16 @@ public class ChangeInfoActivity extends BaseActivity {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_EDITIMG);
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
-        File picFile = new File(pic);
+//        File picFile = new File(pic);
 //        params.addQueryStringParameter("HEADIMG", picFile);
 //        params.addBodyParameter("HEADIMG", new File(pic),"multipart/form-data");
 //        params.addQueryStringParameter("HEADIMG", pic);
-
-        params.addBodyParameter("HEADIMG", picFile, "multipart/form-data");
+        params.addBodyParameter("HEADIMG", new File(pic));
+        params.setAsJsonContent(true);
+        List<KeyValue> list = new ArrayList<>();
+        list.add(new KeyValue("HEADIMG", new File(pic)));
+        MultipartBody body = new MultipartBody(list, "UTF-8");
+        params.setRequestBody(body);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -431,5 +464,112 @@ public class ChangeInfoActivity extends BaseActivity {
         System.out.println(imageUri);
         intentToTakePhoto.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
         startActivityForResult(intentToTakePhoto, RC_TAKE_PHOTO);
+    }
+
+    private void showAddressDialog() {
+        new CityPickerDialog(this, provinces, null, null, null,
+                new CityPickerDialog.onCityPickedListener() {
+
+                    @Override
+                    public void onPicked(Province selectProvince,
+                                         City selectCity, County selectCounty) {
+                        StringBuilder address = new StringBuilder();
+                        address.append(
+                                selectProvince != null ? selectProvince
+                                        .getAreaName() : "")
+                                .append(selectCity != null ? selectCity
+                                        .getAreaName() : "")
+                                .append(selectCounty != null ? selectCounty
+                                        .getAreaName() : "");
+                        String text = selectCounty != null ? selectCounty
+                                .getAreaName() : "";
+                        String addressTip = "";
+                        if (selectProvince != null) {
+                            if (selectProvince != null) {
+                                addressTip = addressTip + selectProvince.getAreaName();
+                                userBean.setPROVICE_CODE(selectProvince.getAreaName());
+                            }
+                        }
+
+                        if (selectCity != null) {
+                            if (selectCity.getAreaName() != null) {
+                                addressTip = addressTip + " " + selectCity.getAreaName();
+                                userBean.setCITY_CODE(selectCity.getAreaName());
+                            }
+                        }
+
+                        if (selectCounty != null) {
+                            if (selectCounty.getAreaName() != null) {
+                                addressTip = addressTip + " " + selectCounty.getAreaName();
+                                userBean.setDISTRICT_CODE(selectCounty.getAreaName());
+                            }
+
+                        }
+                        cardCity.setText(addressTip);
+                        userBean.setCITY(addressTip);
+                    }
+                }).show();
+    }
+
+    private class InitAreaTask extends AsyncTask<Integer, Integer, Boolean> {
+
+        Context mContext;
+
+        Dialog progressDialog;
+
+        public InitAreaTask(Context context) {
+            mContext = context;
+            progressDialog = Util.createLoadingDialog(mContext, "请稍等...", true,
+                    0);
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            progressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            progressDialog.dismiss();
+            if (provinces.size() > 0) {
+                showAddressDialog();
+            } else {
+                Toast.makeText(mContext, "数据初始化失败", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected Boolean doInBackground(Integer... params) {
+            String address = null;
+            InputStream in = null;
+            try {
+                in = mContext.getResources().getAssets().open("address.txt");
+                byte[] arrayOfByte = new byte[in.available()];
+                in.read(arrayOfByte);
+                address = EncodingUtils.getString(arrayOfByte, "UTF-8");
+                JSONArray jsonList = new JSONArray(address);
+                Gson gson = new Gson();
+                for (int i = 0; i < jsonList.length(); i++) {
+                    try {
+                        provinces.add(gson.fromJson(jsonList.getString(i),
+                                Province.class));
+                    } catch (Exception e) {
+                    }
+                }
+                return true;
+            } catch (Exception e) {
+
+            } finally {
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                    }
+                }
+            }
+            return false;
+        }
+
     }
 }

@@ -9,6 +9,7 @@ import android.view.View;
 import android.widget.EditText;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.babyraising.aipaperurine.Constant;
@@ -45,6 +46,7 @@ public class SureOrderActivity extends BaseActivity {
     private UserBean userBean;
     private SureOrderBean sureOrderBean;
     private String couponId = "";
+    private PreYuyueBean preYuyueBean;
 
     @Event(R.id.layout_back)
     private void back(View view) {
@@ -53,9 +55,9 @@ public class SureOrderActivity extends BaseActivity {
 
     @ViewInject(R.id.username)
     private TextView userName;
-
-    @ViewInject(R.id.address)
-    private TextView address;
+//
+//    @ViewInject(R.id.address)
+//    private TextView address;
 
     @ViewInject(R.id.phone)
     private TextView phone;
@@ -83,6 +85,9 @@ public class SureOrderActivity extends BaseActivity {
 
     @ViewInject(R.id.coupon_count_layout)
     private LinearLayout couponCountLayout;
+
+    @ViewInject(R.id.coupon_price)
+    private TextView couponPrice;
 
     @ViewInject(R.id.service)
     private TextView service;
@@ -112,7 +117,7 @@ public class SureOrderActivity extends BaseActivity {
     }
 
     @ViewInject(R.id.coupon_detail_layout)
-    private LinearLayout couponDetailLayout;
+    private RelativeLayout couponDetailLayout;
 
     @ViewInject(R.id.rv_coupon)
     private RecyclerView rvCoupon;
@@ -131,7 +136,6 @@ public class SureOrderActivity extends BaseActivity {
 
         Intent intent = getIntent();
         Gson gson = new Gson();
-        System.out.println(intent.getStringExtra("sureOrderBean"));
         sureOrderBean = gson.fromJson(intent.getStringExtra("sureOrderBean"), SureOrderBean.class);
         if (TextUtils.isEmpty(sureOrderBean.getGoodsInfoBean().getGOODS_ID())) {
             T.s("获取订单失败");
@@ -156,7 +160,8 @@ public class SureOrderActivity extends BaseActivity {
 
                 switch (response.getResult()) {
                     case 0:
-                        updatePreView(response.getData());
+                        preYuyueBean = response.getData();
+                        updatePreView(preYuyueBean);
                         break;
                     default:
                         System.out.println("失败:" + result);
@@ -184,14 +189,22 @@ public class SureOrderActivity extends BaseActivity {
     private void updatePreView(PreYuyueBean bean) {
         goodname.setText(bean.getCARDINFO().getTITLE());
         good_count.setText("x" + bean.getTOTAL_NUM());
-        fare.setText(bean.getEXPRESSFEE());
-        good_detail.setText("参数设置:" + bean.getCARDINFO().getBRAND_SIZE() + "  " + bean.getCARDINFO().getATTRIBUTE_VALUE1() + "  " + bean.getCARDINFO().getATTRIBUTE_VALUE2() + "  " + bean.getCARDINFO().getATTRIBUTE_VALUE3());
+        fare.setText("¥" + bean.getEXPRESSFEE());
+        good_detail.setText("参数:" + bean.getCARDINFO().getBRAND_SIZE() + "  " + bean.getCARDINFO().getATTRIBUTE_VALUE1() + "  " + bean.getCARDINFO().getATTRIBUTE_VALUE2() + "  " + bean.getCARDINFO().getATTRIBUTE_VALUE3());
         x.image().bind(icon, bean.getCARDINFO().getPIC());
         service.setText(bean.getSERVICE());
 
-        address.setText(bean.getADDRESS().getADDRESS());
+        detail.setText(bean.getADDRESS().getADDRESS());
         phone.setText(bean.getADDRESS().getCPHONE());
         userName.setText(bean.getADDRESS().getCNAME());
+//
+//
+//        System.out.println(bean.getADDRESS().getADDRESS());
+//        System.out.println(bean.getADDRESS().getCNAME());
+//        System.out.println(bean.getADDRESS().getCPHONE());
+
+        price.setText("¥" + bean.getTOTAL_PRICE());
+        allPrice.setText("¥" + bean.getREAL_PAY());
     }
 
     private void useCoupon(String couponId) {
@@ -210,10 +223,15 @@ public class SureOrderActivity extends BaseActivity {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 PreYuyueCouponResponse response = gson.fromJson(result, PreYuyueCouponResponse.class);
-
                 switch (response.getResult()) {
                     case 0:
-
+                        allPrice.setText("¥" + response.getData().getREAL_PAY());
+                        couponCountLayout.setVisibility(View.VISIBLE);
+                        if(TextUtils.isEmpty(response.getData().getCOUPON_DISCOUNT())){
+                            couponPrice.setText("-¥" + "0.00");
+                        }else{
+                            couponPrice.setText("-¥" + response.getData().getCOUPON_DISCOUNT());
+                        }
                         break;
                     default:
                         System.out.println("失败:" + result);
@@ -248,6 +266,7 @@ public class SureOrderActivity extends BaseActivity {
         params.addQueryStringParameter("ATTRIBUTE_VALUE1", sureOrderBean.getSelectValue1());
         params.addQueryStringParameter("ATTRIBUTE_VALUE2", sureOrderBean.getSelectValue2());
         params.addQueryStringParameter("ATTRIBUTE_VALUE3", sureOrderBean.getSelectValue3());
+        params.addQueryStringParameter("ADDRESS_ID",preYuyueBean.getADDRESS().getADDRESS_ID() );
         params.addQueryStringParameter("COUPON_ID", couponId);
         params.addQueryStringParameter("BUYERMSG", note.getText().toString());
         x.http().post(params, new Callback.CommonCallback<String>() {
@@ -255,10 +274,11 @@ public class SureOrderActivity extends BaseActivity {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 SubmitYuyueOrderResponse response = gson.fromJson(result, SubmitYuyueOrderResponse.class);
-
+                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         startPayActivity(response.getData().getYUYUE_ID(), response.getData().getREAL_PAY());
+                        finish();
                         break;
                     default:
                         T.s("下单失败");

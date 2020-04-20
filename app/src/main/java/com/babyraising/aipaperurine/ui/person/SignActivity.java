@@ -52,7 +52,7 @@ public class SignActivity extends BaseActivity {
     @ViewInject(R.id.main_layout)
     private RelativeLayout mainLayout;
 
-    @ViewInject(R.id.integral)
+    @ViewInject(R.id.integral_count)
     private TextView integral;
 
     @ViewInject(R.id.sign_complete)
@@ -136,7 +136,7 @@ public class SignActivity extends BaseActivity {
                 switch (response.getResult()) {
                     case 0:
                         detail.setText("+" + response.getData().getPOINT() + "分");
-                        integral.setText(currentDay + 1);
+                        integral.setText("" + (currentDay + 1));
                         updateSignList(currentDay + 1);
                         popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
 
@@ -173,9 +173,10 @@ public class SignActivity extends BaseActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
+        initTipDialog();
         initView();
         initData();
-        initTipDialog();
+
     }
 
     private void initTipDialog() {

@@ -91,14 +91,14 @@ public class OrderAdapter extends RecyclerView.Adapter<OrderAdapter.ViewHolder> 
                 holder.bt3.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        context.cancelOrder(mList.get(position).getYUYUE_ID());
                     }
                 });
 
                 holder.bt4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        context.goToPay(mList.get(position).getYUYUE_ID());
                     }
                 });
                 break;

@@ -24,7 +24,9 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <activity android:name=".ui.order.ExpressDetailActivity"></activity>
+        <activity android:name=".ui.user.UserAgreeActivity"></activity>
+        <activity android:name=".ui.user.PrivacyActivity" />
+        <activity android:name=".ui.order.ExpressDetailActivity" />
         <activity android:name=".ui.baby.MoblieInductActivity" />
         <activity android:name=".ui.baby.AccessInductActivity" />
         <activity android:name=".ui.info.ChangeBabyInfoActivity" />
@@ -87,8 +89,7 @@
         </activity>
         <activity android:name=".ui.user.LoginThirdActivity" />
         <activity android:name=".ui.user.LoginActivity" />
-        <activity android:name=".ui.main.MainActivity">
-        </activity>
+        <activity android:name=".ui.main.MainActivity" />
     </application>
 
 </manifest>

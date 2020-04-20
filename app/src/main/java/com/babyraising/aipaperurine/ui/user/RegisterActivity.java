@@ -1,6 +1,7 @@
 package com.babyraising.aipaperurine.ui.user;
 
 import android.app.AlertDialog;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -53,6 +54,18 @@ public class RegisterActivity extends BaseActivity {
 
     @ViewInject(R.id.send_code)
     private TextView sendCode;
+
+    @Event(R.id.privacy)
+    private void privacy(View view){
+        Intent intent = new Intent(this,PrivacyActivity.class);
+        startActivity(intent);
+    }
+
+    @Event(R.id.user_agree)
+    private void userAgree(View view){
+        Intent intent = new Intent(this,UserAgreeActivity.class);
+        startActivity(intent);
+    }
 
     @Event(R.id.back)
     private void backClick(View view) {

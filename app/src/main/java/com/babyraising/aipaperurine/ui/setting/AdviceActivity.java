@@ -49,7 +49,7 @@ public class AdviceActivity extends BaseActivity {
         }
 
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_ADDADVISE);
-        params.addQueryStringParameter("APPUESR_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
         params.addQueryStringParameter("MSG", advice.getText().toString());
         x.http().post(params, new Callback.CommonCallback<String>() {
@@ -57,6 +57,7 @@ public class AdviceActivity extends BaseActivity {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 RegisterResponse response = gson.fromJson(result, RegisterResponse.class);
+                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         T.s("发送成功");

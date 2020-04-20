@@ -422,7 +422,7 @@ public class OrderActivity extends BaseActivity {
 //        tipDialog.show();
     }
 
-    private void goToPay(String yuyueId) {
+    public void goToPay(String yuyueId) {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_SHOWSIMPLEMYYUYUE);
         params.addQueryStringParameter("APPUSER_ID", bean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", bean.getONLINE_ID());

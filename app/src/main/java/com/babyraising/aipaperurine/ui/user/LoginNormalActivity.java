@@ -5,6 +5,7 @@ import android.content.Intent;
 import android.graphics.Paint;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -16,6 +17,7 @@ import com.babyraising.aipaperurine.Constant;
 import com.babyraising.aipaperurine.PaperUrineApplication;
 import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.base.BaseActivity;
+import com.babyraising.aipaperurine.bean.UserBean;
 import com.babyraising.aipaperurine.response.RegisterResponse;
 import com.babyraising.aipaperurine.ui.main.MainActivity;
 import com.babyraising.aipaperurine.util.T;
@@ -136,6 +138,15 @@ public class LoginNormalActivity extends BaseActivity {
         super.onCreate(savedInstanceState);
         initTipDialog();
         initView();
+
+        initData();
+    }
+
+    private void initData() {
+        UserBean userBean = ((PaperUrineApplication)getApplication()).getUserInfo();
+        if (!TextUtils.isEmpty(userBean.getONLINE_ID())){
+            startMainActivity();
+        }
     }
 
     private void startMainActivity() {

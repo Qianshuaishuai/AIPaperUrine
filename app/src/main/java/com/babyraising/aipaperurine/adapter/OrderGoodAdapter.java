@@ -120,7 +120,7 @@ public class OrderGoodAdapter extends RecyclerView.Adapter<OrderGoodAdapter.View
                 holder.bt4.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
-
+                        context.goToRefundActivity(mList.get(position).getYUYUECARD_ID());
                     }
                 });
                 break;
@@ -164,7 +164,7 @@ public class OrderGoodAdapter extends RecyclerView.Adapter<OrderGoodAdapter.View
                     holder.bt4.setOnClickListener(new View.OnClickListener() {
                         @Override
                         public void onClick(View view) {
-
+                            context.sureOrder(mList.get(position).getYUYUECARD_ID());
                         }
                     });
                 } else {

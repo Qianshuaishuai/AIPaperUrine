@@ -188,6 +188,7 @@ public class GoodActivity extends BaseActivity {
         Intent intent = new Intent(this, SureOrderActivity.class);
         intent.putExtra("sureOrderBean", gson.toJson(sureOrderBean));
         startActivity(intent);
+        finish();
     }
 
     @Event(R.id.iv_reduce)

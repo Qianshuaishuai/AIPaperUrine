@@ -2,7 +2,6 @@ package com.babyraising.aipaperurine.ui.setting;
 
 import android.app.AlertDialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -15,7 +14,8 @@ import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.base.BaseActivity;
 import com.babyraising.aipaperurine.bean.UserBean;
 import com.babyraising.aipaperurine.response.RegisterResponse;
-import com.babyraising.aipaperurine.ui.user.LoginActivity;
+import com.babyraising.aipaperurine.ui.main.MainActivity;
+import com.babyraising.aipaperurine.ui.user.LoginNormalActivity;
 import com.babyraising.aipaperurine.util.CacheUtil;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
@@ -82,18 +82,21 @@ public class SettingActivity extends BaseActivity {
     @Event(R.id.logout)
     private void logout(View view) {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_LOGOUT);
-        params.addQueryStringParameter("APPUESR_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 RegisterResponse response = gson.fromJson(result, RegisterResponse.class);
-                
+                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         T.s("登出成功");
-                        startLoginActivity();
+                        ((PaperUrineApplication)getApplication()).saveUserInfo(new UserBean());
+                        Intent intent = new Intent(SettingActivity.this, LoginNormalActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                         break;
 
                     default:
@@ -121,7 +124,7 @@ public class SettingActivity extends BaseActivity {
     }
 
     private void startLoginActivity() {
-        Intent intent = new Intent(this, LoginActivity.class);
+        Intent intent = new Intent(this, LoginNormalActivity.class);
         startActivity(intent);
         finish();
     }

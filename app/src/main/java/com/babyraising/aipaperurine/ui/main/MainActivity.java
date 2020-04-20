@@ -1,6 +1,7 @@
 package com.babyraising.aipaperurine.ui.main;
 
 import android.annotation.SuppressLint;
+import android.content.Intent;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.net.Uri;
@@ -21,6 +22,8 @@ import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.base.BaseActivity;
 import com.babyraising.aipaperurine.bean.UserBean;
 import com.babyraising.aipaperurine.response.PersonResponse;
+import com.babyraising.aipaperurine.ui.user.LoginActivity;
+import com.babyraising.aipaperurine.ui.user.LoginNormalActivity;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
 
@@ -56,7 +59,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         super.onCreate(savedInstanceState);
 
         initNavigationBar();
-        getPersonInfo();
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -199,6 +201,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     @Override
     protected void onResume() {
         super.onResume();
+        getPersonInfo();
     }
 
     private void getPersonInfo(){
@@ -215,6 +218,14 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 switch (response.getResult()) {
                     case 0:
                         ((PaperUrineApplication)getApplication()).savePersonInfo(response.getData());
+                        break;
+
+                    case 10000:
+                        T.s("登录失效，请重新登录");
+                        ((PaperUrineApplication)getApplication()).saveUserInfo(new UserBean());
+                        Intent intent = new Intent(MainActivity.this, LoginNormalActivity.class);
+                        intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
+                        startActivity(intent);
                         break;
 
                     default:

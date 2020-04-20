@@ -148,7 +148,7 @@ public class ChangePhoneActivity extends BaseActivity {
         }
 
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_BINDPHONE);
-        params.addQueryStringParameter("APPUESR_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
         params.addQueryStringParameter("PHONE", userBean.getPHONE());
         params.addQueryStringParameter("CODE", input_code.getText().toString());
