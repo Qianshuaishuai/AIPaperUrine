@@ -85,8 +85,15 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             }
         });
 
+        holder.posLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.goToPostureActivity(mList.get(position).getSLEEP_POSTURE());
+            }
+        });
+
         ImageOptions options = new ImageOptions.Builder().
-                setRadius(DensityUtil.dip2px(66)).build();
+                setRadius(DensityUtil.dip2px(66)).setCrop(true).build();
         x.image().bind(holder.cardIcon, mList.get(position).getHEADIMG(), options);
 //        System.out.println(mList.get(position).getHAS_WAITREAD());
         holder.cardName.setText(mList.get(position).getNICKNAME());
@@ -185,6 +192,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
                 context.goToBabyInfoSetting(mList.get(position));
             }
         });
+
     }
 
     @Override

@@ -34,9 +34,11 @@ import com.babyraising.aipaperurine.response.CourseResponse;
 import com.babyraising.aipaperurine.response.MemberListResponse;
 import com.babyraising.aipaperurine.response.PersonResponse;
 import com.babyraising.aipaperurine.ui.baby.AccessInductActivity;
+import com.babyraising.aipaperurine.ui.info.BabyBindActivity;
 import com.babyraising.aipaperurine.ui.info.CallSettingActivity;
 import com.babyraising.aipaperurine.ui.info.ChangeBabyInfoActivity;
 import com.babyraising.aipaperurine.ui.info.PickSizeActivity;
+import com.babyraising.aipaperurine.ui.info.SleepPostureActivity;
 import com.babyraising.aipaperurine.ui.info.TeachActivity;
 import com.babyraising.aipaperurine.ui.info.UrineDetailActivity;
 import com.babyraising.aipaperurine.ui.message.MessageActivity;
@@ -111,6 +113,12 @@ public class HomeFragment extends BaseFragment {
     @Event(R.id.card_time)
     private void cardTime(View view) {
 
+    }
+
+    @Event(R.id.layout_add_baby)
+    private void addBaby(View view) {
+        Intent intent = new Intent(getContext(), BabyBindActivity.class);
+        startActivity(intent);
     }
 
     @Event(R.id.introduce_close)
@@ -188,6 +196,12 @@ public class HomeFragment extends BaseFragment {
         mListener = null;
     }
 
+    @Override
+    public void onResume() {
+        super.onResume();
+        getMemberList();
+    }
+
     /**
      * This interface must be implemented by activities that contain this
      * fragment to allow an interaction in this fragment to be communicated
@@ -209,7 +223,6 @@ public class HomeFragment extends BaseFragment {
         initView();
         initData();
         initTeachs();
-        getMemberList();
         initLoginSuccessDialog();
         initBindSuccessDialog();
     }
@@ -389,6 +402,12 @@ public class HomeFragment extends BaseFragment {
     public void goToUrineDetailActivity(String memberId) {
         Intent intent = new Intent(getContext(), UrineDetailActivity.class);
         intent.putExtra("memberId", memberId);
+        startActivity(intent);
+    }
+
+    public void goToPostureActivity(String posture){
+        Intent intent = new Intent(getContext(), SleepPostureActivity.class);
+        intent.putExtra("posture", posture);
         startActivity(intent);
     }
 }

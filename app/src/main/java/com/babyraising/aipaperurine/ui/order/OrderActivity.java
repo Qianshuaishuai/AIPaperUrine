@@ -242,6 +242,11 @@ public class OrderActivity extends BaseActivity {
 
     private void initData() {
         bean = ((PaperUrineApplication) getApplication()).getUserInfo();
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
         updateList();
     }
 

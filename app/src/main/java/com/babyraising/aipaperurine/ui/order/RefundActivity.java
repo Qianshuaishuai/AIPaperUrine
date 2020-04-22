@@ -227,6 +227,7 @@ public class RefundActivity extends BaseActivity {
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                System.out.println(result);
                 Gson gson = new Gson();
                 PreRefundNumResponse response = gson.fromJson(result, PreRefundNumResponse.class);
                 switch (response.getResult()) {
@@ -235,8 +236,7 @@ public class RefundActivity extends BaseActivity {
                         price.setText(response.getData().getREFUNDAMT());
                         break;
                     default:
-                        finish();
-                        T.s("获取更改退款数后的信息失败");
+                        T.s("订单目前不可部分退款");
                         break;
                 }
             }
@@ -271,7 +271,7 @@ public class RefundActivity extends BaseActivity {
         params.addQueryStringParameter("HAS_RECEIVE", receiveType);
         params.addQueryStringParameter("REFUND_INFO", reason.getText().toString());
         params.addQueryStringParameter("REFUND_DETAIL", signTxt.getText().toString());
-//        params.addQueryStringParameter("REFUND_PIC", null);
+        params.addQueryStringParameter("REFUND_PIC", null);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -377,7 +377,7 @@ public class RefundActivity extends BaseActivity {
     }
 
     public void addPhoto() {
-
+        photoLayout.setVisibility(View.VISIBLE);
     }
 
     public void deletePhoto(int position) {

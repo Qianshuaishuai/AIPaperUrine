@@ -1,7 +1,10 @@
 package com.babyraising.aipaperurine.ui.main;
 
 import android.content.Intent;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
@@ -23,8 +26,15 @@ import com.babyraising.aipaperurine.bean.UserBean;
 import com.babyraising.aipaperurine.response.CommonResponse;
 import com.babyraising.aipaperurine.response.CouponResponse;
 import com.babyraising.aipaperurine.response.InformationResponse;
+import com.babyraising.aipaperurine.ui.picker.Util;
 import com.babyraising.aipaperurine.util.T;
+import com.babyraising.aipaperurine.util.WxShareUtils;
 import com.google.gson.Gson;
+import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXImageObject;
+import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
+import com.tencent.mm.opensdk.openapi.IWXAPI;
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
 import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
 import org.sufficientlysecure.htmltextview.HtmlTextView;
@@ -83,9 +93,26 @@ public class FindDetailActivity extends BaseActivity {
     @ViewInject(R.id.scrollview)
     private ScrollView scrollView;
 
+    @ViewInject(R.id.layout_share_all)
+    private RelativeLayout layoutShare;
+
+    @Event(R.id.layout_share_1)
+    private void share1Click(View view){
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_logo);
+        WxShareUtils.shareWeb(this, Constant.WX_APPID, "", "测试", "测试", bmp, 1);
+        layoutShare.setVisibility(View.GONE);
+    }
+
+    @Event(R.id.layout_share_2)
+    private void share2Click(View view){
+        Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_logo);
+        WxShareUtils.shareWeb(this, Constant.WX_APPID, "", "测试", "测试", bmp, 2);
+        layoutShare.setVisibility(View.GONE);
+    }
+
     @Event(R.id.bt_share)
     private void share(View view) {
-
+        layoutShare.setVisibility(View.VISIBLE);
     }
 
     @Override
@@ -109,6 +136,42 @@ public class FindDetailActivity extends BaseActivity {
 
     private void initView() {
 
+    }
+
+    private void shareSuccess(){
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_SHARESUCCESS);
+        params.addQueryStringParameter("APPUSER_ID", bean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", bean.getONLINE_ID());
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                InformationResponse response = gson.fromJson(result, InformationResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        T.s("分享成功");
+                        break;
+                    default:
+                        T.s("分享失败");
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
     private void updateData() {

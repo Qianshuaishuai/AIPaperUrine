@@ -71,8 +71,6 @@ public class LoginNormalActivity extends BaseActivity {
         params.addQueryStringParameter("PHONE", phone.getText().toString());
         params.addQueryStringParameter("PSW", password.getText().toString());
         params.addQueryStringParameter("RID", Constant.RID);
-        System.out.println("phone:" + phone.getText().toString());
-        System.out.println("PSW:" + password.getText().toString());
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -143,8 +141,8 @@ public class LoginNormalActivity extends BaseActivity {
     }
 
     private void initData() {
-        UserBean userBean = ((PaperUrineApplication)getApplication()).getUserInfo();
-        if (!TextUtils.isEmpty(userBean.getONLINE_ID())){
+        UserBean userBean = ((PaperUrineApplication) getApplication()).getUserInfo();
+        if (userBean != null && !TextUtils.isEmpty(userBean.getONLINE_ID())) {
             startMainActivity();
         }
     }

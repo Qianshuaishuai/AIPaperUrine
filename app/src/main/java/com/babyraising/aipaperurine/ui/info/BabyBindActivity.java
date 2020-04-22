@@ -2,6 +2,7 @@ package com.babyraising.aipaperurine.ui.info;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -26,6 +27,7 @@ import com.babyraising.aipaperurine.response.EditImgResponse;
 import com.babyraising.aipaperurine.util.FileUtil;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
+import com.nanchen.compresshelper.CompressHelper;
 
 import org.xutils.common.Callback;
 import org.xutils.common.util.DensityUtil;
@@ -51,7 +53,7 @@ public class BabyBindActivity extends BaseActivity {
 
     public static final int RC_TAKE_PHOTO = 1;
     public static final int RC_CHOOSE_PHOTO = 2;
-    public static final int PICK_SIZE_CODE = 101;
+    public static final int PICK_SIZE_CODE = 10001;
 
     private String mTempPhotoPath;
     private Uri imageUri;
@@ -204,9 +206,21 @@ public class BabyBindActivity extends BaseActivity {
         params.addQueryStringParameter("BIRTHDAY", babyDate.getText().toString());
         params.addQueryStringParameter("DIAPER_BRAND", brand);
         params.addQueryStringParameter("DIAPER_SIZE", brandSize);
+
+        File oldFile = new File(photoPath);
+        File newFile = new CompressHelper.Builder(this)
+                .setMaxWidth(100)  // 默认最大宽度为720
+                .setMaxHeight(100) // 默认最大高度为960
+                .setQuality(80)    // 默认压缩质量为80
+                .setCompressFormat(Bitmap.CompressFormat.JPEG) // 设置默认压缩为jpg格式
+                .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES).getAbsolutePath())
+                .build()
+                .compressToFile(oldFile);
+        params.setAsJsonContent(true);
         params.setAsJsonContent(true);
         List<KeyValue> list = new ArrayList<>();
-        list.add(new KeyValue("HEADIMG", new File(photoPath)));
+        list.add(new KeyValue("HEADIMG", newFile));
         MultipartBody body = new MultipartBody(list, "UTF-8");
         params.setRequestBody(body);
         x.http().post(params, new Callback.CommonCallback<String>() {
@@ -258,7 +272,7 @@ public class BabyBindActivity extends BaseActivity {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
-                        String result = year + "-" + month + "-" + dayOfMonth;
+                        String result = year + "-" + (month+1) + "-" + dayOfMonth;
                         babyDate.setText(result);
                     }
                 },
@@ -275,7 +289,7 @@ public class BabyBindActivity extends BaseActivity {
                 String filePath = FileUtil.getFilePathByUri(this, uri);
                 if (!TextUtils.isEmpty(filePath)) {
                     ImageOptions options = new ImageOptions.Builder().
-                            setRadius(DensityUtil.dip2px(84)).build();
+                            setRadius(DensityUtil.dip2px(84)).setCrop(true).build();
                     x.image().bind(cardIcon, filePath, options);
                     photoPath = filePath;
                 } else {
@@ -285,7 +299,7 @@ public class BabyBindActivity extends BaseActivity {
             case RC_TAKE_PHOTO:
                 if (!TextUtils.isEmpty(mTempPhotoPath)) {
                     ImageOptions options = new ImageOptions.Builder().
-                            setRadius(DensityUtil.dip2px(84)).build();
+                            setRadius(DensityUtil.dip2px(84)).setCrop(true).build();
                     x.image().bind(cardIcon, mTempPhotoPath, options);
                     photoPath = mTempPhotoPath;
                 } else {

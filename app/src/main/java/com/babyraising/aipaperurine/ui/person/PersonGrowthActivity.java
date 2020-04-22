@@ -140,7 +140,7 @@ public class PersonGrowthActivity extends BaseActivity {
 
     private void updateView() {
         ImageOptions options = new ImageOptions.Builder().
-                setRadius(DensityUtil.dip2px(60)).build();
+                setRadius(DensityUtil.dip2px(60)).setCrop(true).build();
         x.image().bind(icon, growthBean.getHEADIMG(), options);
 
         name.setText(growthBean.getNICKNAME());

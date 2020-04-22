@@ -140,20 +140,22 @@
                         android:layout_height="match_parent"></android.support.v7.widget.RecyclerView>
                 </LinearLayout>
             </RelativeLayout>
+
+            <Button
+                android:id="@+id/sure"
+                android:layout_width="match_parent"
+                android:layout_height="55dip"
+                android:layout_alignParentBottom="true"
+                android:layout_marginLeft="34dip"
+                android:layout_marginTop="44dip"
+                android:layout_marginRight="34dip"
+                android:layout_marginBottom="10dip"
+                android:background="@drawable/shape_good_button_bg"
+                android:text="完成"
+                android:textColor="#ffffff"
+                android:textSize="16sp" />
         </LinearLayout>
     </ScrollView>
 
-    <Button
-        android:id="@+id/sure"
-        android:layout_width="match_parent"
-        android:layout_height="55dip"
-        android:layout_alignParentBottom="true"
-        android:layout_marginLeft="34dip"
-        android:layout_marginTop="44dip"
-        android:layout_marginRight="34dip"
-        android:layout_marginBottom="10dip"
-        android:background="@drawable/shape_good_button_bg"
-        android:text="完成"
-        android:textColor="#ffffff"
-        android:textSize="16sp" />
+
 </RelativeLayout>

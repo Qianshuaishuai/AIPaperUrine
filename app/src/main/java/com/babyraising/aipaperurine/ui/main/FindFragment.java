@@ -492,7 +492,7 @@ public class FindFragment extends BaseFragment {
                         all_change_urine.setText(response.getData().getDIAPER_ALL());
                         all_volume.setText(response.getData().getURINE_VOLUME_ALL());
                         ImageOptions options = new ImageOptions.Builder().
-                                setRadius(DensityUtil.dip2px(54)).build();
+                                setRadius(DensityUtil.dip2px(54)).setCrop(true).build();
                         x.image().bind(icon, response.getData().getHEADIMG(), options);
                         popupWindow.showAtLocation(mainLayout, Gravity.CENTER, 0, 0);
                         break;

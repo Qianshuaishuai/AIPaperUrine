@@ -63,23 +63,47 @@ public class LoginActivity extends BaseActivity {
         }
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_GET_CODE);
         params.addQueryStringParameter("PHONE", phone.getText().toString());
-        params.addQueryStringParameter("BSTYPE", "r");
+        params.addQueryStringParameter("BSTYPE", "rl");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                System.out.println(result);
                 switch (response.getResult()) {
-                    case 555:
+                    case 666:
                         titleTextView.setText("手机号不存在");
                         tipDialog.show();
                         break;
-                    case 666:
+                    case 555:
                         titleTextView.setText("手机号已注册");
                         tipDialog.show();
                         break;
                     case 0:
                         T.s("发送成功");
+                        sendCode.setClickable(false);
+                        codeNotClickTime = 60;
+                        sendCode.setTextColor(Color.GRAY);
+                        timer = new Timer();
+                        timerTask = new TimerTask() {
+                            @Override
+                            public void run() {
+                                runOnUiThread(new Runnable() {
+                                    @Override
+                                    public void run() {
+                                        sendCode.setText(codeNotClickTime + "秒");
+                                        codeNotClickTime--;
+                                        if (codeNotClickTime == 0) {
+                                            timer.cancel();
+                                            sendCode.setClickable(true);
+                                            sendCode.setText("发送验证码");
+                                            sendCode.setTextColor(getResources().getColor(R.color.colorCommon));
+                                        }
+                                    }
+                                });
+                            }
+                        };
+                        timer.schedule(timerTask, 0, 1000);
                         break;
                 }
             }
@@ -99,29 +123,7 @@ public class LoginActivity extends BaseActivity {
 
             }
         });
-        sendCode.setClickable(false);
-        codeNotClickTime = 60;
-        sendCode.setTextColor(Color.GRAY);
-        timer = new Timer();
-        timerTask = new TimerTask() {
-            @Override
-            public void run() {
-                runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        sendCode.setText(codeNotClickTime + "秒");
-                        codeNotClickTime--;
-                        if (codeNotClickTime == 0) {
-                            timer.cancel();
-                            sendCode.setClickable(true);
-                            sendCode.setText("发送验证码");
-                            sendCode.setTextColor(getResources().getColor(R.color.colorCommon));
-                        }
-                    }
-                });
-            }
-        };
-        timer.schedule(timerTask, 0, 1000);
+
     }
 
     @Event(R.id.login)

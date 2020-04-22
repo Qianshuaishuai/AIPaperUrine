@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
@@ -7,247 +7,254 @@
     android:orientation="vertical"
     tools:context=".ui.info.BabyBindActivity">
 
-    <RelativeLayout
+    <LinearLayout
         android:layout_width="match_parent"
-        android:layout_height="48dip"
-        android:background="#ffffff"
-        android:orientation="horizontal"
-        android:paddingTop="12dip"
-        android:paddingBottom="12dip">
+        android:layout_height="match_parent"
+        android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/layout_back"
-            android:layout_width="23dip"
-            android:layout_height="23dip"
-            android:layout_marginLeft="15dip"
-            android:src="@mipmap/back" />
-
-        <LinearLayout
-            android:id="@+id/layout_input_id"
-            android:layout_width="wrap_content"
-            android:layout_height="match_parent"
-            android:layout_alignParentRight="true"
-            android:layout_marginRight="15dip"
-            android:gravity="center_vertical"
-            android:orientation="horizontal">
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="已有宝宝，"
-                android:textColor="#1E1E1E"
-                android:textSize="14sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:text="输入宝宝ID"
-                android:textColor="#F866AA"
-                android:textSize="14sp" />
-        </LinearLayout>
-    </RelativeLayout>
-
-    <ScrollView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent">
-
-        <LinearLayout
+        <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:orientation="vertical">
+            android:layout_height="48dip"
+            android:background="#ffffff"
+            android:orientation="horizontal"
+            android:paddingTop="12dip"
+            android:paddingBottom="12dip">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="18dip"
-                android:text="上传宝宝照片"
-                android:textColor="#1E1E1E"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <RelativeLayout
-                android:id="@+id/layout_header"
-                android:layout_width="84dip"
-                android:layout_height="84dip"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="28dip">
-
-                <ImageView
-                    android:id="@+id/card_icon"
-                    android:layout_width="84dip"
-                    android:layout_height="84dip"
-                    android:src="@mipmap/img_tianjiabaobaoxinxi" />
-
-                <ImageView
-                    android:layout_width="22dip"
-                    android:layout_height="22dip"
-                    android:layout_alignParentRight="true"
-                    android:layout_alignParentBottom="true"
-                    android:src="@mipmap/icon_bianjitouxiang" />
-            </RelativeLayout>
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="48dip"
-                android:text="宝宝的姓名"
-                android:textColor="#1E1E1E"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/baby_name"
-                android:layout_width="160dip"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="28dip"
-                android:gravity="center"
-                android:hint="请输入宝宝姓名"
-                android:textColor="#1e1e1e"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="48dip"
-                android:text="宝宝的出生日期"
-                android:textColor="#1E1E1E"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <EditText
-                android:id="@+id/baby_date"
-                android:layout_width="160dip"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="28dip"
-                android:editable="false"
-                android:gravity="center"
-                android:hint="请选择宝宝出生日期"
-                android:textColor="#1e1e1e"
-                android:textSize="16sp" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="48dip"
-                android:text="宝宝的性别"
-                android:textColor="#1E1E1E"
-                android:textSize="17sp"
-                android:textStyle="bold" />
-
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dip"
-                android:text="社区内容对宝宝男女的推送不一样，请正确填写"
-                android:textColor="#999999"
-                android:textSize="14sp" />
+            <ImageView
+                android:id="@+id/layout_back"
+                android:layout_width="23dip"
+                android:layout_height="23dip"
+                android:layout_marginLeft="15dip"
+                android:src="@mipmap/back" />
 
             <LinearLayout
-                android:id="@+id/group_sex"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:layout_marginTop="48dip"
-                android:gravity="center_horizontal"
+                android:id="@+id/layout_input_id"
+                android:layout_width="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_alignParentRight="true"
+                android:layout_marginRight="15dip"
+                android:gravity="center_vertical"
                 android:orientation="horizontal">
 
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
+                    android:text="已有宝宝，"
+                    android:textColor="#1E1E1E"
+                    android:textSize="14sp" />
 
-                    <ImageView
-                        android:id="@+id/sex_iv1"
-                        android:layout_width="74dip"
-                        android:layout_height="74dip"
-                        android:src="@mipmap/img_nanbaobao_liang" />
-
-                    <TextView
-                        android:id="@+id/sex_tv1"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dip"
-                        android:text="男生"
-                        android:textColor="#1e1e1e"
-                        android:textSize="15sp" />
-                </LinearLayout>
-
-                <LinearLayout
+                <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginLeft="56dip"
-                    android:gravity="center_horizontal"
-                    android:orientation="vertical">
-
-                    <ImageView
-                        android:id="@+id/sex_iv2"
-                        android:layout_width="74dip"
-                        android:layout_height="74dip"
-                        android:src="@mipmap/img_nvbaobao_an" />
-
-                    <TextView
-                        android:id="@+id/sex_tv2"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginTop="8dip"
-                        android:text="女生"
-                        android:textColor="#999999"
-                        android:textSize="15sp" />
-                </LinearLayout>
+                    android:text="输入宝宝ID"
+                    android:textColor="#F866AA"
+                    android:textSize="14sp" />
             </LinearLayout>
+        </RelativeLayout>
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="48dip"
-                android:text="宝宝的纸尿布规格"
-                android:textColor="#1E1E1E"
-                android:textSize="17sp"
-                android:textStyle="bold" />
+        <ScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
 
-            <TextView
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="10dip"
-                android:text="选择好合适的尺码可是相当关键的哦~"
-                android:textColor="#999999"
-                android:textSize="14sp" />
-
-            <EditText
-                android:id="@+id/baby_size"
-                android:layout_width="160dip"
-                android:layout_height="wrap_content"
-                android:layout_gravity="center_horizontal"
-                android:layout_marginTop="28dip"
-                android:editable="false"
-                android:gravity="center"
-                android:hint="请选择宝宝尿布规格"
-                android:textColor="#1e1e1e"
-                android:textSize="16sp" />
-
-            <Button
-                android:id="@+id/sure"
+            <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dip"
-                android:layout_marginLeft="34dip"
-                android:layout_marginTop="88dip"
-                android:layout_marginRight="34dip"
-                android:layout_marginBottom="52dip"
-                android:background="@drawable/shape_good_button_bg"
-                android:text="完成"
-                android:textColor="#ffffff"
-                android:textSize="16sp" />
-        </LinearLayout>
-    </ScrollView>
+                android:layout_height="match_parent"
+                android:orientation="vertical">
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="18dip"
+                    android:text="上传宝宝照片"
+                    android:textColor="#1E1E1E"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <RelativeLayout
+                    android:id="@+id/layout_header"
+                    android:layout_width="84dip"
+                    android:layout_height="84dip"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="28dip">
+
+                    <ImageView
+                        android:id="@+id/card_icon"
+                        android:layout_width="84dip"
+                        android:layout_height="84dip"
+                        android:src="@mipmap/img_tianjiabaobaoxinxi" />
+
+                    <ImageView
+                        android:layout_width="22dip"
+                        android:layout_height="22dip"
+                        android:layout_alignParentRight="true"
+                        android:layout_alignParentBottom="true"
+                        android:src="@mipmap/icon_bianjitouxiang" />
+                </RelativeLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="48dip"
+                    android:text="宝宝的姓名"
+                    android:textColor="#1E1E1E"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/baby_name"
+                    android:layout_width="160dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="28dip"
+                    android:gravity="center"
+                    android:hint="请输入宝宝姓名"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="48dip"
+                    android:text="宝宝的出生日期"
+                    android:textColor="#1E1E1E"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <EditText
+                    android:id="@+id/baby_date"
+                    android:layout_width="160dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="28dip"
+                    android:editable="false"
+                    android:gravity="center"
+                    android:hint="请选择宝宝出生日期"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="48dip"
+                    android:text="宝宝的性别"
+                    android:textColor="#1E1E1E"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dip"
+                    android:text="社区内容对宝宝男女的推送不一样，请正确填写"
+                    android:textColor="#999999"
+                    android:textSize="14sp" />
+
+                <LinearLayout
+                    android:id="@+id/group_sex"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_marginTop="48dip"
+                    android:gravity="center_horizontal"
+                    android:orientation="horizontal">
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/sex_iv1"
+                            android:layout_width="74dip"
+                            android:layout_height="74dip"
+                            android:src="@mipmap/img_nanbaobao_liang" />
+
+                        <TextView
+                            android:id="@+id/sex_tv1"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dip"
+                            android:text="男生"
+                            android:textColor="#1e1e1e"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+
+                    <LinearLayout
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="56dip"
+                        android:gravity="center_horizontal"
+                        android:orientation="vertical">
+
+                        <ImageView
+                            android:id="@+id/sex_iv2"
+                            android:layout_width="74dip"
+                            android:layout_height="74dip"
+                            android:src="@mipmap/img_nvbaobao_an" />
+
+                        <TextView
+                            android:id="@+id/sex_tv2"
+                            android:layout_width="wrap_content"
+                            android:layout_height="wrap_content"
+                            android:layout_marginTop="8dip"
+                            android:text="女生"
+                            android:textColor="#999999"
+                            android:textSize="15sp" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="48dip"
+                    android:text="宝宝的纸尿布规格"
+                    android:textColor="#1E1E1E"
+                    android:textSize="17sp"
+                    android:textStyle="bold" />
+
+                <TextView
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="10dip"
+                    android:text="选择好合适的尺码可是相当关键的哦~"
+                    android:textColor="#999999"
+                    android:textSize="14sp" />
+
+                <EditText
+                    android:id="@+id/baby_size"
+                    android:layout_width="160dip"
+                    android:layout_height="wrap_content"
+                    android:layout_gravity="center_horizontal"
+                    android:layout_marginTop="28dip"
+                    android:editable="false"
+                    android:gravity="center"
+                    android:hint="请选择宝宝尿布规格"
+                    android:textColor="#1e1e1e"
+                    android:textSize="16sp" />
+
+                <Button
+                    android:id="@+id/sure"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dip"
+                    android:layout_marginLeft="34dip"
+                    android:layout_marginTop="88dip"
+                    android:layout_marginRight="34dip"
+                    android:layout_marginBottom="52dip"
+                    android:background="@drawable/shape_good_button_bg"
+                    android:text="完成"
+                    android:textColor="#ffffff"
+                    android:textSize="16sp" />
+            </LinearLayout>
+        </ScrollView>
+    </LinearLayout>
+
 
     <!--手机相册拍照-->
     <RelativeLayout
@@ -286,4 +293,4 @@
                 android:textSize="16sp"></TextView>
         </LinearLayout>
     </RelativeLayout>
-</LinearLayout>
+</RelativeLayout>

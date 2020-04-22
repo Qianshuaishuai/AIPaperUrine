@@ -2,6 +2,7 @@ package com.babyraising.aipaperurine.ui.info;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.Build;
 import android.os.Environment;
@@ -36,6 +37,7 @@ import com.babyraising.aipaperurine.ui.person.MailEditActivity;
 import com.babyraising.aipaperurine.util.FileUtil;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
+import com.nanchen.compresshelper.CompressHelper;
 
 import org.xutils.common.Callback;
 import org.xutils.common.util.DensityUtil;
@@ -151,6 +153,7 @@ public class ChangeBabyInfoActivity extends BaseActivity {
 
     @Event(R.id.commit)
     private void commit(View view) {
+        memberInfoBean.setNICKNAME(cardName.getText().toString());
         editUser(memberInfoBean.getNICKNAME(), memberInfoBean.getSEX(), memberInfoBean.getBIRTHDAY(), memberInfoBean.getDIAPER_BRAND(), memberInfoBean.getDIAPER_SIZE());
     }
 
@@ -216,7 +219,7 @@ public class ChangeBabyInfoActivity extends BaseActivity {
                         cardSize.setText(response.getData().getDIAPER_SIZE());
 
                         ImageOptions options = new ImageOptions.Builder().
-                                setRadius(DensityUtil.dip2px(50)).build();
+                                setRadius(DensityUtil.dip2px(50)).setCrop(true).build();
                         x.image().bind(cardIcon, memberInfoBean.getHEADIMG(), options);
 
                         if (memberInfoBean.getSEX().equals("2")) {
@@ -320,10 +323,19 @@ public class ChangeBabyInfoActivity extends BaseActivity {
 //        params.addQueryStringParameter("HEADIMG", picFile);
 //        params.addBodyParameter("HEADIMG", new File(pic),"multipart/form-data");
 //        params.addQueryStringParameter("HEADIMG", pic);
-
+        File oldFile = new File(pic);
+        File newFile = new CompressHelper.Builder(this)
+                .setMaxWidth(100)  // 默认最大宽度为720
+                .setMaxHeight(100) // 默认最大高度为960
+                .setQuality(80)    // 默认压缩质量为80
+                .setCompressFormat(Bitmap.CompressFormat.JPEG) // 设置默认压缩为jpg格式
+                .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES).getAbsolutePath())
+                .build()
+                .compressToFile(oldFile);
         params.setAsJsonContent(true);
         List<KeyValue> list = new ArrayList<>();
-        list.add(new KeyValue("HEADIMG", new File(pic)));
+        list.add(new KeyValue("HEADIMG", newFile));
         MultipartBody body = new MultipartBody(list, "UTF-8");
         params.setRequestBody(body);
         x.http().post(params, new Callback.CommonCallback<String>() {
@@ -334,6 +346,9 @@ public class ChangeBabyInfoActivity extends BaseActivity {
                 switch (response.getResult()) {
                     case 0:
                         T.s("更换成功");
+                        ImageOptions options = new ImageOptions.Builder().
+                                setRadius(DensityUtil.dip2px(50)).setCrop(true).build();
+                        x.image().bind(cardIcon, response.getData().getHEADIMG(), options);
                         break;
                     default:
                         T.s("更换失败");
@@ -419,9 +434,6 @@ public class ChangeBabyInfoActivity extends BaseActivity {
                 break;
             case RC_TAKE_PHOTO:
                 if (!TextUtils.isEmpty(mTempPhotoPath)) {
-                    ImageOptions options = new ImageOptions.Builder().
-                            setRadius(DensityUtil.dip2px(50)).build();
-                    x.image().bind(cardIcon, mTempPhotoPath, options);
                     updateLoadPic(mTempPhotoPath);
                 } else {
                     T.s("选择照片出错");
@@ -451,7 +463,7 @@ public class ChangeBabyInfoActivity extends BaseActivity {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
-                        String result = year + "-" + month + "-" + dayOfMonth;
+                        String result = year + "-" + (month + 1) + "-" + dayOfMonth;
                         cardDate.setText(result);
                         if (layoutDatePicker.getVisibility() == View.VISIBLE) {
                             layoutDatePicker.setVisibility(View.GONE);

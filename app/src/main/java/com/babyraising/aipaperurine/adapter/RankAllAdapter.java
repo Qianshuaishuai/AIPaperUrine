@@ -76,7 +76,7 @@ public class RankAllAdapter extends RecyclerView.Adapter<RankAllAdapter.ViewHold
                 holder.meName.setText(mList.get(position).getNICKNAME());
             }
             ImageOptions options = new ImageOptions.Builder().
-                    setRadius(DensityUtil.dip2px(45)).build();
+                    setRadius(DensityUtil.dip2px(45)).setCrop(true).build();
             x.image().bind(holder.meIcon, mList.get(position).getHEADIMG(), options);
 
             if (TextUtils.isEmpty(mList.get(position).getAPPUSER_ID())){
@@ -85,7 +85,7 @@ public class RankAllAdapter extends RecyclerView.Adapter<RankAllAdapter.ViewHold
         } else {
             holder.layoutType1.setVisibility(View.VISIBLE);
             ImageOptions options = new ImageOptions.Builder().
-                    setRadius(DensityUtil.dip2px(45)).build();
+                    setRadius(DensityUtil.dip2px(45)).setCrop(true).build();
             x.image().bind(holder.icon, mList.get(position).getHEADIMG(), options);
             holder.nameTxt.setText(mList.get(position).getNICKNAME());
             holder.rankNumTxt.setText("" + (position+1));

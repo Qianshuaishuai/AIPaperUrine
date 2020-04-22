@@ -10,6 +10,7 @@ import com.babyraising.aipaperurine.PaperUrineApplication;
 import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.base.BaseActivity;
 import com.babyraising.aipaperurine.bean.UserBean;
+import com.babyraising.aipaperurine.response.CommonResponse;
 import com.babyraising.aipaperurine.response.EditImgResponse;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
@@ -36,7 +37,7 @@ public class BabyIdActivity extends BaseActivity {
 
     @Event(R.id.sure)
     private void sure(View view) {
-
+        addMember();
     }
 
     @Override
@@ -65,14 +66,15 @@ public class BabyIdActivity extends BaseActivity {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
-                EditImgResponse response = gson.fromJson(result, EditImgResponse.class);
+                CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         T.s("添加成功");
                         finish();
                         break;
                     default:
-                        T.s("添加失败");
+                        T.s("宝宝ID不存在");
                         break;
                 }
             }

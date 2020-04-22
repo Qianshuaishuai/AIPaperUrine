@@ -10,14 +10,22 @@ import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
+import com.babyraising.aipaperurine.Constant;
 import com.babyraising.aipaperurine.PaperUrineApplication;
 import com.babyraising.aipaperurine.R;
 import com.babyraising.aipaperurine.base.BaseActivity;
 import com.babyraising.aipaperurine.bean.UserBean;
+import com.babyraising.aipaperurine.response.AboutUsResponse;
+import com.babyraising.aipaperurine.response.CommonResponse;
+import com.babyraising.aipaperurine.util.T;
+import com.google.gson.Gson;
 
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
 import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
 
 import java.util.Timer;
 import java.util.TimerTask;
@@ -119,7 +127,7 @@ public class DeviceConnectActivity extends BaseActivity {
                 });
             }
         };
-        timer.schedule(timerTask, 0, 1000);
+        timer.schedule(timerTask, 0, 350);
     }
 
     private void initData() {
@@ -127,6 +135,46 @@ public class DeviceConnectActivity extends BaseActivity {
 
         Intent intent = getIntent();
         memberId = intent.getStringExtra("memberId");
+    }
+
+    private void bindDevice(String code){
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_BINDDEVICE);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+        params.addQueryStringParameter("MEMBER_ID", memberId);
+        params.addQueryStringParameter("DEVICE_CODE", code);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                System.out.println(result);
+                switch (response.getResult()) {
+                    case 0:
+                        T.s("绑定设备成功");
+                        break;
+
+                    default:
+                        T.s("绑定设备失败");
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:"+ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
 

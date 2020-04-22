@@ -367,7 +367,7 @@ public class PersonFragment extends BaseFragment {
             name.setText(personBean.getNICKNAME());
         }
         ImageOptions options = new ImageOptions.Builder().
-                setRadius(DensityUtil.dip2px(60)).build();
+                setRadius(DensityUtil.dip2px(60)).setCrop(true).build();
         x.image().bind(icon, personBean.getHEADIMG(), options);
 
         day.setText(personBean.getJOINDAYS() + "天");

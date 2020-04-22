@@ -4,6 +4,7 @@ import android.app.DatePickerDialog;
 import android.app.Dialog;
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Bitmap;
 import android.net.Uri;
 import android.os.AsyncTask;
 import android.os.Build;
@@ -46,6 +47,7 @@ import com.babyraising.aipaperurine.ui.picker.address.Province;
 import com.babyraising.aipaperurine.util.FileUtil;
 import com.babyraising.aipaperurine.util.T;
 import com.google.gson.Gson;
+import com.nanchen.compresshelper.CompressHelper;
 
 import org.apache.http.util.EncodingUtils;
 import org.json.JSONArray;
@@ -194,7 +196,8 @@ public class ChangeInfoActivity extends BaseActivity {
         personBean = ((PaperUrineApplication) getApplication()).getPersonInfo();
 
         ImageOptions options = new ImageOptions.Builder().
-                setRadius(DensityUtil.dip2px(50)).build();
+                setRadius(DensityUtil.dip2px(50))
+                .setCrop(true).build();
         x.image().bind(cardIcon, userBean.getHEADIMG(), options);
 
         cardName.setText(userBean.getNICKNAME());
@@ -261,7 +264,7 @@ public class ChangeInfoActivity extends BaseActivity {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
-                        String result = year + "-" + month + "-" + dayOfMonth;
+                        String result = year + "-" + (month + 1) + "-" + dayOfMonth;
                         cardDate.setText(result);
                         if (layoutDatePicker.getVisibility() == View.VISIBLE) {
                             layoutDatePicker.setVisibility(View.GONE);
@@ -344,14 +347,19 @@ public class ChangeInfoActivity extends BaseActivity {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_EDITIMG);
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
-//        File picFile = new File(pic);
-//        params.addQueryStringParameter("HEADIMG", picFile);
-//        params.addBodyParameter("HEADIMG", new File(pic),"multipart/form-data");
-//        params.addQueryStringParameter("HEADIMG", pic);
-        params.addBodyParameter("HEADIMG", new File(pic));
+        File oldFile = new File(pic);
+        File newFile = new CompressHelper.Builder(this)
+                .setMaxWidth(100)  // 默认最大宽度为720
+                .setMaxHeight(100) // 默认最大高度为960
+                .setQuality(80)    // 默认压缩质量为80
+                .setCompressFormat(Bitmap.CompressFormat.JPEG) // 设置默认压缩为jpg格式
+                .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES).getAbsolutePath())
+                .build()
+                .compressToFile(oldFile);
         params.setAsJsonContent(true);
         List<KeyValue> list = new ArrayList<>();
-        list.add(new KeyValue("HEADIMG", new File(pic)));
+        list.add(new KeyValue("HEADIMG", newFile));
         MultipartBody body = new MultipartBody(list, "UTF-8");
         params.setRequestBody(body);
         x.http().post(params, new Callback.CommonCallback<String>() {
@@ -369,7 +377,7 @@ public class ChangeInfoActivity extends BaseActivity {
 
 
                         ImageOptions options = new ImageOptions.Builder().
-                                setRadius(DensityUtil.dip2px(50)).build();
+                                setRadius(DensityUtil.dip2px(50)).setCrop(true).build();
                         x.image().bind(cardIcon, userBean.getHEADIMG(), options);
                         break;
                     default:
@@ -424,7 +432,7 @@ public class ChangeInfoActivity extends BaseActivity {
             case RC_TAKE_PHOTO:
                 if (!TextUtils.isEmpty(mTempPhotoPath)) {
                     ImageOptions options = new ImageOptions.Builder().
-                            setRadius(DensityUtil.dip2px(50)).build();
+                            setRadius(DensityUtil.dip2px(50)).setCrop(true).build();
                     x.image().bind(cardIcon, mTempPhotoPath, options);
                     updateLoadPic(mTempPhotoPath);
                 } else {

@@ -7,6 +7,8 @@ public class Constant {
     public static final String BASE_URL = "http://wechatshare.xinxinchoice.com/api/";
     public static final int PAY_FOR_ORDER = 10001;
 
+    public static final String WX_APPID = "wxfeda27e75bee03f3";
+
     //user部分
     public static final String URL_GET_CODE = "user/getcode";
     public static final String URL_REGISTER = "user/register";

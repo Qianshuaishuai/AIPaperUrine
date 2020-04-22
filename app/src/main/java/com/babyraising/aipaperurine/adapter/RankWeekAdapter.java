@@ -77,7 +77,7 @@ public class RankWeekAdapter extends RecyclerView.Adapter<RankWeekAdapter.ViewHo
                 holder.meName.setText(mList.get(position).getNICKNAME());
             }
             ImageOptions options = new ImageOptions.Builder().
-                    setRadius(DensityUtil.dip2px(45)).build();
+                    setRadius(DensityUtil.dip2px(45)).setCrop(true).build();
             x.image().bind(holder.meIcon, mList.get(position).getHEADIMG(), options);
             if (TextUtils.isEmpty(mList.get(position).getAPPUSER_ID())){
                 holder.meRankNumTxt.setText("我的排" + "/" + "名");
@@ -85,7 +85,7 @@ public class RankWeekAdapter extends RecyclerView.Adapter<RankWeekAdapter.ViewHo
         } else {
             holder.layoutType1.setVisibility(View.VISIBLE);
             ImageOptions options = new ImageOptions.Builder().
-                    setRadius(DensityUtil.dip2px(45)).build();
+                    setRadius(DensityUtil.dip2px(45)).setCrop(true).build();
             x.image().bind(holder.icon, mList.get(position).getHEADIMG(), options);
             holder.nameTxt.setText(mList.get(position).getNICKNAME());
             holder.rankNumTxt.setText("" + (position+1));

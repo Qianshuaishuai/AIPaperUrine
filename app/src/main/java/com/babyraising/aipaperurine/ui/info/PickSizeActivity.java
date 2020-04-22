@@ -49,9 +49,15 @@ public class PickSizeActivity extends BaseActivity {
     private BrandAdapter brandAdapter;
     private String currentBrandId;
     private String currentSize;
+    private String currentName;
 
     @Event(R.id.layout_back)
     private void back(View view) {
+        Intent data = new Intent();
+        data.putExtra("brandSize", currentSize);
+        data.putExtra("brand", currentName);
+        data.putExtra("brandId", currentBrandId);
+        setResult(10001, data);
         finish();
     }
 
@@ -84,7 +90,12 @@ public class PickSizeActivity extends BaseActivity {
 
     @Event(R.id.sure)
     private void sure(View view) {
-        editMemberSize();
+        Intent data = new Intent();
+        data.putExtra("brandSize", currentSize);
+        data.putExtra("brand", currentName);
+        data.putExtra("brandId", currentBrandId);
+        setResult(10001, data);
+        finish();
     }
 
     @Override
@@ -95,44 +106,49 @@ public class PickSizeActivity extends BaseActivity {
     }
 
     private void editMemberSize() {
-        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_GETBRANDSIZE);
-        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
-        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
-        params.addQueryStringParameter("MEMBER_ID", memberId);
-        params.addQueryStringParameter("DIAPER_BRAND", currentBrandId);
-        params.addQueryStringParameter("DIAPER_SIZE", currentSize);
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Gson gson = new Gson();
-                BrandSizeResponse response = gson.fromJson(result, BrandSizeResponse.class);
-                switch (response.getResult()) {
-                    case 0:
-                        finish();
-                        T.s("修改尺码成功");
-                        break;
-
-                    default:
-                        T.s("修改尺码失败");
-                        break;
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                T.s("请求出错，请检查网络");
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
+//        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_EDITMEMBERSIZE);
+//        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+//        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+//        params.addQueryStringParameter("MEMBER_ID", memberId);
+//        params.addQueryStringParameter("DIAPER_BRAND", currentBrandId);
+//        params.addQueryStringParameter("DIAPER_SIZE", currentSize);
+//        x.http().post(params, new Callback.CommonCallback<String>() {
+//            @Override
+//            public void onSuccess(String result) {
+//                Gson gson = new Gson();
+//                BrandSizeResponse response = gson.fromJson(result, BrandSizeResponse.class);
+//                switch (response.getResult()) {
+//                    case 0:
+//                        Intent data = new Intent();
+//                        data.putExtra("brandSize", currentSize);
+//                        data.putExtra("brand", currentName);
+//                        data.putExtra("brandId", currentBrandId);
+//                        setResult(10001, data);
+//                        finish();
+//                        T.s("修改尺码成功");
+//                        break;
+//
+//                    default:
+//                        T.s("修改尺码失败");
+//                        break;
+//                }
+//            }
+//
+//            @Override
+//            public void onError(Throwable ex, boolean isOnCallback) {
+//                T.s("请求出错，请检查网络");
+//            }
+//
+//            @Override
+//            public void onCancelled(CancelledException cex) {
+//
+//            }
+//
+//            @Override
+//            public void onFinished() {
+//
+//            }
+//        });
     }
 
     private void initData() {
@@ -180,7 +196,7 @@ public class PickSizeActivity extends BaseActivity {
         if (beanList.size() > 0) {
             brandName.setText(beanList.get(0).getBRAND_NAME());
             currentBrandId = beanList.get(0).getBRAND_ID();
-
+            currentName = beanList.get(0).getBRAND_NAME();
             String[] brandSizes = beanList.get(0).getBRAND_SIZES().split(",");
             String[] brandDescs = beanList.get(0).getBRAND_SIZE_DESCS().split(",");
 
@@ -208,6 +224,7 @@ public class PickSizeActivity extends BaseActivity {
         if (allList.size() > 0) {
             brandName.setText(allList.get(position).getBRAND_NAME());
             currentBrandId = allList.get(position).getBRAND_ID();
+            currentName = allList.get(position).getBRAND_NAME();
             String[] brandSizes = allList.get(position).getBRAND_SIZES().split(",");
             String[] brandDescs = allList.get(position).getBRAND_SIZE_DESCS().split(",");
 

@@ -84,7 +84,7 @@ public class RankShareActivity extends BaseActivity {
                 switch (response.getResult()) {
                     case 0:
                         ImageOptions options = new ImageOptions.Builder().
-                                setRadius(DensityUtil.dip2px(56)).build();
+                                setRadius(DensityUtil.dip2px(56)).setCrop(true).build();
                         x.image().bind(icon, response.getData().getHEADIMG(), options);
                         name.setText(response.getData().getNICKNAME());
                         time.setText(response.getData().getJOINDATE() + "-" + response.getData().getCURDATE());
