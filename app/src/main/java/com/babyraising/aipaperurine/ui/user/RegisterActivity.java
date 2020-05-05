@@ -156,7 +156,7 @@ public class RegisterActivity extends BaseActivity {
                 CommonResponse response = gson.fromJson(result, CommonResponse.class);
                 switch (response.getResult()) {
                     case 555:
-                        titleTextView.setText("手机号不存在");
+                        titleTextView.setText("手机号已注册");
                         tipDialog.show();
                         break;
                     case 666:

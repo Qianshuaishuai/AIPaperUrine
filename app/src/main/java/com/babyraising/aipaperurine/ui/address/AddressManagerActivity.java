@@ -65,7 +65,7 @@ public class AddressManagerActivity extends BaseActivity {
 
     private void initView() {
         addressBeanList = new ArrayList<>();
-        addressAdapter = new AddressAdapter(this,addressBeanList);
+        addressAdapter = new AddressAdapter(this, addressBeanList);
         addressAdapter.setOnItemClickListener(new AddressAdapter.OnItemClickListener() {
             @Override
             public void onClick(int position) {
@@ -92,7 +92,7 @@ public class AddressManagerActivity extends BaseActivity {
         getAddressList();
     }
 
-    private void getAddressList(){
+    private void getAddressList() {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_ADDRESSLIST);
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
@@ -133,7 +133,7 @@ public class AddressManagerActivity extends BaseActivity {
         });
     }
 
-    public void deleteAddressId(String addressId){
+    public void deleteAddressId(String addressId) {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_DELADDRESS);
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
@@ -171,7 +171,15 @@ public class AddressManagerActivity extends BaseActivity {
         });
     }
 
-    public void setDefault(String addressId){
+    public void setDefault(final String addressId) {
+        for (int a = 0; a < addressBeanList.size(); a++) {
+            if (addressBeanList.get(a).getADDRESS_ID().equals(addressId)){
+                addressBeanList.get(a).setISDEFAULT("2");
+            }else{
+                addressBeanList.get(a).setISDEFAULT("1");
+            }
+        }
+        addressAdapter.notifyDataSetChanged();
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_SETDEFAULTADDRESS);
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
@@ -184,7 +192,7 @@ public class AddressManagerActivity extends BaseActivity {
                 switch (response.getResult()) {
                     case 0:
                         T.s("设置成功");
-                        getAddressList();
+//                        getAddressList();
                         break;
                     default:
                         T.s("设置失败");

@@ -528,7 +528,7 @@ w
                                 android:layout_height="wrap_content"
                                 android:layout_marginLeft="12dip"
                                 android:layout_marginRight="12dip"
-                                android:text="0"
+                                android:text="1"
                                 android:textColor="#999999"
                                 android:textSize="16sp" />
 

@@ -78,11 +78,13 @@
     </LinearLayout>
 
     <LinearLayout
+        android:id="@+id/layout_cb"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:orientation="horizontal">
 
         <CheckBox
+            android:clickable="false"
             android:id="@+id/cb_default"
             android:layout_width="48dip"
             android:layout_height="48dip"

@@ -99,6 +99,7 @@ public class ForgetActivity extends BaseActivity {
                         break;
                     case 0:
                         T.s("修改成功");
+                        finish();
                         break;
                 }
             }

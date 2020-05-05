@@ -105,7 +105,7 @@ public class GrowthActivity extends BaseActivity {
         tvDate.setText(c.get(Calendar.YEAR) + "." + (c.get(Calendar.MONTH) + 1));
         if (c.get(Calendar.MONTH) + 1 < 10) {
             currentDate = c.get(Calendar.YEAR) + "-" + "0" + (c.get(Calendar.MONTH) + 1);
-        } else{
+        } else {
             currentDate = c.get(Calendar.YEAR) + "-" + (c.get(Calendar.MONTH) + 1);
         }
     }
@@ -120,14 +120,15 @@ public class GrowthActivity extends BaseActivity {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 GrowthPointListResponse response = gson.fromJson(result, GrowthPointListResponse.class);
-                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         allList.clear();
+                        integralList.clear();
                         for (int m = 0; m < response.getData().size(); m++) {
                             allList.add(response.getData().get(m));
+                            integralList.add(response.getData().get(m));
                         }
-                        translateDate(currentDate);
+//                        translateDate(currentDate);
 //                        adapter.notifyDataSetChanged();
                         break;
                     default:

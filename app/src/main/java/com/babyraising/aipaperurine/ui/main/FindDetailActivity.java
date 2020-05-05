@@ -99,14 +99,14 @@ public class FindDetailActivity extends BaseActivity {
     @Event(R.id.layout_share_1)
     private void share1Click(View view){
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_logo);
-        WxShareUtils.shareWeb(this, Constant.WX_APPID, "", "测试", "测试", bmp, 1);
+        WxShareUtils.shareWeb(this, Constant.WX_APPID, "http://www.baidu.com", "测试", "测试", bmp, 1);
         layoutShare.setVisibility(View.GONE);
     }
 
     @Event(R.id.layout_share_2)
     private void share2Click(View view){
         Bitmap bmp = BitmapFactory.decodeResource(getResources(), R.mipmap.ic_logo);
-        WxShareUtils.shareWeb(this, Constant.WX_APPID, "", "测试", "测试", bmp, 2);
+        WxShareUtils.shareWeb(this, Constant.WX_APPID, "http://www.baidu.com", "测试", "测试", bmp, 2);
         layoutShare.setVisibility(View.GONE);
     }
 
