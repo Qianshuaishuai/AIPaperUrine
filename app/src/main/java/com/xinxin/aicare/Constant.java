@@ -8,6 +8,7 @@ public class Constant {
     public static final int PAY_FOR_ORDER = 10001;
 
     public static final String WX_APPID = "wxfeda27e75bee03f3";
+    public final static String DEVICE_NAME = " LN-200c";//设备名称
 
     //user部分
     public static final String URL_GET_CODE = "user/getcode";

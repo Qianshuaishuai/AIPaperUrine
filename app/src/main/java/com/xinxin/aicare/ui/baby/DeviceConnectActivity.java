@@ -97,12 +97,6 @@ public class DeviceConnectActivity extends BaseActivity {
             return;
         }
 
-        IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);//注册广播接收信号
-        registerReceiver(bluetoothReceiver, intentFilter);//用BroadcastReceiver 来取得结果
-        registerReceiver(bondReceiver, intentFilter);//用BroadcastReceiver 来取得结果
-
-        blueadapter.startDiscovery();
-        T.s("开始搜索设备");
     }
 
     private void initView() {
@@ -174,8 +168,6 @@ public class DeviceConnectActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        blueadapter.cancelDiscovery();
-        unregisterReceiver(bluetoothReceiver);
     }
 
     private void uploadDeviceData(String D0, String DEVICE_ID, String X, String Y, String Z, String AD, String D4, String D5, String D6) {
@@ -304,10 +296,6 @@ public class DeviceConnectActivity extends BaseActivity {
 //        tipDialog.show();
     }
 
-    private void stopDiscovery() {
-        blueadapter.cancelDiscovery();
-    }
-
     private void initBoothDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);
 
@@ -348,149 +336,6 @@ public class DeviceConnectActivity extends BaseActivity {
 //        tipDialog.show();
     }
 
-    private final BroadcastReceiver bluetoothReceiver = new BroadcastReceiver() {
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                System.out.println(device.getName());
-                if (device.getName() != null && device.getName().contains("A5")) {
-                    T.s("已找到尿湿感应器蓝牙设备，正在连接中!");
-                    if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                        boolean isBond = device.createBond();
-                        if (isBond) {
-                            T.s("正尝试配对连接!");
-                        }
-                    } else {
-                        T.s("当前android版本不支持自动配对蓝牙设备");
-                    }
-                }
-            }
-        }
-    };
-
-    BroadcastReceiver bondReceiver = new BroadcastReceiver() {
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            BluetoothDevice device = null;
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-            }
-
-            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
-                //表示配对信息
-                switch (device.getBondState()) {
-                    case BluetoothDevice.BOND_BONDING://正在配对
-                        T.s("正在配对中");
-                        break;
-                    case BluetoothDevice.BOND_BONDED://配对结束
-                        T.s("配对成功");
-                        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN_MR2) {
-                            device.connectGatt(context, false, new BluetoothGattCallback() {
-                                @Override
-                                public void onPhyUpdate(BluetoothGatt gatt, int txPhy, int rxPhy, int status) {
-                                    super.onPhyUpdate(gatt, txPhy, rxPhy, status);
-                                }
-
-                                @Override
-                                public void onPhyRead(BluetoothGatt gatt, int txPhy, int rxPhy, int status) {
-                                    super.onPhyRead(gatt, txPhy, rxPhy, status);
-                                }
-
-                                @Override
-                                public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-                                    super.onConnectionStateChange(gatt, status, newState);
-                                    System.out.println("newState:" + newState);
-                                }
-
-                                @Override
-                                public void onServicesDiscovered(BluetoothGatt gatt, int status) {
-                                    super.onServicesDiscovered(gatt, status);
-                                }
-
-                                @Override
-                                public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
-                                    super.onCharacteristicRead(gatt, characteristic, status);
-                                }
-
-                                @Override
-                                public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
-                                    super.onCharacteristicWrite(gatt, characteristic, status);
-                                }
-
-                                @Override
-                                public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
-                                    super.onCharacteristicChanged(gatt, characteristic);
-                                }
-
-                                @Override
-                                public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
-                                    super.onDescriptorRead(gatt, descriptor, status);
-                                }
-
-                                @Override
-                                public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
-                                    super.onDescriptorWrite(gatt, descriptor, status);
-                                }
-
-                                @Override
-                                public void onReliableWriteCompleted(BluetoothGatt gatt, int status) {
-                                    super.onReliableWriteCompleted(gatt, status);
-                                }
-
-                                @Override
-                                public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
-                                    super.onReadRemoteRssi(gatt, rssi, status);
-                                }
-                            });
-                        }
-                        break;
-                    case BluetoothDevice.BOND_NONE://取消配对
-                        T.s("取消配对");
-                        break;
-                }
-            }
-        }
-
-    };
 
 
-    /**
-     * 蓝牙连接广播
-     */
-    public static class BlueToothConnectReceiver extends BroadcastReceiver {
-
-        private OnBleConnectListener onBleConnectListener;
-
-        @Override
-        public void onReceive(Context context, Intent intent) {
-            String action = intent.getAction();
-            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-            switch (action) {
-                case BluetoothDevice.ACTION_ACL_CONNECTED:
-                    if (onBleConnectListener != null) {
-                        onBleConnectListener.onConnect(device);
-                    }
-                    System.out.println("蓝牙已连接：" + device.getName());
-                    break;
-                case BluetoothDevice.ACTION_ACL_DISCONNECTED:
-                    if (onBleConnectListener != null) {
-                        onBleConnectListener.onDisConnect(device);
-                    }
-                    System.out.println("蓝牙已断开：" + device.getName());
-                    break;
-            }
-        }
-
-        public interface OnBleConnectListener {
-            void onConnect(BluetoothDevice device);
-
-            void onDisConnect(BluetoothDevice device);
-        }
-
-        public void setOnBleConnectListener(OnBleConnectListener onBleConnectListener) {
-            this.onBleConnectListener = onBleConnectListener;
-        }
-    }
 }
