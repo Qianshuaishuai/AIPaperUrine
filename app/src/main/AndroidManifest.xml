@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <manifest xmlns:android="http://schemas.android.com/apk/res/android"
-    package="com.babyraising.aipaperurine">
+    package="com.xinxin.aicare">
 
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" /> <!-- 用于访问GPS定位 -->
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" /> <!-- 用于获取运营商信息，用于支持提供运营商信息相关的接口 -->
@@ -15,9 +15,13 @@
     <uses-permission android:name="android.permission.WRITE_EXTERNAL_STORAGE" />
     <uses-permission android:name="android.permission.CAMERA" />
     <uses-permission android:name="android.permission.READ_EXTERNAL_STORAGE" />
+    <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION"/>
+    <uses-permission android:name="android.permission.BLUETOOTH"/>
+    <uses-permission android:name="android.permission.BLUETOOTH_ADMIN"/>
+    <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION"/>
 
     <application
-        android:name=".PaperUrineApplication"
+        android:name="com.xinxin.aicare.PaperUrineApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
@@ -25,169 +29,169 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.Light.NoActionBar">
         <activity
-            android:name=".ui.baby.DeviceConnectActivity"
+            android:name="com.xinxin.aicare.ui.baby.DeviceConnectActivity"
             android:screenOrientation="portrait"></activity>
         <activity
-            android:name=".ui.user.UserAgreeActivity"
+            android:name="com.xinxin.aicare.ui.user.UserAgreeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.user.PrivacyActivity"
+            android:name="com.xinxin.aicare.ui.user.PrivacyActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.order.ExpressDetailActivity"
+            android:name="com.xinxin.aicare.ui.order.ExpressDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.baby.MoblieInductActivity"
+            android:name="com.xinxin.aicare.ui.baby.MoblieInductActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.baby.AccessInductActivity"
+            android:name="com.xinxin.aicare.ui.baby.AccessInductActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.info.ChangeBabyInfoActivity"
+            android:name="com.xinxin.aicare.ui.info.ChangeBabyInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan"></activity>
         <activity
-            android:name=".ui.info.BabyIdActivity"
+            android:name="com.xinxin.aicare.ui.info.BabyIdActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.info.BabyBindActivity"
+            android:name="com.xinxin.aicare.ui.info.BabyBindActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.info.TeachActivity"
+            android:name="com.xinxin.aicare.ui.info.TeachActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.setting.ChangePasswordActivity"
+            android:name="com.xinxin.aicare.ui.setting.ChangePasswordActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.setting.ChangePhoneActivity"
+            android:name="com.xinxin.aicare.ui.setting.ChangePhoneActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.setting.VersionActivity"
+            android:name="com.xinxin.aicare.ui.setting.VersionActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.setting.AboutActivity"
+            android:name="com.xinxin.aicare.ui.setting.AboutActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.setting.AdviceActivity"
+            android:name="com.xinxin.aicare.ui.setting.AdviceActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.setting.AccountActivity"
+            android:name="com.xinxin.aicare.ui.setting.AccountActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.setting.SettingActivity"
+            android:name="com.xinxin.aicare.ui.setting.SettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.person.SignActivity"
+            android:name="com.xinxin.aicare.ui.person.SignActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.person.CouponActivity"
+            android:name="com.xinxin.aicare.ui.person.CouponActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.order.OrderDetailActivity"
+            android:name="com.xinxin.aicare.ui.order.OrderDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.person.RefundDetailBActivity"
+            android:name="com.xinxin.aicare.ui.person.RefundDetailBActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.person.RefundDetailActivity"
+            android:name="com.xinxin.aicare.ui.person.RefundDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.person.ExpressActivity"
+            android:name="com.xinxin.aicare.ui.person.ExpressActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.order.RefundActivity"
+            android:name="com.xinxin.aicare.ui.order.RefundActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.order.OrderActivity"
+            android:name="com.xinxin.aicare.ui.order.OrderActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.person.PersonGrowthActivity"
+            android:name="com.xinxin.aicare.ui.person.PersonGrowthActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.person.ChangeSignActivity"
+            android:name="com.xinxin.aicare.ui.person.ChangeSignActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.person.MailEditActivity"
+            android:name="com.xinxin.aicare.ui.person.MailEditActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.person.GrowthActivity"
+            android:name="com.xinxin.aicare.ui.person.GrowthActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.person.IntegralActivity"
+            android:name="com.xinxin.aicare.ui.person.IntegralActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.person.PersonBrowseActivity"
+            android:name="com.xinxin.aicare.ui.person.PersonBrowseActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.person.PersonGoodActivity"
+            android:name="com.xinxin.aicare.ui.person.PersonGoodActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.person.PersonCollectActivity"
+            android:name="com.xinxin.aicare.ui.person.PersonCollectActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.message.DeviceMessageActivity"
+            android:name="com.xinxin.aicare.ui.message.DeviceMessageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.message.MessageActivity"
+            android:name="com.xinxin.aicare.ui.message.MessageActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.address.AddressEditActivity"
+            android:name="com.xinxin.aicare.ui.address.AddressEditActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.pay.PayResultActivity"
+            android:name="com.xinxin.aicare.ui.pay.PayResultActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.pay.PayActivity"
+            android:name="com.xinxin.aicare.ui.pay.PayActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.address.AddressManagerActivity"
+            android:name="com.xinxin.aicare.ui.address.AddressManagerActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.store.SureOrderActivity"
+            android:name="com.xinxin.aicare.ui.store.SureOrderActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.store.GoodActivity"
+            android:name="com.xinxin.aicare.ui.store.GoodActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.RankShareActivity"
+            android:name="com.xinxin.aicare.ui.main.RankShareActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.FindDetailActivity"
+            android:name="com.xinxin.aicare.ui.main.FindDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.info.SleepPostureActivity"
+            android:name="com.xinxin.aicare.ui.info.SleepPostureActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.info.DataShareActivity"
+            android:name="com.xinxin.aicare.ui.info.DataShareActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.info.CallSettingActivity"
+            android:name="com.xinxin.aicare.ui.info.CallSettingActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.info.RemindDetailActivity"
+            android:name="com.xinxin.aicare.ui.info.RemindDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.info.DeviceRemindActivity"
+            android:name="com.xinxin.aicare.ui.info.DeviceRemindActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.info.UrineDetailActivity"
+            android:name="com.xinxin.aicare.ui.info.UrineDetailActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.info.PickSizeActivity"
+            android:name="com.xinxin.aicare.ui.info.PickSizeActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.info.ChangeInfoActivity"
+            android:name="com.xinxin.aicare.ui.info.ChangeInfoActivity"
             android:screenOrientation="portrait"
             android:windowSoftInputMode="adjustPan" />
         <activity
-            android:name=".ui.user.ForgetActivity"
+            android:name="com.xinxin.aicare.ui.user.ForgetActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.user.RegisterActivity"
+            android:name="com.xinxin.aicare.ui.user.RegisterActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.user.LoginNormalActivity"
+            android:name="com.xinxin.aicare.ui.user.LoginNormalActivity"
             android:screenOrientation="portrait">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -196,13 +200,13 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".ui.user.LoginThirdActivity"
+            android:name="com.xinxin.aicare.ui.user.LoginThirdActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.user.LoginActivity"
+            android:name="com.xinxin.aicare.ui.user.LoginActivity"
             android:screenOrientation="portrait" />
         <activity
-            android:name=".ui.main.MainActivity"
+            android:name="com.xinxin.aicare.ui.main.MainActivity"
             android:screenOrientation="portrait" />
     </application>
 

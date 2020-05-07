@@ -213,7 +213,7 @@
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical">
 
-                <com.babyraising.aipaperurine.view.HalfCircleProgressView
+                <com.xinxin.aicare.view.HalfCircleProgressView
                     android:id="@+id/cpv"
                     android:layout_width="160dip"
                     android:layout_height="84dip"

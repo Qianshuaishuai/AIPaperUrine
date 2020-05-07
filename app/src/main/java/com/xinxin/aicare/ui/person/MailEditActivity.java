@@ -1,0 +1,190 @@
+package com.xinxin.aicare.ui.person;
+
+import android.os.Bundle;
+import android.text.TextUtils;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.TextView;
+
+import com.xinxin.aicare.Constant;
+import com.xinxin.aicare.PaperUrineApplication;
+import com.xinxin.aicare.R;
+import com.xinxin.aicare.base.BaseActivity;
+import com.xinxin.aicare.bean.UserBean;
+import com.xinxin.aicare.response.CommonResponse;
+import com.xinxin.aicare.response.EditImgResponse;
+import com.xinxin.aicare.util.T;
+import com.google.gson.Gson;
+
+import org.xutils.common.Callback;
+import org.xutils.http.RequestParams;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
+
+@ContentView(R.layout.activity_mail_edit)
+public class MailEditActivity extends BaseActivity {
+
+    private UserBean userBean;
+    private boolean isCheck = false;
+
+    @ViewInject(R.id.mail)
+    private EditText mail;
+
+    @ViewInject(R.id.tv_status)
+    private TextView status;
+
+    @Event(R.id.layout_back)
+    private void layoutBack(View view) {
+        finish();
+    }
+
+    @Event(R.id.save)
+    private void save(View view) {
+        checkEmail();
+    }
+
+    @Event(R.id.send)
+    private void send(View view) {
+        if (mail.getText().toString().length() <= 0) {
+            T.s("邮箱不能为空");
+            return;
+        }
+        sendEmail();
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+//        checkEmail();
+        initData();
+    }
+
+    private void initData() {
+        userBean = ((PaperUrineApplication) getApplication()).getUserInfo();
+    }
+
+    private void bindEmail() {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_BINDEMAIL);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+        params.addQueryStringParameter("EMAIL", mail.getText().toString());
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                EditImgResponse response = gson.fromJson(result, EditImgResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        T.s("绑定成功");
+                        userBean.setEMAIL(mail.getText().toString());
+                        ((PaperUrineApplication) getApplication()).saveUserInfo(userBean);
+                        finish();
+                        break;
+                    default:
+                        T.s("绑定失败");
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    private void checkEmail() {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_CHECKEMAIL);
+        params.addQueryStringParameter("EMAIL", mail.getText().toString());
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        T.s("验证通过");
+                        bindEmail();
+                        break;
+                    default:
+                        T.s("未验证通过");
+                        isCheck = false;
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    private void sendEmail() {
+        if (TextUtils.isEmpty(mail.getText().toString())) {
+            T.s("邮箱地址不能为空");
+            return;
+        }
+
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_SENDEMAIL);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+        params.addQueryStringParameter("EMAIL", mail.getText().toString());
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                System.out.println(result);
+                switch (response.getResult()) {
+                    case 0:
+                        T.s("发送成功");
+                        break;
+                    case 2:
+                        T.s("邮箱已验证通过");
+                        break;
+                    default:
+                        T.s("发送失败");
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+}

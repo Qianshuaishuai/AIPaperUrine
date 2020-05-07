@@ -1,0 +1,578 @@
+package com.xinxin.aicare.ui.info;
+
+import android.app.DatePickerDialog;
+import android.app.Dialog;
+import android.content.Context;
+import android.content.Intent;
+import android.graphics.Bitmap;
+import android.net.Uri;
+import android.os.AsyncTask;
+import android.os.Build;
+import android.os.Bundle;
+import android.os.Environment;
+import android.provider.MediaStore;
+import android.support.annotation.Nullable;
+import android.support.v4.content.FileProvider;
+import android.text.Editable;
+import android.text.TextUtils;
+import android.text.TextWatcher;
+import android.view.View;
+import android.widget.EditText;
+import android.widget.ImageView;
+import android.widget.RadioButton;
+import android.widget.RadioGroup;
+import android.widget.RelativeLayout;
+import android.widget.TextView;
+import android.widget.Toast;
+
+import com.xinxin.aicare.Constant;
+import com.xinxin.aicare.PaperUrineApplication;
+import com.xinxin.aicare.R;
+import com.xinxin.aicare.base.BaseActivity;
+import com.xinxin.aicare.bean.PersonBean;
+import com.xinxin.aicare.bean.UserBean;
+import com.xinxin.aicare.response.EditImgResponse;
+import com.xinxin.aicare.response.EditUserResponse;
+import com.xinxin.aicare.ui.person.ChangeSignActivity;
+import com.xinxin.aicare.ui.person.MailEditActivity;
+import com.xinxin.aicare.ui.picker.CityPickerDialog;
+import com.xinxin.aicare.ui.picker.Util;
+import com.xinxin.aicare.ui.picker.address.City;
+import com.xinxin.aicare.ui.picker.address.County;
+import com.xinxin.aicare.ui.picker.address.Province;
+import com.xinxin.aicare.util.FileUtil;
+import com.xinxin.aicare.util.T;
+import com.google.gson.Gson;
+import com.nanchen.compresshelper.CompressHelper;
+
+import org.apache.http.util.EncodingUtils;
+import org.json.JSONArray;
+import org.xutils.common.Callback;
+import org.xutils.common.util.DensityUtil;
+import org.xutils.common.util.KeyValue;
+import org.xutils.http.RequestParams;
+import org.xutils.http.body.MultipartBody;
+import org.xutils.image.ImageOptions;
+import org.xutils.view.annotation.ContentView;
+import org.xutils.view.annotation.Event;
+import org.xutils.view.annotation.ViewInject;
+import org.xutils.x;
+
+import java.io.File;
+import java.io.IOException;
+import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.List;
+
+import cn.aigestudio.datepicker.views.DatePicker;
+
+@ContentView(R.layout.activity_change_info)
+public class ChangeInfoActivity extends BaseActivity {
+
+    private UserBean userBean;
+    private PersonBean personBean;
+
+    private ArrayList<Province> provinces = new ArrayList<Province>();
+
+    public static final int RC_TAKE_PHOTO = 1;
+    public static final int RC_CHOOSE_PHOTO = 2;
+    public static final int SIGN_CODE = 101;
+
+    private String mTempPhotoPath;
+    private Uri imageUri;
+
+    private DatePickerDialog yearMonthDatePickerDialog;
+
+    @ViewInject(R.id.date_picker)
+    private DatePicker datePicker;
+
+    @ViewInject(R.id.layout_date_picker)
+    private RelativeLayout layoutDatePicker;
+
+    @ViewInject(R.id.card_date)
+    private TextView cardDate;
+
+    @ViewInject(R.id.card_icon)
+    private ImageView cardIcon;
+
+    @ViewInject(R.id.card_name)
+    private EditText cardName;
+
+    @ViewInject(R.id.group_sex)
+    private RadioGroup sexGroup;
+
+    @ViewInject(R.id.bt1_sex)
+    private RadioButton bt1Sex;
+
+    @ViewInject(R.id.bt2_sex)
+    private RadioButton bt2Sex;
+
+    @ViewInject(R.id.card_city)
+    private TextView cardCity;
+
+    @ViewInject(R.id.card_email)
+    private TextView cardEmail;
+
+    @ViewInject(R.id.card_sign)
+    private TextView cardSign;
+
+    @ViewInject(R.id.layout_big_photo)
+    private RelativeLayout photoLayout;
+
+    @Event(R.id.layout_back_top)
+    private void layoutBack(View view) {
+        finish();
+    }
+
+    @Event(R.id.layout_date)
+    private void layoutDataClick(View view) {
+//        layoutDatePicker.setVisibility(View.VISIBLE);
+        yearMonthDatePickerDialog.show();
+    }
+
+    @Event(R.id.layout_email)
+    private void layoutEmailClick(View view) {
+        Intent intent = new Intent(this, MailEditActivity.class);
+        startActivity(intent);
+    }
+
+    @Event(R.id.layout_header)
+    private void layoutHeaderClick(View view) {
+        photoLayout.setVisibility(View.VISIBLE);
+    }
+
+    @Event(R.id.take_photo)
+    private void takePhotoClick(View view) {
+        takePhoto();
+        photoLayout.setVisibility(View.GONE);
+    }
+
+    @Event(R.id.select_photo)
+    private void selectPhoto(View view) {
+        choosePhoto();
+        photoLayout.setVisibility(View.GONE);
+    }
+
+    @Event(R.id.layout_big_photo)
+    private void layoutAllPhoto(View view) {
+        photoLayout.setVisibility(View.GONE);
+    }
+
+    @Event(R.id.layout_sign)
+    private void layoutSignClick(View view) {
+        Intent intent = new Intent(this, ChangeSignActivity.class);
+        startActivityForResult(intent, SIGN_CODE);
+    }
+
+    @Event(R.id.layout_city)
+    private void layoutCityClick(View view) {
+        if (provinces.size() > 0) {
+            showAddressDialog();
+        } else {
+            new InitAreaTask(this).execute(0);
+        }
+    }
+
+    @Event(R.id.commit)
+    private void commit(View view) {
+        editUser(userBean.getNICKNAME(), userBean.getSEX(), userBean.getCITY(), userBean.getPROVICE_CODE(), userBean.getCITY_CODE(), userBean.getDISTRICT_CODE(), userBean.getBIRTHDAY(), userBean.getSIGNNAME());
+    }
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        initDatePicker();
+        initData();
+    }
+
+    private void initData() {
+        userBean = ((PaperUrineApplication) getApplication()).getUserInfo();
+        personBean = ((PaperUrineApplication) getApplication()).getPersonInfo();
+
+        ImageOptions options = new ImageOptions.Builder().
+                setRadius(DensityUtil.dip2px(50))
+                .setCrop(true).build();
+        x.image().bind(cardIcon, userBean.getHEADIMG(), options);
+
+        cardName.setText(userBean.getNICKNAME());
+        cardDate.setText(userBean.getBIRTHDAY());
+        if (userBean.getSEX().equals("2")) {
+            bt1Sex.setChecked(false);
+            bt2Sex.setChecked(true);
+        } else if (userBean.getSEX().equals("1")) {
+            bt1Sex.setChecked(true);
+            bt2Sex.setChecked(false);
+        }
+
+        cardCity.setText(userBean.getCITY());
+        cardSign.setText(userBean.getSIGNNAME());
+        cardEmail.setText(userBean.getEMAIL());
+
+        if (TextUtils.isEmpty(userBean.getEMAIL())) {
+            cardEmail.setText("未绑定");
+        }
+
+        sexGroup.setOnCheckedChangeListener(new RadioGroup.OnCheckedChangeListener() {
+            @Override
+            public void onCheckedChanged(RadioGroup radioGroup, int i) {
+                switch (i) {
+                    case R.id.bt1_sex:
+//                        editUser("", "1", "", "", "", "", "", "");
+                        userBean.setSEX("1");
+                        break;
+
+                    case R.id.bt2_sex:
+//                        editUser("", "2", "", "", "", "", "", "");
+                        userBean.setSEX("2");
+                        break;
+                }
+            }
+        });
+
+        cardName.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence charSequence, int i, int i1, int i2) {
+                userBean.setNICKNAME(charSequence.toString());
+            }
+
+            @Override
+            public void afterTextChanged(Editable editable) {
+
+            }
+        });
+    }
+
+
+    private void initDatePicker() {
+        Calendar ca = Calendar.getInstance();
+        int mYear = ca.get(Calendar.YEAR);
+        int mMonth = ca.get(Calendar.MONTH);
+        int mDay = ca.get(Calendar.DAY_OF_MONTH);
+
+        yearMonthDatePickerDialog = new DatePickerDialog(this,
+                new DatePickerDialog.OnDateSetListener() {
+                    @Override
+                    public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
+                        String result = year + "-" + (month + 1) + "-" + dayOfMonth;
+                        cardDate.setText(result);
+                        if (layoutDatePicker.getVisibility() == View.VISIBLE) {
+                            layoutDatePicker.setVisibility(View.GONE);
+                        }
+                        userBean.setBIRTHDAY(result);
+                    }
+                },
+                mYear, mMonth, mDay);
+    }
+
+    private void editUser(String nickName, String sex, String city, String provinceCode, String cityCode, String ditCode, String birthday, String signName) {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_EDITUSER);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+
+        if (!TextUtils.isEmpty(nickName)) {
+            params.addQueryStringParameter("NICKNAME", nickName);
+        }
+
+        if (!TextUtils.isEmpty(sex)) {
+            params.addQueryStringParameter("SEX", sex);
+        }
+
+        if (!TextUtils.isEmpty(city)) {
+            params.addQueryStringParameter("CITY", city);
+            if (!TextUtils.isEmpty(provinceCode)) {
+                params.addQueryStringParameter("PROVICE_CODE", provinceCode);
+            }
+            if (!TextUtils.isEmpty(cityCode)) {
+                params.addQueryStringParameter("CITY_CODE", cityCode);
+            }
+            if (!TextUtils.isEmpty(ditCode)) {
+                params.addQueryStringParameter("DISTRICT_CODE", ditCode);
+            }
+        }
+
+        if (!TextUtils.isEmpty(birthday)) {
+            params.addQueryStringParameter("BIRTHDAY", birthday);
+        }
+
+        if (!TextUtils.isEmpty(signName)) {
+            params.addQueryStringParameter("SIGNNAME", signName);
+        }
+
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                EditUserResponse response = gson.fromJson(result, EditUserResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        T.s("修改成功");
+                        finish();
+                        ((PaperUrineApplication) getApplication()).saveUserInfo(userBean);
+                        break;
+                    default:
+                        T.s("修改失败");
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    private void updateLoadPic(String pic) {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_EDITIMG);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+        File oldFile = new File(pic);
+        File newFile = new CompressHelper.Builder(this)
+                .setMaxWidth(100)  // 默认最大宽度为720
+                .setMaxHeight(100) // 默认最大高度为960
+                .setQuality(80)    // 默认压缩质量为80
+                .setCompressFormat(Bitmap.CompressFormat.JPEG) // 设置默认压缩为jpg格式
+                .setDestinationDirectoryPath(Environment.getExternalStoragePublicDirectory(
+                        Environment.DIRECTORY_PICTURES).getAbsolutePath())
+                .build()
+                .compressToFile(oldFile);
+        params.setAsJsonContent(true);
+        List<KeyValue> list = new ArrayList<>();
+        list.add(new KeyValue("HEADIMG", newFile));
+        MultipartBody body = new MultipartBody(list, "UTF-8");
+        params.setRequestBody(body);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                System.out.println(result);
+                Gson gson = new Gson();
+                EditImgResponse response = gson.fromJson(result, EditImgResponse.class);
+
+                switch (response.getResult()) {
+                    case 0:
+                        T.s("更换成功");
+                        userBean.setHEADIMG(response.getData().getHEADIMG());
+                        ((PaperUrineApplication) getApplication()).saveUserInfo(userBean);
+
+
+                        ImageOptions options = new ImageOptions.Builder().
+                                setRadius(DensityUtil.dip2px(50)).setCrop(true).build();
+                        x.image().bind(cardIcon, userBean.getHEADIMG(), options);
+                        break;
+                    default:
+                        T.s("更换失败");
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        initData();
+    }
+
+    private void choosePhoto() {
+        Intent intentToPickPic = new Intent(Intent.ACTION_PICK, null);
+        intentToPickPic.setDataAndType(MediaStore.Images.Media.EXTERNAL_CONTENT_URI, "image/*");
+        startActivityForResult(intentToPickPic, RC_CHOOSE_PHOTO);
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, @Nullable Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        switch (requestCode) {
+            case RC_CHOOSE_PHOTO:
+                Uri uri = data.getData();
+                String filePath = FileUtil.getFilePathByUri(this, uri);
+                if (!TextUtils.isEmpty(filePath)) {
+                    updateLoadPic(filePath);
+                } else {
+                    T.s("选择照片出错");
+                }
+                break;
+            case RC_TAKE_PHOTO:
+                if (!TextUtils.isEmpty(mTempPhotoPath)) {
+                    ImageOptions options = new ImageOptions.Builder().
+                            setRadius(DensityUtil.dip2px(50)).setCrop(true).build();
+                    x.image().bind(cardIcon, mTempPhotoPath, options);
+                    updateLoadPic(mTempPhotoPath);
+                } else {
+                    T.s("选择照片出错");
+                }
+                break;
+
+            case SIGN_CODE:
+                if (resultCode == RESULT_OK) {
+                    if (data != null) {
+//                        editUser("", "", "", "", "", "", "", data.getStringExtra("sign"));
+                        cardSign.setText(data.getStringExtra("sign"));
+                        userBean.setSIGNNAME(data.getStringExtra("sign"));
+                    }
+                }
+                break;
+        }
+    }
+
+    private void takePhoto() {
+        Intent intentToTakePhoto = new Intent(MediaStore.ACTION_IMAGE_CAPTURE);
+        File fileDir = new File(Environment.getExternalStorageDirectory() + File.separator + "photoTest" + File.separator);
+        if (!fileDir.exists()) {
+            fileDir.mkdirs();
+        }
+
+        File photoFile = new File(fileDir, "photo.jpeg");
+        mTempPhotoPath = photoFile.getAbsolutePath();
+
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.N) {
+            /*7.0以上要通过FileProvider将File转化为Uri*/
+            imageUri = FileProvider.getUriForFile(this, "", photoFile);
+        } else {
+            /*7.0以下则直接使用Uri的fromFile方法将File转化为Uri*/
+            imageUri = Uri.fromFile(photoFile);
+        }
+        System.out.println(imageUri);
+        intentToTakePhoto.putExtra(MediaStore.EXTRA_OUTPUT, imageUri);
+        startActivityForResult(intentToTakePhoto, RC_TAKE_PHOTO);
+    }
+
+    private void showAddressDialog() {
+        new CityPickerDialog(this, provinces, null, null, null,
+                new CityPickerDialog.onCityPickedListener() {
+
+                    @Override
+                    public void onPicked(Province selectProvince,
+                                         City selectCity, County selectCounty) {
+                        StringBuilder address = new StringBuilder();
+                        address.append(
+                                selectProvince != null ? selectProvince
+                                        .getAreaName() : "")
+                                .append(selectCity != null ? selectCity
+                                        .getAreaName() : "")
+                                .append(selectCounty != null ? selectCounty
+                                        .getAreaName() : "");
+                        String text = selectCounty != null ? selectCounty
+                                .getAreaName() : "";
+                        String addressTip = "";
+                        if (selectProvince != null) {
+                            if (selectProvince != null) {
+                                addressTip = addressTip + selectProvince.getAreaName();
+                                userBean.setPROVICE_CODE(selectProvince.getAreaName());
+                            }
+                        }
+
+                        if (selectCity != null) {
+                            if (selectCity.getAreaName() != null) {
+                                addressTip = addressTip + " " + selectCity.getAreaName();
+                                userBean.setCITY_CODE(selectCity.getAreaName());
+                            }
+                        }
+
+                        if (selectCounty != null) {
+                            if (selectCounty.getAreaName() != null) {
+                                addressTip = addressTip + " " + selectCounty.getAreaName();
+                                userBean.setDISTRICT_CODE(selectCounty.getAreaName());
+                            }
+
+                        }
+                        cardCity.setText(addressTip);
+                        userBean.setCITY(addressTip);
+                    }
+                }).show();
+    }
+
+    private class InitAreaTask extends AsyncTask<Integer, Integer, Boolean> {
+
+        Context mContext;
+
+        Dialog progressDialog;
+
+        public InitAreaTask(Context context) {
+            mContext = context;
+            progressDialog = Util.createLoadingDialog(mContext, "请稍等...", true,
+                    0);
+        }
+
+        @Override
+        protected void onPreExecute() {
+
+            progressDialog.show();
+        }
+
+        @Override
+        protected void onPostExecute(Boolean result) {
+            progressDialog.dismiss();
+            if (provinces.size() > 0) {
+                showAddressDialog();
+            } else {
+                Toast.makeText(mContext, "数据初始化失败", Toast.LENGTH_SHORT).show();
+            }
+        }
+
+        @Override
+        protected Boolean doInBackground(Integer... params) {
+            String address = null;
+            InputStream in = null;
+            try {
+                in = mContext.getResources().getAssets().open("address.txt");
+                byte[] arrayOfByte = new byte[in.available()];
+                in.read(arrayOfByte);
+                address = EncodingUtils.getString(arrayOfByte, "UTF-8");
+                JSONArray jsonList = new JSONArray(address);
+                Gson gson = new Gson();
+                for (int i = 0; i < jsonList.length(); i++) {
+                    try {
+                        provinces.add(gson.fromJson(jsonList.getString(i),
+                                Province.class));
+                    } catch (Exception e) {
+                    }
+                }
+                return true;
+            } catch (Exception e) {
+
+            } finally {
+                if (in != null) {
+                    try {
+                        in.close();
+                    } catch (IOException e) {
+                    }
+                }
+            }
+            return false;
+        }
+
+    }
+}
