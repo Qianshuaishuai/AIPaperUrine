@@ -41,7 +41,7 @@
                     android:singleLine="true"
                     android:text="大宝"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp"
+                    android:textSize="16dip"
                     android:textStyle="bold" />
 
                 <TextView
@@ -51,7 +51,7 @@
                     android:layout_marginTop="10dip"
                     android:text="2019.08.23-2019.08.29"
                     android:textColor="#BCBCBC"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
         </LinearLayout>
 
@@ -73,7 +73,7 @@
                     android:layout_height="wrap_content"
                     android:text="总成长值排名："
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <TextView
                     android:id="@+id/all_rank"
@@ -81,7 +81,7 @@
                     android:layout_height="wrap_content"
                     android:text="211"
                     android:textColor="#ffffff"
-                    android:textSize="20sp"
+                    android:textSize="20dip"
                     android:textStyle="bold" />
 
                 <TextView
@@ -89,7 +89,7 @@
                     android:layout_height="wrap_content"
                     android:text="名"
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -104,7 +104,7 @@
                     android:layout_height="wrap_content"
                     android:text="本周成长值排名："
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <TextView
                     android:id="@+id/week_rank"
@@ -112,7 +112,7 @@
                     android:layout_height="wrap_content"
                     android:text="91"
                     android:textColor="#ffffff"
-                    android:textSize="20sp"
+                    android:textSize="20dip"
                     android:textStyle="bold" />
 
                 <TextView
@@ -120,7 +120,7 @@
                     android:layout_height="wrap_content"
                     android:text="名"
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -135,7 +135,7 @@
                     android:layout_height="wrap_content"
                     android:text="历史总更换尿布："
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <TextView
                     android:id="@+id/all_change_urine"
@@ -143,7 +143,7 @@
                     android:layout_height="wrap_content"
                     android:text="187"
                     android:textColor="#ffffff"
-                    android:textSize="14sp"
+                    android:textSize="14dip"
                     android:textStyle="bold" />
 
                 <TextView
@@ -151,7 +151,7 @@
                     android:layout_height="wrap_content"
                     android:text="次"
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -166,7 +166,7 @@
                     android:layout_height="wrap_content"
                     android:text="宝宝历史总尿量："
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <TextView
                     android:id="@+id/all_volume"
@@ -174,7 +174,7 @@
                     android:layout_height="wrap_content"
                     android:text="3000"
                     android:textColor="#ffffff"
-                    android:textSize="14sp"
+                    android:textSize="14dip"
                     android:textStyle="bold" />
 
                 <TextView
@@ -182,7 +182,7 @@
                     android:layout_height="wrap_content"
                     android:text="ml"
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -198,7 +198,7 @@
                     android:layout_height="wrap_content"
                     android:text="总计签到次数："
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <TextView
                     android:id="@+id/all_sign"
@@ -206,7 +206,7 @@
                     android:layout_height="wrap_content"
                     android:text="46"
                     android:textColor="#ffffff"
-                    android:textSize="14sp"
+                    android:textSize="14dip"
                     android:textStyle="bold" />
 
                 <TextView
@@ -214,7 +214,7 @@
                     android:layout_height="wrap_content"
                     android:text="次"
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
         </LinearLayout>
 

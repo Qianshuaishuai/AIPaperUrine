@@ -27,7 +27,7 @@ w
             android:layout_height="wrap_content"
             android:text="商品"
             android:textColor="#1e1e1e"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <!--<ImageView-->
@@ -66,7 +66,7 @@ w
                 android:layout_marginTop="30dip"
                 android:text="￥123.00"
                 android:textColor="#F866AA"
-                android:textSize="18sp"
+                android:textSize="18dip"
                 android:textStyle="bold" />
 
             <TextView
@@ -77,7 +77,7 @@ w
                 android:layout_marginTop="20dip"
                 android:text="商品名称"
                 android:textColor="#1e1e1e"
-                android:textSize="18sp" />
+                android:textSize="18dip" />
 
             <TextView
                 android:id="@+id/subtitle"
@@ -89,7 +89,7 @@ w
                 android:layout_marginBottom="29.5dip"
                 android:text="花王尿不湿婴儿纸尿布夏季夏季夏季"
                 android:textColor="#999999"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <View
                 android:layout_width="match_parent"
@@ -114,7 +114,7 @@ w
                     android:layout_marginLeft="6dip"
                     android:text="发货地"
                     android:textColor="#999999"
-                    android:textSize="13sp" />
+                    android:textSize="13dip" />
 
                 <TextView
                     android:id="@+id/address"
@@ -123,7 +123,7 @@ w
                     android:layout_marginLeft="12dip"
                     android:text=""
                     android:textColor="#1e1e1e"
-                    android:textSize="13sp" />
+                    android:textSize="13dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -144,7 +144,7 @@ w
                         android:layout_marginRight="15dip"
                         android:text="已有2650人购买"
                         android:textColor="#999999"
-                        android:textSize="13sp" />
+                        android:textSize="13dip" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -171,7 +171,7 @@ w
                         android:layout_marginLeft="15dip"
                         android:text="服务"
                         android:textColor="#999999"
-                        android:textSize="13sp" />
+                        android:textSize="13dip" />
 
                     <TextView
                         android:id="@+id/service"
@@ -180,7 +180,7 @@ w
                         android:layout_marginLeft="47dip"
                         android:text="七天无理由退款"
                         android:textColor="#1e1e1e"
-                        android:textSize="13sp" />
+                        android:textSize="13dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -196,7 +196,7 @@ w
                         android:layout_marginLeft="15dip"
                         android:text="优惠活动"
                         android:textColor="#999999"
-                        android:textSize="13sp" />
+                        android:textSize="13dip" />
 
                     <TextView
                         android:id="@+id/active"
@@ -205,7 +205,7 @@ w
                         android:layout_marginLeft="21.5dip"
                         android:text="满300减10"
                         android:textColor="#F87EB7"
-                        android:textSize="13sp" />
+                        android:textSize="13dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -222,7 +222,7 @@ w
                         android:layout_marginLeft="15dip"
                         android:text="参数"
                         android:textColor="#999999"
-                        android:textSize="13sp" />
+                        android:textSize="13dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -263,7 +263,7 @@ w
         android:background="#F97EB7"
         android:text="立即购买"
         android:textColor="#ffffff"
-        android:textSize="16sp" />
+        android:textSize="16dip" />
 
     <!--产品参数-->
     <RelativeLayout
@@ -287,7 +287,7 @@ w
                 android:layout_marginTop="26dip"
                 android:text="产品参数"
                 android:textColor="#1e1e1e"
-                android:textSize="18sp" />
+                android:textSize="18dip" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -302,7 +302,7 @@ w
                     android:layout_marginLeft="15dip"
                     android:text="品牌"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:id="@+id/brand"
@@ -311,7 +311,7 @@ w
                     android:layout_marginLeft="68.5dip"
                     android:text="帮宝适"
                     android:textColor="#999999"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -329,7 +329,7 @@ w
                     android:layout_marginLeft="15dip"
                     android:text=""
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:id="@+id/value1"
@@ -339,7 +339,7 @@ w
                     android:layout_marginRight="15dip"
                     android:text=""
                     android:textColor="#999999"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -356,7 +356,7 @@ w
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dip"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:id="@+id/value2"
@@ -366,7 +366,7 @@ w
                     android:layout_marginRight="15dip"
                     android:text=""
                     android:textColor="#999999"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -383,7 +383,7 @@ w
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="15dip"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:id="@+id/value3"
@@ -392,7 +392,7 @@ w
                     android:layout_marginLeft="68.5dip"
                     android:layout_marginRight="15dip"
                     android:textColor="#999999"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -409,7 +409,7 @@ w
                     android:layout_marginLeft="15dip"
                     android:text="颜色分类"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:id="@+id/color"
@@ -418,7 +418,7 @@ w
                     android:layout_marginLeft="35dip"
                     android:text="70*50cm 2袋装\n70*50cm 1袋装"
                     android:textColor="#999999"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
             </LinearLayout>
 
             <Button
@@ -433,7 +433,7 @@ w
                 android:background="@drawable/shape_good_button_bg"
                 android:text="完成"
                 android:textColor="#ffffff"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
         </LinearLayout>
     </RelativeLayout>
 
@@ -478,7 +478,7 @@ w
                         android:singleLine="true"
                         android:text=""
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <TextView
                         android:id="@+id/simple_subtitle"
@@ -491,7 +491,7 @@ w
                         android:singleLine="true"
                         android:text=""
                         android:textColor="#999999"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -507,7 +507,7 @@ w
                             android:layout_marginLeft="15dip"
                             android:text="￥123.00"
                             android:textColor="#F866AA"
-                            android:textSize="18sp"
+                            android:textSize="18dip"
                             android:textStyle="bold" />
 
                         <LinearLayout
@@ -530,7 +530,7 @@ w
                                 android:layout_marginRight="12dip"
                                 android:text="1"
                                 android:textColor="#999999"
-                                android:textSize="16sp" />
+                                android:textSize="16dip" />
 
                             <ImageView
                                 android:id="@+id/iv_add"
@@ -559,7 +559,7 @@ w
                         android:layout_marginLeft="15dip"
                         android:layout_marginTop="36dip"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_tag1"
@@ -575,7 +575,7 @@ w
                         android:layout_marginLeft="15dip"
                         android:layout_marginTop="20dip"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_tag2"
@@ -591,7 +591,7 @@ w
                         android:layout_marginLeft="15dip"
                         android:layout_marginTop="36dip"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <android.support.v7.widget.RecyclerView
                         android:id="@+id/rv_tag3"
@@ -608,7 +608,7 @@ w
                         android:background="#F97EB7"
                         android:text="确定"
                         android:textColor="#ffffff"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
                 </LinearLayout>
             </ScrollView>
         </LinearLayout>

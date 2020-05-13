@@ -22,7 +22,7 @@
         android:singleLine="true"
         android:text="商品名称"
         android:textColor="#1e1e1e"
-        android:textSize="14sp" />
+        android:textSize="14dip" />
 
     <TextView
         android:id="@+id/subtitle"
@@ -35,7 +35,7 @@
         android:singleLine="true"
         android:text="花王尿不湿婴儿纸尿布夏季夏季夏季"
         android:textColor="#999999"
-        android:textSize="12sp" />
+        android:textSize="12dip" />
 
     <TextView
         android:id="@+id/price"
@@ -45,5 +45,5 @@
         android:layout_marginTop="10dip"
         android:text="￥123.00"
         android:textColor="#F866AA"
-        android:textSize="14sp" />
+        android:textSize="14dip" />
 </LinearLayout>

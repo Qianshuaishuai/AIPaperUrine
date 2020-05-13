@@ -18,7 +18,7 @@
             android:layout_marginLeft="10dp"
             android:text="取消"
             android:textColor="#aa0000"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
 
         <TextView
             android:id="@+id/done"
@@ -29,7 +29,7 @@
             android:layout_marginRight="10dp"
             android:text="完成"
             android:textColor="#aa0000"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </RelativeLayout>
 
     <LinearLayout

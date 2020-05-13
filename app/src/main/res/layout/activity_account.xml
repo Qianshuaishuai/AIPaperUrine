@@ -29,7 +29,7 @@
             android:layout_marginTop="2dip"
             android:text="账号与安全"
             android:textColor="#1e1e1e"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text="绑定手机"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <TextView
                 android:id="@+id/phone"
@@ -60,7 +60,7 @@
                 android:layout_marginTop="10dip"
                 android:text="+86 17734560987"
                 android:textColor="#d4d4d4"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
         </LinearLayout>
 
         <LinearLayout
@@ -74,7 +74,7 @@
                 android:layout_height="wrap_content"
                 android:text="更换号码"
                 android:textColor="#999999"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
             <ImageView
                 android:layout_width="24dip"
@@ -98,7 +98,7 @@
             android:layout_marginLeft="15dip"
             android:text="登录密码"
             android:textColor="#1e1e1e"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -112,7 +112,7 @@
                 android:layout_height="wrap_content"
                 android:text="未设置"
                 android:textColor="#d4d4d4"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
             <ImageView
                 android:layout_width="24dip"

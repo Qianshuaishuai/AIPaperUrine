@@ -38,7 +38,7 @@
                 android:background="@drawable/shape_address_save_bg"
                 android:text="保存"
                 android:textColor="#ffffff"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
         </LinearLayout>
     </LinearLayout>
@@ -60,7 +60,7 @@
             android:hint="输入多行"
             android:maxLines="5"
             android:textColor="#1e1e1e"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
 
         <TextView
             android:id="@+id/sign_count"
@@ -72,6 +72,6 @@
             android:layout_marginBottom="12dip"
             android:text="0/100"
             android:textColor="#d4d4d4"
-            android:textSize="12sp" />
+            android:textSize="12dip" />
     </RelativeLayout>
 </LinearLayout>

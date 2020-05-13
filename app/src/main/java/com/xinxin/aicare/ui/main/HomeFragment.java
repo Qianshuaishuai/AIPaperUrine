@@ -291,6 +291,7 @@ public class HomeFragment extends BaseFragment {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 MemberListResponse response = gson.fromJson(result, MemberListResponse.class);
+                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         if (response.getData().size() == 0) {
@@ -387,6 +388,7 @@ public class HomeFragment extends BaseFragment {
 
     public void goToPickSizeActivity(String memberId) {
         Intent intent = new Intent(getContext(), PickSizeActivity.class);
+        intent.putExtra("mode", 10001);
         intent.putExtra("memberId", memberId);
         startActivity(intent);
     }
@@ -397,7 +399,7 @@ public class HomeFragment extends BaseFragment {
         startActivity(intent);
     }
 
-    public void goToPostureActivity(String posture){
+    public void goToPostureActivity(String posture) {
         Intent intent = new Intent(getContext(), SleepPostureActivity.class);
         intent.putExtra("posture", posture);
         startActivity(intent);

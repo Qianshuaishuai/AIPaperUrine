@@ -21,7 +21,7 @@
             android:gravity="center"
             android:text=""
             android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
 
         <LinearLayout
             android:layout_width="wrap_content"
@@ -42,7 +42,7 @@
                     android:layout_height="wrap_content"
                     android:text="大宝"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:id="@+id/phone"
@@ -51,7 +51,7 @@
                     android:layout_marginLeft="10dip"
                     android:text="12345678900"
                     android:textColor="#999999"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
 
             <TextView
@@ -61,7 +61,7 @@
                 android:layout_marginTop="7dip"
                 android:text="广东省深圳市南山区XX村XX路022号XX 村XX路022号"
                 android:textColor="#1e1e1e"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
         </LinearLayout>
 
         <LinearLayout
@@ -98,7 +98,7 @@
             android:layout_marginLeft="15dip"
             android:text="设为默认地址"
             android:textColor="#1e1e1e"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
 
         <ImageView
             android:id="@+id/cb_delete"

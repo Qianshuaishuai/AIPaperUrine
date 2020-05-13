@@ -34,7 +34,7 @@
                     android:layout_height="wrap_content"
                     android:text="发现"
                     android:textColor="#FFFFFF"
-                    android:textSize="24sp"
+                    android:textSize="24dip"
                     android:textStyle="bold" />
 
                 <View
@@ -59,7 +59,7 @@
                     android:layout_height="wrap_content"
                     android:text="排行榜"
                     android:textColor="#FFFFFF"
-                    android:textSize="14sp"
+                    android:textSize="14dip"
                     android:textStyle="bold" />
 
                 <View
@@ -113,7 +113,7 @@
                     <!--android:gravity="center"-->
                     <!--android:text="宝宝安全"-->
                     <!--android:textColor="@color/select_find_tab"-->
-                    <!--android:textSize="14sp" />-->
+                    <!--android:textSize="14dip" />-->
 
                     <!--<View-->
                     <!--android:layout_width="0dip"-->
@@ -130,7 +130,7 @@
                     <!--android:gravity="center"-->
                     <!--android:text="生活健康"-->
                     <!--android:textColor="@color/select_find_tab"-->
-                    <!--android:textSize="14sp" />-->
+                    <!--android:textSize="14dip" />-->
 
                     <!--<View-->
                     <!--android:layout_width="0dip"-->
@@ -147,7 +147,7 @@
                     <!--android:gravity="center"-->
                     <!--android:text="宝宝护理"-->
                     <!--android:textColor="@color/select_find_tab"-->
-                    <!--android:textSize="14sp" />-->
+                    <!--android:textSize="14dip" />-->
 
                     <!--<View-->
                     <!--android:layout_width="0dip"-->
@@ -164,7 +164,7 @@
                     <!--android:gravity="center"-->
                     <!--android:text="宝宝喂养"-->
                     <!--android:textColor="@color/select_find_tab"-->
-                    <!--android:textSize="14sp" />-->
+                    <!--android:textSize="14dip" />-->
                 </RadioGroup>
 
                 <android.support.v7.widget.RecyclerView
@@ -190,7 +190,7 @@
                     android:gravity="center_horizontal"
                     android:text="总成长值排行"
                     android:textColor="#999999"
-                    android:textSize="14sp"
+                    android:textSize="14dip"
                     android:textStyle="bold" />
 
                 <android.support.v7.widget.RecyclerView
@@ -206,7 +206,7 @@
                     android:gravity="center_horizontal"
                     android:text="周成长值排行"
                     android:textColor="#999999"
-                    android:textSize="14sp"
+                    android:textSize="14dip"
                     android:textStyle="bold" />
 
                 <android.support.v7.widget.RecyclerView

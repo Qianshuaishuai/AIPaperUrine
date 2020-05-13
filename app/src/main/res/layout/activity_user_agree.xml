@@ -28,7 +28,7 @@
             android:layout_marginTop="2dip"
             android:text="用户协议"
             android:textColor="#1e1e1e"
-            android:textSize="18sp"
+            android:textSize="18dip"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -45,6 +45,6 @@
             android:layout_marginRight="15dip"
             android:textColor="#1e1e1e"
             android:text="@string/user_agree"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
     </ScrollView>
 </LinearLayout>

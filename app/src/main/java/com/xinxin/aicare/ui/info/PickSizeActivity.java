@@ -38,6 +38,7 @@ public class PickSizeActivity extends BaseActivity {
     private UserBean userBean;
     private List<BrandSizeBean> allList;
     private String memberId;
+    private int mode;
 
     private List<BrandSizeSimpleBean> sizeList;
     private BrandSizeAdapter adapter;
@@ -87,12 +88,16 @@ public class PickSizeActivity extends BaseActivity {
 
     @Event(R.id.sure)
     private void sure(View view) {
-        Intent data = new Intent();
-        data.putExtra("brandSize", currentSize);
-        data.putExtra("brand", currentName);
-        data.putExtra("brandId", currentBrandId);
-        setResult(10001, data);
-        finish();
+        if (mode == 10001){
+            editMemberSize();
+        }else{
+            Intent data = new Intent();
+            data.putExtra("brandSize", currentSize);
+            data.putExtra("brand", currentName);
+            data.putExtra("brandId", currentBrandId);
+            setResult(10001, data);
+            finish();
+        }
     }
 
     @Override
@@ -103,49 +108,44 @@ public class PickSizeActivity extends BaseActivity {
     }
 
     private void editMemberSize() {
-//        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_EDITMEMBERSIZE);
-//        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
-//        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
-//        params.addQueryStringParameter("MEMBER_ID", memberId);
-//        params.addQueryStringParameter("DIAPER_BRAND", currentBrandId);
-//        params.addQueryStringParameter("DIAPER_SIZE", currentSize);
-//        x.http().post(params, new Callback.CommonCallback<String>() {
-//            @Override
-//            public void onSuccess(String result) {
-//                Gson gson = new Gson();
-//                BrandSizeResponse response = gson.fromJson(result, BrandSizeResponse.class);
-//                switch (response.getResult()) {
-//                    case 0:
-//                        Intent data = new Intent();
-//                        data.putExtra("brandSize", currentSize);
-//                        data.putExtra("brand", currentName);
-//                        data.putExtra("brandId", currentBrandId);
-//                        setResult(10001, data);
-//                        finish();
-//                        T.s("修改尺码成功");
-//                        break;
-//
-//                    default:
-//                        T.s("修改尺码失败");
-//                        break;
-//                }
-//            }
-//
-//            @Override
-//            public void onError(Throwable ex, boolean isOnCallback) {
-//                T.s("请求出错，请检查网络");
-//            }
-//
-//            @Override
-//            public void onCancelled(CancelledException cex) {
-//
-//            }
-//
-//            @Override
-//            public void onFinished() {
-//
-//            }
-//        });
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_EDITMEMBERSIZE);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+        params.addQueryStringParameter("MEMBER_ID", memberId);
+        params.addQueryStringParameter("DIAPER_BRAND", currentBrandId);
+        params.addQueryStringParameter("DIAPER_SIZE", currentSize);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                BrandSizeResponse response = gson.fromJson(result, BrandSizeResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        finish();
+                        T.s("修改尺码成功");
+                        break;
+
+                    default:
+                        T.s("修改尺码失败");
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                T.s("请求出错，请检查网络");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
     private void initData() {
@@ -153,6 +153,7 @@ public class PickSizeActivity extends BaseActivity {
 
         Intent intent = getIntent();
         memberId = intent.getStringExtra("memberId");
+        mode = intent.getIntExtra("mode",0);
 
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_GETBRANDSIZE);
         x.http().post(params, new Callback.CommonCallback<String>() {

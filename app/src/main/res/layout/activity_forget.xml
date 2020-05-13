@@ -28,7 +28,7 @@
             android:layout_height="wrap_content"
             android:text="找回登录密码"
             android:textColor="#1e1e1e"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
     <!--手机号码start-->
     <LinearLayout
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:text="+86"
                     android:textColor="#666666"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <View
                     android:layout_width="1dip"
@@ -79,7 +79,7 @@
                     android:hint="请输入手机号码"
                     android:maxLength="11"
                     android:textColor="#1E1E1E"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
             </LinearLayout>
 
             <View
@@ -126,7 +126,7 @@
                     android:hint="请输入验证码"
                     android:maxLength="11"
                     android:textColor="#1E1E1E"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:id="@+id/send_code"
@@ -184,7 +184,7 @@
                     android:hint="请输入密码"
                     android:inputType="textPassword"
                     android:textColor="#1E1E1E"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
             </LinearLayout>
 
             <View
@@ -232,7 +232,7 @@
                     android:hint="请输入确认密码"
                     android:inputType="textPassword"
                     android:textColor="#1E1E1E"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
             </LinearLayout>
 
             <View
@@ -254,5 +254,5 @@
         android:background="@drawable/shape_login_bt"
         android:text="完成"
         android:textColor="#ffffff"
-        android:textSize="16sp" />
+        android:textSize="16dip" />
 </LinearLayout>

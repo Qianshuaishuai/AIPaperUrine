@@ -45,7 +45,7 @@
                         android:singleLine="true"
                         android:text="超级布朗"
                         android:textColor="#ffffff"
-                        android:textSize="20sp"
+                        android:textSize="20dip"
                         android:textStyle="bold" />
 
                     <LinearLayout
@@ -93,7 +93,7 @@
                         android:layout_marginLeft="4dip"
                         android:text="188天"
                         android:textColor="#ffffff"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>
@@ -140,7 +140,7 @@
                 android:layout_height="wrap_content"
                 android:text="345"
                 android:textColor="#1e1e1e"
-                android:textSize="20sp" />
+                android:textSize="20dip" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -148,7 +148,7 @@
                 android:layout_marginTop="12dip"
                 android:text="我的点赞"
                 android:textColor="#999999"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
         </LinearLayout>
 
@@ -166,7 +166,7 @@
                 android:layout_height="wrap_content"
                 android:text="345"
                 android:textColor="#1e1e1e"
-                android:textSize="20sp" />
+                android:textSize="20dip" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -174,7 +174,7 @@
                 android:layout_marginTop="12dip"
                 android:text="我的收藏"
                 android:textColor="#999999"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
         </LinearLayout>
 
@@ -192,7 +192,7 @@
                 android:layout_height="wrap_content"
                 android:text="345"
                 android:textColor="#1e1e1e"
-                android:textSize="20sp" />
+                android:textSize="20dip" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -200,7 +200,7 @@
                 android:layout_marginTop="12dip"
                 android:text="最近浏览"
                 android:textColor="#999999"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
         </LinearLayout>
 
@@ -218,7 +218,7 @@
                 android:layout_height="wrap_content"
                 android:text="3450"
                 android:textColor="#1e1e1e"
-                android:textSize="20sp" />
+                android:textSize="20dip" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -226,7 +226,7 @@
                 android:layout_marginTop="12dip"
                 android:text="积分"
                 android:textColor="#999999"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
         </LinearLayout>
     </LinearLayout>
@@ -262,7 +262,7 @@
                     android:layout_marginLeft="8dip"
                     android:text="成长记录"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -305,7 +305,7 @@
                         android:layout_marginLeft="8dip"
                         android:text="我的订单"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -341,7 +341,7 @@
                         android:layout_marginLeft="8dip"
                         android:text="地址管理"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -377,7 +377,7 @@
                         android:layout_marginLeft="8dip"
                         android:text="优惠券"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -415,7 +415,7 @@
                         android:layout_marginLeft="8dip"
                         android:text="设置"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"

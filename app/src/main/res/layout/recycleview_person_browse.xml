@@ -29,7 +29,7 @@
             android:layout_marginRight="15dip"
             android:text="不正确穿戴纸尿片的危害？险情发生时还来得及 吗？"
             android:textColor="#1e1e1e"
-            android:textSize="15sp" />
+            android:textSize="15dip" />
 
         <TextView
             android:id="@+id/subtitle"
@@ -42,7 +42,7 @@
             android:singleLine="true"
             android:text="杨半仙·香港大学深圳医院·主治..."
             android:textColor="#666666"
-            android:textSize="14sp" />
+            android:textSize="14dip" />
 
         <TextView
             android:id="@+id/time"

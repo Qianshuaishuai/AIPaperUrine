@@ -14,5 +14,5 @@
         android:gravity="center"
         android:text="monny"
         android:textColor="@color/select_pick_size"
-        android:textSize="14sp" />
+        android:textSize="14dip" />
 </LinearLayout>

@@ -29,7 +29,7 @@
                     android:layout_marginTop="28dip"
                     android:text="首页"
                     android:textColor="#FFFFFF"
-                    android:textSize="18sp" />
+                    android:textSize="18dip" />
             </RelativeLayout>
             <!--卡片相关start-->
 
@@ -85,7 +85,7 @@
                                 android:singleLine="true"
                                 android:text="宝宝"
                                 android:textColor="#1E1E1E"
-                                android:textSize="18sp" />
+                                android:textSize="18dip" />
 
                             <LinearLayout
                                 android:layout_width="wrap_content"
@@ -105,7 +105,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="设备未链接，点击绑定"
                                     android:textColor="#999999"
-                                    android:textSize="13sp" />
+                                    android:textSize="13dip" />
                             </LinearLayout>
                         </LinearLayout>
 
@@ -188,7 +188,7 @@
                                 android:layout_marginLeft="6dip"
                                 android:text="已到达尿量最高值"
                                 android:textColor="#E4007F"
-                                android:textSize="15sp"
+                                android:textSize="15dip"
                                 android:visibility="gone" />
 
                             <LinearLayout
@@ -213,7 +213,7 @@
                             android:layout_marginTop="68dip"
                             android:text="--%"
                             android:textColor="#F85FCF"
-                            android:textSize="15sp" />
+                            android:textSize="15dip" />
 
                         <!--中间数据显示start-->
                         <LinearLayout
@@ -234,7 +234,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="温度"
                                     android:textColor="#999999"
-                                    android:textSize="15sp" />
+                                    android:textSize="15dip" />
 
                                 <TextView
                                     android:id="@+id/main_temp_tv"
@@ -243,7 +243,7 @@
                                     android:layout_marginTop="20dip"
                                     android:text="--℃"
                                     android:textColor="#1E1E1E"
-                                    android:textSize="18sp" />
+                                    android:textSize="18dip" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -260,7 +260,7 @@
                                     android:layout_marginTop="24dip"
                                     android:text="尿量"
                                     android:textColor="#999999"
-                                    android:textSize="15sp" />
+                                    android:textSize="15dip" />
 
                                 <TextView
                                     android:id="@+id/main_beam_tv"
@@ -269,7 +269,7 @@
                                     android:layout_marginTop="4.5dip"
                                     android:text="--ml"
                                     android:textColor="#1E1E1E"
-                                    android:textSize="30sp" />
+                                    android:textSize="30dip" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -284,7 +284,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="睡眠时间"
                                     android:textColor="#999999"
-                                    android:textSize="15sp" />
+                                    android:textSize="15dip" />
 
                                 <TextView
                                     android:id="@+id/main_sleep_tv"
@@ -293,7 +293,7 @@
                                     android:layout_marginTop="20dip"
                                     android:text="--min"
                                     android:textColor="#1E1E1E"
-                                    android:textSize="18sp" />
+                                    android:textSize="18dip" />
                             </LinearLayout>
                         </LinearLayout>
                         <!--中间数据显示end-->
@@ -323,7 +323,7 @@
                                     android:layout_marginTop="10dip"
                                     android:text="睡姿"
                                     android:textColor="#999999"
-                                    android:textSize="13sp" />
+                                    android:textSize="13dip" />
                             </LinearLayout>
 
                             <LinearLayout
@@ -340,7 +340,7 @@
                                     android:layout_height="wrap_content"
                                     android:text="S"
                                     android:textColor="#1E1E1E"
-                                    android:textSize="18sp" />
+                                    android:textSize="18dip" />
 
                                 <TextView
                                     android:layout_width="wrap_content"
@@ -348,7 +348,7 @@
                                     android:layout_marginTop="10dip"
                                     android:text="码数"
                                     android:textColor="#999999"
-                                    android:textSize="13sp" />
+                                    android:textSize="13dip" />
                             </LinearLayout>
                         </LinearLayout>
                     </LinearLayout>
@@ -390,7 +390,7 @@
                         android:layout_height="wrap_content"
                         android:text="添加新的宝宝"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -413,7 +413,7 @@
                     android:layout_marginTop="25dip"
                     android:text="教程"
                     android:textColor="#1e1e1e"
-                    android:textSize="18sp" />
+                    android:textSize="18dip" />
 
                 <RelativeLayout
                     android:id="@+id/layout_teaching"
@@ -444,7 +444,7 @@
                             android:layout_height="wrap_content"
                             android:text="教程指引>>"
                             android:textColor="#484848"
-                            android:textSize="12sp" />
+                            android:textSize="12dip" />
                     </LinearLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -486,7 +486,7 @@
                 android:layout_marginTop="18dip"
                 android:text="点击绑定设备，开始照顾宝宝~"
                 android:textColor="#fefefe"
-                android:textSize="18sp" />
+                android:textSize="18dip" />
 
             <Button
                 android:id="@+id/introduce_close"
@@ -498,7 +498,7 @@
                 android:paddingLeft="53dip"
                 android:text="知道啦"
                 android:textColor="#fefefe"
-                android:textSize="20sp"
+                android:textSize="20dip"
                 android:textStyle="bold" />
         </LinearLayout>
 
@@ -555,7 +555,7 @@
                     android:layout_marginRight="18dip"
                     android:text="在此可添加 更多宝宝信息"
                     android:textColor="#fefefe"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -575,7 +575,7 @@
                     android:layout_marginRight="10dip"
                     android:text="连接设备后，才能 保护宝宝安全哦"
                     android:textColor="#fefefe"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
 
             <Button
@@ -589,7 +589,7 @@
                 android:paddingLeft="53dip"
                 android:text="知道啦"
                 android:textColor="#fefefe"
-                android:textSize="20sp"
+                android:textSize="20dip"
                 android:textStyle="bold" />
 
             <ImageView
@@ -618,7 +618,7 @@
                     android:layout_marginRight="18dip"
                     android:text="添加新的宝宝"
                     android:textColor="#fefefe"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
         </RelativeLayout>
     </ScrollView>

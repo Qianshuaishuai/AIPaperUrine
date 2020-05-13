@@ -29,7 +29,7 @@
             android:layout_marginTop="2dip"
             android:text="教程"
             android:textColor="#1e1e1e"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
 
     </LinearLayout>
 

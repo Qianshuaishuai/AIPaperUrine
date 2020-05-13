@@ -28,7 +28,7 @@
             android:layout_marginTop="2dip"
             android:text="关于"
             android:textColor="#1e1e1e"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <LinearLayout
@@ -50,7 +50,7 @@
             android:layout_marginTop="15dip"
             android:text=""
             android:textColor="#1e1e1e"
-            android:textSize="18sp"
+            android:textSize="18dip"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -64,5 +64,5 @@
         android:gravity="center_horizontal"
         android:text="深圳市心欣科技有限公司 版权所有"
         android:textColor="#999999"
-        android:textSize="12sp" />
+        android:textSize="12dip" />
 </RelativeLayout>

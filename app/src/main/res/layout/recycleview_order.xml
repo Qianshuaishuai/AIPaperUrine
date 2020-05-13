@@ -21,7 +21,7 @@
             android:layout_height="wrap_content"
             android:text="订单号: 12345678"
             android:textColor="#1e1e1e"
-            android:textSize="14sp" />
+            android:textSize="14dip" />
 
         <TextView
             android:id="@+id/time"
@@ -30,7 +30,7 @@
             android:layout_alignParentRight="true"
             android:text="2019-08-23 11:00:00"
             android:textColor="#999999"
-            android:textSize="12sp" />
+            android:textSize="12dip" />
     </RelativeLayout>
 
     <View
@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:text="共1件商品 合计："
             android:textColor="#333333"
-            android:textSize="14sp" />
+            android:textSize="14dip" />
 
         <TextView
             android:id="@+id/price_tip"
@@ -73,7 +73,7 @@
             android:layout_height="wrap_content"
             android:text="￥123.00"
             android:textColor="#333333"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
     </LinearLayout>
 
     <LinearLayout
@@ -94,7 +94,7 @@
             android:gravity="center"
             android:text="查看详情"
             android:textColor="#666666"
-            android:textSize="14sp"
+            android:textSize="14dip"
             android:visibility="invisible" />
 
         <View
@@ -110,7 +110,7 @@
             android:gravity="center"
             android:text="退款"
             android:textColor="#666666"
-            android:textSize="14sp"
+            android:textSize="14dip"
             android:visibility="invisible" />
 
         <View
@@ -126,7 +126,7 @@
             android:gravity="center"
             android:text="取消"
             android:textColor="#666666"
-            android:textSize="14sp" />
+            android:textSize="14dip" />
 
         <View
             android:layout_width="0dip"
@@ -141,6 +141,6 @@
             android:gravity="center"
             android:text="立即支付"
             android:textColor="#666666"
-            android:textSize="14sp" />
+            android:textSize="14dip" />
     </LinearLayout>
 </LinearLayout>

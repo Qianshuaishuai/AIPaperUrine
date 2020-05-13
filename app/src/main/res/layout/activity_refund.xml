@@ -29,7 +29,7 @@
             android:layout_marginTop="2dip"
             android:text="退款"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <ScrollView
@@ -62,7 +62,7 @@
                         android:layout_height="wrap_content"
                         android:text="订单时间:"
                         android:textColor="#999999"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <TextView
                         android:id="@+id/time"
@@ -71,7 +71,7 @@
                         android:layout_marginLeft="14dip"
                         android:text=""
                         android:textColor="#1e1e1e"
-                        android:textSize="18sp" />
+                        android:textSize="18dip" />
                 </LinearLayout>
                 <!--退款件数-->
                 <LinearLayout
@@ -87,7 +87,7 @@
                         android:layout_height="wrap_content"
                         android:text="退款件数:"
                         android:textColor="#999999"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -110,7 +110,7 @@
                             android:layout_marginRight="12dip"
                             android:text="0"
                             android:textColor="#1e1e1e"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
 
                         <ImageView
                             android:id="@+id/iv_add"
@@ -134,7 +134,7 @@
                         android:layout_height="wrap_content"
                         android:text="是否收到货:"
                         android:textColor="#999999"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <RadioGroup
                         android:id="@+id/group_receive"
@@ -157,7 +157,7 @@
                             android:layout_marginLeft="4.5dip"
                             android:text="未收到货"
                             android:textColor="#1e1e1e"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
 
                         <RadioButton
                             android:id="@+id/rb_receive_2"
@@ -173,7 +173,7 @@
                             android:layout_marginLeft="4.5dip"
                             android:text="已收到货"
                             android:textColor="#1e1e1e"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
                     </RadioGroup>
                 </LinearLayout>
 
@@ -190,7 +190,7 @@
                         android:layout_height="wrap_content"
                         android:text="退款金额:"
                         android:textColor="#999999"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <TextView
                         android:id="@+id/price"
@@ -199,7 +199,7 @@
                         android:layout_marginLeft="14dip"
                         android:text=""
                         android:textColor="#f866aa"
-                        android:textSize="18sp" />
+                        android:textSize="18dip" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -226,7 +226,7 @@
                         android:layout_centerVertical="true"
                         android:text="退款原因"
                         android:textColor="#999999"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <RelativeLayout
                         android:id="@+id/reason_layout"
@@ -243,7 +243,7 @@
                             android:layout_marginLeft="15dip"
                             android:text="多拍/拍错/不想要"
                             android:textColor="#1e1e1e"
-                            android:textSize="14sp" />
+                            android:textSize="14dip" />
 
                         <ImageView
                             android:layout_width="24dip"
@@ -274,7 +274,7 @@
                         android:hint="输入详细退款原因..."
                         android:maxLines="5"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <TextView
                         android:id="@+id/sign_count"
@@ -286,7 +286,7 @@
                         android:layout_marginBottom="10dip"
                         android:text="0/100"
                         android:textColor="#d4d4d4"
-                        android:textSize="12sp" />
+                        android:textSize="12dip" />
                 </RelativeLayout>
 
                 <android.support.v7.widget.RecyclerView
@@ -307,7 +307,7 @@
                 android:layout_marginBottom="15dip"
                 android:text="上传图片"
                 android:textColor="#666666"
-                android:textSize="14sp"
+                android:textSize="14dip"
                 android:textStyle="bold" />
 
             <android.support.v7.widget.RecyclerView
@@ -330,7 +330,7 @@
                 android:background="@drawable/shape_good_button_bg"
                 android:text="提交申请"
                 android:textColor="#ffffff"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
         </LinearLayout>
     </ScrollView>
 
@@ -358,7 +358,7 @@
                 android:orientation="horizontal"
                 android:text="拍照"
                 android:textColor="#333333"
-                android:textSize="16sp"></TextView>
+                android:textSize="16dip"></TextView>
 
             <TextView
                 android:id="@+id/select_photo"
@@ -368,7 +368,7 @@
                 android:orientation="horizontal"
                 android:text="手机相册选择"
                 android:textColor="#333333"
-                android:textSize="16sp"></TextView>
+                android:textSize="16dip"></TextView>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

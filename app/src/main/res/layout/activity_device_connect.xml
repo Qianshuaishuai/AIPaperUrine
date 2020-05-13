@@ -28,7 +28,7 @@
             android:layout_marginTop="2dip"
             android:text="设备连接"
             android:textColor="#1e1e1e"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <RelativeLayout
@@ -94,7 +94,7 @@
             android:gravity="center"
             android:text="设备连接中..."
             android:textColor="#1e1e1e"
-            android:textSize="13sp" />
+            android:textSize="13dip" />
     </RelativeLayout>
 
 

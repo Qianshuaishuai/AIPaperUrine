@@ -11,7 +11,7 @@
     <LinearLayout
         android:id="@+id/layout_top"
         android:layout_width="match_parent"
-        android:layout_height="189dip"
+        android:layout_height="wrap_content"
         android:background="@mipmap/bg_dingbu_beijing"
         android:orientation="vertical">
 
@@ -35,7 +35,7 @@
                 android:layout_marginTop="2dip"
                 android:text="数据中心"
                 android:textColor="#1e1e1e"
-                android:textSize="18sp" />
+                android:textSize="18dip" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -69,7 +69,7 @@
                 android:checked="true"
                 android:text="日"
                 android:textColor="@color/select_urine_detail_date"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <RadioButton
                 android:id="@+id/bt2_date"
@@ -80,7 +80,7 @@
                 android:button="@null"
                 android:text="周"
                 android:textColor="@color/select_urine_detail_date"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <RadioButton
                 android:id="@+id/bt3_date"
@@ -91,7 +91,7 @@
                 android:button="@null"
                 android:text="半月"
                 android:textColor="@color/select_urine_detail_date"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <RadioButton
                 android:id="@+id/bt4_date"
@@ -102,7 +102,7 @@
                 android:button="@null"
                 android:text="月"
                 android:textColor="@color/select_urine_detail_date"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <LinearLayout
                 android:id="@+id/layout_date_picker"
@@ -117,7 +117,7 @@
                     android:layout_height="wrap_content"
                     android:text="选择日期"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <ImageView
                     android:layout_width="12dip"
@@ -135,6 +135,7 @@
             android:layout_marginLeft="15dip"
             android:layout_marginTop="20dip"
             android:layout_marginRight="15dip"
+            android:layout_marginBottom="10dip"
             android:orientation="horizontal">
 
             <RadioButton
@@ -147,7 +148,7 @@
                 android:padding="10dip"
                 android:text="用片统计"
                 android:textColor="@color/select_urine_detail_type"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
             <View
                 android:layout_width="0dip"
@@ -164,7 +165,7 @@
                 android:padding="10dip"
                 android:text="尿量统计"
                 android:textColor="@color/select_urine_detail_type"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
             <View
                 android:layout_width="0dip"
@@ -181,7 +182,7 @@
                 android:padding="10dip"
                 android:text="强提醒次数"
                 android:textColor="@color/select_urine_detail_type"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
             <View
                 android:layout_width="0dip"
@@ -198,7 +199,7 @@
                 android:padding="10dip"
                 android:text="更换记录"
                 android:textColor="@color/select_urine_detail_type"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
         </RadioGroup>
     </LinearLayout>
@@ -235,7 +236,7 @@
                         android:layout_marginTop="20dip"
                         android:text="数据详情"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <TextView
                         android:id="@+id/data_detail1"
@@ -247,7 +248,7 @@
                         android:layout_marginBottom="18dip"
                         android:text=""
                         android:textColor="#666666"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -266,7 +267,7 @@
                         android:layout_marginTop="20dip"
                         android:text="数据分析"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -281,7 +282,7 @@
                             android:layout_marginTop="20dip"
                             android:text="数据点评"
                             android:textColor="#666666"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
 
                         <TextView
                             android:id="@+id/data_detail_tip1"
@@ -291,7 +292,7 @@
                             android:layout_marginTop="20dip"
                             android:text=""
                             android:textColor="#666666"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -308,7 +309,7 @@
                             android:layout_marginTop="20dip"
                             android:text="改进意见"
                             android:textColor="#666666"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
 
                         <TextView
                             android:id="@+id/data_detail_tip2"
@@ -318,7 +319,7 @@
                             android:layout_marginTop="20dip"
                             android:text=""
                             android:textColor="#666666"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -370,7 +371,7 @@
                         android:layout_marginTop="20dip"
                         android:text="数据详情"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <TextView
                         android:id="@+id/data_detail2"
@@ -382,7 +383,7 @@
                         android:layout_marginBottom="18dip"
                         android:text=""
                         android:textColor="#666666"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -401,7 +402,7 @@
                         android:layout_marginTop="20dip"
                         android:text="数据分析"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -416,7 +417,7 @@
                             android:layout_marginTop="20dip"
                             android:text="数据点评"
                             android:textColor="#666666"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
 
                         <TextView
                             android:id="@+id/data_detail2_tip1"
@@ -426,7 +427,7 @@
                             android:layout_marginTop="20dip"
                             android:text=""
                             android:textColor="#666666"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -443,7 +444,7 @@
                             android:layout_marginTop="20dip"
                             android:text="改进意见"
                             android:textColor="#666666"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
 
                         <TextView
                             android:id="@+id/data_detail2_tip2"
@@ -453,9 +454,10 @@
                             android:layout_marginTop="20dip"
                             android:text=""
                             android:textColor="#666666"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <com.lixs.charts.LineChartView
                     android:id="@+id/lineView1"
                     android:layout_width="match_parent"
@@ -505,7 +507,7 @@
                         android:layout_marginTop="20dip"
                         android:text="数据详情"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <TextView
                         android:id="@+id/data_detail3"
@@ -517,7 +519,7 @@
                         android:layout_marginBottom="18dip"
                         android:text=""
                         android:textColor="#666666"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -536,7 +538,7 @@
                         android:layout_marginTop="20dip"
                         android:text="数据分析"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -551,7 +553,7 @@
                             android:layout_marginTop="20dip"
                             android:text="数据点评"
                             android:textColor="#666666"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
 
                         <TextView
                             android:id="@+id/data_detail3_tip1"
@@ -561,7 +563,7 @@
                             android:layout_marginTop="20dip"
                             android:text=""
                             android:textColor="#666666"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -578,7 +580,7 @@
                             android:layout_marginTop="20dip"
                             android:text="改进意见"
                             android:textColor="#666666"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
 
                         <TextView
                             android:id="@+id/data_detail3_tip2"
@@ -588,9 +590,10 @@
                             android:layout_marginTop="20dip"
                             android:text=""
                             android:textColor="#666666"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
                     </LinearLayout>
                 </LinearLayout>
+
                 <com.lixs.charts.LineChartView
                     android:id="@+id/lineView2"
                     android:layout_width="match_parent"

@@ -36,7 +36,7 @@
                 android:layout_marginTop="2dip"
                 android:text="我的资料"
                 android:textColor="#ffffff"
-                android:textSize="18sp" />
+                android:textSize="18dip" />
         </LinearLayout>
     </LinearLayout>
 
@@ -66,7 +66,7 @@
                     android:layout_marginLeft="15dip"
                     android:text="更换头像"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -114,7 +114,7 @@
                     android:layout_marginLeft="15dip"
                     android:text="昵称"
                     android:textColor="#333333"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -131,7 +131,7 @@
                         android:gravity="right"
                         android:hint="请输入昵称"
                         android:textColor="#999999"
-                        android:textSize="13sp" />
+                        android:textSize="13dip" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -149,7 +149,7 @@
                     android:layout_marginLeft="15dip"
                     android:text="性别"
                     android:textColor="#333333"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -202,7 +202,7 @@
                     android:layout_marginLeft="15dip"
                     android:text="出生日期"
                     android:textColor="#333333"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -217,7 +217,7 @@
                         android:layout_marginRight="15dip"
                         android:text="2019-05-30"
                         android:textColor="#999999"
-                        android:textSize="13sp" />
+                        android:textSize="13dip" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -236,7 +236,7 @@
                     android:layout_marginLeft="15dip"
                     android:text="所在城市"
                     android:textColor="#333333"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -251,7 +251,7 @@
                         android:layout_marginRight="15dip"
                         android:text=""
                         android:textColor="#999999"
-                        android:textSize="13sp" />
+                        android:textSize="13dip" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -270,7 +270,7 @@
                     android:layout_marginLeft="15dip"
                     android:text="签名"
                     android:textColor="#333333"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -285,7 +285,7 @@
                         android:layout_marginRight="15dip"
                         android:text=""
                         android:textColor="#999999"
-                        android:textSize="13sp" />
+                        android:textSize="13dip" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -309,7 +309,7 @@
                         android:layout_marginLeft="15dip"
                         android:text="邮箱"
                         android:textColor="#333333"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -324,7 +324,7 @@
                             android:layout_marginRight="15dip"
                             android:text="未绑定"
                             android:textColor="#999999"
-                            android:textSize="13sp" />
+                            android:textSize="13dip" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -354,7 +354,7 @@
         android:stateListAnimator="@null"
         android:text="完成"
         android:textColor="#ffffff"
-        android:textSize="16sp" />
+        android:textSize="16dip" />
 
     <RelativeLayout
         android:id="@+id/layout_date_picker"
@@ -396,7 +396,7 @@
                 android:orientation="horizontal"
                 android:text="拍照"
                 android:textColor="#333333"
-                android:textSize="16sp"></TextView>
+                android:textSize="16dip"></TextView>
 
             <TextView
                 android:id="@+id/select_photo"
@@ -406,7 +406,7 @@
                 android:orientation="horizontal"
                 android:text="手机相册选择"
                 android:textColor="#333333"
-                android:textSize="16sp"></TextView>
+                android:textSize="16dip"></TextView>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

@@ -21,7 +21,7 @@
             android:layout_marginLeft="5dip"
             android:text="1"
             android:textColor="#F866AA"
-            android:textSize="24sp" />
+            android:textSize="24dip" />
 
         <ImageView
             android:id="@+id/icon"
@@ -36,7 +36,7 @@
             android:layout_marginLeft="20dip"
             android:text="用户名"
             android:textColor="#1E1E1E"
-            android:textSize="15sp" />
+            android:textSize="15dip" />
     </LinearLayout>
 
     <LinearLayout
@@ -54,7 +54,7 @@
             android:layout_marginLeft="5dip"
             android:text="我的排/名"
             android:textColor="#F866AA"
-            android:textSize="15sp" />
+            android:textSize="15dip" />
 
         <ImageView
             android:id="@+id/me_icon"
@@ -69,7 +69,7 @@
             android:layout_marginLeft="15dip"
             android:text="您还未完善资料，完善后才 可加入排行榜"
             android:textColor="#999999"
-            android:textSize="14sp" />
+            android:textSize="14dip" />
 
         <TextView
             android:id="@+id/me_name"
@@ -78,7 +78,7 @@
             android:layout_marginLeft="20dip"
             android:text="用户名"
             android:textColor="#1E1E1E"
-            android:textSize="15sp"
+            android:textSize="15dip"
             android:visibility="gone" />
 
         <LinearLayout

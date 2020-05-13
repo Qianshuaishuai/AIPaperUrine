@@ -21,7 +21,7 @@
             android:layout_marginTop="22dip"
             android:text="商城"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <com.youth.banner.Banner
@@ -45,7 +45,7 @@
         android:layout_marginTop="24dip"
         android:text="商品列表"
         android:textColor="#1e1e1e"
-        android:textSize="16sp" />
+        android:textSize="16dip" />
 
     <android.support.v7.widget.RecyclerView
         android:id="@+id/rv_store"

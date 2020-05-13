@@ -29,7 +29,7 @@
             android:layout_marginTop="2dip"
             android:text="我的订单"
             android:textColor="#1e1e1e"
-            android:textSize="18sp"
+            android:textSize="18dip"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -54,7 +54,7 @@
                 android:layout_centerInParent="true"
                 android:text="全部"
                 android:textColor="#f866aa"
-                android:textSize="18sp"
+                android:textSize="18dip"
                 android:textStyle="bold" />
 
             <TextView
@@ -64,7 +64,7 @@
                 android:layout_centerInParent="true"
                 android:text="全部"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp"
+                android:textSize="16dip"
                 android:visibility="gone" />
 
             <View
@@ -90,7 +90,7 @@
                 android:layout_centerInParent="true"
                 android:text="待支付"
                 android:textColor="#f866aa"
-                android:textSize="18sp"
+                android:textSize="18dip"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
@@ -101,7 +101,7 @@
                 android:layout_centerInParent="true"
                 android:text="待支付"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <View
                 android:id="@+id/view_order_2"
@@ -127,7 +127,7 @@
                 android:layout_centerInParent="true"
                 android:text="待发货"
                 android:textColor="#f866aa"
-                android:textSize="18sp"
+                android:textSize="18dip"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
@@ -138,7 +138,7 @@
                 android:layout_centerInParent="true"
                 android:text="待发货"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <View
                 android:id="@+id/view_order_3"
@@ -164,7 +164,7 @@
                 android:layout_centerInParent="true"
                 android:text="待收货"
                 android:textColor="#f866aa"
-                android:textSize="18sp"
+                android:textSize="18dip"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
@@ -175,7 +175,7 @@
                 android:layout_centerInParent="true"
                 android:text="待收货"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <View
                 android:id="@+id/view_order_4"
@@ -201,7 +201,7 @@
                 android:layout_centerInParent="true"
                 android:text="已完成"
                 android:textColor="#f866aa"
-                android:textSize="18sp"
+                android:textSize="18dip"
                 android:textStyle="bold"
                 android:visibility="gone" />
 
@@ -212,7 +212,7 @@
                 android:layout_centerInParent="true"
                 android:text="已完成"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <View
                 android:id="@+id/view_order_5"

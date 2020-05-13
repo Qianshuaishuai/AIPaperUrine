@@ -7,25 +7,42 @@ import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
+import android.bluetooth.BluetoothManager;
 import android.bluetooth.BluetoothProfile;
+import android.bluetooth.le.BluetoothLeScanner;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanResult;
+import android.bluetooth.le.ScanSettings;
+import android.bluetooth.le.ScanSettings.Builder;
 import android.content.BroadcastReceiver;
+import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
+import android.content.ServiceConnection;
 import android.os.Build;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.IBinder;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.lixs.charts.Utils;
 import com.xinxin.aicare.Constant;
 import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.base.BaseActivity;
 import com.xinxin.aicare.bean.UserBean;
+import com.xinxin.aicare.ble.BleWrapper;
+import com.xinxin.aicare.ble.BleWrapperUiCallbacks;
 import com.xinxin.aicare.response.CommonResponse;
+import com.xinxin.aicare.service.BluetoothService;
+import com.xinxin.aicare.util.DataUtil;
 import com.xinxin.aicare.util.T;
 import com.google.gson.Gson;
 
@@ -36,8 +53,11 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+
+import cn.aigestudio.datepicker.utils.DataUtils;
 
 @ContentView(R.layout.activity_device_connect)
 public class DeviceConnectActivity extends BaseActivity {
@@ -46,6 +66,9 @@ public class DeviceConnectActivity extends BaseActivity {
     private String memberId = "";
     private BluetoothAdapter blueadapter;
     private AlertDialog boothDialog;
+    private BluetoothLeScanner scanner;
+    private ScanCallback mScanCallback;
+    private ScanSettings mScanSettings;
 
     @Event(R.id.layout_back)
     private void back(View view) {
@@ -70,8 +93,13 @@ public class DeviceConnectActivity extends BaseActivity {
     private AlertDialog tipDialog;
     private Timer timer;
     private TimerTask timerTask;
+    private Timer timer1;
+    private TimerTask timerTask1;
+
+    private BleWrapper mBleWrapper = null;
 
     private int mode = 1;
+    private boolean isUpload = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -82,6 +110,7 @@ public class DeviceConnectActivity extends BaseActivity {
         initBoothDialog();
         initTipDialog();
         initBooth();
+//        initBluetooth();
     }
 
     private void initBooth() {
@@ -96,14 +125,88 @@ public class DeviceConnectActivity extends BaseActivity {
             boothDialog.show();
             return;
         }
+//        BlueToothConnectReceiver btcr = new BlueToothConnectReceiver();
+//        IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);//注册广播接收信号
+//        registerReceiver(bluetoothReceiver, intentFilter);//用BroadcastReceiver 来取得结果
+//        registerReceiver(bondReceiver, intentFilter);//用BroadcastReceiver 来取得结果
+//        registerReceiver(btcr, intentFilter);//用BroadcastReceiver 来取得结果
+//
+//        blueadapter.startDiscovery();
+//        T.s("开始搜索设备");
+//
+//        timer1 = new Timer();
+//        timerTask1 = new TimerTask() {
+//            @Override
+//            public void run() {
+//                runOnUiThread(new Runnable() {
+//                    @Override
+//                    public void run() {
+//                        blueadapter.startDiscovery();
+//                        T.s("搜索附近蓝牙设备");
+//                    }
+//                });
+//            }
+//        };
+//        timer1.schedule(timerTask1, 0, 3000);
+//        Intent intent = new Intent(this, BluetoothService.class);
+//        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            scanner = blueadapter.getBluetoothLeScanner();
+            mScanSettings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_BALANCED).build();
+            mScanCallback = new ScanCallback() {
+                @Override
+                public void onScanResult(int callbackType, ScanResult result) {
+                    super.onScanResult(callbackType, result);
+                    if (result.getDevice().getName() != null && result.getDevice().getName().contains(Constant.DEVICE_NAME)) {
+                        byte[] datas = result.getScanRecord().getBytes();
+                        String DEVICE_ID = result.getDevice().getAddress().replace(":", "").toLowerCase();
+                        String X = String.valueOf(DataUtil.normalHexByteToInt(datas[11]));
+                        String Y = String.valueOf(DataUtil.normalHexByteToInt(datas[12]));
+                        String Z = String.valueOf(DataUtil.normalHexByteToInt(datas[13]));
+                        String D0 = String.valueOf(DataUtil.normalHexByteToInt(datas[14]));
+                        String AD = String.valueOf(DataUtil.concat(datas[15], datas[16]));
+                        String D4 = String.valueOf(DataUtil.normalHexByteToInt(datas[18]));
+                        String D5 = String.valueOf(DataUtil.normalHexByteToInt(datas[19]));
+                        String D6 = String.valueOf(DataUtil.normalHexByteToInt(datas[20]));
 
-        IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);//注册广播接收信号
-        registerReceiver(bluetoothReceiver, intentFilter);//用BroadcastReceiver 来取得结果
-        registerReceiver(bondReceiver, intentFilter);//用BroadcastReceiver 来取得结果
+                        if (!isUpload) {
+                            bindDevice(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
+                            isUpload = true;
+                        }
 
-        blueadapter.startDiscovery();
-        T.s("开始搜索设备");
+                    }
+                }
+
+                @Override
+                public void onBatchScanResults(List<ScanResult> results) {
+                    super.onBatchScanResults(results);
+                }
+
+                @Override
+                public void onScanFailed(int errorCode) {
+                    super.onScanFailed(errorCode);
+                }
+            };
+            scanner.startScan(null, mScanSettings, mScanCallback);
+        }
+
+
     }
+
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+
+        }
+    };
 
     private void initView() {
         timer = new Timer();
@@ -174,12 +277,15 @@ public class DeviceConnectActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        blueadapter.cancelDiscovery();
-        unregisterReceiver(bluetoothReceiver);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            scanner.stopScan(mScanCallback);
+        }
+//        blueadapter.cancelDiscovery();
+//        unregisterReceiver(bluetoothReceiver);
     }
 
     private void uploadDeviceData(String D0, String DEVICE_ID, String X, String Y, String Z, String AD, String D4, String D5, String D6) {
-        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_BINDDEVICE);
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_UPLOADDEVICEDATA);
         params.addQueryStringParameter("DEVICE_ID", DEVICE_ID);
         params.addQueryStringParameter("D0", D0);
         params.addQueryStringParameter("X", X);
@@ -197,11 +303,12 @@ public class DeviceConnectActivity extends BaseActivity {
                 System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
-                        T.s("绑定设备成功");
+                        T.s("上传设备信息成功");
+                        finish();
                         break;
 
                     default:
-                        T.s("绑定设备失败");
+                        T.s("上传设备信息失败");
                         break;
                 }
             }
@@ -223,21 +330,22 @@ public class DeviceConnectActivity extends BaseActivity {
         });
     }
 
-    private void bindDevice(String code) {
+    private void bindDevice(final String D0, final String DEVICE_ID, final String X, final String Y, final String Z, final String AD, final String D4, final String D5, final String D6) {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_BINDDEVICE);
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
         params.addQueryStringParameter("MEMBER_ID", memberId);
-        params.addQueryStringParameter("DEVICE_CODE", code);
+        params.addQueryStringParameter("DEVICE_CODE", DEVICE_ID);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 CommonResponse response = gson.fromJson(result, CommonResponse.class);
-                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         T.s("绑定设备成功");
+                        finish();
+                        uploadDeviceData(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
                         break;
 
                     default:
@@ -354,14 +462,15 @@ public class DeviceConnectActivity extends BaseActivity {
             String action = intent.getAction();
             if (BluetoothDevice.ACTION_FOUND.equals(action)) {
                 BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
-                System.out.println(device.getName());
-                if (device.getName() != null && device.getName().contains("A5")) {
+                if (device.getName() != null && device.getName().contains(Constant.DEVICE_NAME)) {
+                    timer1.cancel();
                     T.s("已找到尿湿感应器蓝牙设备，正在连接中!");
                     if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.KITKAT) {
-                        boolean isBond = device.createBond();
-                        if (isBond) {
-                            T.s("正尝试配对连接!");
-                        }
+//                        boolean isBond = device.createBond();
+//                        if (isBond) {
+//                            T.s("正尝试配对连接!");
+//                        }
+
                     } else {
                         T.s("当前android版本不支持自动配对蓝牙设备");
                     }
@@ -492,5 +601,121 @@ public class DeviceConnectActivity extends BaseActivity {
         public void setOnBleConnectListener(OnBleConnectListener onBleConnectListener) {
             this.onBleConnectListener = onBleConnectListener;
         }
+    }
+
+    /**
+     * 判断是否支持蓝牙，并打开蓝牙
+     * 获取到BluetoothAdapter之后，还需要判断是否支持蓝牙，以及蓝牙是否打开。
+     * 如果没打开，需要让用户打开蓝牙：
+     */
+    private boolean checkBleDevice() {
+        if (android.os.Build.VERSION.SDK_INT >= android.os.Build.VERSION_CODES.JELLY_BEAN_MR2) {
+            //首先获取BluetoothManager
+            BluetoothManager bluetoothManager =
+                    (BluetoothManager) getSystemService(Context.BLUETOOTH_SERVICE);
+            //获取BluetoothAdapter
+            if (bluetoothManager != null) {
+                BluetoothAdapter mBluetoothAdapter = bluetoothManager.getAdapter();
+                if (mBluetoothAdapter != null) {
+                    if (!mBluetoothAdapter.isEnabled()) {
+                        //调用enable()方法直接打开蓝牙
+                        if (!mBluetoothAdapter.enable()) {
+                            Log.i("tag", "蓝牙打开失败");
+                        } else {
+                            Log.i("tag", "蓝牙已打开");
+                            return true;
+                        }
+                    } else {
+                        return true;
+                    }
+                } else {
+                    Log.i("tag", "同意申请");
+                    return true;
+                }
+            }
+            return false;
+        }
+        return false;
+    }
+
+    Runnable timeout;
+    private Handler mHandler = new Handler();
+
+    void bind(final String sn, boolean isForce) {
+        System.out.println(sn);
+    }
+
+    public void scan() {
+        if (checkBleDevice()) {
+            T.s("扫描");
+            if (isScan) {
+                return;
+            }
+            sn = null;
+            isScan = true;
+            rssi = -1000;
+            mBleWrapper.startScanning();
+            timeout = new Runnable() {
+                @Override
+                public void run() {
+                    isScan = false;
+                    if (sn == null) {
+                        T.s("没有找到设备");
+                    } else {
+                        bind(sn, false);
+                    }
+                    mBleWrapper.stopScanning();
+                }
+            };
+            mHandler.postDelayed(timeout, 4000);
+        } else {
+            T.s("扫描警告");
+        }
+        //mHandler.removeCallbacks(timeout);
+    }
+
+    private void initBluetooth() {
+        T.s("初始化设备");
+        // create BleWrapper with empty callback object except uiDeficeFound function (we need only that here)
+        mBleWrapper = new BleWrapper(this, new BleWrapperUiCallbacks.Null() {
+            @Override
+            public void uiDeviceFound(final BluetoothDevice device, final int rssi, final byte[] record) {
+                T.s("搜索到设备:" + device.getName());
+                handleFoundDevice(device, rssi, record);
+            }
+        });
+
+        // check if we have BT and BLE on board
+        if (mBleWrapper.checkBleHardwareAvailable() == false) {
+            T.s("bleMissing");
+            bleMissing();
+        }
+        mBleWrapper.initialize();
+    }
+
+    int rssi = -1000;
+    boolean isScan = false;
+    public String sn = null;
+
+    private void handleFoundDevice(final BluetoothDevice device, final int rssi, final byte[] scanRecord) {
+        if (rssi < -70 || rssi < this.rssi) {
+            return;
+        }
+        if (scanRecord[0] == 2 && scanRecord[1] == 1 && scanRecord[2] == 6) {
+            String sn = DataUtil.bytes2HexString(scanRecord, 5, 6);
+            this.rssi = rssi;
+            this.sn = sn;
+        }
+
+        //mBleWrapper.stopScanning();
+        //mHandler.removeCallbacks(timeout);
+    }
+
+    private void btDisabled() {
+        Toast.makeText(this, "Sorry, BT has to be turned ON for us to work!", Toast.LENGTH_LONG).show();
+    }
+
+    private void bleMissing() {
+        Toast.makeText(this, "BLE Hardware is required but not available!", Toast.LENGTH_LONG).show();
     }
 }

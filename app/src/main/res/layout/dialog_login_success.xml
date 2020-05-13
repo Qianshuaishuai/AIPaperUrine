@@ -29,7 +29,7 @@
                     android:layout_marginTop="80dip"
                     android:text="恭喜您登录成功"
                     android:textColor="#ffffff"
-                    android:textSize="18sp"
+                    android:textSize="18dip"
                     android:textStyle="bold" />
 
                 <TextView
@@ -41,7 +41,7 @@
                     android:layout_marginTop="8dip"
                     android:text="新人礼包"
                     android:textColor="#ffffff"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <LinearLayout
                     android:id="@+id/layout1"
@@ -72,7 +72,7 @@
                             android:layout_centerHorizontal="true"
                             android:text="奖励 积分+100"
                             android:textColor="#FBEC51"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                             android:layout_centerHorizontal="true"
                             android:text="奖励 成长+100"
                             android:textColor="#FBEC51"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -112,7 +112,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="¥"
                                 android:textColor="#ffffff"
-                                android:textSize="12sp"
+                                android:textSize="12dip"
                                 android:textStyle="bold" />
 
                             <TextView
@@ -120,7 +120,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="5"
                                 android:textColor="#ffffff"
-                                android:textSize="14sp"
+                                android:textSize="14dip"
                                 android:textStyle="bold" />
                         </LinearLayout>
 
@@ -129,7 +129,7 @@
                             android:layout_height="wrap_content"
                             android:text="满100元可用"
                             android:textColor="#ffffff"
-                            android:textSize="10sp" />
+                            android:textSize="10dip" />
                     </LinearLayout>
 
                     <View
@@ -149,7 +149,7 @@
                             android:layout_height="wrap_content"
                             android:text="有效期至2019-07-19"
                             android:textColor="#ffffff"
-                            android:textSize="10sp" />
+                            android:textSize="10dip" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -157,7 +157,7 @@
                             android:layout_marginTop="4dip"
                             android:text="抵用券"
                             android:textColor="#ffffff"
-                            android:textSize="12sp"
+                            android:textSize="12dip"
                             android:textStyle="bold" />
                     </LinearLayout>
                 </LinearLayout>
@@ -172,7 +172,7 @@
                     android:background="@drawable/shape_login_success_button_bg"
                     android:text="立即领取礼包"
                     android:textColor="#F84139"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </RelativeLayout>
         </RelativeLayout>
 

@@ -30,7 +30,7 @@
                     android:layout_marginLeft="23.5dip"
                     android:text="￥"
                     android:textColor="#F866AA"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <TextView
                     android:id="@+id/price"
@@ -38,7 +38,7 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textColor="#F83D94"
-                    android:textSize="26sp" />
+                    android:textSize="26dip" />
             </LinearLayout>
 
             <View
@@ -61,7 +61,7 @@
                     android:layout_height="wrap_content"
                     android:text=""
                     android:textColor="#F866AA"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <TextView
                     android:id="@+id/condition"
@@ -70,7 +70,7 @@
                     android:layout_marginTop="7dip"
                     android:text=""
                     android:textColor="#F866AA"
-                    android:textSize="12sp" />
+                    android:textSize="12dip" />
 
                 <TextView
                     android:id="@+id/valid"
@@ -79,7 +79,7 @@
                     android:layout_marginTop="3dip"
                     android:text=""
                     android:textColor="#F866AA"
-                    android:textSize="12sp" />
+                    android:textSize="12dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -107,7 +107,7 @@
                         android:maxEms="1"
                         android:text=""
                         android:textColor="#ffffff"
-                        android:textSize="12.35sp" />
+                        android:textSize="12.35dip" />
 
                 </RelativeLayout>
 
@@ -127,7 +127,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="#F87EB7"
-                android:textSize="12sp" />
+                android:textSize="12dip" />
         </LinearLayout>
     </LinearLayout>
 

@@ -27,7 +27,7 @@
             android:layout_marginTop="2dip"
             android:text="最近浏览"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <android.support.v7.widget.RecyclerView
@@ -45,6 +45,6 @@
         android:layout_marginTop="36dip"
         android:text="点击显示更多"
         android:textColor="#999999"
-        android:textSize="12sp" />
+        android:textSize="12dip" />
 
 </RelativeLayout>

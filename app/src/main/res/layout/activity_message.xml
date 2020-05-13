@@ -29,7 +29,7 @@
             android:layout_marginTop="2dip"
             android:text="消息中心"
             android:textColor="#ffffff"
-            android:textSize="18sp"
+            android:textSize="18dip"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -49,7 +49,7 @@
                 android:layout_marginTop="20dip"
                 android:text="设备提醒"
                 android:textColor="#666666"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/device_message"
@@ -68,7 +68,7 @@
                 android:layout_marginTop="20dip"
                 android:text="官方通知"
                 android:textColor="#666666"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/office_message"

@@ -29,7 +29,7 @@
             android:layout_marginTop="2dip"
             android:text="用户评价"
             android:textColor="#1e1e1e"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                 android:background="@drawable/shape_address_save_bg"
                 android:text="发送"
                 android:textColor="#ffffff"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
         </LinearLayout>
     </LinearLayout>
@@ -68,7 +68,7 @@
             android:maxLength="100"
             android:maxLines="5"
             android:textColor="#1e1e1e"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
 
         <TextView
             android:id="@+id/advice_count"
@@ -80,7 +80,7 @@
             android:layout_marginBottom="12dip"
             android:text="0/100"
             android:textColor="#d4d4d4"
-            android:textSize="12sp" />
+            android:textSize="12dip" />
     </RelativeLayout>
 
 </LinearLayout>

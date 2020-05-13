@@ -33,7 +33,7 @@
                 android:layout_marginTop="2dip"
                 android:text="设置"
                 android:textColor="#1e1e1e"
-                android:textSize="18sp" />
+                android:textSize="18dip" />
         </LinearLayout>
 
         <LinearLayout
@@ -50,7 +50,7 @@
                 android:layout_marginLeft="15dip"
                 android:text="账号与安全"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -81,7 +81,7 @@
                 android:layout_marginLeft="15dip"
                 android:text="清除缓存"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -95,7 +95,7 @@
                     android:layout_height="wrap_content"
                     android:text="120.00M"
                     android:textColor="#d4d4d4"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <ImageView
                     android:layout_width="24dip"
@@ -121,7 +121,7 @@
                 android:layout_marginLeft="15dip"
                 android:text="反馈与建议"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -152,7 +152,7 @@
                 android:layout_marginLeft="15dip"
                 android:text="关于App"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -183,7 +183,7 @@
                 android:layout_marginLeft="15dip"
                 android:text="版本号"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -212,5 +212,5 @@
         android:background="@drawable/shape_good_button_bg"
         android:text="退出登录"
         android:textColor="#ffffff"
-        android:textSize="16sp" />
+        android:textSize="16dip" />
 </RelativeLayout>

@@ -26,7 +26,7 @@
             android:layout_marginTop="2dip"
             android:text="我的成长"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,7 +51,7 @@
             android:layout_marginTop="4dip"
             android:text="超级布朗"
             android:textColor="#1e1e1e"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -72,7 +72,7 @@
                     android:layout_height="wrap_content"
                     android:text="4809"
                     android:textColor="#F866AA"
-                    android:textSize="24sp" />
+                    android:textSize="24dip" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -80,7 +80,7 @@
                     android:layout_marginTop="6dip"
                     android:text="成长值"
                     android:textColor="#999999"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -96,7 +96,7 @@
                     android:layout_height="wrap_content"
                     android:text="809"
                     android:textColor="#F866AA"
-                    android:textSize="24sp" />
+                    android:textSize="24dip" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -104,7 +104,7 @@
                     android:layout_marginTop="6dip"
                     android:text="当前排名"
                     android:textColor="#999999"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>
@@ -125,7 +125,7 @@
             android:layout_marginLeft="15dip"
             android:text="距离升级还需："
             android:textColor="#1e1e1e"
-            android:textSize="14sp" />
+            android:textSize="14dip" />
 
         <TextView
             android:id="@+id/growth_level"
@@ -134,7 +134,7 @@
             android:layout_marginLeft="10dip"
             android:text="75"
             android:textColor="#F866AA"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
 
         <TextView
             android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
             android:layout_marginLeft="7.5dip"
             android:text="成长值"
             android:textColor="#1e1e1e"
-            android:textSize="14sp" />
+            android:textSize="14dip" />
     </LinearLayout>
 
     <ScrollView
@@ -175,7 +175,7 @@
                         android:layout_height="wrap_content"
                         android:text="成长值记录"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <!--<ImageView-->
                     <!--android:layout_width="18dip"-->
@@ -197,7 +197,7 @@
                         android:layout_marginRight="15dip"
                         android:text="查看更多"
                         android:textColor="#999999"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -215,7 +215,7 @@
                 android:layout_marginTop="18dip"
                 android:text="我的勋章"
                 android:textColor="#1e1e1e"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -233,7 +233,7 @@
                     android:layout_marginTop="15dip"
                     android:text="签到勋章"
                     android:textColor="#999999"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_sign_medal"
@@ -261,7 +261,7 @@
                     android:layout_marginTop="15dip"
                     android:text="成长等级勋章"
                     android:textColor="#999999"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_growth_medal"
@@ -289,7 +289,7 @@
                     android:layout_marginTop="15dip"
                     android:text="更换尿片次数勋章"
                     android:textColor="#999999"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <android.support.v7.widget.RecyclerView
                     android:id="@+id/rv_change_medal"

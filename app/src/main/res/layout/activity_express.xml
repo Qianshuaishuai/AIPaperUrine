@@ -26,7 +26,7 @@
             android:layout_marginTop="2dip"
             android:text="文章详情"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <RelativeLayout
@@ -44,7 +44,7 @@
             android:layout_marginTop="20dip"
             android:text="快递单号"
             android:textColor="#1e1e1e"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
 
         <EditText
             android:id="@+id/express"
@@ -58,7 +58,7 @@
             android:hint="单行输入"
             android:paddingLeft="14dip"
             android:textColor="#1e1e1e"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
 
         <Button
             android:id="@+id/sure"
@@ -72,6 +72,6 @@
             android:background="@drawable/shape_good_button_bg"
             android:text="确认"
             android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
     </RelativeLayout>
 </RelativeLayout>

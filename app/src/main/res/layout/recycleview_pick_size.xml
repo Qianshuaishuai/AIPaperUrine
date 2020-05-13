@@ -16,7 +16,7 @@
         android:gravity="center"
         android:text="M"
         android:textColor="@color/select_pick_size"
-        android:textSize="17sp" />
+        android:textSize="17dip" />
 
     <TextView
         android:id="@+id/tv_sec"
@@ -25,5 +25,5 @@
         android:layout_marginTop="10dip"
         android:text="适用于0-6个人月或体重小于3kg的宝宝。"
         android:textColor="#d4d4d4"
-        android:textSize="14sp" />
+        android:textSize="14dip" />
 </LinearLayout>

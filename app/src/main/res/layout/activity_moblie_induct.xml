@@ -28,7 +28,7 @@
             android:layout_marginTop="2dip"
             android:text="手机感应器"
             android:textColor="#1e1e1e"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <ScrollView
@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:text="第一步"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:layout_width="200dip"
@@ -65,7 +65,7 @@
                     android:gravity="center"
                     android:text="打开手机蓝牙，将手机靠近纸尿裤 夹子，开始搜索连接。"
                     android:textColor="#1e1e1e"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <ImageView
                     android:layout_width="320dip"
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:text="第二步"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:layout_width="200dip"
@@ -87,7 +87,7 @@
                     android:gravity="center"
                     android:text="打开APP，将手机靠近纸尿裤 夹子，开始搜索连接。"
                     android:textColor="#1e1e1e"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
             </LinearLayout>
 
@@ -101,7 +101,7 @@
                 android:background="@mipmap/btn_zhiyingkuang_zhidaola"
                 android:text="知道啦"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
         </RelativeLayout>
     </ScrollView>
 </LinearLayout>

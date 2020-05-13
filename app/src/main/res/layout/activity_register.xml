@@ -45,7 +45,7 @@
                     android:layout_height="wrap_content"
                     android:text="+86"
                     android:textColor="#666666"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <View
                     android:layout_width="1dip"
@@ -63,7 +63,7 @@
                     android:hint="请输入手机号码"
                     android:maxLength="11"
                     android:textColor="#1E1E1E"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
             </LinearLayout>
 
             <View
@@ -110,7 +110,7 @@
                     android:hint="请输入验证码"
                     android:maxLength="11"
                     android:textColor="#1E1E1E"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:id="@+id/send_code"
@@ -169,7 +169,7 @@
                     android:hint="请输入密码"
                     android:inputType="textPassword"
                     android:textColor="#1E1E1E"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
             </LinearLayout>
 
             <View
@@ -217,7 +217,7 @@
                     android:hint="请输入确认密码"
                     android:inputType="textPassword"
                     android:textColor="#1E1E1E"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
             </LinearLayout>
 
             <View
@@ -244,7 +244,7 @@
             android:layout_marginLeft="10dip"
             android:text="隐私政策"
             android:textColor="#F866AA"
-            android:textSize="12sp" />
+            android:textSize="12dip" />
 
         <TextView
             android:id="@+id/user_agree"
@@ -253,7 +253,7 @@
             android:layout_marginLeft="170dip"
             android:text="用户协议"
             android:textColor="#F866AA"
-            android:textSize="12sp" />
+            android:textSize="12dip" />
     </LinearLayout>
 
     <Button
@@ -265,5 +265,5 @@
         android:background="@drawable/shape_login_bt"
         android:text="注册/登录"
         android:textColor="#ffffff"
-        android:textSize="16sp" />
+        android:textSize="16dip" />
 </LinearLayout>

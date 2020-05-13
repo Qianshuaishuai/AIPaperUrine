@@ -28,7 +28,7 @@
             android:layout_marginTop="2dip"
             android:text="隐私政策"
             android:textColor="#1e1e1e"
-            android:textSize="18sp"
+            android:textSize="18dip"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -46,6 +46,6 @@
             android:paddingBottom="60dip"
             android:text="@string/privacy"
             android:textColor="#1e1e1e"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
     </ScrollView>
 </LinearLayout>

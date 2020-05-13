@@ -29,7 +29,7 @@
             android:layout_marginTop="2dip"
             android:text="确认订单"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <ScrollView
@@ -76,7 +76,7 @@
                             android:layout_marginTop="19dip"
                             android:text=""
                             android:textColor="#1e1e1e"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
 
                         <TextView
                             android:id="@+id/phone"
@@ -86,7 +86,7 @@
                             android:layout_marginTop="19dip"
                             android:text=""
                             android:textColor="#999999"
-                            android:textSize="14sp" />
+                            android:textSize="14dip" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -103,7 +103,7 @@
                             android:gravity="center"
                             android:text="默认"
                             android:textColor="#999999"
-                            android:textSize="12sp" />
+                            android:textSize="12dip" />
 
                         <TextView
                             android:id="@+id/detail"
@@ -112,7 +112,7 @@
                             android:layout_marginLeft="3.5dip"
                             android:text=""
                             android:textColor="#1e1e1e"
-                            android:textSize="14sp" />
+                            android:textSize="14dip" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -166,7 +166,7 @@
                             android:layout_height="wrap_content"
                             android:text="商品名称"
                             android:textColor="#1e1e1e"
-                            android:textSize="14sp" />
+                            android:textSize="14dip" />
 
                         <TextView
                             android:id="@+id/good_detail"
@@ -175,7 +175,7 @@
                             android:layout_marginTop="15dip"
                             android:text="颜色尺寸：红色 M码"
                             android:textColor="#999999"
-                            android:textSize="14sp" />
+                            android:textSize="14dip" />
 
                         <TextView
                             android:id="@+id/good_count"
@@ -184,7 +184,7 @@
                             android:layout_marginTop="5dip"
                             android:text="x1"
                             android:textColor="#999999"
-                            android:textSize="14sp" />
+                            android:textSize="14dip" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -201,7 +201,7 @@
                         android:layout_height="wrap_content"
                         android:text="小计"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <TextView
                         android:id="@+id/price"
@@ -210,7 +210,7 @@
                         android:layout_marginLeft="15dip"
                         android:text="￥123.00"
                         android:textColor="#1e1e1e"
-                        android:textSize="16sp"
+                        android:textSize="16dip"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -227,7 +227,7 @@
                         android:layout_height="wrap_content"
                         android:text="运费"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <TextView
                         android:id="@+id/fare"
@@ -236,7 +236,7 @@
                         android:layout_marginLeft="15dip"
                         android:text="￥12"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp"
+                        android:textSize="14dip"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -255,7 +255,7 @@
                         android:layout_height="wrap_content"
                         android:text="优惠"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <TextView
                         android:id="@+id/coupon_price"
@@ -264,7 +264,7 @@
                         android:layout_marginLeft="15dip"
                         android:text="-￥20"
                         android:textColor="#F87EB7"
-                        android:textSize="14sp"
+                        android:textSize="14dip"
                         android:textStyle="bold" />
                 </LinearLayout>
 
@@ -275,7 +275,7 @@
                     android:layout_marginTop="34.5dip"
                     android:text="订单详情"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp"
+                    android:textSize="16dip"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -291,7 +291,7 @@
                         android:layout_marginLeft="15dip"
                         android:text="服务"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <TextView
                         android:id="@+id/service"
@@ -300,7 +300,7 @@
                         android:layout_marginLeft="60dip"
                         android:text="七天无理由退款"
                         android:textColor="#999999"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -317,7 +317,7 @@
                         android:layout_marginLeft="15dip"
                         android:text="配送时间"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <TextView
                         android:id="@+id/dtime"
@@ -326,7 +326,7 @@
                         android:layout_marginLeft="33dip"
                         android:text="23:00前付款，承诺第二天送达"
                         android:textColor="#999999"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -343,7 +343,7 @@
                         android:layout_marginLeft="15dip"
                         android:text="配送方式"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <TextView
                         android:id="@+id/dtype"
@@ -352,7 +352,7 @@
                         android:layout_marginLeft="33dip"
                         android:text="普通配送"
                         android:textColor="#999999"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -369,7 +369,7 @@
                         android:layout_marginLeft="15dip"
                         android:text="留言"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <EditText
                         android:id="@+id/note"
@@ -381,7 +381,7 @@
                         android:paddingLeft="15dip"
                         android:paddingRight="15dip"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp"
+                        android:textSize="14dip"
                         android:windowSoftInputMode="adjustPan|adjustResize" />
                 </LinearLayout>
             </LinearLayout>
@@ -410,7 +410,7 @@
                     android:layout_marginLeft="2dip"
                     android:text="优惠券"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -442,7 +442,7 @@
             android:layout_marginLeft="15dip"
             android:text="合计："
             android:textColor="#333333"
-            android:textSize="14sp" />
+            android:textSize="14dip" />
 
         <TextView
             android:id="@+id/all_price"
@@ -451,7 +451,7 @@
             android:layout_marginLeft="8dip"
             android:text="￥135.00"
             android:textColor="#F87EB7"
-            android:textSize="18sp"
+            android:textSize="18dip"
             android:textStyle="bold" />
 
         <LinearLayout
@@ -467,7 +467,7 @@
                 android:background="#F87EB7"
                 android:text="提交订单"
                 android:textColor="#ffffff"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
         </LinearLayout>
     </LinearLayout>
 
@@ -507,7 +507,7 @@
                 android:layout_marginTop="2dip"
                 android:text="优惠券"
                 android:textColor="#1E1E1E"
-                android:textSize="18sp" />
+                android:textSize="18dip" />
 
             <android.support.v7.widget.RecyclerView
                 android:id="@+id/rv_coupon"

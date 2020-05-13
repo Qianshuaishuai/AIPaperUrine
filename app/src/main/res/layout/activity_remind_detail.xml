@@ -27,7 +27,7 @@
             android:layout_marginTop="2dip"
             android:text="提醒详情"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <LinearLayout
@@ -47,6 +47,6 @@
             android:layout_marginTop="20dip"
             android:text="提醒内容......."
             android:textColor="#1e1e1e"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
     </LinearLayout>
 </RelativeLayout>

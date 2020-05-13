@@ -21,7 +21,7 @@
             android:layout_marginTop="23dip"
             android:text="尿湿提醒"
             android:textColor="#1e1e1e"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
 
         <TextView
             android:id="@+id/time"
@@ -31,7 +31,7 @@
             android:layout_marginTop="12dip"
             android:text="2019年x月xx日"
             android:textColor="#d4d4d4"
-            android:textSize="13sp" />
+            android:textSize="13dip" />
     </LinearLayout>
 
     <LinearLayout

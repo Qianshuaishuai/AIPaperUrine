@@ -41,14 +41,14 @@
                     android:layout_height="wrap_content"
                     android:text="已有宝宝，"
                     android:textColor="#1E1E1E"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <TextView
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:text="输入宝宝ID"
                     android:textColor="#F866AA"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
         </RelativeLayout>
 
@@ -68,7 +68,7 @@
                     android:layout_marginTop="18dip"
                     android:text="上传宝宝照片"
                     android:textColor="#1E1E1E"
-                    android:textSize="17sp"
+                    android:textSize="17dip"
                     android:textStyle="bold" />
 
                 <RelativeLayout
@@ -99,7 +99,7 @@
                     android:layout_marginTop="48dip"
                     android:text="宝宝的姓名"
                     android:textColor="#1E1E1E"
-                    android:textSize="17sp"
+                    android:textSize="17dip"
                     android:textStyle="bold" />
 
                 <EditText
@@ -111,7 +111,7 @@
                     android:gravity="center"
                     android:hint="请输入宝宝姓名"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -120,7 +120,7 @@
                     android:layout_marginTop="48dip"
                     android:text="宝宝的出生日期"
                     android:textColor="#1E1E1E"
-                    android:textSize="17sp"
+                    android:textSize="17dip"
                     android:textStyle="bold" />
 
                 <EditText
@@ -133,7 +133,7 @@
                     android:gravity="center"
                     android:hint="请选择宝宝出生日期"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -142,7 +142,7 @@
                     android:layout_marginTop="48dip"
                     android:text="宝宝的性别"
                     android:textColor="#1E1E1E"
-                    android:textSize="17sp"
+                    android:textSize="17dip"
                     android:textStyle="bold" />
 
                 <TextView
@@ -152,7 +152,7 @@
                     android:layout_marginTop="10dip"
                     android:text="社区内容对宝宝男女的推送不一样，请正确填写"
                     android:textColor="#999999"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <LinearLayout
                     android:id="@+id/group_sex"
@@ -181,7 +181,7 @@
                             android:layout_marginTop="8dip"
                             android:text="男生"
                             android:textColor="#1e1e1e"
-                            android:textSize="15sp" />
+                            android:textSize="15dip" />
                     </LinearLayout>
 
                     <LinearLayout
@@ -204,7 +204,7 @@
                             android:layout_marginTop="8dip"
                             android:text="女生"
                             android:textColor="#999999"
-                            android:textSize="15sp" />
+                            android:textSize="15dip" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -215,7 +215,7 @@
                     android:layout_marginTop="48dip"
                     android:text="宝宝的纸尿布规格"
                     android:textColor="#1E1E1E"
-                    android:textSize="17sp"
+                    android:textSize="17dip"
                     android:textStyle="bold" />
 
                 <TextView
@@ -225,7 +225,7 @@
                     android:layout_marginTop="10dip"
                     android:text="选择好合适的尺码可是相当关键的哦~"
                     android:textColor="#999999"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <EditText
                     android:id="@+id/baby_size"
@@ -237,7 +237,7 @@
                     android:gravity="center"
                     android:hint="请选择宝宝尿布规格"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <Button
                     android:id="@+id/sure"
@@ -250,7 +250,7 @@
                     android:background="@drawable/shape_good_button_bg"
                     android:text="完成"
                     android:textColor="#ffffff"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
@@ -280,7 +280,7 @@
                 android:orientation="horizontal"
                 android:text="拍照"
                 android:textColor="#333333"
-                android:textSize="16sp"></TextView>
+                android:textSize="16dip"></TextView>
 
             <TextView
                 android:id="@+id/select_photo"
@@ -290,7 +290,7 @@
                 android:orientation="horizontal"
                 android:text="手机相册选择"
                 android:textColor="#333333"
-                android:textSize="16sp"></TextView>
+                android:textSize="16dip"></TextView>
         </LinearLayout>
     </RelativeLayout>
 </RelativeLayout>

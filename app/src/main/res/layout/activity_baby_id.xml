@@ -30,7 +30,7 @@
         android:layout_marginTop="136dip"
         android:text="已有宝宝"
         android:textColor="#1E1E1E"
-        android:textSize="17sp"
+        android:textSize="17dip"
         android:textStyle="bold" />
 
     <EditText
@@ -44,7 +44,7 @@
         android:gravity="left"
         android:hint="输入宝宝ID"
         android:textColor="#1e1e1e"
-        android:textSize="16sp" />
+        android:textSize="16dip" />
 
     <Button
         android:id="@+id/sure"
@@ -57,5 +57,5 @@
         android:background="@drawable/shape_good_button_bg"
         android:text="确定"
         android:textColor="#ffffff"
-        android:textSize="16sp" />
+        android:textSize="16dip" />
 </RelativeLayout>

@@ -38,7 +38,7 @@
                 android:singleLine="true"
                 android:text="宝宝"
                 android:textColor="#1E1E1E"
-                android:textSize="18sp" />
+                android:textSize="18dip" />
 
             <LinearLayout
                 android:layout_width="wrap_content"
@@ -58,7 +58,7 @@
                     android:layout_height="wrap_content"
                     android:text="设备未链接，点击绑定"
                     android:textColor="#18C083"
-                    android:textSize="13sp" />
+                    android:textSize="13dip" />
             </LinearLayout>
         </LinearLayout>
 
@@ -145,7 +145,7 @@
                 android:layout_marginLeft="6dip"
                 android:text="已到达尿量最高值"
                 android:textColor="#E4007F"
-                android:textSize="15sp"
+                android:textSize="15dip"
                 android:visibility="gone" />
 
             <LinearLayout
@@ -163,28 +163,16 @@
             </LinearLayout>
         </LinearLayout>
 
-        <TextView
-            android:id="@+id/main_percent_tv"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_gravity="center_horizontal"
-            android:layout_marginTop="68dip"
-            android:text="75%"
-            android:textColor="#F85FCF"
-            android:textSize="15sp" />
-
         <!--中间数据显示start-->
         <RelativeLayout
             android:layout_width="match_parent"
-            android:layout_height="84dip"
-            android:layout_marginLeft="15dip"
-            android:layout_marginTop="10dip"
-            android:layout_marginRight="15dip"
+            android:layout_height="160dip"
+            android:layout_marginTop="36dip"
             android:orientation="horizontal">
 
             <LinearLayout
                 android:id="@+id/left"
-                android:layout_width="70dip"
+                android:layout_width="80dip"
                 android:layout_height="wrap_content"
                 android:layout_alignParentBottom="true"
                 android:gravity="center_horizontal"
@@ -195,7 +183,7 @@
                     android:layout_height="wrap_content"
                     android:text="温度"
                     android:textColor="#999999"
-                    android:textSize="15sp" />
+                    android:textSize="14dip" />
 
                 <TextView
                     android:id="@+id/main_temp_tv"
@@ -204,19 +192,30 @@
                     android:layout_marginTop="20dip"
                     android:text="29.6℃"
                     android:textColor="#1E1E1E"
-                    android:textSize="18sp" />
+                    android:textSize="18dip" />
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_width="160dip"
-                android:layout_height="84dip"
+                android:layout_alignParentBottom="true"
+                android:layout_width="180dip"
+                android:layout_height="160dip"
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical">
 
+                <TextView
+                    android:id="@+id/main_percent_tv"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_centerHorizontal="true"
+                    android:layout_marginTop="42dip"
+                    android:text="75%"
+                    android:textColor="#F85FCF"
+                    android:textSize="15dip" />
+
                 <com.xinxin.aicare.view.HalfCircleProgressView
                     android:id="@+id/cpv"
-                    android:layout_width="160dip"
-                    android:layout_height="84dip"
+                    android:layout_width="180dip"
+                    android:layout_height="160dip"
                     app:backgroudColor="#f3f3f3"
                     app:circleWidth="10dp"
                     app:name=""
@@ -229,27 +228,27 @@
                     android:id="@+id/main_beam_tv_tip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_above="@+id/main_beam_tv"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="24dip"
                     android:text="尿量"
                     android:textColor="#999999"
-                    android:textSize="15sp" />
+                    android:textSize="15dip" />
 
                 <TextView
                     android:id="@+id/main_beam_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_below="@+id/main_beam_tv_tip"
+                    android:layout_alignParentBottom="true"
                     android:layout_centerHorizontal="true"
-                    android:layout_marginTop="4.5dip"
+                    android:layout_marginTop="10dip"
                     android:text="368ml"
                     android:textColor="#1E1E1E"
-                    android:textSize="30sp" />
+                    android:textSize="24dip" />
             </RelativeLayout>
 
             <LinearLayout
                 android:id="@+id/right"
-                android:layout_width="70dip"
+                android:layout_width="80dip"
                 android:layout_height="wrap_content"
                 android:layout_alignParentRight="true"
                 android:layout_alignParentBottom="true"
@@ -261,7 +260,7 @@
                     android:layout_height="wrap_content"
                     android:text="睡眠时间"
                     android:textColor="#999999"
-                    android:textSize="15sp" />
+                    android:textSize="14dip" />
 
                 <TextView
                     android:id="@+id/main_sleep_tv"
@@ -270,7 +269,7 @@
                     android:layout_marginTop="20dip"
                     android:text="32min"
                     android:textColor="#1E1E1E"
-                    android:textSize="18sp" />
+                    android:textSize="18dip" />
             </LinearLayout>
         </RelativeLayout>
         <!--中间数据显示end-->
@@ -278,7 +277,7 @@
         <LinearLayout
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:layout_marginTop="80dip"
+            android:layout_marginTop="60dip"
             android:gravity="center_horizontal"
             android:orientation="horizontal">
 
@@ -301,7 +300,7 @@
                     android:layout_marginTop="10dip"
                     android:text="睡姿"
                     android:textColor="#999999"
-                    android:textSize="13sp" />
+                    android:textSize="13dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -319,7 +318,7 @@
                     android:layout_height="wrap_content"
                     android:text="S"
                     android:textColor="#1E1E1E"
-                    android:textSize="18sp" />
+                    android:textSize="18dip" />
 
                 <TextView
                     android:id="@+id/main_brand"
@@ -328,7 +327,7 @@
                     android:layout_marginTop="10dip"
                     android:text="码数"
                     android:textColor="#999999"
-                    android:textSize="13sp" />
+                    android:textSize="13dip" />
             </LinearLayout>
         </LinearLayout>
     </LinearLayout>

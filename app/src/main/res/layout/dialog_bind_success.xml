@@ -29,7 +29,7 @@
                     android:layout_marginTop="12dip"
                     android:text="绑定成功"
                     android:textColor="#F95CA5"
-                    android:textSize="18sp"
+                    android:textSize="18dip"
                     android:textStyle="bold" />
 
                 <TextView
@@ -41,7 +41,7 @@
                     android:layout_marginTop="18dip"
                     android:text="恭喜您获得奖励积分"
                     android:textColor="#ffffff"
-                    android:textSize="18sp" />
+                    android:textSize="18dip" />
 
                 <TextView
                     android:id="@+id/detail"
@@ -52,7 +52,7 @@
                     android:layout_marginTop="18dip"
                     android:text="+30分"
                     android:textColor="#ffffff"
-                    android:textSize="38sp"
+                    android:textSize="38dip"
                     android:textStyle="bold" />
             </RelativeLayout>
         </RelativeLayout>

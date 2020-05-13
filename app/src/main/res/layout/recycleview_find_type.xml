@@ -13,7 +13,7 @@
         android:gravity="center"
         android:text="宝宝喂养"
         android:textColor="@color/select_find_tab"
-        android:textSize="14sp" />
+        android:textSize="14dip" />
 
     <View
         android:layout_width="0dip"

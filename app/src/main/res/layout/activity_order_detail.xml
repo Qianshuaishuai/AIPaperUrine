@@ -29,7 +29,7 @@
             android:layout_marginTop="2dip"
             android:text="订单详情"
             android:textColor="#1e1e1e"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <ScrollView
@@ -62,7 +62,7 @@
                         android:layout_marginTop="2dip"
                         android:text="已完成"
                         android:textColor="#FFFFFF"
-                        android:textSize="18sp"
+                        android:textSize="18dip"
                         android:textStyle="bold" />
 
                     <!--<TextView-->
@@ -72,7 +72,7 @@
                     <!--android:layout_marginTop="10dip"-->
                     <!--android:text="还剩6天14时35分"-->
                     <!--android:textColor="#ffffff"-->
-                    <!--android:textSize="12sp" />-->
+                    <!--android:textSize="12dip" />-->
                 </LinearLayout>
 
                 <LinearLayout
@@ -123,7 +123,7 @@
                             android:layout_height="wrap_content"
                             android:text="布朗"
                             android:textColor="#1e1e1e"
-                            android:textSize="16sp" />
+                            android:textSize="16dip" />
 
                         <TextView
                             android:id="@+id/phone"
@@ -132,7 +132,7 @@
                             android:layout_marginLeft="10dip"
                             android:text="12345678900"
                             android:textColor="#999999"
-                            android:textSize="14sp" />
+                            android:textSize="14dip" />
                     </LinearLayout>
 
                     <TextView
@@ -143,7 +143,7 @@
                         android:layout_marginRight="16dip"
                         android:text="广东省深圳市南山区XX村XX路022号XX村XX路 022号"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -167,7 +167,7 @@
                     android:hint="单行输入"
                     android:paddingLeft="14dip"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <Button
                     android:id="@+id/express_sure"
@@ -178,7 +178,7 @@
                     android:background="@drawable/shape_express_sure_bt_bg"
                     android:text="确认"
                     android:textColor="#999999"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -197,7 +197,7 @@
                     android:layout_marginLeft="15dip"
                     android:text="物流单号：123456768645645"
                     android:textColor="#1e1e1e"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
             </LinearLayout>
 
@@ -219,7 +219,7 @@
                     android:layout_marginTop="18dip"
                     android:text="订单消息"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp"
+                    android:textSize="16dip"
                     android:textStyle="bold" />
 
                 <LinearLayout
@@ -234,7 +234,7 @@
                         android:layout_height="wrap_content"
                         android:text="订单编号"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <TextView
                         android:id="@+id/order_num"
@@ -243,7 +243,7 @@
                         android:layout_marginLeft="32.5dip"
                         android:text="123456788"
                         android:textColor="#999999"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -258,7 +258,7 @@
                         android:layout_height="wrap_content"
                         android:text="创建时间"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <TextView
                         android:id="@+id/create_time"
@@ -267,7 +267,7 @@
                         android:layout_marginLeft="32.5dip"
                         android:text="2019-08-23 14:00:00"
                         android:textColor="#999999"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -282,7 +282,7 @@
                         android:layout_height="wrap_content"
                         android:text="付款时间"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <TextView
                         android:id="@+id/pay_time"
@@ -291,7 +291,7 @@
                         android:layout_marginLeft="32.5dip"
                         android:text="2019-08-23 14:00:00"
                         android:textColor="#999999"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
                 </LinearLayout>
 
                 <LinearLayout
@@ -307,7 +307,7 @@
                         android:layout_height="wrap_content"
                         android:text="发货时间"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <TextView
                         android:id="@+id/send_time"
@@ -316,7 +316,7 @@
                         android:layout_marginLeft="32.5dip"
                         android:text="2019-08-23 14:00:00"
                         android:textColor="#999999"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -340,7 +340,7 @@
                         android:layout_height="wrap_content"
                         android:text="商品总价"
                         android:textColor="#999999"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -354,7 +354,7 @@
                             android:layout_height="wrap_content"
                             android:text="¥199"
                             android:textColor="#999999"
-                            android:textSize="14sp" />
+                            android:textSize="14dip" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -372,7 +372,7 @@
                         android:layout_height="wrap_content"
                         android:text="店铺优惠"
                         android:textColor="#999999"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -386,7 +386,7 @@
                             android:layout_height="wrap_content"
                             android:text="-¥15"
                             android:textColor="#999999"
-                            android:textSize="14sp" />
+                            android:textSize="14dip" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -404,7 +404,7 @@
                         android:layout_height="wrap_content"
                         android:text="运费"
                         android:textColor="#999999"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -418,7 +418,7 @@
                             android:layout_height="wrap_content"
                             android:text="¥15"
                             android:textColor="#999999"
-                            android:textSize="14sp" />
+                            android:textSize="14dip" />
                     </LinearLayout>
                 </LinearLayout>
 
@@ -436,7 +436,7 @@
                         android:layout_height="wrap_content"
                         android:text="订单总价"
                         android:textColor="#1e1e1e"
-                        android:textSize="14sp" />
+                        android:textSize="14dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -450,7 +450,7 @@
                             android:layout_height="wrap_content"
                             android:text="¥199"
                             android:textColor="#1e1e1e"
-                            android:textSize="14sp" />
+                            android:textSize="14dip" />
                     </LinearLayout>
                 </LinearLayout>
             </LinearLayout>
@@ -469,7 +469,7 @@
                     android:layout_height="wrap_content"
                     android:text="实付款"
                     android:textColor="#1e1e1e"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -483,7 +483,7 @@
                         android:layout_height="wrap_content"
                         android:text="¥199"
                         android:textColor="#F866AA"
-                        android:textSize="18sp" />
+                        android:textSize="18dip" />
                 </LinearLayout>
             </LinearLayout>
         </LinearLayout>

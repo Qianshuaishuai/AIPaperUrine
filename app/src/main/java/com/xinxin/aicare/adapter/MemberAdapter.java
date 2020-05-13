@@ -87,7 +87,11 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.posLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.goToPostureActivity(mList.get(position).getSLEEP_POSTURE());
+                if (!TextUtils.isEmpty(mList.get(position).getSLEEP_POSTURE())) {
+                    context.goToPostureActivity(mList.get(position).getSLEEP_POSTURE());
+                } else {
+                    T.s("请先绑定设备!");
+                }
             }
         });
 
@@ -124,18 +128,19 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.cardTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (holder.cardTime.getText().toString().equals("设备未链接，点击绑定")) {
+                if (holder.cardTime.getText().toString().equals("点击绑定设备")) {
                     context.goToDeviceConnect(mList.get(position).getMEMBER_ID());
                 } else {
-                    T.s("设备已链接");
+                    T.s("设备已绑定");
+//                    context.goToDeviceConnect(mList.get(position).getMEMBER_ID());
                 }
             }
         });
 
-        if (TextUtils.isEmpty(mList.get(position).getCREATETIME())) {
-            holder.cardTime.setText("设备未链接，点击绑定");
+        if (TextUtils.isEmpty(mList.get(position).getDEVICE_CODE())) {
+            holder.cardTime.setText("点击绑定设备");
         } else {
-            holder.cardTime.setText(mList.get(position).getCREATETIME());
+            holder.cardTime.setText("已绑定设备");
         }
 
 
@@ -163,12 +168,12 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             holder.mainSleepTv.setText(mList.get(position).getSLEEP_TIME() + "min");
         }
 
-        int percent = 0;
+        double percent = 0.0;
         if (!TextUtils.isEmpty(mList.get(position).getURINE_VOLUME_PERCENT())) {
-            percent = Integer.parseInt(mList.get(position).getURINE_VOLUME_PERCENT());
+            percent = Double.parseDouble(mList.get(position).getURINE_VOLUME_PERCENT());
         }
         holder.cpv.setValue(0);
-        holder.cpv.setProgress(180 * percent / 100);
+        holder.cpv.setProgress(new Double(180 * percent / 100).intValue());
 
         if (percent >= 100) {
             holder.mainTipIv.setVisibility(View.VISIBLE);

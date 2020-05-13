@@ -37,7 +37,7 @@
                     android:layout_marginTop="2dip"
                     android:text="报警设置"
                     android:textColor="#1e1e1e"
-                    android:textSize="18sp" />
+                    android:textSize="18dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -53,7 +53,7 @@
                         android:layout_marginTop="2dip"
                         android:text="保存"
                         android:textColor="@color/colorCommon"
-                        android:textSize="18sp" />
+                        android:textSize="18dip" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -72,7 +72,7 @@
                     android:layout_marginLeft="16dip"
                     android:text="连接设备"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -91,7 +91,7 @@
             <!--设备编号-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="38dip"
+                android:layout_height="48dip"
                 android:background="#ffffff"
                 android:orientation="horizontal">
 
@@ -102,7 +102,7 @@
                     android:layout_marginLeft="16dip"
                     android:text="设备编号 00-000"
                     android:textColor="#999999"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
 
             <!--尿醒提醒-->
@@ -120,7 +120,7 @@
                     android:layout_marginLeft="16dip"
                     android:text="尿湿提醒"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -133,7 +133,7 @@
                         android:layout_height="wrap_content"
                         android:text="开"
                         android:textColor="#666666"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <CheckBox
                         android:id="@+id/cb_wake"
@@ -166,7 +166,7 @@
                         android:layout_height="wrap_content"
                         android:text="湿尿异常区间"
                         android:textColor="#999999"
-                        android:textSize="12sp" />
+                        android:textSize="12dip" />
 
                     <TextView
                         android:layout_width="wrap_content"
@@ -174,7 +174,7 @@
                         android:layout_alignParentRight="true"
                         android:text="单位：湿尿程度"
                         android:textColor="#999999"
-                        android:textSize="12sp" />
+                        android:textSize="12dip" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -188,7 +188,7 @@
                             android:layout_marginTop="26dip"
                             android:text="0%"
                             android:textColor="#1E1E1E"
-                            android:textSize="14sp" />
+                            android:textSize="14dip" />
 
                         <TextView
                             android:id="@+id/ns_rem"
@@ -198,7 +198,7 @@
                             android:layout_marginTop="98dip"
                             android:text="专家推荐值：50%"
                             android:textColor="#666666"
-                            android:textSize="12sp" />
+                            android:textSize="12dip" />
 
                         <SeekBar
                             android:id="@+id/niaoxing_sb"
@@ -232,7 +232,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="0%"
                                 android:textColor="#1E1E1E"
-                                android:textSize="14sp" />
+                                android:textSize="14dip" />
 
                             <TextView
                                 android:id="@+id/ns_height"
@@ -241,7 +241,7 @@
                                 android:layout_alignParentRight="true"
                                 android:text="100%"
                                 android:textColor="#1E1E1E"
-                                android:textSize="14sp" />
+                                android:textSize="14dip" />
                         </RelativeLayout>
                     </RelativeLayout>
                 </RelativeLayout>
@@ -264,7 +264,7 @@
                     android:layout_marginLeft="16dip"
                     android:text="踢被提醒"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -277,7 +277,7 @@
                         android:layout_height="wrap_content"
                         android:text="开"
                         android:textColor="#666666"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <CheckBox
                         android:id="@+id/cb_kick"
@@ -311,7 +311,7 @@
                         android:layout_alignParentRight="true"
                         android:text="单位：摄氏度"
                         android:textColor="#999999"
-                        android:textSize="12sp" />
+                        android:textSize="12dip" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -325,7 +325,7 @@
                             android:layout_marginTop="26dip"
                             android:text="24℃"
                             android:textColor="#1E1E1E"
-                            android:textSize="14sp" />
+                            android:textSize="14dip" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -334,7 +334,7 @@
                             android:layout_marginTop="98dip"
                             android:text="专家推荐值：24℃"
                             android:textColor="#666666"
-                            android:textSize="12sp" />
+                            android:textSize="12dip" />
 
                         <SeekBar
                             android:id="@+id/tibei_sb"
@@ -367,7 +367,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="20℃"
                                 android:textColor="#1E1E1E"
-                                android:textSize="14sp" />
+                                android:textSize="14dip" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -375,7 +375,7 @@
                                 android:layout_alignParentRight="true"
                                 android:text="27℃"
                                 android:textColor="#1E1E1E"
-                                android:textSize="14sp" />
+                                android:textSize="14dip" />
                         </RelativeLayout>
                     </RelativeLayout>
                 </RelativeLayout>
@@ -384,7 +384,7 @@
             <!--防窒息提醒-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="55dip"
+                android:layout_height="68dip"
                 android:layout_marginTop="10dip"
                 android:background="#ffffff"
                 android:gravity="center_vertical"
@@ -396,7 +396,7 @@
                     android:layout_marginLeft="16dip"
                     android:text="防窒息提醒"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -409,7 +409,7 @@
                         android:layout_height="wrap_content"
                         android:text="开"
                         android:textColor="#666666"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <CheckBox
                         android:id="@+id/cb_anti"
@@ -425,7 +425,7 @@
             <!--防窒息区间-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="168dip"
+                android:layout_height="192dip"
                 android:layout_marginTop="1dip"
                 android:background="#ffffff"
                 android:orientation="vertical">
@@ -443,7 +443,7 @@
                         android:layout_alignParentRight="true"
                         android:text="单位：摄氏度"
                         android:textColor="#999999"
-                        android:textSize="12sp" />
+                        android:textSize="12dip" />
 
                     <RelativeLayout
                         android:layout_width="match_parent"
@@ -457,7 +457,7 @@
                             android:layout_marginTop="26dip"
                             android:text="35℃"
                             android:textColor="#1E1E1E"
-                            android:textSize="14sp" />
+                            android:textSize="14dip" />
 
                         <TextView
                             android:layout_width="wrap_content"
@@ -466,7 +466,7 @@
                             android:layout_marginTop="98dip"
                             android:text="专家推荐值：33℃"
                             android:textColor="#666666"
-                            android:textSize="12sp" />
+                            android:textSize="12dip" />
 
                         <SeekBar
                             android:id="@+id/zhixi_sb"
@@ -499,7 +499,7 @@
                                 android:layout_height="wrap_content"
                                 android:text="28℃"
                                 android:textColor="#1E1E1E"
-                                android:textSize="14sp" />
+                                android:textSize="14dip" />
 
                             <TextView
                                 android:layout_width="wrap_content"
@@ -507,7 +507,7 @@
                                 android:layout_alignParentRight="true"
                                 android:text="38℃"
                                 android:textColor="#1E1E1E"
-                                android:textSize="14sp" />
+                                android:textSize="14dip" />
                         </RelativeLayout>
 
                         <TextView
@@ -518,7 +518,7 @@
                             android:layout_marginBottom="8dip"
                             android:text="温度超过推荐值宝宝会有窒息风险，故不给开放调节选项"
                             android:textColor="#F866AA"
-                            android:textSize="12sp" />
+                            android:textSize="12dip" />
                     </RelativeLayout>
                 </RelativeLayout>
             </LinearLayout>
@@ -538,7 +538,7 @@
                     android:layout_marginLeft="16dip"
                     android:text="趴睡姿势提醒"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -551,7 +551,7 @@
                         android:layout_height="wrap_content"
                         android:text="开"
                         android:textColor="#666666"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <CheckBox
                         android:id="@+id/cb_ps"
@@ -567,7 +567,7 @@
             <!--强烈震动报警-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="100dip"
+                android:layout_height="110dip"
                 android:layout_marginTop="10dip"
                 android:background="#ffffff"
                 android:orientation="vertical">
@@ -579,7 +579,7 @@
                     android:layout_marginTop="25dip"
                     android:text="强烈震动报警"
                     android:textColor="#1E1E1E"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:layout_width="wrap_content"
@@ -589,7 +589,7 @@
                     android:layout_marginRight="16dip"
                     android:text="注：当发生强烈震动报警时，您的宝宝可能正处于危险，我们不提 供关闭按钮，时刻保护宝宝安全。"
                     android:textColor="#F866AA"
-                    android:textSize="12sp" />
+                    android:textSize="12dip" />
             </LinearLayout>
 
             <LinearLayout
@@ -608,7 +608,7 @@
                     android:layout_marginLeft="16dip"
                     android:text="删除宝宝"
                     android:textColor="@color/colorCommon"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
@@ -640,7 +640,7 @@
                     android:layout_marginLeft="16dip"
                     android:text="设备编号 00-000"
                     android:textColor="#999999"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
 
         </LinearLayout>

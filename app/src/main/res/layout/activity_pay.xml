@@ -27,7 +27,7 @@
             android:layout_marginTop="2dip"
             android:text="订单支付"
             android:textColor="#ffffff"
-            android:textSize="18sp"
+            android:textSize="18dip"
             android:textStyle="bold" />
     </LinearLayout>
 
@@ -49,7 +49,7 @@
                 android:layout_marginTop="38dip"
                 android:text="需支付"
                 android:textColor="#999999"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
             <TextView
                 android:id="@+id/price"
@@ -58,7 +58,7 @@
                 android:layout_marginTop="16dip"
                 android:text="￥123.10"
                 android:textColor="#1E1E1E"
-                android:textSize="32sp"
+                android:textSize="32dip"
                 android:textStyle="bold" />
 
             <LinearLayout
@@ -86,7 +86,7 @@
                         android:layout_marginLeft="20dip"
                         android:text="微信支付"
                         android:textColor="#1E1E1E"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -124,7 +124,7 @@
                         android:layout_marginLeft="20dip"
                         android:text="支付宝支付"
                         android:textColor="#1E1E1E"
-                        android:textSize="16sp" />
+                        android:textSize="16dip" />
 
                     <LinearLayout
                         android:layout_width="match_parent"
@@ -155,6 +155,6 @@
             android:background="@drawable/shape_good_button_bg"
             android:text="确认支付"
             android:textColor="#ffffff"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
     </RelativeLayout>
 </RelativeLayout>

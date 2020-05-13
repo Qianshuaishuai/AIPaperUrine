@@ -28,7 +28,7 @@
             android:layout_marginTop="2dip"
             android:text="版本号"
             android:textColor="#1e1e1e"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <LinearLayout
@@ -50,7 +50,7 @@
             android:layout_marginTop="15dip"
             android:text="AI育婴1.0"
             android:textColor="#F866AA"
-            android:textSize="18sp"
+            android:textSize="18dip"
             android:textStyle="bold" />
     </LinearLayout>
 </RelativeLayout>

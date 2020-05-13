@@ -28,7 +28,7 @@
             android:layout_marginTop="2dip"
             android:text="成长记录"
             android:textColor="#ffffff"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <LinearLayout
@@ -51,7 +51,7 @@
                 android:layout_height="wrap_content"
                 android:text=""
                 android:textColor="#1e1e1e"
-                android:textSize="18sp" />
+                android:textSize="18dip" />
 
             <ImageView
                 android:layout_width="18dip"
@@ -72,7 +72,7 @@
                 android:layout_marginRight="15dip"
                 android:text="总计积分：100"
                 android:textColor="#999999"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
         </LinearLayout>
     </LinearLayout>
 

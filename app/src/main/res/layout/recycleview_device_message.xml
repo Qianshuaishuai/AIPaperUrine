@@ -23,7 +23,7 @@
                 android:layout_height="wrap_content"
                 android:text="尿湿提醒"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <TextView
                 android:id="@+id/time"
@@ -32,7 +32,7 @@
                 android:layout_marginTop="10dip"
                 android:text="2019年x月xx日"
                 android:textColor="#d4d4d4"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
         </LinearLayout>
 
         <LinearLayout
@@ -47,7 +47,7 @@
                 android:layout_height="wrap_content"
                 android:text="大宝"
                 android:textColor="#999999"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
             <ImageView
                 android:layout_width="24dip"

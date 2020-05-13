@@ -28,7 +28,7 @@
             android:layout_marginTop="2dip"
             android:text="配件感应器"
             android:textColor="#1e1e1e"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <ScrollView
@@ -56,7 +56,7 @@
                     android:layout_height="wrap_content"
                     android:text="第一步"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:layout_width="200dip"
@@ -65,7 +65,7 @@
                     android:gravity="center"
                     android:text="感应夹子对准定位图案(位于两条 碳膜中间)贴紧在纸尿裤上"
                     android:textColor="#1e1e1e"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <ImageView
                     android:layout_width="320dip"
@@ -78,7 +78,7 @@
                     android:layout_height="wrap_content"
                     android:text="第二步"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:layout_width="200dip"
@@ -87,7 +87,7 @@
                     android:gravity="center"
                     android:text="打开感应夹子上端翻盖，纸尿裤 2条碳膜对准4个接触点"
                     android:textColor="#1e1e1e"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <ImageView
                     android:layout_width="320dip"
@@ -100,7 +100,7 @@
                     android:layout_height="wrap_content"
                     android:text="第三步"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:layout_width="200dip"
@@ -109,7 +109,7 @@
                     android:gravity="center"
                     android:text="翻转纸尿裤边缘，将两条碳膜线 分别压在4个接触点上"
                     android:textColor="#1e1e1e"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
 
                 <ImageView
                     android:layout_width="320dip"
@@ -122,7 +122,7 @@
                     android:layout_height="wrap_content"
                     android:text="第四步"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
 
                 <TextView
                     android:layout_width="200dip"
@@ -132,7 +132,7 @@
                     android:gravity="center"
                     android:text="将翻盖按下紧扣碳膜线，3s内感 应夹子闪绿灯，表示感应夹子连接 纸尿裤成功。"
                     android:textColor="#1e1e1e"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
 
             <Button
@@ -145,7 +145,7 @@
                 android:background="@mipmap/btn_zhiyingkuang_zhidaola"
                 android:text="下一步"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
         </RelativeLayout>
     </ScrollView>
 </LinearLayout>

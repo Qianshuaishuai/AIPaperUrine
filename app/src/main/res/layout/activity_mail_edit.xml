@@ -29,7 +29,7 @@
             android:layout_marginTop="2dip"
             android:text="邮箱绑定"
             android:textColor="#1e1e1e"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
 
         <LinearLayout
             android:layout_width="match_parent"
@@ -45,7 +45,7 @@
                 android:background="@drawable/shape_address_save_bg"
                 android:text="保存"
                 android:textColor="#ffffff"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <TextView
                 android:id="@+id/edit"
@@ -54,7 +54,7 @@
                 android:layout_marginRight="15dip"
                 android:text="编辑"
                 android:textColor="#666666"
-                android:textSize="16sp"
+                android:textSize="16dip"
                 android:visibility="gone" />
         </LinearLayout>
     </LinearLayout>
@@ -72,7 +72,7 @@
             android:layout_marginLeft="15dip"
             android:text="邮箱号"
             android:textColor="#666666"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
 
         <View
             android:layout_width="1dip"
@@ -88,7 +88,7 @@
             android:layout_marginRight="15dip"
             android:hint="填写邮箱地址"
             android:textColor="#1e1e1e"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
     </LinearLayout>
 
     <TextView
@@ -113,5 +113,5 @@
         android:background="@drawable/shape_good_button_bg"
         android:text="发送验证邮件"
         android:textColor="#ffffff"
-        android:textSize="16sp" />
+        android:textSize="16dip" />
 </LinearLayout>

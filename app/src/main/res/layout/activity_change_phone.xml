@@ -28,7 +28,7 @@
             android:layout_marginTop="2dip"
             android:text="更换手机号码"
             android:textColor="#1e1e1e"
-            android:textSize="18sp" />
+            android:textSize="18dip" />
     </LinearLayout>
 
     <TextView
@@ -40,7 +40,7 @@
         android:layout_marginRight="15dip"
         android:text="更换手机号码后，下次登录可使用新的手机号登录。当前手 机号：156 0233 5027"
         android:textColor="#d5d5d5"
-        android:textSize="13sp" />
+        android:textSize="13dip" />
 
     <LinearLayout
         android:layout_width="match_parent"
@@ -61,7 +61,7 @@
                 android:layout_height="wrap_content"
                 android:text="当前手机号"
                 android:textColor="#666666"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -75,7 +75,7 @@
                     android:layout_height="wrap_content"
                     android:text="14718212620"
                     android:textColor="#1e1e1e"
-                    android:textSize="16sp" />
+                    android:textSize="16dip" />
             </LinearLayout>
         </LinearLayout>
 
@@ -107,7 +107,7 @@
                 android:background="@null"
                 android:hint="请输入手机号码"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <LinearLayout
                 android:layout_width="match_parent"
@@ -126,7 +126,7 @@
                     android:paddingBottom="9dip"
                     android:text="获取验证码"
                     android:textColor="#F866AA"
-                    android:textSize="14sp" />
+                    android:textSize="14dip" />
             </LinearLayout>
         </LinearLayout>
 
@@ -158,7 +158,7 @@
                 android:background="@null"
                 android:hint="请输入验证码"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
         </LinearLayout>
 
         <View
@@ -179,5 +179,5 @@
         android:background="@drawable/shape_good_button_bg"
         android:text="提交"
         android:textColor="#ffffff"
-        android:textSize="16sp" />
+        android:textSize="16dip" />
 </LinearLayout>

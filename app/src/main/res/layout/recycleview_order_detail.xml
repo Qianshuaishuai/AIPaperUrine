@@ -32,7 +32,7 @@
                 android:singleLine="true"
                 android:text="商品名称商品名称"
                 android:textColor="#1e1e1e"
-                android:textSize="16sp" />
+                android:textSize="16dip" />
 
             <TextView
                 android:id="@+id/params"
@@ -41,7 +41,7 @@
                 android:layout_marginTop="20dip"
                 android:text="颜色尺寸: 红色"
                 android:textColor="#d4d4d4"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
 
             <TextView
                 android:id="@+id/count"
@@ -50,7 +50,7 @@
                 android:layout_marginTop="20dip"
                 android:text="x1"
                 android:textColor="#d4d4d4"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
         </LinearLayout>
 
         <LinearLayout
@@ -65,7 +65,7 @@
                 android:layout_height="wrap_content"
                 android:text="待收货"
                 android:textColor="#f866aa"
-                android:textSize="14sp" />
+                android:textSize="14dip" />
         </LinearLayout>
     </LinearLayout>
 
@@ -83,6 +83,6 @@
             android:layout_height="wrap_content"
             android:text="￥123.00"
             android:textColor="#333333"
-            android:textSize="16sp" />
+            android:textSize="16dip" />
     </LinearLayout>
 </LinearLayout>
