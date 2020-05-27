@@ -254,7 +254,7 @@ public class FindFragment extends BaseFragment {
                 rb.setText(datas.get(d).getTYPENAME());
                 ColorStateList csl = getResources().getColorStateList(R.color.select_find_tab);
                 rb.setTextColor(csl);
-                rb.setTextSize(14);
+                rb.setTextSize(12);
                 rb.setLayoutParams(params);
                 findGroup.addView(rb);
                 final int finalD = d;
@@ -281,7 +281,7 @@ public class FindFragment extends BaseFragment {
                 rb.setText(datas.get(d).getTYPENAME());
                 ColorStateList csl = getResources().getColorStateList(R.color.select_find_tab);
                 rb.setTextColor(csl);
-                rb.setTextSize(14);
+                rb.setTextSize(12);
                 rb.setLayoutParams(params);
                 findGroup.addView(rb);
                 final int finalD = d;

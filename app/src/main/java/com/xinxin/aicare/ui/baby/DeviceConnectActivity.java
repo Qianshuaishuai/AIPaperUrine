@@ -8,18 +8,14 @@ import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
 import android.bluetooth.BluetoothManager;
-import android.bluetooth.BluetoothProfile;
-import android.bluetooth.le.BluetoothLeScanner;
-import android.bluetooth.le.ScanCallback;
-import android.bluetooth.le.ScanResult;
-import android.bluetooth.le.ScanSettings;
-import android.bluetooth.le.ScanSettings.Builder;
+
 import android.content.BroadcastReceiver;
 import android.content.ComponentName;
 import android.content.Context;
 import android.content.Intent;
 import android.content.IntentFilter;
 import android.content.ServiceConnection;
+import android.content.pm.PackageManager;
 import android.os.Build;
 import android.os.Bundle;
 import android.os.Handler;
@@ -40,12 +36,18 @@ import com.xinxin.aicare.base.BaseActivity;
 import com.xinxin.aicare.bean.UserBean;
 import com.xinxin.aicare.ble.BleWrapper;
 import com.xinxin.aicare.ble.BleWrapperUiCallbacks;
+import com.xinxin.aicare.event.BindSuccessEvent;
+import com.xinxin.aicare.event.PayResultEvent;
 import com.xinxin.aicare.response.CommonResponse;
+import com.xinxin.aicare.service.BluetoothBindService;
 import com.xinxin.aicare.service.BluetoothService;
 import com.xinxin.aicare.util.DataUtil;
 import com.xinxin.aicare.util.T;
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
@@ -66,9 +68,6 @@ public class DeviceConnectActivity extends BaseActivity {
     private String memberId = "";
     private BluetoothAdapter blueadapter;
     private AlertDialog boothDialog;
-    private BluetoothLeScanner scanner;
-    private ScanCallback mScanCallback;
-    private ScanSettings mScanSettings;
 
     @Event(R.id.layout_back)
     private void back(View view) {
@@ -100,6 +99,7 @@ public class DeviceConnectActivity extends BaseActivity {
 
     private int mode = 1;
     private boolean isUpload = false;
+    private Intent service;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -110,6 +110,7 @@ public class DeviceConnectActivity extends BaseActivity {
         initBoothDialog();
         initTipDialog();
         initBooth();
+        EventBus.getDefault().register(this);
 //        initBluetooth();
     }
 
@@ -117,7 +118,8 @@ public class DeviceConnectActivity extends BaseActivity {
         blueadapter = BluetoothAdapter.getDefaultAdapter();
         if (blueadapter == null) {
             //表示手机不支持蓝牙
-            T.s("该手机不支持蓝牙");
+            T.s("该手机版本不支持BLE蓝牙");
+            finish();
             return;
         }
 
@@ -125,72 +127,17 @@ public class DeviceConnectActivity extends BaseActivity {
             boothDialog.show();
             return;
         }
-//        BlueToothConnectReceiver btcr = new BlueToothConnectReceiver();
-//        IntentFilter intentFilter = new IntentFilter(BluetoothDevice.ACTION_FOUND);//注册广播接收信号
-//        registerReceiver(bluetoothReceiver, intentFilter);//用BroadcastReceiver 来取得结果
-//        registerReceiver(bondReceiver, intentFilter);//用BroadcastReceiver 来取得结果
-//        registerReceiver(btcr, intentFilter);//用BroadcastReceiver 来取得结果
-//
-//        blueadapter.startDiscovery();
-//        T.s("开始搜索设备");
-//
-//        timer1 = new Timer();
-//        timerTask1 = new TimerTask() {
-//            @Override
-//            public void run() {
-//                runOnUiThread(new Runnable() {
-//                    @Override
-//                    public void run() {
-//                        blueadapter.startDiscovery();
-//                        T.s("搜索附近蓝牙设备");
-//                    }
-//                });
-//            }
-//        };
-//        timer1.schedule(timerTask1, 0, 3000);
-//        Intent intent = new Intent(this, BluetoothService.class);
-//        bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            scanner = blueadapter.getBluetoothLeScanner();
-            mScanSettings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_BALANCED).build();
-            mScanCallback = new ScanCallback() {
-                @Override
-                public void onScanResult(int callbackType, ScanResult result) {
-                    super.onScanResult(callbackType, result);
-                    if (result.getDevice().getName() != null && result.getDevice().getName().contains(Constant.DEVICE_NAME)) {
-                        byte[] datas = result.getScanRecord().getBytes();
-                        String DEVICE_ID = result.getDevice().getAddress().replace(":", "").toLowerCase();
-                        String X = String.valueOf(DataUtil.normalHexByteToInt(datas[11]));
-                        String Y = String.valueOf(DataUtil.normalHexByteToInt(datas[12]));
-                        String Z = String.valueOf(DataUtil.normalHexByteToInt(datas[13]));
-                        String D0 = String.valueOf(DataUtil.normalHexByteToInt(datas[14]));
-                        String AD = String.valueOf(DataUtil.concat(datas[15], datas[16]));
-                        String D4 = String.valueOf(DataUtil.normalHexByteToInt(datas[18]));
-                        String D5 = String.valueOf(DataUtil.normalHexByteToInt(datas[19]));
-                        String D6 = String.valueOf(DataUtil.normalHexByteToInt(datas[20]));
 
-                        if (!isUpload) {
-                            bindDevice(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
-                            isUpload = true;
-                        }
-
-                    }
-                }
-
-                @Override
-                public void onBatchScanResults(List<ScanResult> results) {
-                    super.onBatchScanResults(results);
-                }
-
-                @Override
-                public void onScanFailed(int errorCode) {
-                    super.onScanFailed(errorCode);
-                }
-            };
-            scanner.startScan(null, mScanSettings, mScanCallback);
+        if (bleCheck()) {
+            service = new Intent(this, BluetoothBindService.class);
+            service.putExtra("userId", userBean.getAPPUSER_ID());
+            service.putExtra("onlineId", userBean.getONLINE_ID());
+            service.putExtra("memberId", memberId);
+            startService(service);
+        } else {
+            T.s("当前手机版本不支持BLE设备绑定");
+            finish();
         }
-
-
     }
 
 
@@ -207,6 +154,15 @@ public class DeviceConnectActivity extends BaseActivity {
 
         }
     };
+
+    private boolean bleCheck() {
+        boolean result = false;
+        if (getPackageManager().
+                hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+            result = true;
+        }
+        return result;
+    }
 
     private void initView() {
         timer = new Timer();
@@ -277,14 +233,19 @@ public class DeviceConnectActivity extends BaseActivity {
     @Override
     protected void onDestroy() {
         super.onDestroy();
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            scanner.stopScan(mScanCallback);
-        }
+        EventBus.getDefault().unregister(this);
 //        blueadapter.cancelDiscovery();
 //        unregisterReceiver(bluetoothReceiver);
     }
 
-    private void uploadDeviceData(String D0, String DEVICE_ID, String X, String Y, String Z, String AD, String D4, String D5, String D6) {
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(BindSuccessEvent event) {
+        System.out.println("收到绑定成功通知");
+        stopService(service);
+        finish();
+    }
+
+    private void uploadDeviceData(final String D0, final String DEVICE_ID, final String X, final String Y, final String Z, final String AD, final String D4, final String D5, final String D6) {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_UPLOADDEVICEDATA);
         params.addQueryStringParameter("DEVICE_ID", DEVICE_ID);
         params.addQueryStringParameter("D0", D0);
@@ -300,13 +261,14 @@ public class DeviceConnectActivity extends BaseActivity {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 CommonResponse response = gson.fromJson(result, CommonResponse.class);
-                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         T.s("上传设备信息成功");
                         finish();
                         break;
-
+                    case 2:
+                        T.s(response.getMsg());
+                        break;
                     default:
                         T.s("上传设备信息失败");
                         break;
@@ -329,48 +291,6 @@ public class DeviceConnectActivity extends BaseActivity {
             }
         });
     }
-
-    private void bindDevice(final String D0, final String DEVICE_ID, final String X, final String Y, final String Z, final String AD, final String D4, final String D5, final String D6) {
-        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_BINDDEVICE);
-        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
-        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
-        params.addQueryStringParameter("MEMBER_ID", memberId);
-        params.addQueryStringParameter("DEVICE_CODE", DEVICE_ID);
-        x.http().post(params, new Callback.CommonCallback<String>() {
-            @Override
-            public void onSuccess(String result) {
-                Gson gson = new Gson();
-                CommonResponse response = gson.fromJson(result, CommonResponse.class);
-                switch (response.getResult()) {
-                    case 0:
-                        T.s("绑定设备成功");
-                        finish();
-                        uploadDeviceData(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
-                        break;
-
-                    default:
-                        T.s("绑定设备失败");
-                        break;
-                }
-            }
-
-            @Override
-            public void onError(Throwable ex, boolean isOnCallback) {
-                System.out.println("错误处理:" + ex);
-            }
-
-            @Override
-            public void onCancelled(CancelledException cex) {
-
-            }
-
-            @Override
-            public void onFinished() {
-
-            }
-        });
-    }
-
 
     private void initTipDialog() {
         AlertDialog.Builder builder = new AlertDialog.Builder(this);

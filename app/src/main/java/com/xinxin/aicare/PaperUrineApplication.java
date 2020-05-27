@@ -1,12 +1,18 @@
 package com.xinxin.aicare;
 
 import android.app.Application;
+import android.content.ComponentName;
 import android.content.Context;
+import android.content.Intent;
+import android.content.ServiceConnection;
 import android.content.SharedPreferences;
+import android.content.pm.PackageManager;
+import android.os.IBinder;
 import android.util.Log;
 
 import com.xinxin.aicare.bean.PersonBean;
 import com.xinxin.aicare.bean.UserBean;
+import com.xinxin.aicare.service.BluetoothService;
 import com.xinxin.aicare.util.T;
 import com.google.gson.Gson;
 
@@ -29,6 +35,35 @@ public class PaperUrineApplication extends Application {
         }
 
         initSp();
+
+        if (bleCheck()) {
+            System.out.println("已开启上传设备数据服务");
+            Intent intent = new Intent(this, BluetoothService.class);
+            bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
+        }
+    }
+
+    private ServiceConnection mConnection = new ServiceConnection() {
+
+        @Override
+        public void onServiceConnected(ComponentName className,
+                                       IBinder service) {
+
+        }
+
+        @Override
+        public void onServiceDisconnected(ComponentName arg0) {
+
+        }
+    };
+
+    private boolean bleCheck() {
+        boolean result = false;
+        if (getPackageManager().
+                hasSystemFeature(PackageManager.FEATURE_BLUETOOTH_LE)) {
+            result = true;
+        }
+        return result;
     }
 
     private void initSp() {

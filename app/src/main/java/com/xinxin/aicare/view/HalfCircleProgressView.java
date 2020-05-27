@@ -55,9 +55,9 @@ public class HalfCircleProgressView extends View {
         mPaint.setColor(mBackgroudColor);
         //绘制圆弧，从9点方向（-180度）开始绘制，偏移角度为进度
         canvas.drawArc(mRectF, -180, 180, false, mPaint);
-        mPaint.setColor(R.drawable.shape_circle_color);
+        mPaint.setColor(getResources().getColor(R.color.colorCommon));
         //绘制圆弧，从9点方向（-180度）开始绘制，偏移角度为进度
-//        canvas.drawArc(mRectF, -180, mProgress, false, mPaint);
+        canvas.drawArc(mRectF, -180, mProgress, false, mPaint);
 
         Paint textPaint = new Paint();          // 创建画笔
         textPaint.setColor(mTextColor);        // 设置颜色

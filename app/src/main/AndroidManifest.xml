@@ -205,6 +205,7 @@
             android:name="com.xinxin.aicare.ui.user.LoginThirdActivity"
             android:screenOrientation="portrait" />
         <service android:name=".service.BluetoothService"></service>
+        <service android:name=".service.BluetoothBindService"></service>
         <activity
             android:name="com.xinxin.aicare.ui.user.LoginActivity"
             android:screenOrientation="portrait" />

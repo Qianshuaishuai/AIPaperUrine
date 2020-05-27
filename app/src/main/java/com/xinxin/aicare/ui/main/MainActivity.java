@@ -3,10 +3,16 @@ package com.xinxin.aicare.ui.main;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.le.BluetoothLeScanner;
+import android.bluetooth.le.ScanCallback;
+import android.bluetooth.le.ScanResult;
+import android.bluetooth.le.ScanSettings;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
 import android.content.res.Resources;
 import android.net.Uri;
+import android.os.Build;
 import android.support.annotation.NonNull;
 import android.support.design.internal.BottomNavigationItemView;
 import android.support.design.internal.BottomNavigationMenuView;
@@ -26,8 +32,10 @@ import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.base.BaseActivity;
 import com.xinxin.aicare.bean.UserBean;
+import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.response.PersonResponse;
 import com.xinxin.aicare.ui.user.LoginNormalActivity;
+import com.xinxin.aicare.util.DataUtil;
 import com.xinxin.aicare.util.T;
 import com.google.gson.Gson;
 
@@ -38,6 +46,7 @@ import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
 import java.lang.reflect.Field;
+import java.util.List;
 
 @ContentView(R.layout.activity_main)
 public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener, FindFragment.OnFragmentInteractionListener, StoreFragment.OnFragmentInteractionListener, PersonFragment.OnFragmentInteractionListener {
@@ -65,19 +74,14 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
         initBoothDialog();
         initNavigationBar();
-        initBooth();
     }
 
-    private void initBooth() {
-        blueadapter = BluetoothAdapter.getDefaultAdapter();
-        if (blueadapter == null) {
-            //表示手机不支持蓝牙
-            T.s("该手机不支持蓝牙");
-            return;
-        }
-        if (!blueadapter.isEnabled()) {//如果没打开，则打开蓝牙
-            boothDialog.show();
-        }
+
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+
     }
 
     private BottomNavigationView.OnNavigationItemSelectedListener mOnNavigationItemSelectedListener
@@ -245,6 +249,7 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                         Intent intent = new Intent(MainActivity.this, LoginNormalActivity.class);
                         intent.addFlags(Intent.FLAG_ACTIVITY_CLEAR_TASK);
                         startActivity(intent);
+                        finish();
                         break;
 
                     default:

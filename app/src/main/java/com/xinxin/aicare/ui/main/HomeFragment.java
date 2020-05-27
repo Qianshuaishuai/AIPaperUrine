@@ -49,6 +49,8 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Timer;
+import java.util.TimerTask;
 
 /**
  * A simple {@link Fragment} subclass.
@@ -77,6 +79,11 @@ public class HomeFragment extends BaseFragment {
 
     private PopupWindow loginPopupWindow;
     private PopupWindow bindPopupWindow;
+
+
+    private Timer timer1;
+    private TimerTask timerTask1;
+    private boolean isFailed = false;
 
     @ViewInject(R.id.card_name)
     private TextView cardName;
@@ -191,7 +198,12 @@ public class HomeFragment extends BaseFragment {
     @Override
     public void onResume() {
         super.onResume();
-        getMemberList();
+    }
+
+    @Override
+    public void onDestroy() {
+        super.onDestroy();
+        timer1.cancel();
     }
 
     /**
@@ -217,6 +229,7 @@ public class HomeFragment extends BaseFragment {
         initTeachs();
         initLoginSuccessDialog();
         initBindSuccessDialog();
+
     }
 
     private void initTeachs() {
@@ -265,6 +278,16 @@ public class HomeFragment extends BaseFragment {
 //        ImageOptions options = new ImageOptions.Builder().
 //                setRadius(DensityUtil.dip2px(60)).build();
 //        x.image().bind(cardIcon, userBean.getHEADIMG(), options);
+        timer1 = new Timer();
+        timerTask1 = new TimerTask() {
+            @Override
+            public void run() {
+                if (!isFailed){
+                    getMemberList();
+                }
+            }
+        };
+        timer1.schedule(timerTask1, 0, 1000);
     }
 
     private void initView() {
@@ -311,7 +334,8 @@ public class HomeFragment extends BaseFragment {
                         break;
 
                     default:
-                        T.s("获取宝宝列表失败");
+//                        T.s("获取宝宝列表失败");
+                        isFailed = true;
                         System.out.println(result);
                         break;
                 }

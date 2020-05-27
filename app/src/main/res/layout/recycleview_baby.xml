@@ -91,12 +91,12 @@
 
                     <TextView
                         android:id="@+id/card_message_count"
-                        android:layout_width="wrap_content"
-                        android:layout_height="wrap_content"
-                        android:layout_marginBottom="1dip"
-                        android:text="9"
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="center"
+                        android:text="3"
                         android:textColor="#ffffff"
-                        android:textSize="9sp" />
+                        android:textSize="9dip" />
                 </LinearLayout>
             </RelativeLayout>
 
@@ -196,9 +196,9 @@
             </LinearLayout>
 
             <RelativeLayout
-                android:layout_alignParentBottom="true"
                 android:layout_width="180dip"
                 android:layout_height="160dip"
+                android:layout_alignParentBottom="true"
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical">
 
