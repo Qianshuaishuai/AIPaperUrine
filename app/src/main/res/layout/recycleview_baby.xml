@@ -290,11 +290,13 @@
                 android:orientation="vertical">
 
                 <ImageView
-                    android:layout_width="20dip"
-                    android:layout_height="20dip"
+                    android:id="@+id/posture_iv"
+                    android:layout_width="40dip"
+                    android:layout_height="40dip"
                     android:src="@mipmap/icon_shuizi" />
 
                 <TextView
+                    android:id="@+id/posture_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginTop="10dip"
@@ -302,6 +304,22 @@
                     android:textColor="#999999"
                     android:textSize="13dip" />
             </LinearLayout>
+
+            <!--<LinearLayout-->
+            <!--android:id="@+id/layout_posture_1"-->
+            <!--android:layout_width="160dip"-->
+            <!--android:layout_height="86dip"-->
+            <!--android:background="@drawable/select_home_main_bt_bg"-->
+            <!--android:gravity="center"-->
+            <!--android:orientation="vertical">-->
+
+            <!--<ImageView-->
+            <!--android:id="@+id/posture"-->
+            <!--android:layout_width="40dip"-->
+            <!--android:layout_height="40dip"-->
+            <!--android:src="@mipmap/icon_shuizi" />-->
+
+            <!--</LinearLayout>-->
 
             <LinearLayout
                 android:id="@+id/layout_size"
@@ -316,15 +334,16 @@
                     android:id="@+id/main_size"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
+                    android:layout_marginTop="5dip"
                     android:text="S"
                     android:textColor="#1E1E1E"
-                    android:textSize="18dip" />
+                    android:textSize="22dip" />
 
                 <TextView
                     android:id="@+id/main_brand"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_marginTop="10dip"
+                    android:layout_marginTop="15dip"
                     android:text="码数"
                     android:textColor="#999999"
                     android:textSize="13dip" />

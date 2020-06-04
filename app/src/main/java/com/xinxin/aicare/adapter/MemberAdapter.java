@@ -28,17 +28,19 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cardIcon, cardMessage, cardSetting, cardData;
-        ImageView mainTipIv;
+        ImageView mainTipIv,postureIv;
 
-        TextView cardName, cardTime, cardMessageCount;
+        TextView cardName, cardTime, cardMessageCount,postureTv;
         TextView mainTipTv, mainPercentTv, mainTempTv, mainBeamTv, mainSleepTv, mainSize, mainBrand;
 
         HalfCircleProgressView cpv;
-        LinearLayout posLayout, sizeLayout, cardLayout;
+        LinearLayout posLayout, sizeLayout, cardLayout, postureLayout;
 
         public ViewHolder(View view) {
             super(view);
             cardIcon = (ImageView) view.findViewById(R.id.card_icon);
+            postureIv = (ImageView) view.findViewById(R.id.posture_iv);
+            postureTv = (TextView) view.findViewById(R.id.posture_tv);
             cardMessage = (ImageView) view.findViewById(R.id.card_message);
             cardSetting = (ImageView) view.findViewById(R.id.card_setting);
             mainTipIv = (ImageView) view.findViewById(R.id.main_tip_icon);
@@ -55,6 +57,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             posLayout = (LinearLayout) view.findViewById(R.id.layout_posture);
             cardLayout = (LinearLayout) view.findViewById(R.id.card_layout);
             sizeLayout = (LinearLayout) view.findViewById(R.id.layout_size);
+            postureLayout = (LinearLayout) view.findViewById(R.id.layout_posture);
             mainBrand = (TextView) view.findViewById(R.id.main_brand);
             cpv = (HalfCircleProgressView) view.findViewById(R.id.cpv);
         }
@@ -197,6 +200,28 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             }
         });
 
+        if (TextUtils.isEmpty(mList.get(position).getSLEEP_POSTURE())){
+
+        }else{
+            switch (mList.get(position).getSLEEP_POSTURE()){
+                case "1":
+                    holder.postureIv.setImageResource(R.mipmap.img_baobaopashui_xiao);
+                    holder.postureTv.setText("宝宝趴睡");
+                    break;
+                case "2":
+                    holder.postureIv.setImageResource(R.mipmap.img_baobaoyoutang_xiao);
+                    holder.postureTv.setText("宝宝右躺");
+                    break;
+                case "4":
+                    holder.postureIv.setImageResource(R.mipmap.img_baobaoyangshui_xiao);
+                    holder.postureTv.setText("宝宝仰睡");
+                    break;
+                case "8":
+                    holder.postureIv.setImageResource(R.mipmap.img_baobaozuotang_xiao);
+                    holder.postureTv.setText("宝宝左躺");
+                    break;
+            }
+        }
     }
 
     @Override

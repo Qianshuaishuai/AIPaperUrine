@@ -14,11 +14,13 @@ import android.os.Handler;
 import android.os.IBinder;
 import android.os.Looper;
 import android.support.annotation.Nullable;
+import android.text.TextUtils;
 import android.util.Log;
 
 
 import com.google.gson.Gson;
 import com.xinxin.aicare.Constant;
+import com.xinxin.aicare.R;
 import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.util.DataUtil;
 import com.xinxin.aicare.util.T;
@@ -41,6 +43,10 @@ public class BluetoothService extends Service {
     private ScanSettings mScanSettings;
 
     private BluetoothAdapter blueadapter;
+    private String currentDeviceCode = "";
+
+    private Timer timer;
+    private TimerTask timerTask;
 
     /**
      * 初始化蓝牙
@@ -49,6 +55,17 @@ public class BluetoothService extends Service {
     public void onCreate() {
         super.onCreate();
         initBooth();
+
+        timer = new Timer();
+        timerTask = new TimerTask() {
+            @Override
+            public void run() {
+                if (!TextUtils.isEmpty(currentDeviceCode)) {
+                    uploadDeviceData("", currentDeviceCode, "", "", "", "", "", "", "");
+                }
+            }
+        };
+        timer.schedule(timerTask, 0, 1000);
     }
 
     /**
@@ -60,6 +77,7 @@ public class BluetoothService extends Service {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             scanner.stopScan(mScanCallback);
         }
+        timer.cancel();
     }
 
     @Nullable
@@ -75,6 +93,7 @@ public class BluetoothService extends Service {
             T.s("该手机不支持蓝牙");
             return;
         }
+
 //
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             scanner = blueadapter.getBluetoothLeScanner();
@@ -95,7 +114,7 @@ public class BluetoothService extends Service {
                         String D4 = String.valueOf(DataUtil.normalHexByteToInt(datas[18]));
                         String D5 = String.valueOf(DataUtil.normalHexByteToInt(datas[19]));
                         String D6 = String.valueOf(DataUtil.normalHexByteToInt(datas[20]));
-
+                        currentDeviceCode = DEVICE_ID;
                         uploadDeviceData(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
                     }
                 }

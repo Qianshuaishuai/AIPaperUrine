@@ -102,8 +102,10 @@ public class BluetoothBindService extends Service {
                         String D4 = String.valueOf(DataUtil.normalHexByteToInt(datas[18]));
                         String D5 = String.valueOf(DataUtil.normalHexByteToInt(datas[19]));
                         String D6 = String.valueOf(DataUtil.normalHexByteToInt(datas[20]));
+                        System.out.println(userId);
 
                         if(!TextUtils.isEmpty(userId)){
+                            System.out.println("bindDevice");
                             bindDevice(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
                         }
                     }

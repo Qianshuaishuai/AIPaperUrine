@@ -1,5 +1,6 @@
 package com.xinxin.aicare.ui.store;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.RecyclerView;
@@ -22,6 +23,8 @@ import com.xinxin.aicare.bean.UserBean;
 import com.xinxin.aicare.response.PreYuyueCouponResponse;
 import com.xinxin.aicare.response.PreYuyueResponse;
 import com.xinxin.aicare.response.SubmitYuyueOrderResponse;
+import com.xinxin.aicare.ui.address.AddressEditActivity;
+import com.xinxin.aicare.ui.address.AddressManagerActivity;
 import com.xinxin.aicare.ui.pay.PayActivity;
 import com.xinxin.aicare.ui.person.CouponActivity;
 import com.xinxin.aicare.util.T;
@@ -36,6 +39,7 @@ import org.xutils.x;
 
 @ContentView(R.layout.activity_sure_order)
 public class SureOrderActivity extends BaseActivity {
+    private Activity context = this;
 
     private PersonBean personBean;
     private UserBean userBean;
@@ -138,6 +142,10 @@ public class SureOrderActivity extends BaseActivity {
             return;
         }
 
+//        getSureOrder();
+    }
+
+    private void getSureOrder() {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_PREYUYUE);
         params.addQueryStringParameter("GOODS_ID", sureOrderBean.getGoodsInfoBean().getGOODS_ID());
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
@@ -150,6 +158,7 @@ public class SureOrderActivity extends BaseActivity {
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
+                System.out.println(result);
                 Gson gson = new Gson();
                 PreYuyueResponse response = gson.fromJson(result, PreYuyueResponse.class);
 
@@ -157,6 +166,11 @@ public class SureOrderActivity extends BaseActivity {
                     case 0:
                         preYuyueBean = response.getData();
                         updatePreView(preYuyueBean);
+                        if (preYuyueBean.getADDRESS() == null) {
+                            T.s("你当前还没有设置默认收获地址");
+                            Intent intent = new Intent(context, AddressManagerActivity.class);
+                            startActivity(intent);
+                        }
                         break;
                     default:
                         System.out.println("失败:" + result);
@@ -189,9 +203,11 @@ public class SureOrderActivity extends BaseActivity {
         x.image().bind(icon, bean.getCARDINFO().getPIC());
         service.setText(bean.getSERVICE());
 
-        detail.setText(bean.getADDRESS().getADDRESS());
-        phone.setText(bean.getADDRESS().getCPHONE());
-        userName.setText(bean.getADDRESS().getCNAME());
+        if (bean.getADDRESS() != null) {
+            detail.setText(bean.getADDRESS().getADDRESS());
+            phone.setText(bean.getADDRESS().getCPHONE());
+            userName.setText(bean.getADDRESS().getCNAME());
+        }
 //
 //
 //        System.out.println(bean.getADDRESS().getADDRESS());
@@ -200,6 +216,12 @@ public class SureOrderActivity extends BaseActivity {
 
         price.setText("¥" + bean.getTOTAL_PRICE());
         allPrice.setText("¥" + bean.getREAL_PAY());
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+        getSureOrder();
     }
 
     private void useCoupon(String couponId) {
@@ -222,9 +244,9 @@ public class SureOrderActivity extends BaseActivity {
                     case 0:
                         allPrice.setText("¥" + response.getData().getREAL_PAY());
                         couponCountLayout.setVisibility(View.VISIBLE);
-                        if(TextUtils.isEmpty(response.getData().getCOUPON_DISCOUNT())){
+                        if (TextUtils.isEmpty(response.getData().getCOUPON_DISCOUNT())) {
                             couponPrice.setText("-¥" + "0.00");
-                        }else{
+                        } else {
                             couponPrice.setText("-¥" + response.getData().getCOUPON_DISCOUNT());
                         }
                         break;
@@ -261,7 +283,7 @@ public class SureOrderActivity extends BaseActivity {
         params.addQueryStringParameter("ATTRIBUTE_VALUE1", sureOrderBean.getSelectValue1());
         params.addQueryStringParameter("ATTRIBUTE_VALUE2", sureOrderBean.getSelectValue2());
         params.addQueryStringParameter("ATTRIBUTE_VALUE3", sureOrderBean.getSelectValue3());
-        params.addQueryStringParameter("ADDRESS_ID",preYuyueBean.getADDRESS().getADDRESS_ID() );
+        params.addQueryStringParameter("ADDRESS_ID", preYuyueBean.getADDRESS().getADDRESS_ID());
         params.addQueryStringParameter("COUPON_ID", couponId);
         params.addQueryStringParameter("BUYERMSG", note.getText().toString());
         x.http().post(params, new Callback.CommonCallback<String>() {
