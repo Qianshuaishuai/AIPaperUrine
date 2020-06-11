@@ -10,6 +10,8 @@ import android.widget.LinearLayout;
 import android.widget.RadioGroup;
 import android.widget.TextView;
 
+import com.github.mikephil.charting.charts.LineChart;
+import com.github.mikephil.charting.data.Entry;
 import com.xinxin.aicare.Constant;
 import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
@@ -25,6 +27,7 @@ import com.xinxin.aicare.response.MemberDataCal4Response;
 import com.xinxin.aicare.util.T;
 import com.google.gson.Gson;
 import com.lixs.charts.LineChartView;
+import com.xinxin.aicare.view.SimpleLineChart;
 
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
@@ -35,6 +38,7 @@ import org.xutils.x;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.HashMap;
 import java.util.List;
 
 @ContentView(R.layout.activity_urine_detail)
@@ -118,6 +122,9 @@ public class UrineDetailActivity extends BaseActivity {
     @ViewInject(R.id.layout_detail4)
     private LinearLayout detail4Layout;
 
+    @ViewInject(R.id.simpleLineChart)
+    private SimpleLineChart lineChart;
+
     @Event(R.id.layout_back)
     private void back(View view) {
         finish();
@@ -141,20 +148,20 @@ public class UrineDetailActivity extends BaseActivity {
         userBean = ((PaperUrineApplication) getApplication()).getUserInfo();
         Intent intent = getIntent();
         MEMBER_ID = intent.getStringExtra("memberId");
-        dataList = new ArrayList<>();
-        descriptionList = new ArrayList<>();
-
-        chartView.setCanClickAnimation(true);
-        chartView.setDatas(dataList, descriptionList);
-        chartView.setShowNum(0);
-
-        chartView1.setCanClickAnimation(true);
-        chartView1.setDatas(dataList, descriptionList);
-        chartView1.setShowNum(0);
-
-        chartView2.setCanClickAnimation(true);
-        chartView2.setDatas(dataList, descriptionList);
-        chartView2.setShowNum(0);
+//        dataList = new ArrayList<>();
+//        descriptionList = new ArrayList<>();
+//
+//        chartView.setCanClickAnimation(true);
+//        chartView.setDatas(dataList, descriptionList);
+//        chartView.setShowNum(0);
+//
+//        chartView1.setCanClickAnimation(true);
+//        chartView1.setDatas(dataList, descriptionList);
+//        chartView1.setShowNum(0);
+//
+//        chartView2.setCanClickAnimation(true);
+//        chartView2.setDatas(dataList, descriptionList);
+//        chartView2.setShowNum(0);
 
 
         updateList();
@@ -343,35 +350,23 @@ public class UrineDetailActivity extends BaseActivity {
     }
 
     private void drawChart(List<MemberDataCal1ListBean> list, int type) {
-        dataList.clear();
-        descriptionList.clear();
-        if (list.size() > 0) {
-            for (int d = 0; d < list.size(); d++) {
-                dataList.add(Double.valueOf(list.get(d).getCNT()));
-                descriptionList.add(list.get(d).getTIME());
-            }
-//            System.out.println(dataList.size());
-            switch (type) {
-                case 1:
-                    chartView.setVisibility(View.VISIBLE);
-                    chartView.setCanClickAnimation(true);
-                    chartView.setDatas(dataList, descriptionList);
-                    chartView.setShowNum(dataList.size() + 1);
-                    break;
-                case 2:
-                    chartView1.setCanClickAnimation(true);
-                    chartView1.setDatas(dataList, descriptionList);
-                    chartView1.setShowNum(7);
-                    break;
-                case 3:
-                    chartView2.setCanClickAnimation(true);
-                    chartView2.setDatas(dataList, descriptionList);
-                    chartView2.setShowNum(7);
-                    break;
-            }
-
+        List<String> xList = null;
+        List<String> yList = null;
+        for(int l = 0;l<list.size();l++){
+            xList.add(list.get(l).getTIME());
+            yList.add(list.get(l).getCNT());
         }
 
+        String []xItem = (String[])xList.toArray();
+        String []yItem = (String[])yList.toArray();
+
+        lineChart.setXItem(xItem);
+        lineChart.setYItem(yItem);
+        HashMap<Integer,Integer> pointMap = new HashMap();
+        for(int i = 0;i<xItem.length;i++){
+            pointMap.put(i, (int) (Math.random()*5));
+        }
+        lineChart.setData(pointMap);
     }
 
     private String translateDate(String date) {
