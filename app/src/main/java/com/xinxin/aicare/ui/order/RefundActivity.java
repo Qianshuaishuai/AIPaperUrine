@@ -266,7 +266,7 @@ public class RefundActivity extends BaseActivity {
         params.addQueryStringParameter("HAS_RECEIVE", receiveType);
         params.addQueryStringParameter("REFUND_INFO", reason.getText().toString());
         params.addQueryStringParameter("REFUND_DETAIL", signTxt.getText().toString());
-        params.addQueryStringParameter("REFUND_PIC", null);
+//        params.addQueryStringParameter("REFUND_PIC", photoList);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

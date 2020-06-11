@@ -17,7 +17,7 @@ public class PayResultActivity extends BaseActivity {
 
     private String REALPAY = "0.0";
 
-    @ViewInject(R.id.price)
+    @ViewInject(R.id.real_price)
     private TextView price;
 
     @Event(R.id.layout_back)

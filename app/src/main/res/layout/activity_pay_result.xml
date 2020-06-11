@@ -57,7 +57,7 @@
                 android:textSize="18dip" />
 
             <TextView
-                android:id="@+id/price"
+                android:id="@+id/real_price"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="6dip"

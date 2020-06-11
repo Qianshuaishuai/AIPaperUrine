@@ -28,9 +28,9 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cardIcon, cardMessage, cardSetting, cardData;
-        ImageView mainTipIv,postureIv;
+        ImageView mainTipIv, postureIv;
 
-        TextView cardName, cardTime, cardMessageCount,postureTv;
+        TextView cardName, cardTime, cardMessageCount, postureTv;
         TextView mainTipTv, mainPercentTv, mainTempTv, mainBeamTv, mainSleepTv, mainSize, mainBrand;
 
         HalfCircleProgressView cpv;
@@ -110,6 +110,9 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         });
         holder.cardName.setText(mList.get(position).getNICKNAME());
         holder.cardMessageCount.setText(mList.get(position).getHAS_WAITREAD());
+        if (TextUtils.isEmpty(mList.get(position).getHAS_WAITREAD()) && Integer.parseInt(mList.get(position).getHAS_WAITREAD()) >= 100) {
+            holder.cardMessageCount.setText("99+");
+        }
 //        holder.mainSleepTv.setText(mList.get(position).getSLEEP_TIME());
         holder.mainSize.setText(mList.get(position).getDIAPER_SIZE());
 
@@ -206,10 +209,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             }
         });
 
-        if (TextUtils.isEmpty(mList.get(position).getSLEEP_POSTURE())){
+        if (TextUtils.isEmpty(mList.get(position).getSLEEP_POSTURE())) {
 
-        }else{
-            switch (mList.get(position).getSLEEP_POSTURE()){
+        } else {
+            switch (mList.get(position).getSLEEP_POSTURE()) {
                 case "1":
                     holder.postureIv.setImageResource(R.mipmap.img_baobaopashui_xiao);
                     holder.postureTv.setText("宝宝趴睡");

@@ -54,6 +54,12 @@ public class SureOrderActivity extends BaseActivity {
 
     @ViewInject(R.id.username)
     private TextView userName;
+
+    @Event(R.id.info_layout)
+    private void infoLayout(View view){
+        Intent intent = new Intent(context, AddressManagerActivity.class);
+        startActivity(intent);
+    }
 //
 //    @ViewInject(R.id.address)
 //    private TextView address;
@@ -112,6 +118,12 @@ public class SureOrderActivity extends BaseActivity {
 
     @Event(R.id.commit)
     private void commit(View view) {
+        if (preYuyueBean.getADDRESS() == null) {
+            T.s("你当前还没有设置默认收货地址");
+            Intent intent = new Intent(context, AddressManagerActivity.class);
+            startActivity(intent);
+            return;
+        }
         submitOrder(couponId);
     }
 
@@ -166,11 +178,6 @@ public class SureOrderActivity extends BaseActivity {
                     case 0:
                         preYuyueBean = response.getData();
                         updatePreView(preYuyueBean);
-                        if (preYuyueBean.getADDRESS() == null) {
-                            T.s("你当前还没有设置默认收获地址");
-                            Intent intent = new Intent(context, AddressManagerActivity.class);
-                            startActivity(intent);
-                        }
                         break;
                     default:
                         System.out.println("失败:" + result);
@@ -207,6 +214,8 @@ public class SureOrderActivity extends BaseActivity {
             detail.setText(bean.getADDRESS().getADDRESS());
             phone.setText(bean.getADDRESS().getCPHONE());
             userName.setText(bean.getADDRESS().getCNAME());
+        }else{
+            userName.setText("点击设置添加新收货地址");
         }
 //
 //

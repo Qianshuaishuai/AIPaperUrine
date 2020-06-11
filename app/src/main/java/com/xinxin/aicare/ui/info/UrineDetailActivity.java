@@ -350,23 +350,28 @@ public class UrineDetailActivity extends BaseActivity {
     }
 
     private void drawChart(List<MemberDataCal1ListBean> list, int type) {
-        List<String> xList = null;
-        List<String> yList = null;
-        for(int l = 0;l<list.size();l++){
-            xList.add(list.get(l).getTIME());
-            yList.add(list.get(l).getCNT());
-        }
-
-        String []xItem = (String[])xList.toArray();
-        String []yItem = (String[])yList.toArray();
-
-        lineChart.setXItem(xItem);
-        lineChart.setYItem(yItem);
-        HashMap<Integer,Integer> pointMap = new HashMap();
-        for(int i = 0;i<xItem.length;i++){
-            pointMap.put(i, (int) (Math.random()*5));
-        }
-        lineChart.setData(pointMap);
+//        if (list.size() > 0) {
+////            List<String> xList = new ArrayList<>();
+////            List<String> yList = new ArrayList<>();
+//            String[] xItem = new String[list.size()];
+//            String[] yItem = new String[list.size()];
+//            for (int l = 0; l < list.size(); l++) {
+//                xItem[l] = list.get(l).getTIME();
+//                yItem[l] = list.get(l).getCNT();
+//            }
+//
+//
+//            lineChart.setXItem(xItem);
+//            lineChart.setYItem(yItem);
+//            System.out.println(xItem);
+//            System.out.println(yItem);
+//            HashMap<Integer, Integer> pointMap = new HashMap();
+//            for (int i = 0; i < xItem.length; i++) {
+//                pointMap.put(i, (int) (Math.random() * 5));
+//            }
+//            lineChart.setData(pointMap);
+//            lineChart.setVisibility(View.VISIBLE);
+//        }
     }
 
     private String translateDate(String date) {
@@ -467,6 +472,7 @@ public class UrineDetailActivity extends BaseActivity {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println(ex);
                 T.s("请求出错，请检查网络");
             }
 
