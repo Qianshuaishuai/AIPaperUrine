@@ -7,6 +7,7 @@ import android.widget.Button;
 import android.widget.EditText;
 
 import com.xinxin.aicare.Constant;
+import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.base.BaseActivity;
 import com.xinxin.aicare.response.CommonResponse;
@@ -122,7 +123,7 @@ public class LoginThirdActivity extends BaseActivity {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_LOGINWX);
         params.addQueryStringParameter("PHONE", phone.getText().toString());
         params.addQueryStringParameter("CODE", code.getText().toString());
-        params.addQueryStringParameter("RID", Constant.RID);
+        params.addQueryStringParameter("RID", ((PaperUrineApplication) getApplication()).getRid());
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

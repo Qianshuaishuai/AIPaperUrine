@@ -90,11 +90,11 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.posLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (!TextUtils.isEmpty(mList.get(position).getSLEEP_POSTURE())) {
-                    context.goToPostureActivity(mList.get(position).getSLEEP_POSTURE());
-                } else {
-                    T.s("请先绑定设备!");
-                }
+//                if (!TextUtils.isEmpty(mList.get(position).getSLEEP_POSTURE())) {
+//                    context.goToPostureActivity(mList.get(position).getSLEEP_POSTURE());
+//                } else {
+//                    T.s("请先绑定设备!");
+//                }
             }
         });
 
@@ -102,6 +102,12 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
                 setRadius(DensityUtil.dip2px(66)).setCrop(true).build();
         x.image().bind(holder.cardIcon, mList.get(position).getHEADIMG(), options);
 //        System.out.println(mList.get(position).getHAS_WAITREAD());
+        holder.cardIcon.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.goToBabyInfoSetting(mList.get(position));
+            }
+        });
         holder.cardName.setText(mList.get(position).getNICKNAME());
         holder.cardMessageCount.setText(mList.get(position).getHAS_WAITREAD());
 //        holder.mainSleepTv.setText(mList.get(position).getSLEEP_TIME());
@@ -196,7 +202,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.cardLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.goToBabyInfoSetting(mList.get(position));
+//                context.goToBabyInfoSetting(mList.get(position));
             }
         });
 

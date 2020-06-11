@@ -314,7 +314,6 @@ public class HomeFragment extends BaseFragment {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 MemberListResponse response = gson.fromJson(result, MemberListResponse.class);
-                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         if (response.getData().size() == 0) {

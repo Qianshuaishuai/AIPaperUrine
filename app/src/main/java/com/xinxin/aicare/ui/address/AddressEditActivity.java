@@ -92,10 +92,35 @@ public class AddressEditActivity extends BaseActivity {
         }
 
         if (TextUtils.isEmpty(addressId)) {
-            String addressTip = bean.getPROVICE_CODE() + " " + bean.getCITY_CODE() + " " + bean.getDISTRICT_CODE();
+            String addressTip = "";
+            if (!TextUtils.isEmpty(bean.getPROVICE_CODE())){
+                addressTip = addressTip + bean.getPROVICE_CODE();
+            }
+            if (!TextUtils.isEmpty(bean.getCITY_CODE())){
+                addressTip = addressTip + bean.getCITY_CODE();
+            }
+            if (!TextUtils.isEmpty(bean.getDISTRICT_CODE())){
+                addressTip = addressTip + bean.getDISTRICT_CODE();
+            }
+            if (!TextUtils.isEmpty(detailAddress.getText().toString())){
+                addressTip = addressTip + detailAddress.getText().toString();
+            }
             AddAddress(name.getText().toString(), phone.getText().toString(), addressTip, bean.getPROVICE_CODE(), bean.getCITY_CODE(), bean.getDISTRICT_CODE(), detailAddress.getText().toString(), isDefault);
         } else {
-            EditAddress(bean.getADDRESS_ID(), name.getText().toString(), phone.getText().toString(), bean.getADDRESS(), bean.getPROVICE_CODE(), bean.getCITY_CODE(), bean.getDISTRICT_CODE(), detailAddress.getText().toString());
+            String addressTip = "";
+            if (!TextUtils.isEmpty(bean.getPROVICE_CODE())){
+                addressTip = addressTip + bean.getPROVICE_CODE();
+            }
+            if (!TextUtils.isEmpty(bean.getCITY_CODE())){
+                addressTip = addressTip + bean.getCITY_CODE();
+            }
+            if (!TextUtils.isEmpty(bean.getDISTRICT_CODE())){
+                addressTip = addressTip + bean.getDISTRICT_CODE();
+            }
+            if (!TextUtils.isEmpty(detailAddress.getText().toString())){
+                addressTip = addressTip + detailAddress.getText().toString();
+            }
+            EditAddress(bean.getADDRESS_ID(), name.getText().toString(), phone.getText().toString(), addressTip, bean.getPROVICE_CODE(), bean.getCITY_CODE(), bean.getDISTRICT_CODE(), detailAddress.getText().toString());
         }
     }
 
@@ -162,7 +187,7 @@ public class AddressEditActivity extends BaseActivity {
                             bean = response.getData();
                             name.setText(response.getData().getCNAME());
                             phone.setText(response.getData().getCPHONE());
-                            detailAddress.setText(response.getData().getADDRESS());
+                            detailAddress.setText(response.getData().getDETAIL());
                             isDefault = response.getData().getISDEFAULT();
                             cityTip.setText(bean.getPROVICE_CODE() + " " + bean.getCITY_CODE() + " " + bean.getDISTRICT_CODE());
                             layoutDefault.setVisibility(View.GONE);

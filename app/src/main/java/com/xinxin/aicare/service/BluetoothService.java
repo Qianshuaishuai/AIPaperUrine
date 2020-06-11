@@ -1,5 +1,6 @@
 package com.xinxin.aicare.service;
 
+import android.app.AlertDialog;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothGatt;
@@ -16,6 +17,11 @@ import android.os.Looper;
 import android.support.annotation.Nullable;
 import android.text.TextUtils;
 import android.util.Log;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.view.WindowManager;
+import android.widget.Button;
+import android.widget.TextView;
 
 
 import com.google.gson.Gson;
@@ -41,6 +47,7 @@ public class BluetoothService extends Service {
     private BluetoothLeScanner scanner;
     private ScanCallback mScanCallback;
     private ScanSettings mScanSettings;
+    private AlertDialog boothDialog;
 
     private BluetoothAdapter blueadapter;
     private String currentDeviceCode = "";
@@ -48,13 +55,14 @@ public class BluetoothService extends Service {
     private Timer timer;
     private TimerTask timerTask;
 
+    private boolean isStart = false;
+
     /**
      * 初始化蓝牙
      */
     @Override
     public void onCreate() {
         super.onCreate();
-        initBooth();
 
         timer = new Timer();
         timerTask = new TimerTask() {
@@ -63,9 +71,27 @@ public class BluetoothService extends Service {
                 if (!TextUtils.isEmpty(currentDeviceCode)) {
                     uploadDeviceData("", currentDeviceCode, "", "", "", "", "", "", "");
                 }
+
+                if (isStart == false) {
+                    if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+                        blueadapter = BluetoothAdapter.getDefaultAdapter();
+                        if(blueadapter !=null){
+                            scanner = blueadapter.getBluetoothLeScanner();
+                            if (scanner !=null){
+                                startScan();
+                                isStart = true;
+                            }
+
+                        }
+                    }
+
+                }
             }
         };
         timer.schedule(timerTask, 0, 1000);
+
+        initBoothDialog();
+        initBooth();
     }
 
     /**
@@ -94,43 +120,12 @@ public class BluetoothService extends Service {
             return;
         }
 
-//
-        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            scanner = blueadapter.getBluetoothLeScanner();
-            mScanSettings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_BALANCED).build();
-            mScanCallback = new ScanCallback() {
-                @Override
-                public void onScanResult(int callbackType, ScanResult result) {
-                    super.onScanResult(callbackType, result);
-                    System.out.println("onScanResult");
-                    if (result.getDevice().getName() != null && result.getDevice().getName().contains(Constant.DEVICE_NAME)) {
-                        byte[] datas = result.getScanRecord().getBytes();
-                        String DEVICE_ID = result.getDevice().getAddress().replace(":", "").toLowerCase();
-                        String X = String.valueOf(DataUtil.normalHexByteToInt(datas[11]));
-                        String Y = String.valueOf(DataUtil.normalHexByteToInt(datas[12]));
-                        String Z = String.valueOf(DataUtil.normalHexByteToInt(datas[13]));
-                        String D0 = String.valueOf(DataUtil.normalHexByteToInt(datas[14]));
-                        String AD = String.valueOf(DataUtil.concat(datas[15], datas[16]));
-                        String D4 = String.valueOf(DataUtil.normalHexByteToInt(datas[18]));
-                        String D5 = String.valueOf(DataUtil.normalHexByteToInt(datas[19]));
-                        String D6 = String.valueOf(DataUtil.normalHexByteToInt(datas[20]));
-                        currentDeviceCode = DEVICE_ID;
-                        uploadDeviceData(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
-                    }
-                }
-
-                @Override
-                public void onBatchScanResults(List<ScanResult> results) {
-                    super.onBatchScanResults(results);
-                }
-
-                @Override
-                public void onScanFailed(int errorCode) {
-                    super.onScanFailed(errorCode);
-                }
-            };
-            scanner.startScan(null, mScanSettings, mScanCallback);
+        if (!blueadapter.isEnabled()) {//如果没打开，则打开蓝牙
+            boothDialog.show();
+            return;
         }
+
+//        startScan();
     }
 
     private void uploadDeviceData(final String D0, final String DEVICE_ID, final String X, final String Y, final String Z, final String AD, final String D4, final String D5, final String D6) {
@@ -177,6 +172,86 @@ public class BluetoothService extends Service {
 
             }
         });
+    }
+
+    private void startScan() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            scanner = blueadapter.getBluetoothLeScanner();
+            mScanSettings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_BALANCED).build();
+            mScanCallback = new ScanCallback() {
+                @Override
+                public void onScanResult(int callbackType, ScanResult result) {
+                    super.onScanResult(callbackType, result);
+                    System.out.println("onScanResult");
+                    if (result.getDevice().getName() != null && result.getDevice().getName().contains(Constant.DEVICE_NAME)) {
+                        byte[] datas = result.getScanRecord().getBytes();
+                        String DEVICE_ID = result.getDevice().getAddress().replace(":", "").toLowerCase();
+                        String X = String.valueOf(DataUtil.normalHexByteToInt(datas[11]));
+                        String Y = String.valueOf(DataUtil.normalHexByteToInt(datas[12]));
+                        String Z = String.valueOf(DataUtil.normalHexByteToInt(datas[13]));
+                        String D0 = String.valueOf(DataUtil.normalHexByteToInt(datas[14]));
+                        String AD = String.valueOf(DataUtil.concat(datas[15], datas[16]));
+                        String D4 = String.valueOf(DataUtil.normalHexByteToInt(datas[18]));
+                        String D5 = String.valueOf(DataUtil.normalHexByteToInt(datas[19]));
+                        String D6 = String.valueOf(DataUtil.normalHexByteToInt(datas[20]));
+                        currentDeviceCode = DEVICE_ID;
+                        uploadDeviceData(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
+                    }
+                }
+
+                @Override
+                public void onBatchScanResults(List<ScanResult> results) {
+                    super.onBatchScanResults(results);
+                }
+
+                @Override
+                public void onScanFailed(int errorCode) {
+                    super.onScanFailed(errorCode);
+                }
+            };
+            scanner.startScan(null, mScanSettings, mScanCallback);
+        }
+    }
+
+    private void initBoothDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // 创建一个view，并且将布局加入view中
+        View view = LayoutInflater.from(this).inflate(
+                R.layout.dialog_pay_tip, null, false);
+        // 将view添加到builder中
+        builder.setView(view);
+        // 创建dialog
+        boothDialog = builder.create();
+        boothDialog.getWindow().setType((WindowManager.LayoutParams.TYPE_SYSTEM_ALERT));
+        // 初始化控件，注意这里是通过view.findViewById
+        Button cancelButton = (Button) view.findViewById(R.id.cancel);
+        Button sureButton = (Button) view.findViewById(R.id.sure);
+
+        TextView title = (TextView) view.findViewById(R.id.title);
+        title.setText("确定使用蓝牙？");
+
+        cancelButton.setOnClickListener(new android.view.View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                boothDialog.cancel();
+            }
+        });
+
+        sureButton.setOnClickListener(new android.view.View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                boothDialog.cancel();
+                blueadapter.enable();
+            }
+        });
+
+        boothDialog.setCancelable(false);
+//        tipDialog.show();
     }
 
 }

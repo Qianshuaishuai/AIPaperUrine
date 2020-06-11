@@ -143,7 +143,7 @@ public class LoginActivity extends BaseActivity {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_LOGIN);
         params.addQueryStringParameter("PHONE", phone.getText().toString());
         params.addQueryStringParameter("CODE", code.getText().toString());
-        params.addQueryStringParameter("RID", Constant.RID);
+        params.addQueryStringParameter("RID", ((PaperUrineApplication) getApplication()).getRid());
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

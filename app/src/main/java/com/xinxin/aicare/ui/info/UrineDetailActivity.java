@@ -15,6 +15,7 @@ import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.adapter.UrineRecordAdapter;
 import com.xinxin.aicare.base.BaseActivity;
+import com.xinxin.aicare.bean.MemberDataCal1ListBean;
 import com.xinxin.aicare.bean.MemberDataCal4Bean;
 import com.xinxin.aicare.bean.UserBean;
 import com.xinxin.aicare.response.MemberDataCal1Response;
@@ -142,32 +143,19 @@ public class UrineDetailActivity extends BaseActivity {
         MEMBER_ID = intent.getStringExtra("memberId");
         dataList = new ArrayList<>();
         descriptionList = new ArrayList<>();
-        dataList.add(10.0);
-        dataList.add(20.0);
-        dataList.add(30.0);
-        dataList.add(20.0);
-        dataList.add(40.0);
-        dataList.add(50.0);
 
-        descriptionList.add("4-11");
-        descriptionList.add("4-12");
-        descriptionList.add("4-13");
-        descriptionList.add("4-14");
-        descriptionList.add("4-15");
-        descriptionList.add("4-16");
-
-        //点击动画开启
         chartView.setCanClickAnimation(true);
-        chartView.setDatas(dataList,descriptionList);
-        chartView.setShowNum(7);
+        chartView.setDatas(dataList, descriptionList);
+        chartView.setShowNum(0);
 
         chartView1.setCanClickAnimation(true);
-        chartView1.setDatas(dataList,descriptionList);
-        chartView1.setShowNum(7);
+        chartView1.setDatas(dataList, descriptionList);
+        chartView1.setShowNum(0);
 
         chartView2.setCanClickAnimation(true);
-        chartView2.setDatas(dataList,descriptionList);
-        chartView2.setShowNum(7);
+        chartView2.setDatas(dataList, descriptionList);
+        chartView2.setShowNum(0);
+
 
         updateList();
     }
@@ -354,7 +342,62 @@ public class UrineDetailActivity extends BaseActivity {
         rvDetail.setAdapter(adapter);
     }
 
+    private void drawChart(List<MemberDataCal1ListBean> list, int type) {
+        dataList.clear();
+        descriptionList.clear();
+        if (list.size() > 0) {
+            for (int d = 0; d < list.size(); d++) {
+                dataList.add(Double.valueOf(list.get(d).getCNT()));
+                descriptionList.add(list.get(d).getTIME());
+            }
+//            System.out.println(dataList.size());
+            switch (type) {
+                case 1:
+                    chartView.setVisibility(View.VISIBLE);
+                    chartView.setCanClickAnimation(true);
+                    chartView.setDatas(dataList, descriptionList);
+                    chartView.setShowNum(dataList.size() + 1);
+                    break;
+                case 2:
+                    chartView1.setCanClickAnimation(true);
+                    chartView1.setDatas(dataList, descriptionList);
+                    chartView1.setShowNum(7);
+                    break;
+                case 3:
+                    chartView2.setCanClickAnimation(true);
+                    chartView2.setDatas(dataList, descriptionList);
+                    chartView2.setShowNum(7);
+                    break;
+            }
+
+        }
+
+    }
+
+    private String translateDate(String date) {
+        String[] splits = date.split("-");
+        if (splits.length > 2) {
+            String year = splits[0];
+            String month = splits[1];
+            String day = splits[2];
+            String newDate = "";
+            if (month.length() == 1) {
+                month = "0" + month;
+            }
+            if (day.length() == 1) {
+                day = "0" + day;
+            }
+
+            newDate = year + "-" + month + "-" + day;
+            return newDate;
+        }
+
+        return date;
+    }
+
     private void updateList() {
+        START_DATE = translateDate(START_DATE);
+        END_DATE = translateDate(END_DATE);
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_MEMBERDATACAL);
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
         params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
@@ -375,7 +418,7 @@ public class UrineDetailActivity extends BaseActivity {
                                 dataDetail1.setText("共使用尿布" + response1.getData().getDIAPER_CNT() + "片，当日系统用户平均使用尿片" + response1.getData().getAVG_DIAPER_CNT() + "片");
                                 dataDetailTip1.setText(response1.getData().getCOMMENT());
                                 dataDetailTip2.setText(response1.getData().getVIEW());
-
+                                drawChart(response1.getData().getDATALIST(), 1);
                                 break;
                             default:
                                 T.s("获取用片统计失败");

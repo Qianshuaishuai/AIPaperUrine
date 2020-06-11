@@ -128,80 +128,70 @@
         </RadioGroup>
 
         <!--内容选择-->
-        <RadioGroup
-            android:id="@+id/group_type"
+        <HorizontalScrollView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:layout_marginLeft="15dip"
-            android:layout_marginTop="20dip"
-            android:layout_marginRight="15dip"
-            android:layout_marginBottom="10dip"
-            android:orientation="horizontal">
+            android:layout_height="wrap_content">
 
-            <RadioButton
-                android:id="@+id/bt1_type"
-                android:layout_width="wrap_content"
+            <RadioGroup
+                android:id="@+id/group_type"
+                android:layout_width="match_parent"
                 android:layout_height="wrap_content"
-                android:background="@drawable/select_urine_detail_type"
-                android:button="@null"
-                android:checked="true"
-                android:padding="10dip"
-                android:text="用片统计"
-                android:textColor="@color/select_urine_detail_type"
-                android:textSize="14dip" />
+                android:layout_marginLeft="15dip"
+                android:layout_marginTop="20dip"
+                android:layout_marginRight="15dip"
+                android:layout_marginBottom="10dip"
+                android:orientation="horizontal">
 
-            <View
-                android:layout_width="0dip"
-                android:layout_height="1dip"
-                android:layout_weight="1"
-                android:background="@null"></View>
+                <RadioButton
+                    android:id="@+id/bt1_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:background="@drawable/select_urine_detail_type"
+                    android:button="@null"
+                    android:checked="true"
+                    android:padding="10dip"
+                    android:text="用片统计"
+                    android:textColor="@color/select_urine_detail_type"
+                    android:textSize="14dip" />
 
-            <RadioButton
-                android:id="@+id/bt2_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/select_urine_detail_type"
-                android:button="@null"
-                android:padding="10dip"
-                android:text="尿量统计"
-                android:textColor="@color/select_urine_detail_type"
-                android:textSize="14dip" />
+                <RadioButton
+                    android:id="@+id/bt2_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dip"
+                    android:background="@drawable/select_urine_detail_type"
+                    android:button="@null"
+                    android:padding="10dip"
+                    android:text="尿量统计"
+                    android:textColor="@color/select_urine_detail_type"
+                    android:textSize="14dip" />
 
-            <View
-                android:layout_width="0dip"
-                android:layout_height="1dip"
-                android:layout_weight="1"
-                android:background="@null"></View>
+                <RadioButton
+                    android:id="@+id/bt3_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dip"
+                    android:background="@drawable/select_urine_detail_type"
+                    android:button="@null"
+                    android:padding="10dip"
+                    android:text="强提醒次数"
+                    android:textColor="@color/select_urine_detail_type"
+                    android:textSize="14dip" />
 
-            <RadioButton
-                android:id="@+id/bt3_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/select_urine_detail_type"
-                android:button="@null"
-                android:padding="10dip"
-                android:text="强提醒次数"
-                android:textColor="@color/select_urine_detail_type"
-                android:textSize="14dip" />
+                <RadioButton
+                    android:id="@+id/bt4_type"
+                    android:layout_width="wrap_content"
+                    android:layout_height="wrap_content"
+                    android:layout_marginLeft="14dip"
+                    android:background="@drawable/select_urine_detail_type"
+                    android:button="@null"
+                    android:padding="10dip"
+                    android:text="更换记录"
+                    android:textColor="@color/select_urine_detail_type"
+                    android:textSize="14dip" />
 
-            <View
-                android:layout_width="0dip"
-                android:layout_height="1dip"
-                android:layout_weight="1"
-                android:background="@null"></View>
-
-            <RadioButton
-                android:id="@+id/bt4_type"
-                android:layout_width="wrap_content"
-                android:layout_height="wrap_content"
-                android:background="@drawable/select_urine_detail_type"
-                android:button="@null"
-                android:padding="10dip"
-                android:text="更换记录"
-                android:textColor="@color/select_urine_detail_type"
-                android:textSize="14dip" />
-
-        </RadioGroup>
+            </RadioGroup>
+        </HorizontalScrollView>
     </LinearLayout>
 
     <!--用片统计start-->
@@ -329,6 +319,7 @@
                     android:layout_height="300dp"
                     android:layout_marginTop="10dip"
                     android:layout_marginBottom="20dip"
+                    android:visibility="gone"
                     app:labelTextSize="10dp"
                     app:title=""
                     app:titleTextSize="20dp" />
@@ -464,6 +455,7 @@
                     android:layout_height="300dp"
                     android:layout_marginTop="10dip"
                     android:layout_marginBottom="20dip"
+                    android:visibility="gone"
                     app:labelTextSize="10dp"
                     app:title=""
                     app:titleTextSize="20dp" />
@@ -600,6 +592,7 @@
                     android:layout_height="300dp"
                     android:layout_marginTop="10dip"
                     android:layout_marginBottom="20dip"
+                    android:visibility="gone"
                     app:labelTextSize="10dp"
                     app:title=""
                     app:titleTextSize="20dp" />

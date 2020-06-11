@@ -18,6 +18,11 @@ import com.google.gson.Gson;
 
 import org.xutils.x;
 
+import cn.jpush.android.api.JPushInterface;
+import cn.jpush.android.ups.JPushUPSManager;
+import cn.jpush.android.ups.TokenResult;
+import cn.jpush.android.ups.UPSRegisterCallBack;
+
 public class PaperUrineApplication extends Application {
     private String TAG = "BlackFruitVipApplication";
     private SharedPreferences sp;
@@ -41,6 +46,19 @@ public class PaperUrineApplication extends Application {
             Intent intent = new Intent(this, BluetoothService.class);
             bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
         }
+
+//        JPushInterface.setDebugMode(true);//设置调试模式
+//        JPushInterface.init(getApplicationContext());//init初始化SDK
+        JPushUPSManager.registerToken(getApplicationContext(), "741c8ea2604a019c52227f02", "", "", new UPSRegisterCallBack() {
+            @Override
+            public void onResult(TokenResult tokenResult) {
+
+            }
+        });
+
+        //获取RegistrationID唯一标识
+        String rid = JPushInterface.getRegistrationID(getApplicationContext());
+        saveRid(rid);
     }
 
     private ServiceConnection mConnection = new ServiceConnection() {
@@ -81,6 +99,16 @@ public class PaperUrineApplication extends Application {
     public UserBean getUserInfo() {
         return gson.fromJson(sp.getString("info", ""), UserBean.class);
     }
+
+    public void saveRid(String rid) {
+        editor.putString("rid", rid);
+        editor.commit();
+    }
+
+    public String getRid() {
+        return sp.getString("rid", "");
+    }
+
 
     public void savePersonInfo(PersonBean bean) {
         String beanString = gson.toJson(bean);

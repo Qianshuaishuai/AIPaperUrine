@@ -11,6 +11,7 @@ import android.widget.EditText;
 import android.widget.TextView;
 
 import com.xinxin.aicare.Constant;
+import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.base.BaseActivity;
 import com.xinxin.aicare.response.CommonResponse;
@@ -100,7 +101,7 @@ public class RegisterActivity extends BaseActivity {
         params.addQueryStringParameter("PHONE", phone.getText().toString());
         params.addQueryStringParameter("CODE", code.getText().toString());
         params.addQueryStringParameter("PSW", password.getText().toString());
-        params.addQueryStringParameter("RID", Constant.RID);
+        params.addQueryStringParameter("RID", ((PaperUrineApplication) getApplication()).getRid());
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
