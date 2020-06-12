@@ -75,9 +75,9 @@ public class BluetoothService extends Service {
                 if (isStart == false) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         blueadapter = BluetoothAdapter.getDefaultAdapter();
-                        if(blueadapter !=null){
+                        if (blueadapter != null) {
                             scanner = blueadapter.getBluetoothLeScanner();
-                            if (scanner !=null){
+                            if (scanner != null) {
                                 startScan();
                                 isStart = true;
                             }
@@ -121,7 +121,11 @@ public class BluetoothService extends Service {
         }
 
         if (!blueadapter.isEnabled()) {//如果没打开，则打开蓝牙
-            boothDialog.show();
+            try {
+                boothDialog.show();
+            } catch (Exception e) {
+                blueadapter.enable();
+            }
             return;
         }
 

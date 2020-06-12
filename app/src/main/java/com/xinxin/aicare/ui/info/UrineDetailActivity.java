@@ -2,9 +2,11 @@ package com.xinxin.aicare.ui.info;
 
 import android.app.DatePickerDialog;
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.View;
 import android.widget.LinearLayout;
 import android.widget.RadioGroup;
@@ -18,6 +20,8 @@ import com.xinxin.aicare.R;
 import com.xinxin.aicare.adapter.UrineRecordAdapter;
 import com.xinxin.aicare.base.BaseActivity;
 import com.xinxin.aicare.bean.MemberDataCal1ListBean;
+import com.xinxin.aicare.bean.MemberDataCal2ListBean;
+import com.xinxin.aicare.bean.MemberDataCal3ListBean;
 import com.xinxin.aicare.bean.MemberDataCal4Bean;
 import com.xinxin.aicare.bean.UserBean;
 import com.xinxin.aicare.response.MemberDataCal1Response;
@@ -36,10 +40,15 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 import java.util.HashMap;
 import java.util.List;
+
+import im.dacer.androidcharts.LineView;
+import lecho.lib.hellocharts.model.PointValue;
 
 @ContentView(R.layout.activity_urine_detail)
 public class UrineDetailActivity extends BaseActivity {
@@ -122,8 +131,14 @@ public class UrineDetailActivity extends BaseActivity {
     @ViewInject(R.id.layout_detail4)
     private LinearLayout detail4Layout;
 
-    @ViewInject(R.id.simpleLineChart)
-    private SimpleLineChart lineChart;
+    @ViewInject(R.id.line_view)
+    private LineView lineChart;
+
+    @ViewInject(R.id.line_view2)
+    private LineView lineChart2;
+
+    @ViewInject(R.id.line_view3)
+    private LineView lineChart3;
 
     @Event(R.id.layout_back)
     private void back(View view) {
@@ -347,34 +362,248 @@ public class UrineDetailActivity extends BaseActivity {
         });
         rvDetail.setLayoutManager(manager);
         rvDetail.setAdapter(adapter);
+
     }
 
-    private void drawChart(List<MemberDataCal1ListBean> list, int type) {
-//        if (list.size() > 0) {
-////            List<String> xList = new ArrayList<>();
-////            List<String> yList = new ArrayList<>();
-//            String[] xItem = new String[list.size()];
-//            String[] yItem = new String[list.size()];
-//            for (int l = 0; l < list.size(); l++) {
-//                xItem[l] = list.get(l).getTIME();
-//                yItem[l] = list.get(l).getCNT();
-//            }
-//
-//
-//            lineChart.setXItem(xItem);
-//            lineChart.setYItem(yItem);
-//            System.out.println(xItem);
-//            System.out.println(yItem);
-//            HashMap<Integer, Integer> pointMap = new HashMap();
-//            for (int i = 0; i < xItem.length; i++) {
-//                pointMap.put(i, (int) (Math.random() * 5));
-//            }
-//            lineChart.setData(pointMap);
-//            lineChart.setVisibility(View.VISIBLE);
-//        }
+    private void drawChart1(List<MemberDataCal1ListBean> list) {
+        ArrayList<String> xList = new ArrayList<>();
+        ArrayList<ArrayList<Float>> yList = new ArrayList<>();
+
+        ArrayList<Float> smallYList = new ArrayList<>();
+        System.out.println(dateType);
+        switch (dateType) {
+            case 1:
+                for (int i = 0; i < 12; i++) {
+                    xList.add((i * 2) + "点");
+                    smallYList.add((float) 0.0);
+                }
+                break;
+            case 2:
+                xList = getDateList(7);
+                for (int i = 0; i < xList.size(); i++) {
+                    smallYList.add((float) 0.0);
+                }
+                break;
+            case 3:
+                xList = getDateList(15);
+                for (int i = 0; i < xList.size(); i++) {
+                    smallYList.add((float) 0.0);
+                }
+                break;
+            case 4:
+                xList = getDateList(30);
+                for (int i = 0; i < xList.size(); i++) {
+                    smallYList.add((float) 0.0);
+                }
+                break;
+        }
+
+        yList.add(smallYList);
+
+        if (list.size() > 0) {
+            for (int l = 0; l < list.size(); l++) {
+                for (int x = 0; x < xList.size(); x++) {
+                    if (xList.get(x).equals(list.get(l).getTIME())) {
+                        smallYList.set(x, Float.valueOf(list.get(l).getCNT()));
+                    }
+                }
+            }
+
+
+        }
+
+        lineChart.setDrawDotLine(false); //optional
+        lineChart.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
+        lineChart.setBottomTextList(xList);
+        lineChart.setColorArray(new int[]{Color.RED, Color.GREEN, Color.GRAY, Color.CYAN});
+        lineChart.setFloatDataList(yList); //or lineView.setFloatDataList(floatDataLists)
+
+
+    }
+
+    private void drawChart2(List<MemberDataCal2ListBean> list) {
+        ArrayList<String> xList = new ArrayList<>();
+        ArrayList<ArrayList<Float>> yList = new ArrayList<>();
+
+        ArrayList<Float> smallYList = new ArrayList<>();
+        System.out.println(dateType);
+        switch (dateType) {
+            case 1:
+                for (int i = 0; i < 12; i++) {
+                    xList.add((i * 2) + "点");
+                    smallYList.add((float) 0.0);
+                }
+                break;
+            case 2:
+                xList = getDateList(7);
+                for (int i = 0; i < xList.size(); i++) {
+                    smallYList.add((float) 0.0);
+                }
+                break;
+            case 3:
+                xList = getDateList(15);
+                for (int i = 0; i < xList.size(); i++) {
+                    smallYList.add((float) 0.0);
+                }
+                break;
+            case 4:
+                xList = getDateList(30);
+                for (int i = 0; i < xList.size(); i++) {
+                    smallYList.add((float) 0.0);
+                }
+                break;
+        }
+
+        yList.add(smallYList);
+
+        if (list.size() > 0) {
+            for (int l = 0; l < list.size(); l++) {
+                for (int x = 0; x < xList.size(); x++) {
+                    if (xList.get(x).equals(list.get(l).getTIME())) {
+                        smallYList.set(x, Float.valueOf(list.get(l).getVOLUME()));
+                    }
+                }
+            }
+
+
+        }
+
+        lineChart2.setDrawDotLine(false); //optional
+        lineChart2.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
+        lineChart2.setBottomTextList(xList);
+        lineChart2.setColorArray(new int[]{Color.RED, Color.GREEN, Color.GRAY, Color.CYAN});
+        lineChart2.setFloatDataList(yList); //or lineView.setFloatDataList(floatDataLists)
+
+
+    }
+
+    private void drawChart3(List<MemberDataCal3ListBean> list) {
+        ArrayList<String> xList = new ArrayList<>();
+        ArrayList<ArrayList<Float>> yList = new ArrayList<>();
+
+        ArrayList<Float> smallYList = new ArrayList<>();
+        switch (dateType) {
+            case 1:
+                for (int i = 0; i < 12; i++) {
+                    xList.add((i * 2) + "点");
+                    smallYList.add((float) 0.0);
+                }
+                break;
+            case 2:
+                xList = getDateList(7);
+                for (int i = 0; i < xList.size(); i++) {
+                    smallYList.add((float) 0.0);
+                }
+                break;
+            case 3:
+                xList = getDateList(15);
+                for (int i = 0; i < xList.size(); i++) {
+                    smallYList.add((float) 0.0);
+                }
+                break;
+            case 4:
+                xList = getDateList(30);
+                for (int i = 0; i < xList.size(); i++) {
+                    smallYList.add((float) 0.0);
+                }
+                break;
+        }
+
+        yList.add(smallYList);
+
+        if (list.size() > 0) {
+            for (int l = 0; l < list.size(); l++) {
+                for (int x = 0; x < xList.size(); x++) {
+                    if (xList.get(x).equals(list.get(l).getTIME())) {
+                        smallYList.set(x, Float.valueOf(list.get(l).getCNT()));
+                    }
+                }
+            }
+
+
+        }
+
+        lineChart3.setDrawDotLine(false); //optional
+        lineChart3.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
+        lineChart3.setBottomTextList(xList);
+        lineChart3.setColorArray(new int[]{Color.RED, Color.GREEN, Color.GRAY, Color.CYAN});
+        lineChart3.setFloatDataList(yList); //or lineView.setFloatDataList(floatDataLists)
+
+
     }
 
     private String translateDate(String date) {
+        String[] splits = date.split("-");
+        if (splits.length > 2) {
+            String year = splits[0];
+            String month = splits[1];
+            String day = splits[2];
+            String newDate = "";
+            if (month.length() == 1) {
+                month = "0" + month;
+            }
+            if (day.length() == 1) {
+                day = "0" + day;
+            }
+
+            newDate = year + "-" + month + "-" + day;
+            return newDate;
+        }
+
+        return date;
+    }
+
+    private ArrayList<String> getDateList(int intervals) {
+        ArrayList<String> pastDaysList = new ArrayList<>();
+        ArrayList<String> fetureDaysList = new ArrayList<>();
+        for (int i = intervals - 1; i >= 0; i--) {
+            pastDaysList.add(getPastDate(i));
+            fetureDaysList.add(getFetureDate(i));
+        }
+        return pastDaysList;
+    }
+
+    /**
+     * 获取过去第几天的日期
+     *
+     * @param past
+     * @return
+     */
+    private String getPastDate(int past) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, currentYear);
+        //设置月份，因为月份从0开始，所以用month - 1
+        calendar.set(Calendar.MONTH, currentMonth);
+        calendar.set(Calendar.DAY_OF_MONTH, currentDay);
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) - past);
+        Date today = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String result = format.format(today);
+        Log.e(null, result);
+        return result;
+    }
+
+    /**
+     * 获取未来 第 past 天的日期
+     *
+     * @param past
+     * @return
+     */
+    private String getFetureDate(int past) {
+        Calendar calendar = Calendar.getInstance();
+        calendar.set(Calendar.YEAR, currentYear);
+        //设置月份，因为月份从0开始，所以用month - 1
+        calendar.set(Calendar.MONTH, currentMonth);
+        calendar.set(Calendar.DAY_OF_MONTH, currentDay);
+        calendar.set(Calendar.DAY_OF_MONTH, calendar.get(Calendar.DAY_OF_MONTH) + past);
+        Date today = calendar.getTime();
+        SimpleDateFormat format = new SimpleDateFormat("yyyy-MM-dd");
+        String result = format.format(today);
+        Log.e(null, result);
+        return result;
+    }
+
+    private String translateNextDate(String date, int i) {
         String[] splits = date.split("-");
         if (splits.length > 2) {
             String year = splits[0];
@@ -418,7 +647,7 @@ public class UrineDetailActivity extends BaseActivity {
                                 dataDetail1.setText("共使用尿布" + response1.getData().getDIAPER_CNT() + "片，当日系统用户平均使用尿片" + response1.getData().getAVG_DIAPER_CNT() + "片");
                                 dataDetailTip1.setText(response1.getData().getCOMMENT());
                                 dataDetailTip2.setText(response1.getData().getVIEW());
-                                drawChart(response1.getData().getDATALIST(), 1);
+                                drawChart1(response1.getData().getDATALIST());
                                 break;
                             default:
                                 T.s("获取用片统计失败");
@@ -432,6 +661,7 @@ public class UrineDetailActivity extends BaseActivity {
                                 dataDetail2.setText("宝宝平均总尿量" + response2.getData().getRECOMMEND_VOLUME());
                                 dataDetail2Tip1.setText(response2.getData().getCOMMENT());
                                 dataDetail2Tip2.setText(response2.getData().getVIEW());
+                                drawChart2(response2.getData().getDATALIST());
                                 break;
                             default:
                                 T.s("获取尿量统计失败");
@@ -445,6 +675,7 @@ public class UrineDetailActivity extends BaseActivity {
                                 dataDetail3.setText("没有参考值");
                                 dataDetail3Tip1.setText(response3.getData().getCOMMENT());
                                 dataDetail3Tip2.setText(response3.getData().getVIEW());
+                                drawChart3(response3.getData().getDATALIST());
                                 break;
                             default:
                                 T.s("获取强提醒次数失败");

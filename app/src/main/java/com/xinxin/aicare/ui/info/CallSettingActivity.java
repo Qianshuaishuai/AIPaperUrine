@@ -62,6 +62,24 @@ public class CallSettingActivity extends BaseActivity {
     @ViewInject(R.id.tibei_sb)
     private SeekBar tibeiSb;
 
+    @ViewInject(R.id.recommend_tibei)
+    private TextView recommendTibei;
+
+    @ViewInject(R.id.tibei_low)
+    private TextView lowTibei;
+
+    @ViewInject(R.id.tibei_high)
+    private TextView highTibei;
+
+    @ViewInject(R.id.recommend_zhixi)
+    private TextView recommendZhixi;
+
+    @ViewInject(R.id.low_zhixi)
+    private TextView lowZhixi;
+
+    @ViewInject(R.id.high_zhixi)
+    private TextView highZhixi;
+
     @ViewInject(R.id.niaoxing_tv)
     private TextView niaoxingTv;
 
@@ -105,7 +123,7 @@ public class CallSettingActivity extends BaseActivity {
 
     @Event(R.id.layout_connect)
     private void connect(View view) {
-        if (TextUtils.isEmpty(deviceId)){
+        if (TextUtils.isEmpty(deviceId)) {
             T.s("当前宝宝并未绑定设备");
             return;
         }
@@ -362,6 +380,16 @@ public class CallSettingActivity extends BaseActivity {
         nsRem.setText("专家推荐值：" + bean.getDEFAULT().getNS_RECOMMEND() + "%");
         nsTv.setText(bean.getMYPARAM().getNS_F() + "%");
 
+        lowTibei.setText(bean.getDEFAULT().getTB_LOW() + "℃");
+        highTibei.setText(bean.getDEFAULT().getTB_HIGH() + "℃");
+        recommendTibei.setText("专家推荐值：" + bean.getDEFAULT().getTB_RECOMMEND() + "℃");
+        tibeiTv.setText(bean.getDEFAULT().getTB_RECOMMEND() + "℃");
+
+        lowZhixi.setText(bean.getDEFAULT().getFZX_LOW() + "℃");
+        highZhixi.setText(bean.getDEFAULT().getFZX_HIGH() + "℃");
+        recommendZhixi.setText("专家推荐值：" + bean.getDEFAULT().getFZX_RECOMMEND() + "℃");
+        zhixiTv.setText(bean.getDEFAULT().getFZX_RECOMMEND() + "℃");
+
         if (!TextUtils.isEmpty(bean.getMYPARAM().getNS_F())) {
             int value = Integer.parseInt(bean.getMYPARAM().getNS_F()) - Integer.parseInt(bean.getDEFAULT().getNS_LOW());
             int offsetMax = Integer.parseInt(bean.getDEFAULT().getNS_HIGH()) - Integer.parseInt(bean.getDEFAULT().getNS_LOW());
@@ -402,8 +430,9 @@ public class CallSettingActivity extends BaseActivity {
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
 //                System.out.println(i);
                 int offsetMax = 7;
-                tibeiTv.setText((20 + offsetMax * i / 100) + "℃");
-                bean.getMYPARAM().setTB_TEMPERATURE(String.valueOf((20 + offsetMax * i / 100)));
+                double offsetLimit = offsetMax * i / 100.0;
+                tibeiTv.setText((20 + (int) Math.ceil(offsetLimit)) + "℃");
+                bean.getMYPARAM().setTB_TEMPERATURE(String.valueOf((20 + (int) Math.ceil(offsetLimit))));
             }
 
             @Override
@@ -420,7 +449,6 @@ public class CallSettingActivity extends BaseActivity {
         niaoxingSb.setOnSeekBarChangeListener(new SeekBar.OnSeekBarChangeListener() {
             @Override
             public void onProgressChanged(SeekBar seekBar, int i, boolean b) {
-//                System.out.println(i);
                 int offsetMax = 100;
                 niaoxingTv.setText((0 + offsetMax * i / 100) + "%");
                 bean.getMYPARAM().setNS_F(String.valueOf((0 + offsetMax * i / 100)));

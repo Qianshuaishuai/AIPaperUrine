@@ -324,11 +324,12 @@
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="175dip"
-                            android:text="24℃"
+                            android:text="0℃"
                             android:textColor="#1E1E1E"
                             android:textSize="14dip" />
 
                         <TextView
+                            android:id="@+id/recommend_tibei"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="134dip"
@@ -364,6 +365,7 @@
                             android:layout_marginTop="6dip">
 
                             <TextView
+                                android:id="@+id/tibei_low"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="20℃"
@@ -371,6 +373,7 @@
                                 android:textSize="14dip" />
 
                             <TextView
+                                android:id="@+id/tibei_high"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"
@@ -458,11 +461,12 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="26dip"
-                            android:text="35℃"
+                            android:text="0℃"
                             android:textColor="#1E1E1E"
                             android:textSize="14dip" />
 
                         <TextView
+                            android:id="@+id/recommend_zhixi"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
                             android:layout_marginLeft="110dip"
@@ -488,7 +492,7 @@
                             android:id="@+id/zhixi_view"
                             android:layout_width="1dip"
                             android:layout_height="23.5dip"
-                            android:layout_marginLeft="165dip"
+                            android:layout_marginLeft="172dip"
                             android:layout_marginTop="54dip"
                             android:background="#CFCFCF"></View>
 
@@ -499,6 +503,7 @@
                             android:layout_marginTop="6dip">
 
                             <TextView
+                                android:id="@+id/low_zhixi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:text="28℃"
@@ -506,6 +511,7 @@
                                 android:textSize="14dip" />
 
                             <TextView
+                                android:id="@+id/high_zhixi"
                                 android:layout_width="wrap_content"
                                 android:layout_height="wrap_content"
                                 android:layout_alignParentRight="true"

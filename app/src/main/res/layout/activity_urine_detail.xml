@@ -323,6 +323,27 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dip"
+                    android:layout_marginLeft="14dip"
+                    android:layout_marginTop="14dip"
+                    android:layout_marginRight="14dip"
+                    android:background="@drawable/shape_dialog_bg"
+                    android:paddingLeft="12dip"
+                    android:paddingRight="12dip"
+                    android:scrollbars="none">
+
+                    <view
+                        android:id="@+id/line_view1"
+                        class="im.dacer.androidcharts.LineView"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_marginLeft="12dip"
+                        android:layout_marginRight="12dip"
+                        android:layout_marginBottom="24dip" />
+                </HorizontalScrollView>
+
                 <com.lixs.charts.LineChartView
                     android:id="@+id/lineView"
                     android:layout_width="match_parent"
@@ -334,13 +355,6 @@
                     app:title=""
                     app:titleTextSize="20dp" />
 
-                <com.xinxin.aicare.view.SimpleLineChart
-                    android:id="@+id/simpleLineChart"
-                    android:layout_width="match_parent"
-                    android:layout_height="300dp"
-                    android:layout_marginTop="10dip"
-                    android:layout_marginBottom="20dip"
-                    android:visibility="gone" />
             </LinearLayout>
         </ScrollView>
     </LinearLayout>
@@ -467,6 +481,27 @@
                     </LinearLayout>
                 </LinearLayout>
 
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dip"
+                    android:layout_marginLeft="14dip"
+                    android:layout_marginTop="14dip"
+                    android:layout_marginRight="14dip"
+                    android:background="@drawable/shape_dialog_bg"
+                    android:paddingLeft="12dip"
+                    android:paddingRight="12dip"
+                    android:scrollbars="none">
+
+                    <view
+                        android:id="@+id/line_view2"
+                        class="im.dacer.androidcharts.LineView"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_marginLeft="12dip"
+                        android:layout_marginRight="12dip"
+                        android:layout_marginBottom="24dip" />
+                </HorizontalScrollView>
+
                 <com.lixs.charts.LineChartView
                     android:id="@+id/lineView1"
                     android:layout_width="match_parent"
@@ -500,6 +535,27 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:orientation="vertical">
+
+                <HorizontalScrollView
+                    android:layout_width="match_parent"
+                    android:layout_height="300dip"
+                    android:layout_marginLeft="14dip"
+                    android:layout_marginTop="14dip"
+                    android:layout_marginRight="14dip"
+                    android:background="@drawable/shape_dialog_bg"
+                    android:paddingLeft="12dip"
+                    android:paddingRight="12dip"
+                    android:scrollbars="none">
+
+                    <view
+                        android:id="@+id/line_view3"
+                        class="im.dacer.androidcharts.LineView"
+                        android:layout_width="match_parent"
+                        android:layout_height="300dp"
+                        android:layout_marginLeft="12dip"
+                        android:layout_marginRight="12dip"
+                        android:layout_marginBottom="24dip" />
+                </HorizontalScrollView>
 
                 <LinearLayout
                     android:layout_width="match_parent"

@@ -28,7 +28,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cardIcon, cardMessage, cardSetting, cardData;
-        ImageView mainTipIv, postureIv,brandLogo;
+        ImageView mainTipIv, postureIv, brandLogo;
 
         TextView cardName, cardTime, cardMessageCount, postureTv;
         TextView mainTipTv, mainPercentTv, mainTempTv, mainBeamTv, mainSleepTv, mainSize, mainBrand;
@@ -129,7 +129,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.cardSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.goToMemberSetting(mList.get(position).getMEMBER_ID(),mList.get(position).getDEVICE_CODE());
+                context.goToMemberSetting(mList.get(position).getMEMBER_ID(), mList.get(position).getDEVICE_CODE());
             }
         });
 
@@ -192,7 +192,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 
         if (percent >= 100) {
             holder.mainTipIv.setVisibility(View.VISIBLE);
-            holder.mainTipIv.setVisibility(View.VISIBLE);
+            holder.mainTipTv.setVisibility(View.VISIBLE);
+        } else {
+            holder.mainTipIv.setVisibility(View.GONE);
+            holder.mainTipTv.setVisibility(View.GONE);
         }
 
         holder.sizeLayout.setOnClickListener(new View.OnClickListener() {
