@@ -131,7 +131,7 @@ public class UrineDetailActivity extends BaseActivity {
     @ViewInject(R.id.layout_detail4)
     private LinearLayout detail4Layout;
 
-    @ViewInject(R.id.line_view)
+    @ViewInject(R.id.line_view1)
     private LineView lineChart;
 
     @ViewInject(R.id.line_view2)
@@ -352,7 +352,7 @@ public class UrineDetailActivity extends BaseActivity {
         });
 
         cal4BeanList = new ArrayList<>();
-        adapter = new UrineRecordAdapter(cal4BeanList);
+        adapter = new UrineRecordAdapter(this, cal4BeanList);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         adapter.setOnItemClickListener(new UrineRecordAdapter.OnItemClickListener() {
             @Override
@@ -717,5 +717,11 @@ public class UrineDetailActivity extends BaseActivity {
 
             }
         });
+    }
+
+    public void goToUrineMoreActivity(String dataId) {
+        Intent intent = new Intent(this, UrineMoreDetailActivity.class);
+        intent.putExtra("dataId",dataId);
+        startActivity(intent);
     }
 }

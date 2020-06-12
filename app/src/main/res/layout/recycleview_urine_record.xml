@@ -82,8 +82,7 @@
                 android:background="@drawable/shape_urine_detail_item_more_bg"
                 android:text="查看更多"
                 android:textColor="#ffffff"
-                android:textSize="12dip"
-                android:visibility="gone" />
+                android:textSize="12dip" />
         </LinearLayout>
     </LinearLayout>
 

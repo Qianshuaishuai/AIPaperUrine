@@ -10,12 +10,14 @@ import android.widget.TextView;
 
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.bean.MemberDataCal4Bean;
+import com.xinxin.aicare.ui.info.UrineDetailActivity;
 
 import java.util.List;
 
 public class UrineRecordAdapter extends RecyclerView.Adapter<UrineRecordAdapter.ViewHolder> {
 
     private List<MemberDataCal4Bean> mList;
+    private UrineDetailActivity context;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         TextView timeTxt;
@@ -33,8 +35,9 @@ public class UrineRecordAdapter extends RecyclerView.Adapter<UrineRecordAdapter.
 
     }
 
-    public UrineRecordAdapter(List<MemberDataCal4Bean> mList) {
+    public UrineRecordAdapter(UrineDetailActivity context, List<MemberDataCal4Bean> mList) {
         this.mList = mList;
+        this.context = context;
     }
 
     @Override
@@ -79,6 +82,13 @@ public class UrineRecordAdapter extends RecyclerView.Adapter<UrineRecordAdapter.
                 holder.iv_star3.setVisibility(View.VISIBLE);
                 break;
         }
+
+        holder.btMore.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                context.goToUrineMoreActivity(mList.get(position).getDEVICEDATA_ID());
+            }
+        });
     }
 
     @Override
