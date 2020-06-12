@@ -183,7 +183,7 @@ public class BluetoothBindService extends Service {
                 CommonResponse response = gson.fromJson(result, CommonResponse.class);
                 switch (response.getResult()) {
                     case 0:
-                        System.out.println("后台上传数据成功");
+//                        System.out.println("后台上传数据成功");
                         break;
                     case 2:
                         System.out.println(response.getMsg());

@@ -79,10 +79,15 @@ public class LoginNormalActivity extends BaseActivity {
             return;
         }
 
+        String rid = ((PaperUrineApplication) getApplication()).getRid();
+        if (TextUtils.isEmpty(rid)) {
+            rid = "hudatech";
+        }
+
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_LOGINBYPSW);
         params.addQueryStringParameter("PHONE", phone.getText().toString());
         params.addQueryStringParameter("PSW", password.getText().toString());
-        params.addQueryStringParameter("RID", ((PaperUrineApplication) getApplication()).getRid());
+        params.addQueryStringParameter("RID", rid);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

@@ -397,9 +397,10 @@ public class HomeFragment extends BaseFragment {
         startActivity(intent);
     }
 
-    public void goToMemberSetting(String memberId) {
+    public void goToMemberSetting(String memberId,String deviceId) {
         Intent intent = new Intent(getContext(), CallSettingActivity.class);
         intent.putExtra("memberId", memberId);
+        intent.putExtra("deviceId", deviceId);
         startActivity(intent);
     }
 

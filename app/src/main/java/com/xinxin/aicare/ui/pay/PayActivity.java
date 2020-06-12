@@ -30,6 +30,7 @@ import com.tencent.mm.opensdk.modelpay.PayReq;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
 
+import org.greenrobot.eventbus.EventBus;
 import org.greenrobot.eventbus.Subscribe;
 import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.common.Callback;
@@ -102,6 +103,8 @@ public class PayActivity extends BaseActivity {
 
         initData();
         initPayTipDialog();
+
+        EventBus.getDefault().register(this);
     }
 
     private void initData() {
@@ -121,6 +124,12 @@ public class PayActivity extends BaseActivity {
         DecimalFormat df = new DecimalFormat("#0.00");
         float realPay = Float.parseFloat(REALPAY);
         price.setText("￥" + df.format(realPay));
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
     }
 
     private void goToPay() {
@@ -286,6 +295,7 @@ public class PayActivity extends BaseActivity {
 
     @Subscribe(threadMode = ThreadMode.MAIN)
     public void onMessageEvent(PayResultEvent event) {
+        System.out.println("接受");
         startPayResultActivity();
     }
 }

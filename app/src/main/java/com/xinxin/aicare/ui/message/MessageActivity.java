@@ -59,6 +59,8 @@ public class MessageActivity extends BaseActivity {
         finish();
     }
 
+    private String memberId = "";
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -70,7 +72,7 @@ public class MessageActivity extends BaseActivity {
         bean = ((PaperUrineApplication) getApplication()).getUserInfo();
 
         Intent intent = getIntent();
-        String memberId = intent.getStringExtra("memberId");
+        memberId = intent.getStringExtra("memberId");
 
         if (!TextUtils.isEmpty(memberId)) {
 
@@ -82,6 +84,7 @@ public class MessageActivity extends BaseActivity {
             x.http().post(aParams, new Callback.CommonCallback<String>() {
                 @Override
                 public void onSuccess(String result) {
+                    System.out.println(result);
                     Gson gson = new Gson();
                     MessageResponse response = gson.fromJson(result, MessageResponse.class);
                     switch (response.getResult()) {
@@ -169,6 +172,7 @@ public class MessageActivity extends BaseActivity {
                 public void onSuccess(String result) {
                     Gson gson = new Gson();
                     MessageResponse response = gson.fromJson(result, MessageResponse.class);
+                    System.out.println(result);
                     switch (response.getResult()) {
                         case 0:
                             omaList.clear();
@@ -202,6 +206,142 @@ public class MessageActivity extends BaseActivity {
         }
 
 
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+
+        if (!TextUtils.isEmpty(memberId)) {
+
+            RequestParams aParams = new RequestParams(Constant.BASE_URL + Constant.URL_MESSAGELIST);
+            aParams.addQueryStringParameter("APPUSER_ID", bean.getAPPUSER_ID());
+            aParams.addQueryStringParameter("ONLINE_ID", bean.getONLINE_ID());
+            aParams.addQueryStringParameter("TYPE", "2");
+            aParams.addQueryStringParameter("MEMBER_ID", memberId);
+            x.http().post(aParams, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    System.out.println(result);
+                    Gson gson = new Gson();
+                    MessageResponse response = gson.fromJson(result, MessageResponse.class);
+                    switch (response.getResult()) {
+                        case 0:
+                            dmaList.clear();
+                            for (int m = 0; m < response.getData().size(); m++) {
+                                dmaList.add(response.getData().get(m));
+                            }
+                            dma.notifyDataSetChanged();
+                            break;
+
+                        default:
+                            T.s("获取设备消息失败");
+                            break;
+                    }
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    T.s("请求出错，请检查网络");
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            });
+
+            officeMessageTip.setVisibility(View.GONE);
+            omRecycleview.setVisibility(View.GONE);
+        } else {
+            RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_MESSAGELIST);
+            params.addQueryStringParameter("APPUSER_ID", bean.getAPPUSER_ID());
+            params.addQueryStringParameter("ONLINE_ID", bean.getONLINE_ID());
+            params.addQueryStringParameter("TYPE", "2");
+            x.http().post(params, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    System.out.println(result);
+                    Gson gson = new Gson();
+                    MessageResponse response = gson.fromJson(result, MessageResponse.class);
+                    switch (response.getResult()) {
+                        case 0:
+                            dmaList.clear();
+                            for (int m = 0; m < response.getData().size(); m++) {
+                                dmaList.add(response.getData().get(m));
+                            }
+                            dma.notifyDataSetChanged();
+                            break;
+
+                        default:
+                            T.s("获取设备消息失败");
+                            break;
+                    }
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    T.s("请求出错，请检查网络");
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            });
+
+
+            RequestParams aParams = new RequestParams(Constant.BASE_URL + Constant.URL_MESSAGELIST);
+            aParams.addQueryStringParameter("APPUSER_ID", bean.getAPPUSER_ID());
+            aParams.addQueryStringParameter("ONLINE_ID", bean.getONLINE_ID());
+            aParams.addQueryStringParameter("TYPE", "1");
+            x.http().post(aParams, new Callback.CommonCallback<String>() {
+                @Override
+                public void onSuccess(String result) {
+                    Gson gson = new Gson();
+                    MessageResponse response = gson.fromJson(result, MessageResponse.class);
+                    System.out.println(result);
+                    switch (response.getResult()) {
+                        case 0:
+                            omaList.clear();
+                            for (int m = 0; m < response.getData().size(); m++) {
+                                omaList.add(response.getData().get(m));
+                            }
+                            oma.notifyDataSetChanged();
+                            break;
+
+                        default:
+                            T.s("获取系统消息失败");
+                            break;
+                    }
+                }
+
+                @Override
+                public void onError(Throwable ex, boolean isOnCallback) {
+                    T.s("请求出错，请检查网络");
+                }
+
+                @Override
+                public void onCancelled(CancelledException cex) {
+
+                }
+
+                @Override
+                public void onFinished() {
+
+                }
+            });
+        }
     }
 
     private void initView() {

@@ -177,8 +177,9 @@
                         android:textSize="12dip" />
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_width="345dip"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true">
 
                         <TextView
                             android:id="@+id/niaoxing_tv"
@@ -202,7 +203,7 @@
 
                         <SeekBar
                             android:id="@+id/niaoxing_sb"
-                            android:layout_width="345dip"
+                            android:layout_width="350dip"
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="54dip"
@@ -216,7 +217,7 @@
                             android:id="@+id/niaoxing_view"
                             android:layout_width="1dip"
                             android:layout_height="23.5dip"
-                            android:layout_marginLeft="164dip"
+                            android:layout_marginLeft="172dip"
                             android:layout_marginTop="54dip"
                             android:background="#CFCFCF"></View>
 
@@ -314,15 +315,15 @@
                         android:textSize="12dip" />
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_width="345dip"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true">
 
                         <TextView
                             android:id="@+id/tibei_tv"
                             android:layout_width="wrap_content"
                             android:layout_height="wrap_content"
-                            android:layout_centerHorizontal="true"
-                            android:layout_marginTop="26dip"
+                            android:layout_marginLeft="175dip"
                             android:text="24℃"
                             android:textColor="#1E1E1E"
                             android:textSize="14dip" />
@@ -352,7 +353,7 @@
                             android:id="@+id/tibei_view"
                             android:layout_width="1dip"
                             android:layout_height="23.5dip"
-                            android:layout_marginLeft="185dip"
+                            android:layout_marginLeft="193dip"
                             android:layout_marginTop="54dip"
                             android:background="#CFCFCF"></View>
 
@@ -394,7 +395,7 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dip"
-                    android:text="防窒息提醒"
+                    android:text="防窒息提醒(不可调动)"
                     android:textColor="#1e1e1e"
                     android:textSize="16dip" />
 
@@ -418,7 +419,8 @@
                         android:layout_marginLeft="6dip"
                         android:layout_marginRight="16dip"
                         android:background="@drawable/select_common_checkbox"
-                        android:button="@null" />
+                        android:button="@null"
+                        android:clickable="false" />
                 </LinearLayout>
             </LinearLayout>
 
@@ -446,8 +448,9 @@
                         android:textSize="12dip" />
 
                     <RelativeLayout
-                        android:layout_width="match_parent"
-                        android:layout_height="match_parent">
+                        android:layout_width="345dip"
+                        android:layout_height="match_parent"
+                        android:layout_centerHorizontal="true">
 
                         <TextView
                             android:id="@+id/zhixi_tv"
@@ -474,6 +477,7 @@
                             android:layout_height="wrap_content"
                             android:layout_centerHorizontal="true"
                             android:layout_marginTop="54dip"
+                            android:clickable="false"
                             android:max="100"
                             android:maxHeight="2dp"
                             android:progress="0"

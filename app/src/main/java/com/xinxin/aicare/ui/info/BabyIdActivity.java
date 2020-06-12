@@ -9,10 +9,12 @@ import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.base.BaseActivity;
 import com.xinxin.aicare.bean.UserBean;
+import com.xinxin.aicare.event.BindBabyIdSuccessEvent;
 import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.util.T;
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
@@ -70,11 +72,13 @@ public class BabyIdActivity extends BaseActivity {
                     case 0:
                         T.s("添加成功");
                         finish();
+                        EventBus.getDefault().post(new BindBabyIdSuccessEvent());
                         break;
                     default:
                         T.s("宝宝ID不存在");
                         break;
                 }
+
             }
 
             @Override

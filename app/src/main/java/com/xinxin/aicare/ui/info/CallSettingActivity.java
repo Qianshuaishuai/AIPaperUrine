@@ -35,6 +35,7 @@ public class CallSettingActivity extends BaseActivity {
 
     private UserBean userBean;
     private String memberId;
+    private String deviceId;
     private DeviceParamInfoBean bean;
 
     private AlertDialog deleteDialog;
@@ -104,6 +105,10 @@ public class CallSettingActivity extends BaseActivity {
 
     @Event(R.id.layout_connect)
     private void connect(View view) {
+        if (TextUtils.isEmpty(deviceId)){
+            T.s("当前宝宝并未绑定设备");
+            return;
+        }
         rebindDialog.show();
     }
 
@@ -133,6 +138,7 @@ public class CallSettingActivity extends BaseActivity {
 
         Intent intent = getIntent();
         memberId = intent.getStringExtra("memberId");
+        deviceId = intent.getStringExtra("deviceId");
 
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_DEVICEPARAMINFO);
         params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
@@ -301,7 +307,11 @@ public class CallSettingActivity extends BaseActivity {
     }
 
     private void updateView() {
-        connectDeviceNo.setText("设备编号 " + bean.getMYPARAM().getDEVICE_PARAM_ID());
+        if (TextUtils.isEmpty(deviceId)) {
+            connectDeviceNo.setText("当前宝宝未连接设备");
+        } else {
+            connectDeviceNo.setText("设备编号 " + deviceId);
+        }
 
         switch (bean.getMYPARAM().getNS_SWITH()) {
             case "1":
@@ -446,6 +456,8 @@ public class CallSettingActivity extends BaseActivity {
 
             }
         });
+
+        zhixiSb.setEnabled(false);
 
         wakeBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener() {
             @Override

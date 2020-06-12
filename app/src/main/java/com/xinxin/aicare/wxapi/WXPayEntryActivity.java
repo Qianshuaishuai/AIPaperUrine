@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 
+import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.xinxin.aicare.Constant;
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.event.PayResultEvent;
 import com.xinxin.aicare.util.T;
@@ -26,8 +28,8 @@ public class WXPayEntryActivity extends Activity implements IWXAPIEventHandler {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.pay_result);
 
-//        api = WXAPIFactory.createWXAPI(this, Constant.WeChatAppId);
-//        api.handleIntent(getIntent(), this);
+        api = WXAPIFactory.createWXAPI(this, Constant.WX_APPID);
+        api.handleIntent(getIntent(), this);
     }
 
     @Override

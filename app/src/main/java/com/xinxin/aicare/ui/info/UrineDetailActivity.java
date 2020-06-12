@@ -44,7 +44,7 @@ import java.util.List;
 @ContentView(R.layout.activity_urine_detail)
 public class UrineDetailActivity extends BaseActivity {
 
-    private int type = 1;
+    private int type = 4;
     private List<MemberDataCal4Bean> cal4BeanList;
     private UrineRecordAdapter adapter;
     private UserBean userBean;

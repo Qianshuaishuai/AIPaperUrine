@@ -28,7 +28,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cardIcon, cardMessage, cardSetting, cardData;
-        ImageView mainTipIv, postureIv;
+        ImageView mainTipIv, postureIv,brandLogo;
 
         TextView cardName, cardTime, cardMessageCount, postureTv;
         TextView mainTipTv, mainPercentTv, mainTempTv, mainBeamTv, mainSleepTv, mainSize, mainBrand;
@@ -45,6 +45,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             cardSetting = (ImageView) view.findViewById(R.id.card_setting);
             mainTipIv = (ImageView) view.findViewById(R.id.main_tip_icon);
             cardData = (ImageView) view.findViewById(R.id.card_data);
+            brandLogo = (ImageView) view.findViewById(R.id.brand_logo);
             cardName = (TextView) view.findViewById(R.id.card_name);
             cardTime = (TextView) view.findViewById(R.id.card_time);
             cardMessageCount = (TextView) view.findViewById(R.id.card_message_count);
@@ -101,6 +102,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         ImageOptions options = new ImageOptions.Builder().
                 setRadius(DensityUtil.dip2px(66)).setCrop(true).build();
         x.image().bind(holder.cardIcon, mList.get(position).getHEADIMG(), options);
+        x.image().bind(holder.brandLogo, mList.get(position).getBRAND_LOGO());
 //        System.out.println(mList.get(position).getHAS_WAITREAD());
         holder.cardIcon.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -110,7 +112,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         });
         holder.cardName.setText(mList.get(position).getNICKNAME());
         holder.cardMessageCount.setText(mList.get(position).getHAS_WAITREAD());
-        if (TextUtils.isEmpty(mList.get(position).getHAS_WAITREAD()) && Integer.parseInt(mList.get(position).getHAS_WAITREAD()) >= 100) {
+//        System.out.println();
+        if (!TextUtils.isEmpty(mList.get(position).getHAS_WAITREAD()) && Integer.parseInt(mList.get(position).getHAS_WAITREAD()) >= 100) {
             holder.cardMessageCount.setText("99+");
         }
 //        holder.mainSleepTv.setText(mList.get(position).getSLEEP_TIME());
@@ -126,7 +129,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.cardSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.goToMemberSetting(mList.get(position).getMEMBER_ID());
+                context.goToMemberSetting(mList.get(position).getMEMBER_ID(),mList.get(position).getDEVICE_CODE());
             }
         });
 
@@ -214,19 +217,19 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         } else {
             switch (mList.get(position).getSLEEP_POSTURE()) {
                 case "1":
-                    holder.postureIv.setImageResource(R.mipmap.img_baobaopashui_xiao);
+                    holder.postureIv.setImageResource(R.mipmap.img_baobaopashui_da);
                     holder.postureTv.setText("宝宝趴睡");
                     break;
                 case "2":
-                    holder.postureIv.setImageResource(R.mipmap.img_baobaoyoutang_xiao);
+                    holder.postureIv.setImageResource(R.mipmap.img_baobaoyoutang_da);
                     holder.postureTv.setText("宝宝右躺");
                     break;
                 case "4":
-                    holder.postureIv.setImageResource(R.mipmap.img_baobaoyangshui_xiao);
+                    holder.postureIv.setImageResource(R.mipmap.img_baobaoyangshui_da);
                     holder.postureTv.setText("宝宝仰睡");
                     break;
                 case "8":
-                    holder.postureIv.setImageResource(R.mipmap.img_baobaozuotang_xiao);
+                    holder.postureIv.setImageResource(R.mipmap.img_baobaozuotang_da);
                     holder.postureTv.setText("宝宝左躺");
                     break;
             }

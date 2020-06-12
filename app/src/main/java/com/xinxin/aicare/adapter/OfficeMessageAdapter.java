@@ -1,5 +1,6 @@
 package com.xinxin.aicare.adapter;
 
+import android.graphics.Color;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -50,6 +51,12 @@ public class OfficeMessageAdapter extends RecyclerView.Adapter<OfficeMessageAdap
 
         holder.tipTxt.setText(mList.get(position).getTITLE());
         holder.timeTxt.setText(mList.get(position).getCREATETIME());
+
+        if(mList.get(position).getSTATE().equals("1")){
+            holder.tipTxt.setTextColor(Color.parseColor("#1E1E1E"));
+        }else if(mList.get(position).getSTATE().equals("3")){
+            holder.tipTxt.setTextColor(Color.parseColor("#999999"));
+        }
     }
 
     @Override

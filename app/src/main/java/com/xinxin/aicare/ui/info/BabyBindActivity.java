@@ -22,12 +22,17 @@ import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.base.BaseActivity;
 import com.xinxin.aicare.bean.UserBean;
+import com.xinxin.aicare.event.BindBabyIdSuccessEvent;
+import com.xinxin.aicare.event.PayResultEvent;
 import com.xinxin.aicare.response.EditImgResponse;
 import com.xinxin.aicare.util.FileUtil;
 import com.xinxin.aicare.util.T;
 import com.google.gson.Gson;
 import com.nanchen.compresshelper.CompressHelper;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.common.Callback;
 import org.xutils.common.util.DensityUtil;
 import org.xutils.common.util.KeyValue;
@@ -154,10 +159,21 @@ public class BabyBindActivity extends BaseActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-
+        EventBus.getDefault().register(this);
         initView();
         initData();
         initDatePicker();
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        EventBus.getDefault().unregister(this);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN)
+    public void onMessageEvent(BindBabyIdSuccessEvent event) {
+        finish();
     }
 
     private void initData() {

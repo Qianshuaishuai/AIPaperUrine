@@ -2,6 +2,7 @@ package com.xinxin.aicare.ui.user;
 
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
@@ -120,10 +121,15 @@ public class LoginThirdActivity extends BaseActivity {
             return;
         }
 
+        String rid = ((PaperUrineApplication) getApplication()).getRid();
+        if (TextUtils.isEmpty(rid)) {
+            rid = "hudatech";
+        }
+
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_LOGINWX);
         params.addQueryStringParameter("PHONE", phone.getText().toString());
         params.addQueryStringParameter("CODE", code.getText().toString());
-        params.addQueryStringParameter("RID", ((PaperUrineApplication) getApplication()).getRid());
+        params.addQueryStringParameter("RID", rid);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

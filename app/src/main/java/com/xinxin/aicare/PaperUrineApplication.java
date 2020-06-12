@@ -46,8 +46,6 @@ public class PaperUrineApplication extends Application {
             Intent intent = new Intent(this, BluetoothService.class);
             bindService(intent, mConnection, Context.BIND_AUTO_CREATE);
         }
-
-//        JPushInterface.setDebugMode(true);//设置调试模式
 //        JPushInterface.init(getApplicationContext());//init初始化SDK
         JPushUPSManager.registerToken(getApplicationContext(), "741c8ea2604a019c52227f02", "", "", new UPSRegisterCallBack() {
             @Override
@@ -55,10 +53,13 @@ public class PaperUrineApplication extends Application {
 
             }
         });
+        JPushInterface.setDebugMode(true);//设置调试模式
+        JPushInterface.init(getApplicationContext());
 
         //获取RegistrationID唯一标识
         String rid = JPushInterface.getRegistrationID(getApplicationContext());
         saveRid(rid);
+        System.out.println(rid);
     }
 
     private ServiceConnection mConnection = new ServiceConnection() {

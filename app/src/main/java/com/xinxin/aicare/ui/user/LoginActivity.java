@@ -4,6 +4,7 @@ import android.app.AlertDialog;
 import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -139,11 +140,15 @@ public class LoginActivity extends BaseActivity {
             tipDialog.show();
             return;
         }
+        String rid = ((PaperUrineApplication) getApplication()).getRid();
+        if (TextUtils.isEmpty(rid)) {
+            rid = "hudatech";
+        }
 
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_LOGIN);
         params.addQueryStringParameter("PHONE", phone.getText().toString());
         params.addQueryStringParameter("CODE", code.getText().toString());
-        params.addQueryStringParameter("RID", ((PaperUrineApplication) getApplication()).getRid());
+        params.addQueryStringParameter("RID", rid);
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {

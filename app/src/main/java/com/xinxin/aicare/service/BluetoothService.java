@@ -146,7 +146,7 @@ public class BluetoothService extends Service {
                 CommonResponse response = gson.fromJson(result, CommonResponse.class);
                 switch (response.getResult()) {
                     case 0:
-                        System.out.println("后台上传数据成功");
+//                        System.out.println("后台上传数据成功");
                         break;
                     case 2:
                         System.out.println(response.getMsg());
@@ -182,7 +182,7 @@ public class BluetoothService extends Service {
                 @Override
                 public void onScanResult(int callbackType, ScanResult result) {
                     super.onScanResult(callbackType, result);
-                    System.out.println("onScanResult");
+//                    System.out.println("onScanResult");
                     if (result.getDevice().getName() != null && result.getDevice().getName().contains(Constant.DEVICE_NAME)) {
                         byte[] datas = result.getScanRecord().getBytes();
                         String DEVICE_ID = result.getDevice().getAddress().replace(":", "").toLowerCase();
