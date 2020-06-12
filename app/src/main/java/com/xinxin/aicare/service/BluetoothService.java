@@ -121,11 +121,7 @@ public class BluetoothService extends Service {
         }
 
         if (!blueadapter.isEnabled()) {//如果没打开，则打开蓝牙
-            try {
-                boothDialog.show();
-            } catch (Exception e) {
-                blueadapter.enable();
-            }
+            blueadapter.enable();
             return;
         }
 

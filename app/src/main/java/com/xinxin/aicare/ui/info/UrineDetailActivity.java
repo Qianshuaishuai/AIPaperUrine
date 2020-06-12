@@ -131,7 +131,7 @@ public class UrineDetailActivity extends BaseActivity {
     @ViewInject(R.id.layout_detail4)
     private LinearLayout detail4Layout;
 
-    @ViewInject(R.id.line_view)
+    @ViewInject(R.id.line_view1)
     private LineView lineChart;
 
     @ViewInject(R.id.line_view2)
