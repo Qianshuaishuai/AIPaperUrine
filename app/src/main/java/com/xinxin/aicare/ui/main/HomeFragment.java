@@ -9,6 +9,7 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.widget.Button;
@@ -26,6 +27,7 @@ import com.xinxin.aicare.adapter.MemberAdapter;
 import com.xinxin.aicare.base.BaseFragment;
 import com.xinxin.aicare.bean.MemberListBean;
 import com.xinxin.aicare.bean.UserBean;
+import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.response.CourseResponse;
 import com.xinxin.aicare.response.MemberListResponse;
 import com.xinxin.aicare.ui.baby.AccessInductActivity;
@@ -84,6 +86,8 @@ public class HomeFragment extends BaseFragment {
     private Timer timer1;
     private TimerTask timerTask1;
     private boolean isFailed = false;
+
+    private boolean isFirstClear = true;
 
     @ViewInject(R.id.card_name)
     private TextView cardName;
@@ -204,6 +208,7 @@ public class HomeFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         timer1.cancel();
+        destoryClearDeviceData();
     }
 
     /**
@@ -282,9 +287,7 @@ public class HomeFragment extends BaseFragment {
         timerTask1 = new TimerTask() {
             @Override
             public void run() {
-                if (!isFailed){
-                    getMemberList();
-                }
+                getMemberList();
             }
         };
         timer1.schedule(timerTask1, 0, 1000);
@@ -314,6 +317,7 @@ public class HomeFragment extends BaseFragment {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 MemberListResponse response = gson.fromJson(result, MemberListResponse.class);
+                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         if (response.getData().size() == 0) {
@@ -329,6 +333,14 @@ public class HomeFragment extends BaseFragment {
                             }
 
                             adapter.notifyDataSetChanged();
+                            if (isFirstClear) {
+                                for (int m = 0; m < memberList.size(); m++) {
+                                    if (!TextUtils.isEmpty(memberList.get(m).getDEVICE_CODE())) {
+                                        clearDeviceData(memberList.get(m).getDEVICE_CODE());
+                                    }
+                                }
+                                isFirstClear = false;
+                            }
                         }
                         break;
 
@@ -342,7 +354,7 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                T.s("请求出错，请检查网络");
+                System.out.println(ex);
             }
 
             @Override
@@ -355,6 +367,14 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
+    }
+
+    private void destoryClearDeviceData() {
+        for (int m = 0; m < memberList.size(); m++) {
+            if (!TextUtils.isEmpty(memberList.get(m).getDEVICE_CODE())) {
+                clearDeviceData(memberList.get(m).getDEVICE_CODE());
+            }
+        }
     }
 
     private void initLoginSuccessDialog() {
@@ -397,7 +417,7 @@ public class HomeFragment extends BaseFragment {
         startActivity(intent);
     }
 
-    public void goToMemberSetting(String memberId,String deviceId) {
+    public void goToMemberSetting(String memberId, String deviceId) {
         Intent intent = new Intent(getContext(), CallSettingActivity.class);
         intent.putExtra("memberId", memberId);
         intent.putExtra("deviceId", deviceId);
@@ -410,10 +430,12 @@ public class HomeFragment extends BaseFragment {
         startActivity(intent);
     }
 
-    public void goToPickSizeActivity(String memberId) {
+    public void goToPickSizeActivity(String memberId, String brandLogo, String brandName) {
         Intent intent = new Intent(getContext(), PickSizeActivity.class);
         intent.putExtra("mode", 10001);
         intent.putExtra("memberId", memberId);
+        intent.putExtra("brandLogo", brandLogo);
+        intent.putExtra("brandName", brandName);
         startActivity(intent);
     }
 
@@ -427,5 +449,51 @@ public class HomeFragment extends BaseFragment {
         Intent intent = new Intent(getContext(), SleepPostureActivity.class);
         intent.putExtra("posture", posture);
         startActivity(intent);
+    }
+
+    private void clearDeviceData(final String DEVICE_ID) {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_UPLOADDEVICEDATA);
+        params.addQueryStringParameter("DEVICE_ID", DEVICE_ID);
+        params.addQueryStringParameter("D0", "0");
+        params.addQueryStringParameter("X", "0");
+        params.addQueryStringParameter("Y", "0");
+        params.addQueryStringParameter("Z", "0");
+        params.addQueryStringParameter("AD", "0");
+        params.addQueryStringParameter("D4", "0");
+        params.addQueryStringParameter("D5", "0");
+        params.addQueryStringParameter("D6", "0");
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+//                        System.out.println("后台上传数据成功");
+                        break;
+                    case 2:
+                        System.out.println(response.getMsg());
+                        break;
+                    default:
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 }

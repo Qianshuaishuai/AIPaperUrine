@@ -43,11 +43,11 @@
                 android:gravity="center_vertical|right">
 
                 <ImageView
+                    android:id="@+id/share"
                     android:layout_width="25dip"
                     android:layout_height="25dip"
                     android:layout_marginRight="15dip"
-                    android:src="@mipmap/btn_fenxiang"
-                    android:visibility="gone" />
+                    android:src="@mipmap/common_share_black" />
             </LinearLayout>
         </LinearLayout>
 

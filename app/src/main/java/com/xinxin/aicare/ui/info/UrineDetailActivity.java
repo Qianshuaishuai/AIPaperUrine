@@ -150,6 +150,15 @@ public class UrineDetailActivity extends BaseActivity {
         yearMonthDatePickerDialog.show();
     }
 
+    @Event(R.id.share)
+    private void share(View view){
+        Intent intent = new Intent(this,DataShareActivity.class);
+        intent.putExtra("memberId",MEMBER_ID);
+        intent.putExtra("startdate",START_DATE);
+        intent.putExtra("enddate",END_DATE);
+        startActivity(intent);
+    }
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -352,7 +361,7 @@ public class UrineDetailActivity extends BaseActivity {
         });
 
         cal4BeanList = new ArrayList<>();
-        adapter = new UrineRecordAdapter(cal4BeanList);
+        adapter = new UrineRecordAdapter(this, cal4BeanList);
         LinearLayoutManager manager = new LinearLayoutManager(this);
         adapter.setOnItemClickListener(new UrineRecordAdapter.OnItemClickListener() {
             @Override
@@ -370,11 +379,10 @@ public class UrineDetailActivity extends BaseActivity {
         ArrayList<ArrayList<Float>> yList = new ArrayList<>();
 
         ArrayList<Float> smallYList = new ArrayList<>();
-        System.out.println(dateType);
         switch (dateType) {
             case 1:
-                for (int i = 0; i < 12; i++) {
-                    xList.add((i * 2) + "点");
+                for (int i = 0; i < 24; i++) {
+                    xList.add(i + "点");
                     smallYList.add((float) 0.0);
                 }
                 break;
@@ -403,7 +411,7 @@ public class UrineDetailActivity extends BaseActivity {
         if (list.size() > 0) {
             for (int l = 0; l < list.size(); l++) {
                 for (int x = 0; x < xList.size(); x++) {
-                    if (xList.get(x).equals(list.get(l).getTIME())) {
+                    if (xList.get(x).contains(list.get(l).getTIME())) {
                         smallYList.set(x, Float.valueOf(list.get(l).getCNT()));
                     }
                 }
@@ -411,6 +419,9 @@ public class UrineDetailActivity extends BaseActivity {
 
 
         }
+
+        xList = getSortXList(xList);
+
 
         lineChart.setDrawDotLine(false); //optional
         lineChart.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
@@ -421,6 +432,15 @@ public class UrineDetailActivity extends BaseActivity {
 
     }
 
+    private ArrayList<String> getSortXList(ArrayList<String> xList) {
+        for (int x = 0; x < xList.size(); x++) {
+            if (xList.get(x).length() >= 6) {
+                xList.set(x, xList.get(x).substring(5, xList.get(x).length()));
+            }
+        }
+        return xList;
+    }
+
     private void drawChart2(List<MemberDataCal2ListBean> list) {
         ArrayList<String> xList = new ArrayList<>();
         ArrayList<ArrayList<Float>> yList = new ArrayList<>();
@@ -429,8 +449,8 @@ public class UrineDetailActivity extends BaseActivity {
         System.out.println(dateType);
         switch (dateType) {
             case 1:
-                for (int i = 0; i < 12; i++) {
-                    xList.add((i * 2) + "点");
+                for (int i = 0; i < 24; i++) {
+                    xList.add(i + "点");
                     smallYList.add((float) 0.0);
                 }
                 break;
@@ -459,7 +479,7 @@ public class UrineDetailActivity extends BaseActivity {
         if (list.size() > 0) {
             for (int l = 0; l < list.size(); l++) {
                 for (int x = 0; x < xList.size(); x++) {
-                    if (xList.get(x).equals(list.get(l).getTIME())) {
+                    if (xList.get(x).contains(list.get(l).getTIME())) {
                         smallYList.set(x, Float.valueOf(list.get(l).getVOLUME()));
                     }
                 }
@@ -467,6 +487,9 @@ public class UrineDetailActivity extends BaseActivity {
 
 
         }
+
+
+        xList = getSortXList(xList);
 
         lineChart2.setDrawDotLine(false); //optional
         lineChart2.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
@@ -484,8 +507,8 @@ public class UrineDetailActivity extends BaseActivity {
         ArrayList<Float> smallYList = new ArrayList<>();
         switch (dateType) {
             case 1:
-                for (int i = 0; i < 12; i++) {
-                    xList.add((i * 2) + "点");
+                for (int i = 0; i < 24; i++) {
+                    xList.add(i + "点");
                     smallYList.add((float) 0.0);
                 }
                 break;
@@ -514,7 +537,7 @@ public class UrineDetailActivity extends BaseActivity {
         if (list.size() > 0) {
             for (int l = 0; l < list.size(); l++) {
                 for (int x = 0; x < xList.size(); x++) {
-                    if (xList.get(x).equals(list.get(l).getTIME())) {
+                    if (xList.get(x).contains(list.get(l).getTIME())) {
                         smallYList.set(x, Float.valueOf(list.get(l).getCNT()));
                     }
                 }
@@ -523,6 +546,7 @@ public class UrineDetailActivity extends BaseActivity {
 
         }
 
+        xList = getSortXList(xList);
         lineChart3.setDrawDotLine(false); //optional
         lineChart3.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
         lineChart3.setBottomTextList(xList);
@@ -717,5 +741,11 @@ public class UrineDetailActivity extends BaseActivity {
 
             }
         });
+    }
+
+    public void goToUrineMoreActivity(String dataId) {
+        Intent intent = new Intent(this, UrineMoreDetailActivity.class);
+        intent.putExtra("dataId", dataId);
+        startActivity(intent);
     }
 }

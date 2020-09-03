@@ -2,12 +2,17 @@ package com.xinxin.aicare.util;
 
 import android.content.Context;
 import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 
 import com.tencent.mm.opensdk.modelmsg.SendMessageToWX;
+import com.tencent.mm.opensdk.modelmsg.WXImageObject;
 import com.tencent.mm.opensdk.modelmsg.WXMediaMessage;
 import com.tencent.mm.opensdk.modelmsg.WXWebpageObject;
 import com.tencent.mm.opensdk.openapi.IWXAPI;
 import com.tencent.mm.opensdk.openapi.WXAPIFactory;
+import com.xinxin.aicare.Constant;
+
+import java.io.File;
 
 public class WxShareUtils {
     /**
@@ -58,5 +63,32 @@ public class WxShareUtils {
 
         // 向微信发送请求
         wxapi.sendReq(req);
+    }
+
+    /**
+     * 分享图片
+     *
+     * @param imgurl   保存图片路径
+     * @param sendtype 区分分享到朋友圈还是好友
+     */
+    public static void imageShare(Context context, String imgurl, int sendtype) {
+        final IWXAPI api = WXAPIFactory.createWXAPI(context, Constant.WX_APPID, true);
+        File file = new File(imgurl);
+        if (!file.exists()) {
+            T.s("图片不存在");
+        }
+        WXImageObject imgObj = new WXImageObject();
+        imgObj.setImagePath(imgurl);
+        WXMediaMessage msg = new WXMediaMessage();
+        msg.mediaObject = imgObj;
+        Bitmap bmp = BitmapFactory.decodeFile(imgurl);
+        Bitmap thumbBmp = Bitmap.createScaledBitmap(bmp, 100, 100, true);
+        msg.setThumbImage(thumbBmp);
+        bmp.recycle();
+        SendMessageToWX.Req req = new SendMessageToWX.Req();
+        req.transaction = String.valueOf(System.currentTimeMillis());
+        req.message = msg;
+        req.scene = sendtype == 1 ? SendMessageToWX.Req.WXSceneSession : SendMessageToWX.Req.WXSceneTimeline;
+        api.sendReq(req);
     }
 }

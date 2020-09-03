@@ -69,7 +69,8 @@ public class BluetoothService extends Service {
             @Override
             public void run() {
                 if (!TextUtils.isEmpty(currentDeviceCode)) {
-                    uploadDeviceData("", currentDeviceCode, "", "", "", "", "", "", "");
+//                    uploadDeviceData("0", currentDeviceCode, "0", "0", "0", "0", "0", "0", "0");
+//                    System.out.println("updateZeroData");
                 }
 
                 if (isStart == false) {
@@ -146,10 +147,18 @@ public class BluetoothService extends Service {
                 CommonResponse response = gson.fromJson(result, CommonResponse.class);
                 switch (response.getResult()) {
                     case 0:
+                        if (D0.equals("0")) {
+                            System.out.println("清0成功");
+                        } else {
+                            System.out.println("实时上传数据成功");
+                        }
 //                        System.out.println("后台上传数据成功");
                         break;
                     case 2:
-                        System.out.println(response.getMsg());
+                        System.out.println("上传数据接结果:" + response.getMsg());
+                        break;
+                    case 1:
+
                         break;
                     default:
 
@@ -195,6 +204,12 @@ public class BluetoothService extends Service {
                         String D5 = String.valueOf(DataUtil.normalHexByteToInt(datas[19]));
                         String D6 = String.valueOf(DataUtil.normalHexByteToInt(datas[20]));
                         currentDeviceCode = DEVICE_ID;
+//                        if (D0.equals("0")) {
+////                            uploadDeviceData(D0, currentDeviceCode, X, Y, Z, "0", "0", "0", D6);
+//                            uploadDeviceData("0", DEVICE_ID, "0", "0", "0", "0", "0", "0", "0");
+//                        } else {
+//
+//                        }
                         uploadDeviceData(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
                     }
                 }

@@ -2,18 +2,18 @@
 <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
     android:layout_height="wrap_content"
-    android:layout_marginLeft="15dip"
+    android:layout_marginLeft="6dip"
     android:layout_marginTop="15dip"
-    android:layout_marginRight="15dip"
+    android:layout_marginRight="6dip"
     android:background="@drawable/shape_urine_detail_common_bg"
     android:orientation="vertical">
 
     <LinearLayout
         android:layout_width="match_parent"
         android:layout_height="100dip"
-        android:layout_marginLeft="15dip"
+        android:layout_marginLeft="6dip"
         android:layout_marginTop="10.5dip"
-        android:layout_marginRight="15dip"
+        android:layout_marginRight="6dip"
         android:orientation="horizontal">
 
         <LinearLayout
@@ -29,7 +29,7 @@
                 android:layout_marginTop="12dip"
                 android:text="2019.05.19 14:00:00"
                 android:textColor="#1e1e1e"
-                android:textSize="16dip" />
+                android:textSize="14dip" />
 
             <LinearLayout
                 android:id="@+id/layout_star"
@@ -44,27 +44,27 @@
                     android:layout_height="wrap_content"
                     android:text="此次更换评星："
                     android:textColor="#999999"
-                    android:textSize="14dip" />
+                    android:textSize="12dip" />
 
                 <ImageView
                     android:id="@+id/iv_star1"
-                    android:layout_width="20dip"
-                    android:layout_height="20dip"
-                    android:layout_marginLeft="8dip"
+                    android:layout_width="16dip"
+                    android:layout_height="16dip"
+                    android:layout_marginLeft="2dip"
                     android:src="@mipmap/img_pinxing1" />
 
                 <ImageView
                     android:id="@+id/iv_star2"
-                    android:layout_width="20dip"
-                    android:layout_height="20dip"
-                    android:layout_marginLeft="8dip"
+                    android:layout_width="16dip"
+                    android:layout_height="16dip"
+                    android:layout_marginLeft="2dip"
                     android:src="@mipmap/img_pinxing2" />
 
                 <ImageView
                     android:id="@+id/iv_star3"
-                    android:layout_width="20dip"
-                    android:layout_height="20dip"
-                    android:layout_marginLeft="8dip"
+                    android:layout_width="16dip"
+                    android:layout_height="16dip"
+                    android:layout_marginLeft="2dip"
                     android:src="@mipmap/img_pinxing3" />
             </LinearLayout>
         </LinearLayout>
@@ -78,12 +78,11 @@
                 android:id="@+id/bt_more"
                 android:layout_width="82dip"
                 android:layout_height="30dip"
-                android:layout_marginRight="15dip"
+                android:layout_marginRight="6dip"
                 android:background="@drawable/shape_urine_detail_item_more_bg"
                 android:text="查看更多"
                 android:textColor="#ffffff"
-                android:textSize="12dip"
-                android:visibility="gone" />
+                android:textSize="12dip" />
         </LinearLayout>
     </LinearLayout>
 

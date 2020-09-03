@@ -4,6 +4,7 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.TextUtils;
 import android.view.View;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
@@ -38,6 +39,8 @@ public class PickSizeActivity extends BaseActivity {
     private UserBean userBean;
     private List<BrandSizeBean> allList;
     private String memberId;
+    private String brandLogoStr;
+    private String brandNameStr;
     private int mode;
 
     private List<BrandSizeSimpleBean> sizeList;
@@ -88,9 +91,9 @@ public class PickSizeActivity extends BaseActivity {
 
     @Event(R.id.sure)
     private void sure(View view) {
-        if (mode == 10001){
+        if (mode == 10001) {
             editMemberSize();
-        }else{
+        } else {
             Intent data = new Intent();
             data.putExtra("brandSize", currentSize);
             data.putExtra("brand", currentName);
@@ -153,7 +156,9 @@ public class PickSizeActivity extends BaseActivity {
 
         Intent intent = getIntent();
         memberId = intent.getStringExtra("memberId");
-        mode = intent.getIntExtra("mode",0);
+        brandLogoStr = intent.getStringExtra("brandLogo");
+        brandNameStr = intent.getStringExtra("brandName");
+        mode = intent.getIntExtra("mode", 0);
 
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_GETBRANDSIZE);
         x.http().post(params, new Callback.CommonCallback<String>() {
@@ -200,6 +205,15 @@ public class PickSizeActivity extends BaseActivity {
 
             sizeList.clear();
             currentSize = brandSizes[0];
+
+            if (!TextUtils.isEmpty(brandNameStr)) {
+                for (int i = 0; i < brandSizes.length; i++) {
+                    if (brandSizes[i].equals(brandNameStr)) {
+                        currentSize = brandNameStr;
+                        adapter.setCurrentPosition(i);
+                    }
+                }
+            }
             for (int b = 0; b < brandSizes.length; b++) {
                 BrandSizeSimpleBean bean = new BrandSizeSimpleBean();
                 bean.setBRAND_SIZE(brandSizes[b]);

@@ -16,6 +16,7 @@ import com.xinxin.aicare.adapter.OfficeMessageAdapter;
 import com.xinxin.aicare.base.BaseActivity;
 import com.xinxin.aicare.bean.MessageBean;
 import com.xinxin.aicare.bean.UserBean;
+import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.response.MessageResponse;
 import com.xinxin.aicare.ui.info.RemindDetailActivity;
 import com.xinxin.aicare.util.T;
@@ -54,6 +55,11 @@ public class MessageActivity extends BaseActivity {
     @ViewInject(R.id.office_message_tip)
     private TextView officeMessageTip;
 
+    @Event(R.id.read_all)
+    private void readAll(View view) {
+        readAll();
+    }
+
     @Event(R.id.layout_back)
     private void back(View view) {
         finish();
@@ -68,12 +74,53 @@ public class MessageActivity extends BaseActivity {
         initData();
     }
 
+    private void readAll() {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_MESSAGEREADALLDO);
+        params.addQueryStringParameter("APPUSER_ID", bean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", bean.getONLINE_ID());
+        System.out.println("APPUSER_ID:" + bean.getAPPUSER_ID());
+        System.out.println("ONLINE_ID:" + bean.getONLINE_ID());
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                System.out.println(result);
+                Gson gson = new Gson();
+                CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        T.s("一键已读成功");
+                        updateList();
+                        break;
+
+                    default:
+                        T.s("一键已读失败");
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                T.s("请求出错，请检查网络");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
     private void initData() {
         bean = ((PaperUrineApplication) getApplication()).getUserInfo();
 
         Intent intent = getIntent();
         memberId = intent.getStringExtra("memberId");
-
+        System.out.println("APPUSER_IDa:" + bean.getAPPUSER_ID());
         if (!TextUtils.isEmpty(memberId)) {
 
             RequestParams aParams = new RequestParams(Constant.BASE_URL + Constant.URL_MESSAGELIST);
@@ -212,6 +259,10 @@ public class MessageActivity extends BaseActivity {
     protected void onResume() {
         super.onResume();
 
+        updateList();
+    }
+
+    private void updateList() {
         if (!TextUtils.isEmpty(memberId)) {
 
             RequestParams aParams = new RequestParams(Constant.BASE_URL + Constant.URL_MESSAGELIST);

@@ -123,6 +123,14 @@ public class FindFragment extends BaseFragment {
     @ViewInject(R.id.rv_find)
     private RecyclerView rvFind;
 
+    @ViewInject(R.id.share)
+    private ImageView share;
+
+    @Event(R.id.share)
+    private void doShare(View view){
+        startRankShareActivity();
+    }
+
     @Event(R.id.layout_tab_find)
     private void findLayout(View view) {
         if (typeInt != 0) {
@@ -135,6 +143,7 @@ public class FindFragment extends BaseFragment {
             rankTv.setTextSize(14);
             findLayout.setVisibility(View.VISIBLE);
             rankLayout.setVisibility(View.GONE);
+            share.setVisibility(View.GONE);
         }
     }
 
@@ -150,6 +159,7 @@ public class FindFragment extends BaseFragment {
             rankTv.setTextSize(24);
             findLayout.setVisibility(View.GONE);
             rankLayout.setVisibility(View.VISIBLE);
+            share.setVisibility(View.VISIBLE);
         }
     }
 
