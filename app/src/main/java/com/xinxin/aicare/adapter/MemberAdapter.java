@@ -155,30 +155,34 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         if (TextUtils.isEmpty(mList.get(position).getDEVICE_CODE())) {
             holder.cardTime.setText("点击绑定设备");
         } else {
-            holder.cardTime.setText("已绑定设备");
+            if (TextUtils.isEmpty(mList.get(position).getCREATETIME())) {
+                holder.cardTime.setText("已绑定设备");
+            } else {
+                holder.cardTime.setText(mList.get(position).getCREATETIME());
+            }
         }
 
 
         if (TextUtils.isEmpty(mList.get(position).getTEMPERATURE())) {
-            holder.mainTempTv.setText("0℃");
+            holder.mainTempTv.setText("--℃");
         } else {
             holder.mainTempTv.setText(mList.get(position).getTEMPERATURE() + "℃");
         }
 
         if (TextUtils.isEmpty(mList.get(position).getURINE_VOLUME())) {
-            holder.mainBeamTv.setText("0ml");
+            holder.mainBeamTv.setText("--ml");
         } else {
             holder.mainBeamTv.setText(mList.get(position).getURINE_VOLUME() + "ml");
         }
 
         if (TextUtils.isEmpty(mList.get(position).getURINE_VOLUME_PERCENT())) {
-            holder.mainPercentTv.setText("0%");
+            holder.mainPercentTv.setText("--%");
         } else {
             holder.mainPercentTv.setText(mList.get(position).getURINE_VOLUME_PERCENT() + "%");
         }
 
         if (TextUtils.isEmpty(mList.get(position).getSLEEP_TIME())) {
-            holder.mainSleepTv.setText("0min");
+            holder.mainSleepTv.setText("--min");
         } else {
             holder.mainSleepTv.setText(mList.get(position).getSLEEP_TIME() + "min");
         }
@@ -201,7 +205,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.sizeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                context.goToPickSizeActivity(mList.get(position).getMEMBER_ID());
+                context.goToPickSizeActivity(mList.get(position).getMEMBER_ID(), mList.get(position).getDIAPER_BRAND(), mList.get(position).getDIAPER_SIZE());
             }
         });
 //        System.out.println(mList.get(position).getSLEEP_POSTURE());
@@ -216,24 +220,27 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         });
 
         if (TextUtils.isEmpty(mList.get(position).getSLEEP_POSTURE())) {
-
+            holder.postureTv.setVisibility(View.VISIBLE);
+            holder.postureIv.setVisibility(View.GONE);
         } else {
+            holder.postureTv.setVisibility(View.GONE);
+            holder.postureIv.setVisibility(View.VISIBLE);
             switch (mList.get(position).getSLEEP_POSTURE()) {
                 case "1":
                     holder.postureIv.setImageResource(R.mipmap.img_baobaopashui_da);
-                    holder.postureTv.setText("宝宝趴睡");
+//                    holder.postureTv.setText("宝宝趴睡");
                     break;
                 case "2":
                     holder.postureIv.setImageResource(R.mipmap.img_baobaoyoutang_da);
-                    holder.postureTv.setText("宝宝右躺");
+//                    holder.postureTv.setText("宝宝右躺");
                     break;
                 case "4":
                     holder.postureIv.setImageResource(R.mipmap.img_baobaoyangshui_da);
-                    holder.postureTv.setText("宝宝仰睡");
+//                    holder.postureTv.setText("宝宝仰睡");
                     break;
                 case "8":
                     holder.postureIv.setImageResource(R.mipmap.img_baobaozuotang_da);
-                    holder.postureTv.setText("宝宝左躺");
+//                    holder.postureTv.setText("宝宝左躺");
                     break;
             }
         }

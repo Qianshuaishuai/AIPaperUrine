@@ -398,14 +398,15 @@
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_marginLeft="16dip"
-                    android:text="防窒息提醒(不可调动)"
+                    android:text="防过热提醒"
                     android:textColor="#1e1e1e"
                     android:textSize="16dip" />
 
                 <LinearLayout
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
-                    android:gravity="right|center_vertical">
+                    android:gravity="right|center_vertical"
+                    android:visibility="gone">
 
                     <TextView
                         android:id="@+id/tv_switch_anti"

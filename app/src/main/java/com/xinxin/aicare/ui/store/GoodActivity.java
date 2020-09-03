@@ -1,13 +1,20 @@
 package com.xinxin.aicare.ui.store;
 
 import android.content.Intent;
+import android.graphics.drawable.Drawable;
 import android.os.Bundle;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.text.Html;
 import android.text.TextUtils;
+import android.text.method.LinkMovementMethod;
+import android.text.method.ScrollingMovementMethod;
+import android.util.Log;
 import android.view.View;
+import android.webkit.WebView;
 import android.widget.Button;
 import android.widget.ImageView;
+import android.widget.LinearLayout;
 import android.widget.RelativeLayout;
 import android.widget.TextView;
 
@@ -23,6 +30,9 @@ import com.xinxin.aicare.util.T;
 import com.google.gson.Gson;
 import com.youth.banner.Banner;
 
+import org.sufficientlysecure.htmltextview.HtmlHttpImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlResImageGetter;
+import org.sufficientlysecure.htmltextview.HtmlTextView;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
@@ -30,6 +40,7 @@ import org.xutils.view.annotation.Event;
 import org.xutils.view.annotation.ViewInject;
 import org.xutils.x;
 
+import java.net.URL;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -41,6 +52,9 @@ public class GoodActivity extends BaseActivity {
 
     @ViewInject(R.id.buy)
     private Button buyBt;
+
+    @ViewInject(R.id.detail)
+    private HtmlTextView detail;
 
     @ViewInject(R.id.param_layout)
     private RelativeLayout paramLayout;
@@ -82,13 +96,13 @@ public class GoodActivity extends BaseActivity {
     private TextView name3;
 
     @ViewInject(R.id.layout1)
-    private TextView layout1;
+    private LinearLayout layout1;
 
     @ViewInject(R.id.layout2)
-    private TextView layout2;
+    private LinearLayout layout2;
 
     @ViewInject(R.id.layout3)
-    private TextView layout3;
+    private LinearLayout layout3;
 
     @ViewInject(R.id.value1)
     private TextView value1;
@@ -169,7 +183,7 @@ public class GoodActivity extends BaseActivity {
     }
 
     private void sureBuy() {
-        if(simpleCount.getText().toString().equals("0")){
+        if (simpleCount.getText().toString().equals("0")) {
             T.s("商品数不能为0");
             return;
         }
@@ -276,8 +290,14 @@ public class GoodActivity extends BaseActivity {
         simpleName.setText(bean.getTITLE());
         simpleSubtitle.setText(bean.getINFO());
         simplePrice.setText("￥" + bean.getSALEPRICE());
-
-
+//        CharSequence charSequence = Html.fromHtml(bean.getDETAIL(), imgGetter, null);
+//        detail.setText(charSequence);
+//        detail.setMovementMethod(ScrollingMovementMethod.getInstance());// 设置可滚动
+//        detail.setMovementMethod(LinkMovementMethod.getInstance());//设置超链接可以打开网页
+        detail.setHtml(bean.getDETAIL(),new HtmlHttpImageGetter(detail));
+//        detail.setText(Html.fromHtml("<img src=\"http://wechatshare.xinxinchoice.com/bs/memberHeadImg.png\" title=\\\"1591691291(1).jpg\\\"/>", imgGetter, null));
+//        detail.getSettings().setDefaultTextEncodingName("UTF-8");
+//        detail.loadData(bean.getDETAIL(), "text/html; charset=UTF-8", null);
         String[] images = bean.getPICS().split(",");
         for (int a = 0; a < images.length; a++) {
             bannerImages.add(images[a]);
@@ -387,4 +407,45 @@ public class GoodActivity extends BaseActivity {
     private void initView() {
         sureOrderBean = new SureOrderBean();
     }
+
+//    private Html.ImageGetter imgGetter = new Html.ImageGetter() {
+//        public Drawable getDrawable(String source) {
+//            Log.i("RG", "source---?>>>" + source);
+//            Drawable drawable = null;
+//            URL url;
+//            try {
+//                url = new URL(source);
+//                Log.i("RG", "url---?>>>" + url);
+//                drawable = Drawable.createFromStream(url.openStream(), ""); // 获取网路图片
+//            } catch (Exception e) {
+//                e.printStackTrace();
+//                return null;
+//            }
+//            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
+//                    drawable.getIntrinsicHeight());
+//            Log.i("RG", "url---?>>>" + url);
+//            return drawable;
+//        }
+//    };
+
+    //这里面的resource就是fromhtml函数的第一个参数里面的含有的url
+    private Html.ImageGetter imgGetter = new Html.ImageGetter() {
+        public Drawable getDrawable(String source) {
+            Log.i("RG", "source---?>>>" + source);
+            Drawable drawable = null;
+            URL url;
+            try {
+                url = new URL(source);
+                Log.i("RG", "url---?>>>" + url);
+                drawable = Drawable.createFromStream(url.openStream(), ""); // 获取网路图片
+            } catch (Exception e) {
+                e.printStackTrace();
+                return null;
+            }
+            drawable.setBounds(0, 0, drawable.getIntrinsicWidth(),
+                    drawable.getIntrinsicHeight());
+            Log.i("RG", "url---?>>>" + url);
+            return drawable;
+        }
+    };
 }

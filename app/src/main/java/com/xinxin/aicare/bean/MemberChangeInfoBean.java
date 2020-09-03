@@ -10,6 +10,7 @@ public class MemberChangeInfoBean {
     private String STAR;
     private String COMMENT;
     private String VIEW;
+    private String NL;
 
     public String getCREATETIME() {
         return CREATETIME;
@@ -81,5 +82,13 @@ public class MemberChangeInfoBean {
 
     public void setVIEW(String VIEW) {
         this.VIEW = VIEW;
+    }
+
+    public String getNL() {
+        return NL;
+    }
+
+    public void setNL(String NL) {
+        this.NL = NL;
     }
 }

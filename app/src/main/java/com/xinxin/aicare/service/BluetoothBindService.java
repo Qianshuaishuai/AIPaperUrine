@@ -82,7 +82,7 @@ public class BluetoothBindService extends Service {
             T.s("该手机不支持蓝牙");
             return;
         }
-//
+
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             scanner = blueadapter.getBluetoothLeScanner();
             mScanSettings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_BALANCED).build();

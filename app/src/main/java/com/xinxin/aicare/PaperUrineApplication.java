@@ -59,7 +59,6 @@ public class PaperUrineApplication extends Application {
         //获取RegistrationID唯一标识
         String rid = JPushInterface.getRegistrationID(getApplicationContext());
         saveRid(rid);
-        System.out.println(rid);
     }
 
     private ServiceConnection mConnection = new ServiceConnection() {

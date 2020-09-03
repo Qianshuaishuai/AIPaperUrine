@@ -47,10 +47,12 @@ public class Constant {
     public static final String URL_ADDRESSLIST = "user/addressList";
     public static final String URL_ADDRESSINFO = "user/addressInfo";
     public static final String URL_SHARESUCCESS = "user/shareSuccess";
+    public static final String URL_MESSAGEREADALLDO = "user/messageReadAll.do";
 
     //通用类
     public static final String URL_GETCOURSE = "index/getcourse";
     public static final String URL_VERSION = "index/version";
+    public static final String URL_USERAGREEMENT = "index/useragreement";
     public static final String URL_ABOUTUS = "index/aboutUs";
 
     public static final String URL_INFORMATIONTYPE = "index/informationType";

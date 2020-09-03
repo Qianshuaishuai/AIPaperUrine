@@ -15,7 +15,8 @@
         android:background="#ffffff"
         android:orientation="horizontal"
         android:paddingTop="12dip">
-w
+        w
+
         <ImageView
             android:layout_width="23dip"
             android:layout_height="23dip"
@@ -248,9 +249,17 @@ w
             <!--商品详情-->
             <LinearLayout
                 android:layout_width="match_parent"
-                android:layout_height="wrap_content"
+                android:layout_height="match_parent"
+                android:layout_marginLeft="15dip"
+                android:layout_marginRight="15dip"
                 android:orientation="vertical">
 
+                <org.sufficientlysecure.htmltextview.HtmlTextView
+                    android:id="@+id/detail"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:layout_marginTop="20dip"
+                    android:layout_marginBottom="80dip" />
             </LinearLayout>
         </LinearLayout>
     </ScrollView>

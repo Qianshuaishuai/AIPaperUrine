@@ -1,8 +1,12 @@
 package com.xinxin.aicare.ui.main;
 
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
 import android.os.Bundle;
+import android.os.Environment;
 import android.view.View;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 
 import com.xinxin.aicare.Constant;
@@ -13,6 +17,8 @@ import com.xinxin.aicare.bean.UserBean;
 import com.xinxin.aicare.response.UserGrowthRankingResponse;
 import com.xinxin.aicare.util.T;
 import com.google.gson.Gson;
+import com.xinxin.aicare.util.ViewUtils;
+import com.xinxin.aicare.util.WxShareUtils;
 
 import org.xutils.common.Callback;
 import org.xutils.common.util.DensityUtil;
@@ -55,9 +61,48 @@ public class RankShareActivity extends BaseActivity {
     @ViewInject(R.id.commit)
     private TextView commit;
 
+    @ViewInject(R.id.layout_main)
+    private RelativeLayout layoutMain;
+
     @Event(R.id.layout_back)
     private void layoutBack(View view) {
         finish();
+    }
+
+    @ViewInject(R.id.layout_share_all)
+    private RelativeLayout layoutShare;
+
+    @Event(R.id.layout_share_1)
+    private void share1Click(View view) {
+        try {
+            String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/fenxiang/" + "rank-share.png";
+            ViewUtils.saveView(this, layoutMain, dir);
+            WxShareUtils.imageShare(this, dir, 1);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
+            T.s("获取分享信息失败");
+        }
+        layoutShare.setVisibility(View.GONE);
+    }
+
+    @Event(R.id.layout_share_2)
+    private void share2Click(View view) {
+        try {
+            String dir = Environment.getExternalStorageDirectory().getAbsolutePath() + "/fenxiang/" + "rank-share.png";
+            ViewUtils.saveView(this, layoutMain, dir);
+            WxShareUtils.imageShare(this, dir, 2);
+        } catch (Exception e) {
+            e.printStackTrace();
+            System.out.println(e.toString());
+            T.s("获取分享信息失败");
+        }
+        layoutShare.setVisibility(View.GONE);
+    }
+
+    @Event(R.id.share)
+    private void share(View view) {
+        layoutShare.setVisibility(View.VISIBLE);
     }
 
     @Override
