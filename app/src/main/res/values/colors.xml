@@ -11,4 +11,7 @@
     <color name="navpage">#FFE1E8EB</color>
     <color name="black">#1e1e1e</color>
     <color name="grey">#999999</color>
+
+    <color name="connect_default">#18C083</color>
+    <color name="connect_success">#1883D3</color>
 </resources>

@@ -18,8 +18,11 @@ import com.xinxin.aicare.adapter.BrandSizeAdapter;
 import com.xinxin.aicare.base.BaseActivity;
 import com.xinxin.aicare.bean.BrandSizeBean;
 import com.xinxin.aicare.bean.BrandSizeSimpleBean;
+import com.xinxin.aicare.bean.EditMemberBean;
+import com.xinxin.aicare.bean.MemberDeviceParamListBean;
 import com.xinxin.aicare.bean.UserBean;
 import com.xinxin.aicare.response.BrandSizeResponse;
+import com.xinxin.aicare.response.EditMemberSizeResponse;
 import com.xinxin.aicare.util.T;
 import com.google.gson.Gson;
 
@@ -121,11 +124,13 @@ public class PickSizeActivity extends BaseActivity {
             @Override
             public void onSuccess(String result) {
                 Gson gson = new Gson();
-                BrandSizeResponse response = gson.fromJson(result, BrandSizeResponse.class);
+                EditMemberSizeResponse response = gson.fromJson(result, EditMemberSizeResponse.class);
                 switch (response.getResult()) {
                     case 0:
                         finish();
                         T.s("修改尺码成功");
+
+                        updateMemberParam(response.getData());
                         break;
 
                     default:
@@ -149,6 +154,20 @@ public class PickSizeActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void updateMemberParam(EditMemberBean data) {
+        List<MemberDeviceParamListBean> list = ((PaperUrineApplication) getApplication()).getParamList();
+        for (int l = 0; l < list.size(); l++) {
+            if (list.get(l).getMEMBER_ID().equals(memberId)) {
+                list.get(l).setALARM_LIMIT_VALUE(data.getALARM_LIMIT_VALUE());
+                list.get(l).setWATER_HOLDING_VALUE(data.getWATER_HOLDING_VALUE());
+                list.get(l).setNUMERICAL_TABLE(data.getNUMERICAL_TABLE());
+                list.get(l).setNICKNAME(data.getNICKNAME());
+            }
+        }
+
+        ((PaperUrineApplication) getApplication()).saveParamList(list);
     }
 
     private void initData() {

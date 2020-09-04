@@ -77,6 +77,7 @@ public class Constant {
     public static final String URL_BINDDEVICE = "member/bindDevice";
     public static final String URL_EDITDEVICEPARAM = "member/editDeviceParam";
     public static final String URL_UPLOADDEVICEDATA = "member/uploadDeviceData";
+    public static final String URL_MEMBERDEVICEPARAMLIST = "member/memberDeviceParamList";
 
     //商城类
     public static final String URL_HOMECAROUSEL = "mall/homecarousel";
@@ -98,4 +99,8 @@ public class Constant {
     public static final String URL_PREREFUNDMYYUYUE = "mall/preRefundMyYuyue";
     public static final String URL_PREREFUNDNUM = "mall/preRefundNum";
     public static final String URL_REFUNDMYYUYUE = "mall/refundMyYuyue";
+
+    //提醒文案
+    public static final String[] WARNING_TIPS = {"您的宝宝[NICKNAME]已达到预设的尿湿门槛，请注意更换尿片", "您的宝宝[NICKNAME]已达到预设的尿湿峰值，请尽快更换尿片，避免引起宝宝不适", "您的宝宝[NICKNAME]所处环境温度过低，请检查宝宝是否踢被", "您的宝宝[NICKNAME]所处环境温度过高，为了宝宝安全，请检查宝宝情况！", "您的宝宝[NICKNAME]现在处于趴睡状态，请尽快调整睡姿，以免影响宝宝健康！"};
+    public static final String[] WARNING_TITLES = {"尿湿提醒", "尿满提醒", "过冷提醒", "过热提醒", "趴睡提醒"};
 }

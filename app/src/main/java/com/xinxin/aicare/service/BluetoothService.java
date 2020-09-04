@@ -3,12 +3,16 @@ package com.xinxin.aicare.service;
 import android.app.AlertDialog;
 import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
+import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
+import android.content.BroadcastReceiver;
+import android.content.Context;
 import android.content.Intent;
+import android.content.IntentFilter;
 import android.os.Binder;
 import android.os.Build;
 import android.os.Handler;
@@ -26,15 +30,22 @@ import android.widget.TextView;
 
 import com.google.gson.Gson;
 import com.xinxin.aicare.Constant;
+import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
+import com.xinxin.aicare.bean.BluetoothReceiveBean;
+import com.xinxin.aicare.bean.DeviceParamInfoMyParamBean;
+import com.xinxin.aicare.event.BluetoothReceiveEvent;
 import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.util.DataUtil;
 import com.xinxin.aicare.util.T;
+import com.xinxin.aicare.util.UrineUtil;
 
+import org.greenrobot.eventbus.EventBus;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
@@ -56,6 +67,8 @@ public class BluetoothService extends Service {
     private TimerTask timerTask;
 
     private boolean isStart = false;
+
+    private String TAG = "BluetoothService";
 
     /**
      * 初始化蓝牙
@@ -80,6 +93,7 @@ public class BluetoothService extends Service {
                             scanner = blueadapter.getBluetoothLeScanner();
                             if (scanner != null) {
                                 startScan();
+//                                testScan();
                                 isStart = true;
                             }
 
@@ -168,7 +182,7 @@ public class BluetoothService extends Service {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                System.out.println("错误处理:" + ex);
+//                System.out.println("错误处理:" + ex);
             }
 
             @Override
@@ -182,6 +196,49 @@ public class BluetoothService extends Service {
             }
         });
     }
+
+    private void testScan() {
+        IntentFilter filter = new IntentFilter();
+        //发现设备
+        filter.addAction(BluetoothDevice.ACTION_FOUND);
+        //设备绑定状态改变
+        filter.addAction(BluetoothDevice.ACTION_BOND_STATE_CHANGED);
+        //蓝牙设备状态改变
+        filter.addAction(BluetoothAdapter.ACTION_STATE_CHANGED);
+        //搜素完成
+        filter.addAction(BluetoothAdapter.ACTION_DISCOVERY_FINISHED);
+        registerReceiver(mBluetoothReceiver, filter);
+        //开始搜索
+        blueadapter.startDiscovery();
+    }
+
+    BroadcastReceiver mBluetoothReceiver = new BroadcastReceiver() {
+        @Override
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            Log.i(TAG, "onReceive: " + action);
+            if (action == null) return;
+            BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+            switch (action) {
+                case BluetoothDevice.ACTION_FOUND:
+                    //获取搜索到设备的信息
+                    Log.i(TAG, "device name: " + device.getName() + " address: " + device.getAddress());
+                    //获取绑定状态
+                    Log.i(TAG, "device bond state : " + device.getBondState());
+                    break;
+                case BluetoothDevice.ACTION_BOND_STATE_CHANGED:
+                    Log.i(TAG, "BOND_STATE_CHANGED device name: " + device.getName() + " address: " + device.getAddress());
+                    Log.i(TAG, "BOND_STATE_CHANGED device bond state : " + device.getBondState());
+                    break;
+                case BluetoothAdapter.ACTION_STATE_CHANGED:
+                    Log.i(TAG, "BOND_STATE_CHANGED device name: " + device.getName() + " address: " + device.getAddress());
+                    Log.i(TAG, "BOND_STATE_CHANGED device bond state : " + device.getBondState());
+                case BluetoothAdapter.ACTION_DISCOVERY_FINISHED:
+                    Log.i(TAG, "bluetooth discovery finished");
+                    break;
+            }
+        }
+    };
 
     private void startScan() {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
@@ -204,13 +261,19 @@ public class BluetoothService extends Service {
                         String D5 = String.valueOf(DataUtil.normalHexByteToInt(datas[19]));
                         String D6 = String.valueOf(DataUtil.normalHexByteToInt(datas[20]));
                         currentDeviceCode = DEVICE_ID;
-//                        if (D0.equals("0")) {
-////                            uploadDeviceData(D0, currentDeviceCode, X, Y, Z, "0", "0", "0", D6);
-//                            uploadDeviceData("0", DEVICE_ID, "0", "0", "0", "0", "0", "0", "0");
-//                        } else {
-//
-//                        }
                         uploadDeviceData(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
+                        //本地传输通知解析
+                        BluetoothReceiveBean receiveBean = new BluetoothReceiveBean();
+                        receiveBean.setDEVICE_ID(DEVICE_ID);
+                        receiveBean.setX(X);
+                        receiveBean.setY(Y);
+                        receiveBean.setZ(Z);
+                        receiveBean.setD0(D0);
+                        receiveBean.setAD(AD);
+                        receiveBean.setD4(D4);
+                        receiveBean.setD5(D5);
+                        receiveBean.setD6(D6);
+                        EventBus.getDefault().post(new BluetoothReceiveEvent(receiveBean));
                     }
                 }
 

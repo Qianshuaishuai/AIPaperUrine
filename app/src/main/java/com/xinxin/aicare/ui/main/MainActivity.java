@@ -20,6 +20,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
 import android.view.View;
@@ -31,6 +32,7 @@ import com.xinxin.aicare.Constant;
 import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.base.BaseActivity;
+import com.xinxin.aicare.bean.BluetoothReceiveBean;
 import com.xinxin.aicare.bean.UserBean;
 import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.response.PersonResponse;
@@ -75,7 +77,6 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
         initBoothDialog();
         initNavigationBar();
     }
-
 
 
     @Override
@@ -241,6 +242,20 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
                 switch (response.getResult()) {
                     case 0:
                         ((PaperUrineApplication) getApplication()).savePersonInfo(response.getData());
+                        //首次进入发现有网进行数据传输
+                        BluetoothReceiveBean bluetoothReceiveBean = ((PaperUrineApplication) getApplication()).getNewestBluetoothReceiveBean();
+                        if (!TextUtils.isEmpty(bluetoothReceiveBean.getDEVICE_ID())) {
+                            String D0 = bluetoothReceiveBean.getD0();
+                            String DEVICE_ID = bluetoothReceiveBean.getDEVICE_ID();
+                            String X = bluetoothReceiveBean.getX();
+                            String Y = bluetoothReceiveBean.getY();
+                            String Z = bluetoothReceiveBean.getZ();
+                            String AD = bluetoothReceiveBean.getAD();
+                            String D4 = bluetoothReceiveBean.getD4();
+                            String D5 = bluetoothReceiveBean.getD5();
+                            String D6 = bluetoothReceiveBean.getD6();
+                            uploadDeviceData(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
+                        }
                         break;
 
                     case 10000:
@@ -260,7 +275,48 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                T.s("请求出错，请检查网络");
+//                T.s("请求出错，请检查网络");
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    private void uploadDeviceData(final String D0, final String DEVICE_ID, final String X, final String Y, final String Z, final String AD, final String D4, final String D5, final String D6) {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_UPLOADDEVICEDATA);
+        params.addQueryStringParameter("DEVICE_ID", DEVICE_ID);
+        params.addQueryStringParameter("D0", D0);
+        params.addQueryStringParameter("X", X);
+        params.addQueryStringParameter("Y", Y);
+        params.addQueryStringParameter("Z", Z);
+        params.addQueryStringParameter("AD", AD);
+        params.addQueryStringParameter("D4", D4);
+        params.addQueryStringParameter("D5", D5);
+        params.addQueryStringParameter("D6", D6);
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                System.out.println(result);
+                switch (response.getResult()) {
+                    case 0:
+                        System.out.println("无网后首次同步后台数据成功");
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+//                System.out.println("错误处理:" + ex);
             }
 
             @Override

@@ -10,6 +10,11 @@ import android.content.pm.PackageManager;
 import android.os.IBinder;
 import android.util.Log;
 
+import com.google.gson.reflect.TypeToken;
+import com.xinxin.aicare.bean.BluetoothReceiveBean;
+import com.xinxin.aicare.bean.DeviceParamInfoMyParamBean;
+import com.xinxin.aicare.bean.MemberDeviceParamListBean;
+import com.xinxin.aicare.bean.MemberListBean;
 import com.xinxin.aicare.bean.PersonBean;
 import com.xinxin.aicare.bean.UserBean;
 import com.xinxin.aicare.service.BluetoothService;
@@ -17,6 +22,8 @@ import com.xinxin.aicare.util.T;
 import com.google.gson.Gson;
 
 import org.xutils.x;
+
+import java.util.List;
 
 import cn.jpush.android.api.JPushInterface;
 import cn.jpush.android.ups.JPushUPSManager;
@@ -118,5 +125,56 @@ public class PaperUrineApplication extends Application {
 
     public PersonBean getPersonInfo() {
         return gson.fromJson(sp.getString("personInfo", ""), PersonBean.class);
+    }
+
+    public void saveMyParamInfo(DeviceParamInfoMyParamBean bean) {
+        String beanString = gson.toJson(bean);
+        editor.putString("myParamInfo", beanString);
+        editor.commit();
+    }
+
+    public DeviceParamInfoMyParamBean getMyParamInfo() {
+        return gson.fromJson(sp.getString("myParamInfo", ""), DeviceParamInfoMyParamBean.class);
+    }
+
+    public void saveMemberList(List<MemberListBean> list) {
+        String beanString = gson.toJson(list);
+        editor.putString("memberList", beanString);
+        editor.commit();
+    }
+
+    public List<MemberListBean> getMemberList() {
+        return gson.fromJson(sp.getString("memberList", ""), new TypeToken<List<MemberListBean>>() {
+        }.getType());
+    }
+
+    public void saveParamList(List<MemberDeviceParamListBean> list) {
+        String beanString = gson.toJson(list);
+        editor.putString("paramList", beanString);
+        editor.commit();
+    }
+
+    public List<MemberDeviceParamListBean> getParamList() {
+        return gson.fromJson(sp.getString("paramList", ""), new TypeToken<List<MemberDeviceParamListBean>>() {
+        }.getType());
+    }
+
+    public void saveNewestBluetoothReceiveBean(BluetoothReceiveBean bean) {
+        String beanString = gson.toJson(bean);
+        editor.putString("bluetoothReceiveBean", beanString);
+        editor.commit();
+    }
+
+    public BluetoothReceiveBean getNewestBluetoothReceiveBean() {
+        return gson.fromJson(sp.getString("bluetoothReceiveBean", ""), BluetoothReceiveBean.class);
+    }
+
+    public void saveBlueConnectStatus(int status) {
+        editor.putInt("blueConnectStatus", status);
+        editor.commit();
+    }
+
+    public int getBlueConnectStatus() {
+        return sp.getInt("blueConnectStatus", 0);
     }
 }

@@ -17,6 +17,7 @@ import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.base.BaseActivity;
 import com.xinxin.aicare.bean.DeviceParamInfoBean;
+import com.xinxin.aicare.bean.DeviceParamInfoMyParamBean;
 import com.xinxin.aicare.bean.UserBean;
 import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.response.DeviceParamInfoResponse;
@@ -244,6 +245,10 @@ public class CallSettingActivity extends BaseActivity {
 
             }
         });
+    }
+
+    private void saveParam(DeviceParamInfoMyParamBean bean) {
+        ((PaperUrineApplication)getApplication()).saveMyParamInfo(bean);
     }
 
     private void unbindDevice() {

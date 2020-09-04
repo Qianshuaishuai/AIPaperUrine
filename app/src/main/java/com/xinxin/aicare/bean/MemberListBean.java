@@ -18,6 +18,15 @@ public class MemberListBean {
     private String SLEEP_POSTURE;
     private String DEVICE_CODE;
     private String CREATETIME;
+    private MemberDeviceParamListBean paramListBean;
+
+    public MemberDeviceParamListBean getParamListBean() {
+        return paramListBean;
+    }
+
+    public void setParamListBean(MemberDeviceParamListBean paramListBean) {
+        this.paramListBean = paramListBean;
+    }
 
     public String getADDTYPE() {
         return ADDTYPE;

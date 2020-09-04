@@ -43,7 +43,7 @@
                         android:ellipsize="end"
                         android:maxLength="6"
                         android:singleLine="true"
-                        android:text="超级布朗"
+                        android:text=""
                         android:textColor="#ffffff"
                         android:textSize="20dip"
                         android:textStyle="bold" />
@@ -91,7 +91,7 @@
                         android:layout_width="wrap_content"
                         android:layout_height="wrap_content"
                         android:layout_marginLeft="4dip"
-                        android:text="188天"
+                        android:text="天"
                         android:textColor="#ffffff"
                         android:textSize="14dip" />
                 </LinearLayout>
@@ -138,7 +138,7 @@
                 android:id="@+id/dz_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="345"
+                android:text=""
                 android:textColor="#1e1e1e"
                 android:textSize="20dip" />
 
@@ -164,7 +164,7 @@
                 android:id="@+id/sc_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="345"
+                android:text=""
                 android:textColor="#1e1e1e"
                 android:textSize="20dip" />
 
@@ -190,7 +190,7 @@
                 android:id="@+id/browse_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="345"
+                android:text=""
                 android:textColor="#1e1e1e"
                 android:textSize="20dip" />
 
@@ -216,7 +216,7 @@
                 android:id="@+id/integral_count"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
-                android:text="3450"
+                android:text=""
                 android:textColor="#1e1e1e"
                 android:textSize="20dip" />
 

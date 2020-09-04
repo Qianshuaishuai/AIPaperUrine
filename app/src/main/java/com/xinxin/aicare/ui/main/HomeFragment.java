@@ -1,9 +1,12 @@
 package com.xinxin.aicare.ui.main;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.net.Uri;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.v4.app.Fragment;
@@ -25,10 +28,13 @@ import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.adapter.MemberAdapter;
 import com.xinxin.aicare.base.BaseFragment;
+import com.xinxin.aicare.bean.MemberDeviceParamListBean;
 import com.xinxin.aicare.bean.MemberListBean;
 import com.xinxin.aicare.bean.UserBean;
+import com.xinxin.aicare.event.BluetoothReceiveEvent;
 import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.response.CourseResponse;
+import com.xinxin.aicare.response.MemberDeviceParamListResponse;
 import com.xinxin.aicare.response.MemberListResponse;
 import com.xinxin.aicare.ui.baby.AccessInductActivity;
 import com.xinxin.aicare.ui.info.BabyBindActivity;
@@ -42,6 +48,9 @@ import com.xinxin.aicare.ui.message.MessageActivity;
 import com.xinxin.aicare.util.T;
 import com.google.gson.Gson;
 
+import org.greenrobot.eventbus.EventBus;
+import org.greenrobot.eventbus.Subscribe;
+import org.greenrobot.eventbus.ThreadMode;
 import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.view.annotation.ContentView;
@@ -68,6 +77,9 @@ public class HomeFragment extends BaseFragment {
     // the fragment initialization parameters, e.g. ARG_ITEM_NUMBER
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
+    private AlertDialog tipDialog;
+    private TextView titleTextView;
+    private TextView tipTextView;
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -81,10 +93,12 @@ public class HomeFragment extends BaseFragment {
 
     private PopupWindow loginPopupWindow;
     private PopupWindow bindPopupWindow;
-
+    private int isConnect = 0;
 
     private Timer timer1;
     private TimerTask timerTask1;
+    private Timer updateMemberListTimer;
+    private TimerTask updateMemberListTimerTask;
     private boolean isFailed = false;
 
     private boolean isFirstClear = true;
@@ -173,6 +187,7 @@ public class HomeFragment extends BaseFragment {
             mParam1 = getArguments().getString(ARG_PARAM1);
             mParam2 = getArguments().getString(ARG_PARAM2);
         }
+        EventBus.getDefault().register(this);
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -201,6 +216,7 @@ public class HomeFragment extends BaseFragment {
 
     @Override
     public void onResume() {
+        getMemberList();
         super.onResume();
     }
 
@@ -209,6 +225,7 @@ public class HomeFragment extends BaseFragment {
         super.onDestroy();
         timer1.cancel();
         destoryClearDeviceData();
+        EventBus.getDefault().unregister(this);
     }
 
     /**
@@ -234,7 +251,7 @@ public class HomeFragment extends BaseFragment {
         initTeachs();
         initLoginSuccessDialog();
         initBindSuccessDialog();
-
+        initTipDialog();
     }
 
     private void initTeachs() {
@@ -257,7 +274,7 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                T.s("请求出错，请检查网络");
+//                T.s("请求出错，请检查网络");
             }
 
             @Override
@@ -287,11 +304,25 @@ public class HomeFragment extends BaseFragment {
         timerTask1 = new TimerTask() {
             @Override
             public void run() {
-                getMemberList();
+                isConnect = 0;
+                Message msg = Message.obtain();
+                msg.obj = 0;
+                updateStatushandler.sendMessage(msg);
             }
         };
-        timer1.schedule(timerTask1, 0, 1000);
+        timer1.schedule(timerTask1, 0, 4000);
+        getMemberList();
     }
+
+    private Handler updateStatushandler = new Handler() {
+
+        @Override
+        public void handleMessage(Message msg) {
+            super.handleMessage(msg);
+            adapter.setIsConnect(isConnect);
+            adapter.notifyDataSetChanged();
+        }
+    };
 
     private void initView() {
         memberList = new ArrayList<>();
@@ -317,7 +348,6 @@ public class HomeFragment extends BaseFragment {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 MemberListResponse response = gson.fromJson(result, MemberListResponse.class);
-                System.out.println(result);
                 switch (response.getResult()) {
                     case 0:
                         if (response.getData().size() == 0) {
@@ -341,7 +371,11 @@ public class HomeFragment extends BaseFragment {
                                 }
                                 isFirstClear = false;
                             }
+
+                            getMemberDeviceParamList();
                         }
+                        ((PaperUrineApplication) getActivity().getApplication()).saveMemberList(response.getData());
+                        startUpdateMemberList();
                         break;
 
                     default:
@@ -354,7 +388,7 @@ public class HomeFragment extends BaseFragment {
 
             @Override
             public void onError(Throwable ex, boolean isOnCallback) {
-                System.out.println(ex);
+                initCacheData();
             }
 
             @Override
@@ -367,6 +401,148 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
+    }
+
+    public void startUpdateMemberList() {
+        updateMemberListTimer = new Timer();
+        updateMemberListTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                updateMemberList();
+            }
+        };
+        updateMemberListTimer.schedule(updateMemberListTimerTask, 0, 2000);
+    }
+
+    //用于更新使用时间
+    private void updateMemberList() {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_MEMBERLIST);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                MemberListResponse response = gson.fromJson(result, MemberListResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        for (int i = 0; i < response.getData().size(); i++) {
+                            for (int m = 0; m < memberList.size(); m++) {
+                                if (response.getData().get(i).getMEMBER_ID().equals(memberList.get(m).getMEMBER_ID())) {
+                                    memberList.get(m).setSLEEP_TIME(response.getData().get(i).getSLEEP_TIME());
+                                }
+                            }
+                        }
+                        adapter.notifyDataSetChanged();
+                        break;
+
+                    default:
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    private void initCacheData() {
+        List<MemberListBean> cacheMemberList = ((PaperUrineApplication) getActivity().getApplication()).getMemberList();
+        List<MemberDeviceParamListBean> paramList = ((PaperUrineApplication) getActivity().getApplication()).getParamList();
+        adapter.setMemberList(cacheMemberList);
+        adapter.setMemberDeviceParamListBean(paramList);
+        adapter.notifyDataSetChanged();
+        rvMember.setVisibility(View.VISIBLE);
+        babyLayout.setVisibility(View.GONE);
+    }
+
+
+    private void getMemberDeviceParamList() {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_MEMBERDEVICEPARAMLIST);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                MemberDeviceParamListResponse response = gson.fromJson(result, MemberDeviceParamListResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        adapter.setMemberDeviceParamListBean(response.getData());
+                        adapter.notifyDataSetChanged();
+                        ((PaperUrineApplication) getActivity().getApplication()).saveParamList(response.getData());
+                        break;
+
+                    default:
+
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    public void showTipDialog(String title, String tip) {
+        titleTextView.setText(title);
+        tipTextView.setText(tip);
+        tipDialog.show();
+    }
+
+    private void initTipDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        // 创建一个view，并且将布局加入view中
+        View view = LayoutInflater.from(getContext()).inflate(
+                R.layout.dialog_common_warning, null, false);
+        // 将view添加到builder中
+        builder.setView(view);
+        // 创建dialog
+        tipDialog = builder.create();
+        // 初始化控件，注意这里是通过view.findViewById
+        titleTextView = (TextView) view.findViewById(R.id.title);
+        tipTextView = (TextView) view.findViewById(R.id.tip);
+        Button commonButton = (Button) view.findViewById(R.id.button);
+
+        commonButton.setText("确认");
+
+        commonButton.setOnClickListener(new android.view.View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                tipDialog.cancel();
+            }
+        });
+
+        tipDialog.setCancelable(false);
+//        tipDialog.show();
     }
 
     private void destoryClearDeviceData() {
@@ -495,5 +671,28 @@ public class HomeFragment extends BaseFragment {
 
             }
         });
+    }
+
+    //解析蓝牙设备数据
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onBluetoothReceiveEvent(BluetoothReceiveEvent event) {
+        adapter.setBluetoothReceiveBean(event.getBean());
+        adapter.notifyDataSetChanged();
+        isConnect = 1;
+        adapter.setIsConnect(isConnect);
+        adapter.notifyDataSetChanged();
+        //重新启动计时器
+        timer1.cancel();
+        timer1 = new Timer();
+        timerTask1 = new TimerTask() {
+            @Override
+            public void run() {
+                isConnect = 0;
+                Message msg = Message.obtain();
+                msg.obj = 0;
+                updateStatushandler.sendMessage(msg);
+            }
+        };
+        timer1.schedule(timerTask1, 4000, 4000);
     }
 }

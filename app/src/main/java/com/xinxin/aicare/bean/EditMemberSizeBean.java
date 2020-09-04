@@ -1,7 +1,6 @@
 package com.xinxin.aicare.bean;
 
-public class EditMemberBean {
-    private String NICKNAME;
+public class EditMemberSizeBean {
     private String THERMOMETER;
     private String NUMERICAL_TABLE;
     private String WATER_HOLDING_VALUE;
@@ -37,13 +36,5 @@ public class EditMemberBean {
 
     public void setALARM_LIMIT_VALUE(String ALARM_LIMIT_VALUE) {
         this.ALARM_LIMIT_VALUE = ALARM_LIMIT_VALUE;
-    }
-
-    public String getNICKNAME() {
-        return NICKNAME;
-    }
-
-    public void setNICKNAME(String NICKNAME) {
-        this.NICKNAME = NICKNAME;
     }
 }

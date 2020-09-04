@@ -1,5 +1,6 @@
 package com.xinxin.aicare.adapter;
 
+import android.support.v4.content.ContextCompat;
 import android.support.v7.widget.RecyclerView;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
@@ -9,22 +10,34 @@ import android.widget.ImageView;
 import android.widget.LinearLayout;
 import android.widget.TextView;
 
+import com.google.gson.Gson;
+import com.xinxin.aicare.Constant;
+import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
+import com.xinxin.aicare.bean.BluetoothReceiveBean;
+import com.xinxin.aicare.bean.MemberDeviceParamListBean;
 import com.xinxin.aicare.bean.MemberListBean;
+import com.xinxin.aicare.response.MemberDeviceParamListResponse;
 import com.xinxin.aicare.ui.main.HomeFragment;
+import com.xinxin.aicare.util.NumberUtil;
 import com.xinxin.aicare.util.T;
+import com.xinxin.aicare.util.UrineUtil;
 import com.xinxin.aicare.view.HalfCircleProgressView;
 
 import org.xutils.common.util.DensityUtil;
 import org.xutils.image.ImageOptions;
 import org.xutils.x;
 
+import java.math.BigDecimal;
 import java.util.List;
 
 public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder> {
 
     private List<MemberListBean> mList;
     private HomeFragment context;
+    private BluetoothReceiveBean bluetoothReceiveBean;
+    private List<MemberDeviceParamListBean> deviceParamList;
+    private int isConnect;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cardIcon, cardMessage, cardSetting, cardData;
@@ -70,6 +83,33 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         this.context = context;
     }
 
+    public void setBluetoothReceiveBean(BluetoothReceiveBean bean) {
+        this.bluetoothReceiveBean = bean;
+    }
+
+    public void setIsConnect(int isConnect) {
+        this.isConnect = isConnect;
+    }
+
+    public void setMemberDeviceParamListBean(List<MemberDeviceParamListBean> deviceParamList) {
+        this.deviceParamList = deviceParamList;
+
+        for (int m = 0; m < mList.size(); m++) {
+            for (int d = 0; d < deviceParamList.size(); d++) {
+                if (mList.get(m).getDEVICE_CODE().equals(deviceParamList.get(d).getDEVICE_CODE())) {
+                    mList.get(m).setParamListBean(deviceParamList.get(d));
+                }
+            }
+        }
+    }
+
+    public void setMemberList(List<MemberListBean> memberList) {
+        mList.clear();
+        for (int m = 0; m < memberList.size(); m++) {
+            mList.add(memberList.get(m));
+        }
+    }
+
     @Override
     public ViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
         View view = LayoutInflater.from(parent.getContext()).inflate(R.layout.recycleview_baby, parent, false);
@@ -87,6 +127,8 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
                 }
             }
         });
+
+        translateBlueToothData();
 
         holder.posLayout.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -140,29 +182,6 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             }
         });
 
-        holder.cardTime.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                if (holder.cardTime.getText().toString().equals("点击绑定设备")) {
-                    context.goToDeviceConnect(mList.get(position).getMEMBER_ID());
-                } else {
-                    T.s("设备已绑定");
-//                    context.goToDeviceConnect(mList.get(position).getMEMBER_ID());
-                }
-            }
-        });
-
-        if (TextUtils.isEmpty(mList.get(position).getDEVICE_CODE())) {
-            holder.cardTime.setText("点击绑定设备");
-        } else {
-            if (TextUtils.isEmpty(mList.get(position).getCREATETIME())) {
-                holder.cardTime.setText("已绑定设备");
-            } else {
-                holder.cardTime.setText(mList.get(position).getCREATETIME());
-            }
-        }
-
-
         if (TextUtils.isEmpty(mList.get(position).getTEMPERATURE())) {
             holder.mainTempTv.setText("--℃");
         } else {
@@ -182,7 +201,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         }
 
         if (TextUtils.isEmpty(mList.get(position).getSLEEP_TIME())) {
-            holder.mainSleepTv.setText("--min");
+            holder.mainSleepTv.setText("0.0min");
         } else {
             holder.mainSleepTv.setText(mList.get(position).getSLEEP_TIME() + "min");
         }
@@ -244,6 +263,32 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
                     break;
             }
         }
+
+
+        holder.cardTime.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (holder.cardTime.getText().toString().equals("点击绑定设备")) {
+                    context.goToDeviceConnect(mList.get(position).getMEMBER_ID());
+                } else {
+                    T.s("设备已绑定");
+//                    context.goToDeviceConnect(mList.get(position).getMEMBER_ID());
+                }
+            }
+        });
+
+        if (TextUtils.isEmpty(mList.get(position).getDEVICE_CODE())) {
+            holder.cardTime.setText("点击绑定设备");
+        } else {
+            if (isConnect == 1) {
+                holder.cardTime.setText("已连接设备");
+                holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_success));
+            } else {
+                holder.cardTime.setText("已绑定设备");
+                holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_default));
+            }
+        }
+
     }
 
     @Override
@@ -261,4 +306,128 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         this.listener = listener;
     }
 
+    //本地获取解析后数据
+    private void translateBlueToothData() {
+        if (bluetoothReceiveBean != null) {
+            for (int m = 0; m < mList.size(); m++) {
+                if (mList.get(m).getDEVICE_CODE().equals(bluetoothReceiveBean.getDEVICE_ID()) && mList.get(m).getParamListBean() != null) {
+                    //随时存储本地解析蓝牙数据
+                    ((PaperUrineApplication) context.getActivity().getApplication()).saveNewestBluetoothReceiveBean(bluetoothReceiveBean);
+                    if (bluetoothReceiveBean.getD0().equals("0")) {
+                        mList.get(m).setURINE_VOLUME("");
+                        mList.get(m).setURINE_VOLUME_PERCENT("");
+                        mList.get(m).setSLEEP_POSTURE("");
+                        mList.get(m).setTEMPERATURE("");
+                    } else if (bluetoothReceiveBean.getD0().equals("1")) {
+                        //处理睡姿
+                        mList.get(m).setSLEEP_POSTURE(bluetoothReceiveBean.getD5());
+                        //处理尿湿
+                        boolean is_URINE_VOLUME_F = false;
+                        if (!TextUtils.isEmpty(bluetoothReceiveBean.getAD())) {
+                            String S = mList.get(m).getParamListBean().getNS_S();//阈值，用户设置的尿湿节点
+                            String F = mList.get(m).getParamListBean().getNS_F();//阈值，用户设置的尿满节点
+                            String baseVol = NumberUtil.div(NumberUtil.mul(mList.get(m).getParamListBean().getWATER_HOLDING_VALUE(), mList.get(m).getParamListBean().getALARM_LIMIT_VALUE()), 100) + "";//80
+                            double doubleA = NumberUtil.div(NumberUtil.mul(F, baseVol), 100); //A=F*V*P,A值精确到10位   S 40  F 50
+                            doubleA = NumberUtil.div(doubleA, 10, 0) * 10;
+
+                            int URINE_VOLUME_temp = UrineUtil.getUrineVolume(bluetoothReceiveBean.getAD(), mList.get(m).getParamListBean().getTHERMOMETER(), mList.get(m).getParamListBean().getNUMERICAL_TABLE());
+                            String URINE_VOLUME = (URINE_VOLUME_temp >= 0 ? URINE_VOLUME_temp + "" : ">" + (URINE_VOLUME_temp * -1));//尿量，单位ml  -----页面显示的尿量
+                            double URINE_VOLUME_PERCENT_double = (URINE_VOLUME_temp >= 0 ? (NumberUtil.mul(NumberUtil.div(URINE_VOLUME_temp, doubleA), 100)) : (NumberUtil.mul(NumberUtil.div(URINE_VOLUME_temp * -1, doubleA), 100)));
+                            String URINE_VOLUME_PERCENT = URINE_VOLUME_PERCENT_double + "";//		  -----页面显示的尿量比例
+                            double doubleS = NumberUtil.div(NumberUtil.mul(S, baseVol), 100);
+                            boolean is_URINE_VOLUME_S = (URINE_VOLUME_temp >= 0 ? NumberUtil.sub(URINE_VOLUME_temp, doubleS) >= 0 : true);//是否尿湿  ----是否触发尿湿值。
+                            is_URINE_VOLUME_F = (URINE_VOLUME_PERCENT_double >= 100 ? true : false);//是否尿满		----是否触发尿满值。
+                            //尿湿百分比
+                            mList.get(m).setURINE_VOLUME(URINE_VOLUME);
+                            mList.get(m).setURINE_VOLUME_PERCENT(URINE_VOLUME_PERCENT);
+
+                        }
+                        //处理温度
+                        int currentTemp = 0;
+                        if (bluetoothReceiveBean.getD4().equals("0xFF")) {
+                            mList.get(m).setTEMPERATURE(">50");
+                        } else if (bluetoothReceiveBean.getD4().equals("0xFE")) {
+                            mList.get(m).setTEMPERATURE("<0");
+                        } else {
+                            if (!TextUtils.isEmpty(bluetoothReceiveBean.getD4())) {
+                                currentTemp = Integer.parseInt(bluetoothReceiveBean.getD4());
+                                mList.get(m).setTEMPERATURE(String.valueOf(currentTemp * 0.5));
+                            }
+                        }
+
+                        //睡眠时间--暂时不用
+//                        if (!TextUtils.isEmpty(bluetoothReceiveBean.getD6())) {
+//                            int sleepTime = Integer.parseInt(bluetoothReceiveBean.getD6());
+//                            double f1 = new BigDecimal((float) sleepTime / 60).setScale(2, BigDecimal.ROUND_HALF_UP).doubleValue();
+//                            mList.get(m).setSLEEP_TIME(String.valueOf(f1));
+//                        }
+
+                        //是否进行报警通知提示，0尿湿提醒, 1尿满提醒, 2过冷提醒, 3过热提醒, 4趴睡提醒
+                        int tipNumber = -1;
+                        if (bluetoothReceiveBean.getD5().equals("1") && mList.get(m).getParamListBean().getPS_SWITH().equals("1")) {
+                            tipNumber = 4;
+                        }
+
+                        //温度判断--过冷
+                        double TB_TEMP = 0;
+                        String TB_SWITH = mList.get(m).getParamListBean().getTB_SWITH();
+                        if (!TextUtils.isEmpty(mList.get(m).getParamListBean().getTB_TEMPERATURE())) {
+                            TB_TEMP = Double.parseDouble(mList.get(m).getParamListBean().getTB_TEMPERATURE());
+                        }
+
+                        if (TB_SWITH.equals("1")) {
+                            if (bluetoothReceiveBean.getD4().equals("0xFF")) {
+                                tipNumber = 2;
+                            }
+
+                            if (currentTemp * 0.5 < TB_TEMP) {
+                                tipNumber = 2;
+                            }
+                        }
+
+                        //温度判断--过热
+                        double FZX_TEMP = 0;
+                        String FZX_SWITH = mList.get(m).getParamListBean().getFZX_SWITH();
+                        if (!TextUtils.isEmpty(mList.get(m).getParamListBean().getFZX_TEMPERATURE())) {
+                            FZX_TEMP = Double.parseDouble(mList.get(m).getParamListBean().getFZX_TEMPERATURE());
+                        }
+
+                        if (FZX_SWITH.equals("1")) {
+                            if (bluetoothReceiveBean.getD4().equals("0xFE")) {
+                                tipNumber = 3;
+                            }
+
+                            if (currentTemp * 0.5 > FZX_TEMP) {
+                                tipNumber = 3;
+                            }
+                        }
+
+                        //尿满
+                        String NS_SWITH = mList.get(m).getParamListBean().getNS_SWITH();
+                        if (NS_SWITH.equals("1")) {
+                            if (is_URINE_VOLUME_F) {
+                                tipNumber = 1;
+                            }
+                        }
+
+                        if (tipNumber != -1) {
+                            String title = Constant.WARNING_TITLES[tipNumber];
+                            String tip = Constant.WARNING_TIPS[tipNumber];
+                            tip = tip.replace("NICKNAME", mList.get(m).getNICKNAME());
+                            context.showTipDialog(title, tip);
+                        }
+                    }
+                }
+            }
+        } else {
+            //初始化
+            for (int m = 0; m < mList.size(); m++) {
+                mList.get(m).setURINE_VOLUME("");
+                mList.get(m).setURINE_VOLUME_PERCENT("");
+                mList.get(m).setSLEEP_POSTURE("");
+                mList.get(m).setTEMPERATURE("");
+                mList.get(m).setSLEEP_TIME("");
+            }
+        }
+    }
 }

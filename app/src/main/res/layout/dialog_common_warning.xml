@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="284dip"
+    android:layout_height="wrap_content"
+    android:background="@drawable/shape_dialog_bg"
+    android:gravity="center"
+    android:orientation="vertical">
+
+    <TextView
+        android:id="@+id/title"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="56dip"
+        android:layout_marginTop="18dip"
+        android:layout_marginRight="56dip"
+        android:gravity="center"
+        android:textColor="#1e1e1e"
+        android:textSize="18dip"
+        android:textStyle="bold" />
+
+    <TextView
+        android:id="@+id/tip"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginLeft="24dip"
+        android:layout_marginTop="12dip"
+        android:layout_marginRight="24dip"
+        android:layout_marginBottom="18dip"
+        android:gravity="center"
+        android:textColor="#1e1e1e"
+        android:textSize="16dip" />
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:gravity="center"
+        android:orientation="horizontal">
+
+        <Button
+            android:id="@+id/button"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="#F97EB7"
+            android:gravity="center"
+            android:textColor="#ffffff"
+            android:textSize="16dip" />
+
+    </LinearLayout>
+</LinearLayout>
