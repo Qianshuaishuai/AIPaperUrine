@@ -424,6 +424,7 @@
                     android:layout_marginRight="15dip">
 
                     <ImageView
+                        android:src="@mipmap/common_teach"
                         android:id="@+id/teach_pic"
                         android:layout_width="match_parent"
                         android:layout_height="match_parent" />
