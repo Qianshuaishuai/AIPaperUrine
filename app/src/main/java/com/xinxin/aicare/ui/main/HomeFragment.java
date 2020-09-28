@@ -31,6 +31,7 @@ import com.xinxin.aicare.base.BaseFragment;
 import com.xinxin.aicare.bean.MemberDeviceParamListBean;
 import com.xinxin.aicare.bean.MemberListBean;
 import com.xinxin.aicare.bean.UserBean;
+import com.xinxin.aicare.event.BluetoothConnectEvent;
 import com.xinxin.aicare.event.BluetoothReceiveEvent;
 import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.response.CourseResponse;
@@ -45,6 +46,7 @@ import com.xinxin.aicare.ui.info.SleepPostureActivity;
 import com.xinxin.aicare.ui.info.TeachActivity;
 import com.xinxin.aicare.ui.info.UrineDetailActivity;
 import com.xinxin.aicare.ui.message.MessageActivity;
+import com.xinxin.aicare.util.RecordUtils;
 import com.xinxin.aicare.util.T;
 import com.google.gson.Gson;
 
@@ -319,8 +321,8 @@ public class HomeFragment extends BaseFragment {
         @Override
         public void handleMessage(Message msg) {
             super.handleMessage(msg);
-            adapter.setIsConnect(isConnect);
-            adapter.notifyDataSetChanged();
+//            adapter.setIsConnect(isConnect);
+//            adapter.notifyDataSetChanged();
         }
     };
 
@@ -509,10 +511,12 @@ public class HomeFragment extends BaseFragment {
         });
     }
 
-    public void showTipDialog(String title, String tip) {
-        titleTextView.setText(title);
-        tipTextView.setText(tip);
-        tipDialog.show();
+    public void showTipDialog(String title, String tip, int index) {
+        if (RecordUtils.checkIsShowTipDialog(index)) {
+            titleTextView.setText(title);
+            tipTextView.setText(tip);
+            tipDialog.show();
+        }
     }
 
     private void initTipDialog() {
@@ -678,9 +682,9 @@ public class HomeFragment extends BaseFragment {
     public void onBluetoothReceiveEvent(BluetoothReceiveEvent event) {
         adapter.setBluetoothReceiveBean(event.getBean());
         adapter.notifyDataSetChanged();
-        isConnect = 1;
-        adapter.setIsConnect(isConnect);
-        adapter.notifyDataSetChanged();
+//        isConnect = 1;
+//        adapter.setIsConnect(isConnect);
+//        adapter.notifyDataSetChanged();
         //重新启动计时器
         timer1.cancel();
         timer1 = new Timer();
@@ -694,5 +698,12 @@ public class HomeFragment extends BaseFragment {
             }
         };
         timer1.schedule(timerTask1, 4000, 4000);
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onBluetoothConnectEvent(BluetoothConnectEvent event) {
+        System.out.println("status:" + event.getStatus());
+        adapter.setIsConnect(event.getStatus());
+        adapter.notifyDataSetChanged();
     }
 }

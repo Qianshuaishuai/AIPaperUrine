@@ -5,6 +5,11 @@ import android.app.Service;
 import android.bluetooth.BluetoothAdapter;
 import android.bluetooth.BluetoothDevice;
 import android.bluetooth.BluetoothGatt;
+import android.bluetooth.BluetoothGattCallback;
+import android.bluetooth.BluetoothGattCharacteristic;
+import android.bluetooth.BluetoothGattDescriptor;
+import android.bluetooth.BluetoothServerSocket;
+import android.bluetooth.BluetoothSocket;
 import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
@@ -34,6 +39,7 @@ import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.bean.BluetoothReceiveBean;
 import com.xinxin.aicare.bean.DeviceParamInfoMyParamBean;
+import com.xinxin.aicare.event.BluetoothConnectEvent;
 import com.xinxin.aicare.event.BluetoothReceiveEvent;
 import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.util.DataUtil;
@@ -45,6 +51,7 @@ import org.xutils.common.Callback;
 import org.xutils.http.RequestParams;
 import org.xutils.x;
 
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
@@ -69,6 +76,8 @@ public class BluetoothService extends Service {
     private boolean isStart = false;
 
     private String TAG = "BluetoothService";
+    private BluetoothAdapter.LeScanCallback mBLEScanCallback;
+    private boolean isConnect = false;
 
     /**
      * 初始化蓝牙
@@ -107,7 +116,106 @@ public class BluetoothService extends Service {
 
         initBoothDialog();
         initBooth();
+
+//        connectBlueTooth();
     }
+
+    private void connectBlueTooth() {
+//        if (blueadapter == null) {
+//            // 设备不支持蓝牙功能
+//            System.out.println("设备不支持蓝牙功能");
+//            return;
+//        }
+//        blueadapter.isDiscovering(); //监测蓝牙是否正在扫描
+//        blueadapter.startDiscovery();//开始扫描
+//
+//        IntentFilter filter = new IntentFilter(BluetoothDevice.ACTION_FOUND);
+//        registerReceiver(mReceiver, filter);
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+
+            mBLEScanCallback = new BluetoothAdapter.LeScanCallback() {
+                @Override
+                public void onLeScan(BluetoothDevice device, int rssi, byte[] scanRecord) {
+
+                    BluetoothGatt bluetoothGatt;
+                    System.out.println("nameaaa:" + device.getName());
+                    if (device.getName() != null && device.getName().contains(Constant.DEVICE_NAME)) {
+                        System.out.println("ssssssss");
+                        BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
+                            @Override
+                            public void onPhyUpdate(BluetoothGatt gatt, int txPhy, int rxPhy, int status) {
+                                super.onPhyUpdate(gatt, txPhy, rxPhy, status);
+                            }
+
+                            @Override
+                            public void onPhyRead(BluetoothGatt gatt, int txPhy, int rxPhy, int status) {
+                                super.onPhyRead(gatt, txPhy, rxPhy, status);
+                            }
+
+                            @Override
+                            public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+                                System.out.println("status123:" + status);
+                                System.out.println("newState:" + newState);
+                                super.onConnectionStateChange(gatt, status, newState);
+                            }
+
+                            @Override
+                            public void onServicesDiscovered(BluetoothGatt gatt, int status) {
+                                super.onServicesDiscovered(gatt, status);
+                            }
+
+                            @Override
+                            public void onCharacteristicRead(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+                                super.onCharacteristicRead(gatt, characteristic, status);
+                            }
+
+                            @Override
+                            public void onCharacteristicWrite(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic, int status) {
+                                super.onCharacteristicWrite(gatt, characteristic, status);
+                            }
+
+                            @Override
+                            public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
+                                super.onCharacteristicChanged(gatt, characteristic);
+                            }
+
+                            @Override
+                            public void onDescriptorRead(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+                                super.onDescriptorRead(gatt, descriptor, status);
+                            }
+
+                            @Override
+                            public void onDescriptorWrite(BluetoothGatt gatt, BluetoothGattDescriptor descriptor, int status) {
+                                super.onDescriptorWrite(gatt, descriptor, status);
+                            }
+
+                            @Override
+                            public void onReliableWriteCompleted(BluetoothGatt gatt, int status) {
+                                super.onReliableWriteCompleted(gatt, status);
+                            }
+
+                            @Override
+                            public void onReadRemoteRssi(BluetoothGatt gatt, int rssi, int status) {
+                                super.onReadRemoteRssi(gatt, rssi, status);
+                            }
+
+                            @Override
+                            public void onMtuChanged(BluetoothGatt gatt, int mtu, int status) {
+                                super.onMtuChanged(gatt, mtu, status);
+                            }
+                        };
+
+                        bluetoothGatt = device.connectGatt(getApplicationContext(), true, mGattCallback);
+                    }
+
+                }
+            };
+
+            blueadapter.startLeScan(mBLEScanCallback);
+        }
+
+    }
+
 
     /**
      * 关闭蓝牙链接
@@ -140,7 +248,7 @@ public class BluetoothService extends Service {
             return;
         }
 
-//        startScan();
+        startScan();
     }
 
     private void uploadDeviceData(final String D0, final String DEVICE_ID, final String X, final String Y, final String Z, final String AD, final String D4, final String D5, final String D6) {
@@ -274,6 +382,10 @@ public class BluetoothService extends Service {
                         receiveBean.setD5(D5);
                         receiveBean.setD6(D6);
                         EventBus.getDefault().post(new BluetoothReceiveEvent(receiveBean));
+
+                        if (!isConnect) {
+                            connectDevice(result.getDevice());
+                        }
                     }
                 }
 
@@ -288,6 +400,35 @@ public class BluetoothService extends Service {
                 }
             };
             scanner.startScan(null, mScanSettings, mScanCallback);
+        }
+    }
+
+    private void connectDevice(BluetoothDevice device) {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
+                @Override
+                public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
+                    System.out.println("status123:" + status);
+                    super.onConnectionStateChange(gatt, status, newState);
+                    switch (status) {
+                        case BluetoothGatt.GATT_SUCCESS:
+                            EventBus.getDefault().post(new BluetoothConnectEvent(1));
+                            isConnect = true;
+                            break;
+
+                        case 8:
+                            EventBus.getDefault().post(new BluetoothConnectEvent(0));
+                            isConnect = false;
+                            break;
+
+                        case BluetoothGatt.GATT_FAILURE:
+                            EventBus.getDefault().post(new BluetoothConnectEvent(0));
+                            isConnect = false;
+                            break;
+                    }
+                }
+            };
+            device.connectGatt(getApplicationContext(), true, mGattCallback);
         }
     }
 
@@ -331,5 +472,85 @@ public class BluetoothService extends Service {
         boothDialog.setCancelable(false);
 //        tipDialog.show();
     }
+
+    private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
+        public void onReceive(Context context, Intent intent) {
+            String action = intent.getAction();
+            if (BluetoothDevice.ACTION_FOUND.equals(action)) {
+                BluetoothDevice device = intent.getParcelableExtra(BluetoothDevice.EXTRA_DEVICE);
+                Log.e("tag", "device name: " + device.getName() + " address: " + device.getAddress());
+                if (device.getName() != null && device.getName().contains(Constant.DEVICE_NAME)) {
+
+                }
+            }
+        }
+    };
+
+//    private class AcceptThread extends Thread {
+//        private final BluetoothServerSocket mmServerSocket;
+//        public AcceptThread() {
+//            BluetoothServerSocket tmp = null;
+//            try {
+//                tmp = blueadapter.listenUsingRfcommWithServiceRecord(NAME, MY_UUID);
+//            } catch (IOException e) { }
+//            mmServerSocket = tmp;
+//        }
+//
+//        public void run() {
+//            BluetoothSocket socket = null;
+//            // 在后台一直监听客户端的请求
+//            while (true) {
+//                try {
+//                    socket = mmServerSocket.accept();
+//                } catch (IOException e) {
+//                    break;
+//                }
+//                if (socket != null) {
+//                    try {
+//                        mmServerSocket.close();
+//                    } catch (IOException e) {
+//                        e.printStackTrace();
+//                    }
+//                    break;
+//                }
+//            }
+//        }
+//        public void cancel() {
+//            try {
+//                mmServerSocket.close();
+//            } catch (IOException e) { }
+//        }
+//    }
+//
+//    private class ConnectThread extends Thread {
+//        private final BluetoothSocket mmSocket;
+//        private final BluetoothDevice mmDevice;
+//        public ConnectThread(BluetoothDevice device) {
+//            BluetoothSocket tmp = null;
+//            mmDevice = device;
+//            try {
+//                tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
+//            } catch (IOException e) { }
+//            mmSocket = tmp;
+//        }
+//
+//        public void run() {
+//            blueadapter.cancelDiscovery();
+//
+//            try {
+//                mmSocket.connect();
+//            } catch (IOException connectException) {
+//                try {
+//                    mmSocket.close();
+//                } catch (IOException closeException) { }
+//                return;
+//            }
+//        }
+//        public void cancel() {
+//            try {
+//                mmSocket.close();
+//            } catch (IOException e) { }
+//        }
+//    }
 
 }

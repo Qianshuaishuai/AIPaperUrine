@@ -103,4 +103,5 @@ public class Constant {
     //提醒文案
     public static final String[] WARNING_TIPS = {"您的宝宝[NICKNAME]已达到预设的尿湿门槛，请注意更换尿片", "您的宝宝[NICKNAME]已达到预设的尿湿峰值，请尽快更换尿片，避免引起宝宝不适", "您的宝宝[NICKNAME]所处环境温度过低，请检查宝宝是否踢被", "您的宝宝[NICKNAME]所处环境温度过高，为了宝宝安全，请检查宝宝情况！", "您的宝宝[NICKNAME]现在处于趴睡状态，请尽快调整睡姿，以免影响宝宝健康！"};
     public static final String[] WARNING_TITLES = {"尿湿提醒", "尿满提醒", "过冷提醒", "过热提醒", "趴睡提醒"};
+    public static final String[] SLEEP_POS_TIPS = {"宝宝仰睡", "宝宝左侧睡", "宝宝右侧睡", "宝宝趴睡，注意风险"};
 }

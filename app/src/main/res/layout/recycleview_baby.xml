@@ -204,15 +204,15 @@
                 android:layout_centerHorizontal="true"
                 android:orientation="vertical">
 
-                <TextView
-                    android:id="@+id/main_percent_tv"
-                    android:layout_width="wrap_content"
-                    android:layout_height="wrap_content"
-                    android:layout_centerHorizontal="true"
-                    android:layout_marginTop="42dip"
-                    android:text="75%"
-                    android:textColor="#F85FCF"
-                    android:textSize="15dip" />
+                <!--<TextView-->
+                    <!--android:id="@+id/main_percent_tv"-->
+                    <!--android:layout_width="wrap_content"-->
+                    <!--android:layout_height="wrap_content"-->
+                    <!--android:layout_centerHorizontal="true"-->
+                    <!--android:layout_marginTop="42dip"-->
+                    <!--android:text="75%"-->
+                    <!--android:textColor="#F85FCF"-->
+                    <!--android:textSize="15dip" />-->
 
                 <com.xinxin.aicare.view.HalfCircleProgressView
                     android:id="@+id/cpv"
@@ -230,14 +230,14 @@
                     android:id="@+id/main_beam_tv_tip"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:layout_above="@+id/main_beam_tv"
+                    android:layout_above="@+id/main_percent_tv"
                     android:layout_centerHorizontal="true"
                     android:text="尿量"
                     android:textColor="#999999"
                     android:textSize="15dip" />
 
                 <TextView
-                    android:id="@+id/main_beam_tv"
+                    android:id="@+id/main_percent_tv"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
                     android:layout_alignParentBottom="true"

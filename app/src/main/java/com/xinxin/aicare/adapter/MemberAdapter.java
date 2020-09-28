@@ -44,7 +44,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         ImageView mainTipIv, postureIv, brandLogo;
 
         TextView cardName, cardTime, cardMessageCount, postureTv;
-        TextView mainTipTv, mainPercentTv, mainTempTv, mainBeamTv, mainSleepTv, mainSize, mainBrand;
+        TextView mainTipTv, mainPercentTv, mainTempTv, mainSleepTv, mainSize, mainBrand;
 
         HalfCircleProgressView cpv;
         LinearLayout posLayout, sizeLayout, cardLayout, postureLayout;
@@ -65,7 +65,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             mainTipTv = (TextView) view.findViewById(R.id.main_tip_tv);
             mainPercentTv = (TextView) view.findViewById(R.id.main_percent_tv);
             mainTempTv = (TextView) view.findViewById(R.id.main_temp_tv);
-            mainBeamTv = (TextView) view.findViewById(R.id.main_beam_tv);
+//            mainBeamTv = (TextView) view.findViewById(R.id.main_beam_tv);
             mainSleepTv = (TextView) view.findViewById(R.id.main_sleep_tv);
             mainSize = (TextView) view.findViewById(R.id.main_size);
             posLayout = (LinearLayout) view.findViewById(R.id.layout_posture);
@@ -188,17 +188,28 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             holder.mainTempTv.setText(mList.get(position).getTEMPERATURE() + "℃");
         }
 
-        if (TextUtils.isEmpty(mList.get(position).getURINE_VOLUME())) {
-            holder.mainBeamTv.setText("--ml");
-        } else {
-            holder.mainBeamTv.setText(mList.get(position).getURINE_VOLUME() + "ml");
-        }
+//        if (TextUtils.isEmpty(mList.get(position).getURINE_VOLUME())) {
+//            holder.mainBeamTv.setText("--ml");
+//        } else {
+//            holder.mainBeamTv.setText(mList.get(position).getURINE_VOLUME() + "ml");
+//        }
 
         if (TextUtils.isEmpty(mList.get(position).getURINE_VOLUME_PERCENT())) {
             holder.mainPercentTv.setText("--%");
         } else {
             holder.mainPercentTv.setText(mList.get(position).getURINE_VOLUME_PERCENT() + "%");
         }
+
+        holder.mainPercentTv.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (TextUtils.isEmpty(mList.get(position).getURINE_VOLUME())) {
+                    T.s("当前尿量为--ml");
+                } else {
+                    T.s("当前尿量为" + mList.get(position).getURINE_VOLUME() + "ml");
+                }
+            }
+        });
 
         if (TextUtils.isEmpty(mList.get(position).getSLEEP_TIME())) {
             holder.mainSleepTv.setText("0.0min");
@@ -235,6 +246,32 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             @Override
             public void onClick(View view) {
 //                context.goToBabyInfoSetting(mList.get(position));
+            }
+        });
+
+        holder.postureLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                switch (mList.get(position).getSLEEP_POSTURE()) {
+                    case "1":
+                        T.s(Constant.SLEEP_POS_TIPS[3]);
+                        break;
+                    case "2":
+                        T.s(Constant.SLEEP_POS_TIPS[2]);
+                        break;
+                    case "4":
+                        T.s(Constant.SLEEP_POS_TIPS[0]);
+                        break;
+                    case "8":
+                        T.s(Constant.SLEEP_POS_TIPS[1]);
+                        break;
+
+                    default:
+                        T.s("当前未获取到宝宝睡姿");
+                        break;
+                }
+
+
             }
         });
 
@@ -414,7 +451,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
                             String title = Constant.WARNING_TITLES[tipNumber];
                             String tip = Constant.WARNING_TIPS[tipNumber];
                             tip = tip.replace("NICKNAME", mList.get(m).getNICKNAME());
-                            context.showTipDialog(title, tip);
+                            context.showTipDialog(title, tip, tipNumber);
                         }
                     }
                 }
