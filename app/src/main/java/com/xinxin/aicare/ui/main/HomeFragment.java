@@ -31,6 +31,7 @@ import com.xinxin.aicare.base.BaseFragment;
 import com.xinxin.aicare.bean.MemberDeviceParamListBean;
 import com.xinxin.aicare.bean.MemberListBean;
 import com.xinxin.aicare.bean.UserBean;
+import com.xinxin.aicare.decoration.SpacesItemDecoration;
 import com.xinxin.aicare.event.BluetoothConnectEvent;
 import com.xinxin.aicare.event.BluetoothReceiveEvent;
 import com.xinxin.aicare.response.CommonResponse;

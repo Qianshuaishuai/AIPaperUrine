@@ -10,6 +10,7 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.xinxin.aicare.Constant;
 import com.xinxin.aicare.PaperUrineApplication;
@@ -19,6 +20,7 @@ import com.xinxin.aicare.base.BaseFragment;
 import com.xinxin.aicare.bean.GoodsForStoreBean;
 import com.xinxin.aicare.bean.HomeCarouselBean;
 import com.xinxin.aicare.bean.UserBean;
+import com.xinxin.aicare.decoration.SpacesItemDecoration;
 import com.xinxin.aicare.response.GoodsListResponse;
 import com.xinxin.aicare.response.HomeCarouselResponse;
 import com.xinxin.aicare.ui.store.GoodActivity;
@@ -214,6 +216,14 @@ public class StoreFragment extends BaseFragment {
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
         rvStore.setLayoutManager(manager);
         rvStore.setAdapter(adapter);
+
+        WindowManager wm = (WindowManager) getActivity()
+                .getSystemService(Context.WINDOW_SERVICE);
+        int width = wm.getDefaultDisplay().getWidth();
+
+        int space = (width - 30 - 280);
+
+        rvStore.addItemDecoration(new SpacesItemDecoration(1000));
     }
 
     private void startGoodDetailActivity(int position) {
