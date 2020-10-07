@@ -12,6 +12,7 @@
     <color name="black">#1e1e1e</color>
     <color name="grey">#999999</color>
 
-    <color name="connect_default">#18C083</color>
-    <color name="connect_success">#1883D3</color>
+    <color name="connect_default">#1e1e1e</color>
+    <color name="connect_success">#18C083</color>
+    <color name="connect_none">#ff0000</color>
 </resources>

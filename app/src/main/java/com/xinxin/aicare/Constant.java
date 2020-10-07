@@ -3,6 +3,8 @@ package com.xinxin.aicare;
 public class Constant {
     public static final Boolean DEBUG = true;
     public static final String RID = "TEST_RID";
+    public static boolean isShowIntroduce = false;
+
 
     public static final String BASE_URL = "http://wechatshare.xinxinchoice.com/api/";
     public static final int PAY_FOR_ORDER = 10001;

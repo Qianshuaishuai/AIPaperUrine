@@ -305,7 +305,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.cardTime.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                if (holder.cardTime.getText().toString().equals("点击绑定设备")) {
+                if (holder.cardTime.getText().toString().equals("设备未绑定")) {
                     context.goToDeviceConnect(mList.get(position).getMEMBER_ID());
                 } else {
                     T.s("设备已绑定");
@@ -315,13 +315,14 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         });
 
         if (TextUtils.isEmpty(mList.get(position).getDEVICE_CODE())) {
-            holder.cardTime.setText("点击绑定设备");
+            holder.cardTime.setText("设备未绑定");
+            holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_none));
         } else {
             if (isConnect == 1) {
-                holder.cardTime.setText("已连接设备");
+                holder.cardTime.setText("设备接收中");
                 holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_success));
             } else {
-                holder.cardTime.setText("已绑定设备");
+                holder.cardTime.setText("未连接设备");
                 holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_default));
             }
         }

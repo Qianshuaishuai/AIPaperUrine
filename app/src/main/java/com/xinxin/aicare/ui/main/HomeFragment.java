@@ -31,9 +31,10 @@ import com.xinxin.aicare.base.BaseFragment;
 import com.xinxin.aicare.bean.MemberDeviceParamListBean;
 import com.xinxin.aicare.bean.MemberListBean;
 import com.xinxin.aicare.bean.UserBean;
-import com.xinxin.aicare.decoration.SpacesItemDecoration;
+import com.xinxin.aicare.event.BindSuccessEvent;
 import com.xinxin.aicare.event.BluetoothConnectEvent;
 import com.xinxin.aicare.event.BluetoothReceiveEvent;
+import com.xinxin.aicare.event.ReplaceEvent;
 import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.response.CourseResponse;
 import com.xinxin.aicare.response.MemberDeviceParamListResponse;
@@ -81,8 +82,15 @@ public class HomeFragment extends BaseFragment {
     private static final String ARG_PARAM1 = "param1";
     private static final String ARG_PARAM2 = "param2";
     private AlertDialog tipDialog;
+    private AlertDialog replaceDialog;
     private TextView titleTextView;
+    private TextView replaceTitleTextView;
     private TextView tipTextView;
+
+    private String REPLACE_APPUSER_ID = "";
+    private String REPLACE_ONLINE_ID = "";
+    private String REPLACE_MEMBER_ID = "";
+    private String REPLACE_DEVICE_CODE = "";
 
     // TODO: Rename and change types of parameters
     private String mParam1;
@@ -127,12 +135,24 @@ public class HomeFragment extends BaseFragment {
     @ViewInject(R.id.layout_introduce)
     private RelativeLayout introduceLayout;
 
+    @ViewInject(R.id.show_layout_introduce)
+    private RelativeLayout introduceLayoutShow;
+
     @ViewInject(R.id.layout_use)
     private ScrollView useLayout;
 
     @Event(R.id.card_time)
     private void cardTime(View view) {
 
+    }
+
+    @Event(R.id.show_layout_introduce)
+    private void showLayoutIntroduce(View view) {
+        if (!Constant.isShowIntroduce) {
+            Constant.isShowIntroduce = true;
+            showIntroduce();
+            introduceLayoutShow.setVisibility(View.GONE);
+        }
     }
 
     @Event(R.id.layout_add_baby)
@@ -340,6 +360,13 @@ public class HomeFragment extends BaseFragment {
         LinearLayoutManager manager = new LinearLayoutManager(getActivity());
         rvMember.setLayoutManager(manager);
         rvMember.setAdapter(adapter);
+
+        introduceLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                introduceLayout.setVisibility(View.GONE);
+            }
+        });
     }
 
     private void getMemberList() {
@@ -367,9 +394,14 @@ public class HomeFragment extends BaseFragment {
 
                             adapter.notifyDataSetChanged();
                             if (isFirstClear) {
+                                Constant.isShowIntroduce = true;
+                                introduceLayoutShow.setVisibility(View.GONE);
                                 for (int m = 0; m < memberList.size(); m++) {
                                     if (!TextUtils.isEmpty(memberList.get(m).getDEVICE_CODE())) {
                                         clearDeviceData(memberList.get(m).getDEVICE_CODE());
+                                    } else {
+                                        Constant.isShowIntroduce = false;
+                                        introduceLayoutShow.setVisibility(View.VISIBLE);
                                     }
                                 }
                                 isFirstClear = false;
@@ -550,6 +582,49 @@ public class HomeFragment extends BaseFragment {
 //        tipDialog.show();
     }
 
+    private void initReplaceDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(getContext());
+
+        // 创建一个view，并且将布局加入view中
+        View view = LayoutInflater.from(getContext()).inflate(
+                R.layout.dialog_pay_tip, null, false);
+        // 将view添加到builder中
+        builder.setView(view);
+        // 创建dialog
+        replaceDialog = builder.create();
+        // 初始化控件，注意这里是通过view.findViewById
+        replaceTitleTextView = (TextView) view.findViewById(R.id.title);
+        tipTextView = (TextView) view.findViewById(R.id.tip);
+        Button sureButton = (Button) view.findViewById(R.id.sure);
+        Button cancelButton = (Button) view.findViewById(R.id.cancel);
+
+        sureButton.setText("取消");
+        cancelButton.setText("确认");
+
+        sureButton.setOnClickListener(new android.view.View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                replaceDialog.cancel();
+                replaceDevice();
+
+            }
+        });
+
+        cancelButton.setOnClickListener(new android.view.View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                replaceDialog.cancel();
+            }
+        });
+
+        replaceDialog.setCancelable(false);
+//        tipDialog.show();
+    }
+
     private void destoryClearDeviceData() {
         for (int m = 0; m < memberList.size(); m++) {
             if (!TextUtils.isEmpty(memberList.get(m).getDEVICE_CODE())) {
@@ -678,6 +753,47 @@ public class HomeFragment extends BaseFragment {
         });
     }
 
+    private void replaceDevice() {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_BINDDEVICE);
+        params.addQueryStringParameter("APPUSER_ID", REPLACE_APPUSER_ID);
+        params.addQueryStringParameter("ONLINE_ID", REPLACE_ONLINE_ID);
+        params.addQueryStringParameter("MEMBER_ID", REPLACE_MEMBER_ID);
+        params.addQueryStringParameter("DEVICE_CODE", REPLACE_DEVICE_CODE);
+        params.addQueryStringParameter("REPLACEABLE", "1");
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        T.s("更换绑定成功");
+                        EventBus.getDefault().post(new BindSuccessEvent());
+                        break;
+
+                    default:
+                        T.s(response.getMsg());
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
     //解析蓝牙设备数据
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onBluetoothReceiveEvent(BluetoothReceiveEvent event) {
@@ -701,10 +817,22 @@ public class HomeFragment extends BaseFragment {
         timer1.schedule(timerTask1, 4000, 4000);
     }
 
+    private void showIntroduce() {
+        introduceLayout.setVisibility(View.VISIBLE);
+    }
+
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onBluetoothConnectEvent(BluetoothConnectEvent event) {
-        System.out.println("status:" + event.getStatus());
         adapter.setIsConnect(event.getStatus());
         adapter.notifyDataSetChanged();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onReplaceEvent(ReplaceEvent event) {
+        replaceTitleTextView.setText("该传感器与" + event.getName() + "绑定，是否替换？");
+        REPLACE_APPUSER_ID = event.getAPPUSER_ID();
+        REPLACE_DEVICE_CODE = event.getDEVICE_CODE();
+        REPLACE_MEMBER_ID = event.getMEMBER_ID();
+        REPLACE_ONLINE_ID = event.getONLINE_ID();
     }
 }
