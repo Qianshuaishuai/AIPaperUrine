@@ -15,6 +15,7 @@ import android.text.TextUtils;
 import com.google.gson.Gson;
 import com.xinxin.aicare.Constant;
 import com.xinxin.aicare.event.BindSuccessEvent;
+import com.xinxin.aicare.event.ReplaceEvent;
 import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.util.DataUtil;
 import com.xinxin.aicare.util.T;
@@ -104,7 +105,7 @@ public class BluetoothBindService extends Service {
                         String D6 = String.valueOf(DataUtil.normalHexByteToInt(datas[20]));
                         System.out.println(userId);
 
-                        if(!TextUtils.isEmpty(userId)){
+                        if (!TextUtils.isEmpty(userId)) {
                             System.out.println("bindDevice");
                             bindDevice(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
                         }
@@ -131,6 +132,7 @@ public class BluetoothBindService extends Service {
         params.addQueryStringParameter("ONLINE_ID", onlineId);
         params.addQueryStringParameter("MEMBER_ID", memberId);
         params.addQueryStringParameter("DEVICE_CODE", DEVICE_ID);
+        params.addQueryStringParameter("REPLACEABLE", "0");
         x.http().post(params, new Callback.CommonCallback<String>() {
             @Override
             public void onSuccess(String result) {
@@ -140,6 +142,10 @@ public class BluetoothBindService extends Service {
                     case 0:
                         T.s("绑定设备成功");
                         EventBus.getDefault().post(new BindSuccessEvent());
+                        break;
+
+                    case 5:
+                        EventBus.getDefault().post(new ReplaceEvent(response.getMsg(), userId, onlineId, memberId, DEVICE_ID));
                         break;
 
                     default:

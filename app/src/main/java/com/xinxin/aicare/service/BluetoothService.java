@@ -78,6 +78,7 @@ public class BluetoothService extends Service {
     private String TAG = "BluetoothService";
     private BluetoothAdapter.LeScanCallback mBLEScanCallback;
     private boolean isConnect = false;
+    private boolean isDataConnect = false;
 
     /**
      * 初始化蓝牙
@@ -382,6 +383,14 @@ public class BluetoothService extends Service {
                         receiveBean.setD5(D5);
                         receiveBean.setD6(D6);
                         EventBus.getDefault().post(new BluetoothReceiveEvent(receiveBean));
+                        if (D0.equals("0")) {
+                            isDataConnect = false;
+                            EventBus.getDefault().post(new BluetoothConnectEvent(0));
+                        }
+
+                        if (!D0.equals("0")) {
+                            isDataConnect = true;
+                        }
 
                         if (!isConnect) {
                             connectDevice(result.getDevice());
@@ -408,8 +417,12 @@ public class BluetoothService extends Service {
             BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
                 @Override
                 public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-                    System.out.println("status123:" + status);
                     super.onConnectionStateChange(gatt, status, newState);
+                    if (!isDataConnect) {
+                        EventBus.getDefault().post(new BluetoothConnectEvent(0));
+                        isConnect = false;
+                        return;
+                    }
                     switch (status) {
                         case BluetoothGatt.GATT_SUCCESS:
                             EventBus.getDefault().post(new BluetoothConnectEvent(1));

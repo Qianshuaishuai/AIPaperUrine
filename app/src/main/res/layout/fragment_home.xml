@@ -424,10 +424,10 @@
                     android:layout_marginRight="15dip">
 
                     <ImageView
-                        android:src="@mipmap/common_teach"
                         android:id="@+id/teach_pic"
                         android:layout_width="match_parent"
-                        android:layout_height="match_parent" />
+                        android:layout_height="match_parent"
+                        android:src="@mipmap/common_teach" />
 
                     <LinearLayout
                         android:id="@+id/layout_teach"
@@ -468,6 +468,15 @@
             android:layout_centerHorizontal="true"
             android:layout_marginTop="168dip"
             android:background="@mipmap/img_xiaobulang" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_centerHorizontal="true"
+            android:layout_marginTop="250dip"
+            android:text="设备未绑定，点击此处绑定"
+            android:textColor="#990000"
+            android:textSize="18dip" />
 
         <LinearLayout
             android:layout_width="match_parent"

@@ -10,8 +10,10 @@ import android.support.v4.app.Fragment;
 import android.support.v7.widget.GridLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.view.WindowManager;
 
 import com.xinxin.aicare.Constant;
+import com.xinxin.aicare.Decoration.SpaceItemDecoration;
 import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.adapter.GoodsAdapter;
@@ -24,6 +26,7 @@ import com.xinxin.aicare.response.HomeCarouselResponse;
 import com.xinxin.aicare.ui.store.GoodActivity;
 import com.xinxin.aicare.util.BannerImageLoader;
 import com.google.gson.Gson;
+import com.xinxin.aicare.util.DisplayUtils;
 import com.youth.banner.Banner;
 import com.youth.banner.listener.OnBannerListener;
 
@@ -214,6 +217,11 @@ public class StoreFragment extends BaseFragment {
         GridLayoutManager manager = new GridLayoutManager(getActivity(), 2);
         rvStore.setLayoutManager(manager);
         rvStore.setAdapter(adapter);
+        WindowManager wm1 = this.getActivity().getWindowManager();
+        int width1 = wm1.getDefaultDisplay().getWidth();
+        int itemWidth = DisplayUtils.dp2px(this.getActivity(), 140); //每个item的宽度
+        int offsetWidth = DisplayUtils.dp2px(this.getActivity(), 30); //每个item的宽度
+        rvStore.addItemDecoration(new SpaceItemDecoration((width1 - offsetWidth - itemWidth * 2)/2) );
     }
 
     private void startGoodDetailActivity(int position) {
