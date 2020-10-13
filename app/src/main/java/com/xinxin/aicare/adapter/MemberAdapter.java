@@ -47,7 +47,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         TextView mainTipTv, mainPercentTv, mainTempTv, mainSleepTv, mainSize, mainBrand;
 
         HalfCircleProgressView cpv;
-        LinearLayout posLayout, sizeLayout, cardLayout, postureLayout;
+        LinearLayout posLayout, sizeLayout, cardLayout, postureLayout, babyLayout;
 
         public ViewHolder(View view) {
             super(view);
@@ -74,6 +74,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             postureLayout = (LinearLayout) view.findViewById(R.id.layout_posture);
             mainBrand = (TextView) view.findViewById(R.id.main_brand);
             cpv = (HalfCircleProgressView) view.findViewById(R.id.cpv);
+            babyLayout = (LinearLayout) view.findViewById(R.id.layout_baby);
         }
 
     }
@@ -149,6 +150,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.cardIcon.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!Constant.isShowIntroduce) {
+                    context.showIntroduceLayout();
+                    return;
+                }
                 context.goToBabyInfoSetting(mList.get(position));
             }
         });
@@ -164,6 +169,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.cardMessage.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!Constant.isShowIntroduce) {
+                    context.showIntroduceLayout();
+                    return;
+                }
                 context.goToMemberMessage(mList.get(position).getMEMBER_ID());
             }
         });
@@ -171,6 +180,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.cardSetting.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!Constant.isShowIntroduce) {
+                    context.showIntroduceLayout();
+                    return;
+                }
                 context.goToMemberSetting(mList.get(position).getMEMBER_ID(), mList.get(position).getDEVICE_CODE());
             }
         });
@@ -178,6 +191,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.cardData.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!Constant.isShowIntroduce) {
+                    context.showIntroduceLayout();
+                    return;
+                }
                 context.goToUrineDetailActivity(mList.get(position).getMEMBER_ID());
             }
         });
@@ -203,6 +220,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.mainPercentTv.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!Constant.isShowIntroduce) {
+                    context.showIntroduceLayout();
+                    return;
+                }
                 if (TextUtils.isEmpty(mList.get(position).getURINE_VOLUME())) {
                     T.s("当前尿量为--ml");
                 } else {
@@ -235,6 +256,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         holder.sizeLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!Constant.isShowIntroduce) {
+                    context.showIntroduceLayout();
+                    return;
+                }
                 context.goToPickSizeActivity(mList.get(position).getMEMBER_ID(), mList.get(position).getDIAPER_BRAND(), mList.get(position).getDIAPER_SIZE());
             }
         });
@@ -246,12 +271,20 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             @Override
             public void onClick(View view) {
 //                context.goToBabyInfoSetting(mList.get(position));
+                if (!Constant.isShowIntroduce) {
+                    context.showIntroduceLayout();
+                    return;
+                }
             }
         });
 
         holder.postureLayout.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                if (!Constant.isShowIntroduce) {
+                    context.showIntroduceLayout();
+                    return;
+                }
                 switch (mList.get(position).getSLEEP_POSTURE()) {
                     case "1":
                         T.s(Constant.SLEEP_POS_TIPS[3]);
@@ -327,6 +360,15 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             }
         }
 
+        holder.babyLayout.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (!Constant.isShowIntroduce) {
+                    context.showIntroduceLayout();
+                    return;
+                }
+            }
+        });
     }
 
     @Override

@@ -151,7 +151,7 @@ public class HomeFragment extends BaseFragment {
         if (!Constant.isShowIntroduce) {
             Constant.isShowIntroduce = true;
             showIntroduce();
-            introduceLayoutShow.setVisibility(View.GONE);
+//            introduceLayoutShow.setVisibility(View.GONE);
         }
     }
 
@@ -277,6 +277,11 @@ public class HomeFragment extends BaseFragment {
         initTipDialog();
     }
 
+    public void showIntroduceLayout(){
+        Constant.isShowIntroduce = true;
+        showIntroduce();
+    }
+
     private void initTeachs() {
         RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_GETCOURSE);
         x.http().post(params, new Callback.CommonCallback<String>() {
@@ -395,13 +400,13 @@ public class HomeFragment extends BaseFragment {
                             adapter.notifyDataSetChanged();
                             if (isFirstClear) {
                                 Constant.isShowIntroduce = true;
-                                introduceLayoutShow.setVisibility(View.GONE);
+//                                introduceLayoutShow.setVisibility(View.GONE);
                                 for (int m = 0; m < memberList.size(); m++) {
                                     if (!TextUtils.isEmpty(memberList.get(m).getDEVICE_CODE())) {
                                         clearDeviceData(memberList.get(m).getDEVICE_CODE());
                                     } else {
                                         Constant.isShowIntroduce = false;
-                                        introduceLayoutShow.setVisibility(View.VISIBLE);
+//                                        introduceLayoutShow.setVisibility(View.VISIBLE);
                                     }
                                 }
                                 isFirstClear = false;

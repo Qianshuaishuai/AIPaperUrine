@@ -22,9 +22,6 @@ public class AccessInductActivity extends BaseActivity {
     @ViewInject(R.id.introduce_one)
     private ImageView introduceOne;
 
-    @ViewInject(R.id.introduce_two)
-    private ImageView introduceTwo;
-
     @Event(R.id.layout_back)
     private void back(View view) {
         finish();
@@ -55,6 +52,5 @@ public class AccessInductActivity extends BaseActivity {
         memberId = intent.getStringExtra("memberId");
 
         Glide.with(this).load(R.drawable.introduce_one).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(introduceOne);
-        Glide.with(this).load(R.drawable.introduce_two).diskCacheStrategy(DiskCacheStrategy.SOURCE).into(introduceTwo);
     }
 }

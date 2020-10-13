@@ -8,6 +8,8 @@ import android.bluetooth.BluetoothGatt;
 import android.bluetooth.BluetoothGattCallback;
 import android.bluetooth.BluetoothGattCharacteristic;
 import android.bluetooth.BluetoothGattDescriptor;
+import android.bluetooth.BluetoothGattService;
+import android.bluetooth.BluetoothProfile;
 import android.bluetooth.BluetoothServerSocket;
 import android.bluetooth.BluetoothSocket;
 import android.bluetooth.le.BluetoothLeScanner;
@@ -56,6 +58,7 @@ import java.util.Arrays;
 import java.util.List;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.UUID;
 
 /**
  * 蓝牙相关控制
@@ -80,6 +83,10 @@ public class BluetoothService extends Service {
     private boolean isConnect = false;
     private boolean isDataConnect = false;
 
+    private String SERVICES_UUID = "0000fff0-0000-1000-8000-00805f9b34fb";   //服务UUID
+    private String NOTIFY_UUID = "0000fff1-0000-1000-8000-00805f9b34fb";      //写入特征UUID
+    private String DEVICE_ID = "";
+
     /**
      * 初始化蓝牙
      */
@@ -102,6 +109,7 @@ public class BluetoothService extends Service {
                         if (blueadapter != null) {
                             scanner = blueadapter.getBluetoothLeScanner();
                             if (scanner != null) {
+                                System.out.println("scanning");
                                 startScan();
 //                                testScan();
                                 isStart = true;
@@ -155,8 +163,6 @@ public class BluetoothService extends Service {
 
                             @Override
                             public void onConnectionStateChange(BluetoothGatt gatt, int status, int newState) {
-                                System.out.println("status123:" + status);
-                                System.out.println("newState:" + newState);
                                 super.onConnectionStateChange(gatt, status, newState);
                             }
 
@@ -350,6 +356,10 @@ public class BluetoothService extends Service {
     };
 
     private void startScan() {
+        System.out.println("isConnect123:" + isConnect);
+        if (isConnect) {
+            return;
+        }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             scanner = blueadapter.getBluetoothLeScanner();
             mScanSettings = new ScanSettings.Builder().setScanMode(ScanSettings.SCAN_MODE_BALANCED).build();
@@ -359,8 +369,13 @@ public class BluetoothService extends Service {
                     super.onScanResult(callbackType, result);
 //                    System.out.println("onScanResult");
                     if (result.getDevice().getName() != null && result.getDevice().getName().contains(Constant.DEVICE_NAME)) {
+                        System.out.println("当前为扫描接收数据");
                         byte[] datas = result.getScanRecord().getBytes();
-                        String DEVICE_ID = result.getDevice().getAddress().replace(":", "").toLowerCase();
+                        DEVICE_ID = result.getDevice().getAddress().replace(":", "").toLowerCase();
+                        System.out.println("正确数据:" + bytesToHexString(datas));
+//                        for (int d = 0; d < datas.length; d++) {
+//                            System.out.println("收到:" + datas[d]);
+//                        }
                         String X = String.valueOf(DataUtil.normalHexByteToInt(datas[11]));
                         String Y = String.valueOf(DataUtil.normalHexByteToInt(datas[12]));
                         String Z = String.valueOf(DataUtil.normalHexByteToInt(datas[13]));
@@ -369,6 +384,20 @@ public class BluetoothService extends Service {
                         String D4 = String.valueOf(DataUtil.normalHexByteToInt(datas[18]));
                         String D5 = String.valueOf(DataUtil.normalHexByteToInt(datas[19]));
                         String D6 = String.valueOf(DataUtil.normalHexByteToInt(datas[20]));
+//                        String abc = X + Y + Z + D0 + AD + D4 + D5 + D6;
+//                        System.out.println("正确数据ddd:" + bytesToHexString(b));
+//                        byte[] a = new byte[10];
+//                        a[0] = datas[11];
+//                        a[1] = datas[12];
+//                        a[2] = datas[13];
+//                        a[3] = datas[14];
+//                        a[4] = datas[15];
+//                        a[5] = datas[16];
+//                        a[6] = datas[17];
+//                        a[7] = datas[18];
+//                        a[8] = datas[19];
+//                        a[9] = datas[20];
+//                        System.out.println("正确数据sdsd:" + bytesToHexString(a));
                         currentDeviceCode = DEVICE_ID;
                         uploadDeviceData(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
                         //本地传输通知解析
@@ -395,6 +424,10 @@ public class BluetoothService extends Service {
                         if (!isConnect) {
                             connectDevice(result.getDevice());
                         }
+
+                        if (isConnect) {
+                            scanner.stopScan(mScanCallback);
+                        }
                     }
                 }
 
@@ -412,7 +445,7 @@ public class BluetoothService extends Service {
         }
     }
 
-    private void connectDevice(BluetoothDevice device) {
+    private void connectDevice(final BluetoothDevice device) {
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
             BluetoothGattCallback mGattCallback = new BluetoothGattCallback() {
                 @Override
@@ -439,10 +472,94 @@ public class BluetoothService extends Service {
                             isConnect = false;
                             break;
                     }
+                    if (newState == BluetoothProfile.STATE_CONNECTED) {
+                        Log.i(TAG, "Connected to GATT server.");
+                        // Attempts to discover services after successful connection.
+                        //有时候发现服务不回调,需延时 https://stackoverflow.com/questions/41434555/onservicesdiscovered-never-called-while-connecting-to-gatt-server#comment70285228_41526267
+                        try {
+                            Thread.sleep(600);
+                            Log.i(TAG, "Attempting to start service discovery:"
+                                    + gatt.discoverServices());
+                        } catch (InterruptedException e) {
+                            // TODO Auto-generated catch block
+                            e.printStackTrace();
+                        }
+                    }
+                }
+
+                @Override
+                public void onCharacteristicChanged(BluetoothGatt gatt, BluetoothGattCharacteristic characteristic) {
+                    super.onCharacteristicChanged(gatt, characteristic);
+                    System.out.println("当前为链接接收数据");
+                    byte[] datas = characteristic.getValue();
+                    String X = String.valueOf(DataUtil.normalHexByteToInt(datas[11]));
+                    String Y = String.valueOf(DataUtil.normalHexByteToInt(datas[12]));
+                    String Z = String.valueOf(DataUtil.normalHexByteToInt(datas[13]));
+                    String D0 = String.valueOf(DataUtil.normalHexByteToInt(datas[14]));
+                    String AD = String.valueOf(DataUtil.concat(datas[15], datas[16]));
+                    String D4 = String.valueOf(DataUtil.normalHexByteToInt(datas[18]));
+                    String D5 = String.valueOf(DataUtil.normalHexByteToInt(datas[19]));
+                    String D6 = String.valueOf(DataUtil.normalHexByteToInt(datas[20]));
+
+                    if ((X.equals("0") && Y.equals("0") && Z.equals("0")) || AD.equals("65535")) {
+                        return;
+                    }
+                    System.out.println("当前为链接接收数据--无脏数据");
+                    currentDeviceCode = DEVICE_ID;
+                    uploadDeviceData(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
+                    //本地传输通知解析
+                    BluetoothReceiveBean receiveBean = new BluetoothReceiveBean();
+                    receiveBean.setDEVICE_ID(DEVICE_ID);
+                    receiveBean.setX(X);
+                    receiveBean.setY(Y);
+                    receiveBean.setZ(Z);
+                    receiveBean.setD0(D0);
+                    receiveBean.setAD(AD);
+                    receiveBean.setD4(D4);
+                    receiveBean.setD5(D5);
+                    receiveBean.setD6(D6);
+                    EventBus.getDefault().post(new BluetoothReceiveEvent(receiveBean));
+                    if (D0.equals("0")) {
+                        isDataConnect = false;
+                        EventBus.getDefault().post(new BluetoothConnectEvent(0));
+                    }
+
+                    if (!D0.equals("0")) {
+                        isDataConnect = true;
+                    }
+                }
+
+
+                @Override
+                public void onServicesDiscovered(BluetoothGatt gatt, int status) {
+                    super.onServicesDiscovered(gatt, status);
+
+                    if (status == BluetoothGatt.GATT_SUCCESS) { // 发现蓝牙服务成功
+                        List<BluetoothGattService> gattServicesList = gatt.getServices();
+                        for (int i = 0; i < gattServicesList.size(); i++) {
+                            if (gattServicesList.get(i).getUuid().equals(UUID.fromString(SERVICES_UUID))) { //如果servicesUUID相同，则做如下处理
+                                //设置写入特征UUID
+//                                BluetoothGattCharacteristic writeCharacteristic = gattServicesList.get(i).getCharacteristic(UUID.fromString(WRITE_UUID));
+                                BluetoothGattCharacteristic notifyCharacteristic = gattServicesList.get(i).getCharacteristic(UUID.fromString(NOTIFY_UUID));
+                                //开启监听
+                                gatt.setCharacteristicNotification(notifyCharacteristic, true);
+
+                                for (BluetoothGattDescriptor dp : notifyCharacteristic.getDescriptors()) {
+                                    dp.setValue(BluetoothGattDescriptor.ENABLE_NOTIFICATION_VALUE);
+                                    boolean abc = gatt.writeDescriptor(dp);
+                                }
+                                break;
+                            }
+
+                        }
+                    } else {
+                        Log.e("onServicesDiscovered", "当前状态:" + status);
+                    }
                 }
             };
             device.connectGatt(getApplicationContext(), true, mGattCallback);
         }
+
     }
 
     private void initBoothDialog() {
@@ -499,71 +616,26 @@ public class BluetoothService extends Service {
         }
     };
 
-//    private class AcceptThread extends Thread {
-//        private final BluetoothServerSocket mmServerSocket;
-//        public AcceptThread() {
-//            BluetoothServerSocket tmp = null;
-//            try {
-//                tmp = blueadapter.listenUsingRfcommWithServiceRecord(NAME, MY_UUID);
-//            } catch (IOException e) { }
-//            mmServerSocket = tmp;
-//        }
-//
-//        public void run() {
-//            BluetoothSocket socket = null;
-//            // 在后台一直监听客户端的请求
-//            while (true) {
-//                try {
-//                    socket = mmServerSocket.accept();
-//                } catch (IOException e) {
-//                    break;
-//                }
-//                if (socket != null) {
-//                    try {
-//                        mmServerSocket.close();
-//                    } catch (IOException e) {
-//                        e.printStackTrace();
-//                    }
-//                    break;
-//                }
-//            }
-//        }
-//        public void cancel() {
-//            try {
-//                mmServerSocket.close();
-//            } catch (IOException e) { }
-//        }
-//    }
-//
-//    private class ConnectThread extends Thread {
-//        private final BluetoothSocket mmSocket;
-//        private final BluetoothDevice mmDevice;
-//        public ConnectThread(BluetoothDevice device) {
-//            BluetoothSocket tmp = null;
-//            mmDevice = device;
-//            try {
-//                tmp = device.createRfcommSocketToServiceRecord(MY_UUID);
-//            } catch (IOException e) { }
-//            mmSocket = tmp;
-//        }
-//
-//        public void run() {
-//            blueadapter.cancelDiscovery();
-//
-//            try {
-//                mmSocket.connect();
-//            } catch (IOException connectException) {
-//                try {
-//                    mmSocket.close();
-//                } catch (IOException closeException) { }
-//                return;
-//            }
-//        }
-//        public void cancel() {
-//            try {
-//                mmSocket.close();
-//            } catch (IOException e) { }
-//        }
-//    }
+    /**
+     * Convert byte[] to hex string
+     *
+     * @param src byte[] data
+     * @return hex string
+     */
+    public static String bytesToHexString(byte[] src) {
+        StringBuilder stringBuilder = new StringBuilder("");
+        if (src == null || src.length <= 0) {
+            return null;
+        }
+        for (int i = 0; i < src.length; i++) {
+            int v = src[i] & 0xFF;
+            String hv = Integer.toHexString(v);
+            if (hv.length() < 2) {
+                stringBuilder.append(0);
+            }
+            stringBuilder.append(hv);
+        }
+        return stringBuilder.toString();
+    }
 
 }
