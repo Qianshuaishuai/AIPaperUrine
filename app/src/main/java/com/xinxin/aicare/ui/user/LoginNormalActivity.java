@@ -65,6 +65,18 @@ public class LoginNormalActivity extends BaseActivity {
     @ViewInject(R.id.forget)
     private TextView forget;
 
+    @Event(R.id.privacy)
+    private void privacy(View view){
+        Intent intent = new Intent(this,PrivacyActivity.class);
+        startActivity(intent);
+    }
+
+    @Event(R.id.user_agree)
+    private void userAgree(View view){
+        Intent intent = new Intent(this,UserAgreeActivity.class);
+        startActivity(intent);
+    }
+
     @Event(R.id.login)
     private void loginClick(View view) {
         if (phone.getText().toString().length() != 11) {

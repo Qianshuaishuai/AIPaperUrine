@@ -394,6 +394,81 @@
                 </LinearLayout>
 
                 <LinearLayout
+                    android:id="@+id/privacy_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dip"
+                    android:background="#ffffff"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dip"
+                        android:layout_height="25dip"
+                        android:layout_marginLeft="15dip"
+                        android:src="@mipmap/icon_youhuiquan"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dip"
+                        android:text="隐私政策"
+                        android:textColor="#1e1e1e"
+                        android:textSize="16dip" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dip"
+                            android:layout_height="24dip"
+                            android:layout_marginRight="15dip"
+                            android:src="@mipmap/iconmonstrl_right_chakanxiangqing" />
+                    </LinearLayout>
+                </LinearLayout>
+
+                <LinearLayout
+                    android:id="@+id/user_agree_layout"
+                    android:layout_width="match_parent"
+                    android:layout_height="55dip"
+                    android:background="#ffffff"
+                    android:gravity="center_vertical"
+                    android:orientation="horizontal">
+
+                    <ImageView
+                        android:layout_width="25dip"
+                        android:layout_height="25dip"
+                        android:layout_marginLeft="15dip"
+                        android:src="@mipmap/icon_youhuiquan"
+                        android:visibility="invisible" />
+
+                    <TextView
+                        android:layout_width="wrap_content"
+                        android:layout_height="wrap_content"
+                        android:layout_marginLeft="8dip"
+                        android:text="用户协议"
+                        android:textColor="#1e1e1e"
+                        android:textSize="16dip" />
+
+                    <LinearLayout
+                        android:layout_width="match_parent"
+                        android:layout_height="match_parent"
+                        android:gravity="right|center_vertical"
+                        android:orientation="horizontal">
+
+                        <ImageView
+                            android:layout_width="24dip"
+                            android:layout_height="24dip"
+                            android:layout_marginRight="15dip"
+                            android:src="@mipmap/iconmonstrl_right_chakanxiangqing" />
+                    </LinearLayout>
+                </LinearLayout>
+
+
+                <LinearLayout
                     android:id="@+id/setting_layout"
                     android:layout_width="match_parent"
                     android:layout_height="55dip"

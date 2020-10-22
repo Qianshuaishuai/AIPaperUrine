@@ -30,6 +30,8 @@ import com.xinxin.aicare.ui.person.PersonGoodActivity;
 import com.xinxin.aicare.ui.person.PersonGrowthActivity;
 import com.xinxin.aicare.ui.person.SignActivity;
 import com.xinxin.aicare.ui.setting.SettingActivity;
+import com.xinxin.aicare.ui.user.PrivacyActivity;
+import com.xinxin.aicare.ui.user.UserAgreeActivity;
 import com.xinxin.aicare.util.T;
 import com.google.gson.Gson;
 
@@ -97,6 +99,18 @@ public class PersonFragment extends BaseFragment {
     @Event(R.id.person_layout)
     private void personLayout(View view) {
         Intent intent = new Intent(getActivity(), ChangeInfoActivity.class);
+        startActivity(intent);
+    }
+
+    @Event(R.id.privacy_layout)
+    private void privacy(View view) {
+        Intent intent = new Intent(getActivity(), PrivacyActivity.class);
+        startActivity(intent);
+    }
+
+    @Event(R.id.user_agree_layout)
+    private void userAgree(View view) {
+        Intent intent = new Intent(getActivity(), UserAgreeActivity.class);
         startActivity(intent);
     }
 
