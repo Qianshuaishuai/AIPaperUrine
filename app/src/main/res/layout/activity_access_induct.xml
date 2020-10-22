@@ -65,7 +65,7 @@
                     android:layout_height="wrap_content"
                     android:layout_marginTop="12dip"
                     android:gravity="center"
-                    android:text="感应夹子对准定位图案(位于两条 碳膜中间)贴紧在纸尿裤上"
+                    android:text="对准感应线夹上感应器，感应器灯亮一下"
                     android:textColor="#1e1e1e"
                     android:textSize="14dip" />
 

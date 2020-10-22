@@ -66,7 +66,7 @@
                     android:layout_marginTop="12dip"
                     android:layout_marginBottom="24dip"
                     android:gravity="center"
-                    android:text="打开感应夹子上端翻盖，纸尿裤 2条碳膜对准4个接触点"
+                    android:text="手机靠近传感器，点'知道啦'"
                     android:textColor="#1e1e1e"
                     android:textSize="14dip" />
 
