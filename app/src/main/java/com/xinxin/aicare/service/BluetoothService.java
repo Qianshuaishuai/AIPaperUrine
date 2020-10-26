@@ -372,10 +372,6 @@ public class BluetoothService extends Service {
                         System.out.println("当前为扫描接收数据");
                         byte[] datas = result.getScanRecord().getBytes();
                         DEVICE_ID = result.getDevice().getAddress().replace(":", "").toLowerCase();
-                        System.out.println("正确数据:" + bytesToHexString(datas));
-//                        for (int d = 0; d < datas.length; d++) {
-//                            System.out.println("收到:" + datas[d]);
-//                        }
                         String X = String.valueOf(DataUtil.normalHexByteToInt(datas[11]));
                         String Y = String.valueOf(DataUtil.normalHexByteToInt(datas[12]));
                         String Z = String.valueOf(DataUtil.normalHexByteToInt(datas[13]));
@@ -384,20 +380,6 @@ public class BluetoothService extends Service {
                         String D4 = String.valueOf(DataUtil.normalHexByteToInt(datas[18]));
                         String D5 = String.valueOf(DataUtil.normalHexByteToInt(datas[19]));
                         String D6 = String.valueOf(DataUtil.normalHexByteToInt(datas[20]));
-//                        String abc = X + Y + Z + D0 + AD + D4 + D5 + D6;
-//                        System.out.println("正确数据ddd:" + bytesToHexString(b));
-//                        byte[] a = new byte[10];
-//                        a[0] = datas[11];
-//                        a[1] = datas[12];
-//                        a[2] = datas[13];
-//                        a[3] = datas[14];
-//                        a[4] = datas[15];
-//                        a[5] = datas[16];
-//                        a[6] = datas[17];
-//                        a[7] = datas[18];
-//                        a[8] = datas[19];
-//                        a[9] = datas[20];
-//                        System.out.println("正确数据sdsd:" + bytesToHexString(a));
                         currentDeviceCode = DEVICE_ID;
                         uploadDeviceData(D0, DEVICE_ID, X, Y, Z, AD, D4, D5, D6);
                         //本地传输通知解析

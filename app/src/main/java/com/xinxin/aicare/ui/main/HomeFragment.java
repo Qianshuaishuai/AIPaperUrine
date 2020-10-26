@@ -277,7 +277,7 @@ public class HomeFragment extends BaseFragment {
         initTipDialog();
     }
 
-    public void showIntroduceLayout(){
+    public void showIntroduceLayout() {
         Constant.isShowIntroduce = true;
         showIntroduce();
     }
@@ -804,9 +804,15 @@ public class HomeFragment extends BaseFragment {
     public void onBluetoothReceiveEvent(BluetoothReceiveEvent event) {
         adapter.setBluetoothReceiveBean(event.getBean());
         adapter.notifyDataSetChanged();
-//        isConnect = 1;
-//        adapter.setIsConnect(isConnect);
-//        adapter.notifyDataSetChanged();
+
+        if (event.getBean().getD0().equals("0")) {
+            isConnect = 0;
+        } else {
+            isConnect = 1;
+        }
+
+        adapter.setIsConnect(isConnect);
+        adapter.notifyDataSetChanged();
         //重新启动计时器
         timer1.cancel();
         timer1 = new Timer();
@@ -828,8 +834,8 @@ public class HomeFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onBluetoothConnectEvent(BluetoothConnectEvent event) {
-        adapter.setIsConnect(event.getStatus());
-        adapter.notifyDataSetChanged();
+//        adapter.setIsConnect(event.getStatus());
+//        adapter.notifyDataSetChanged();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
