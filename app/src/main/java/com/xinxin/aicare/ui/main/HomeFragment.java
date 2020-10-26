@@ -108,6 +108,8 @@ public class HomeFragment extends BaseFragment {
 
     private Timer timer1;
     private TimerTask timerTask1;
+    private Timer updateConnectTimer;
+    private TimerTask updateConnectTask;
     private Timer updateMemberListTimer;
     private TimerTask updateMemberListTimerTask;
     private boolean isFailed = false;
@@ -213,6 +215,20 @@ public class HomeFragment extends BaseFragment {
         EventBus.getDefault().register(this);
     }
 
+    private void updateTimerConnectStatus() {
+        updateConnectTimer = new Timer();
+        updateConnectTask = new TimerTask() {
+            @Override
+            public void run() {
+                if (adapter != null) {
+                    adapter.setIsConnect(0);
+                    adapter.setIsConnectStatus(0);
+                }
+            }
+        };
+        updateConnectTimer.schedule(updateConnectTask, 0, 60 * 1000);
+    }
+
     // TODO: Rename method, update argument and hook method into UI event
     public void onButtonPressed(Uri uri) {
         if (mListener != null) {
@@ -275,6 +291,7 @@ public class HomeFragment extends BaseFragment {
         initLoginSuccessDialog();
         initBindSuccessDialog();
         initTipDialog();
+        updateTimerConnectStatus();
     }
 
     public void showIntroduceLayout() {
@@ -400,12 +417,14 @@ public class HomeFragment extends BaseFragment {
                             adapter.notifyDataSetChanged();
                             if (isFirstClear) {
                                 Constant.isShowIntroduce = true;
+                                Constant.isDeviceBind = true;
 //                                introduceLayoutShow.setVisibility(View.GONE);
                                 for (int m = 0; m < memberList.size(); m++) {
                                     if (!TextUtils.isEmpty(memberList.get(m).getDEVICE_CODE())) {
                                         clearDeviceData(memberList.get(m).getDEVICE_CODE());
                                     } else {
                                         Constant.isShowIntroduce = false;
+                                        Constant.isDeviceBind = false;
 //                                        introduceLayoutShow.setVisibility(View.VISIBLE);
                                     }
                                 }
@@ -834,8 +853,8 @@ public class HomeFragment extends BaseFragment {
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
     public void onBluetoothConnectEvent(BluetoothConnectEvent event) {
-//        adapter.setIsConnect(event.getStatus());
-//        adapter.notifyDataSetChanged();
+        adapter.setIsConnectStatus(event.getStatus());
+        adapter.notifyDataSetChanged();
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)

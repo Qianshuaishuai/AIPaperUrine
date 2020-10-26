@@ -236,6 +236,7 @@ public class DeviceConnectActivity extends BaseActivity {
         EventBus.getDefault().unregister(this);
 //        blueadapter.cancelDiscovery();
 //        unregisterReceiver(bluetoothReceiver);
+        stopService(service);
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -243,6 +244,8 @@ public class DeviceConnectActivity extends BaseActivity {
         System.out.println("收到绑定成功通知");
         stopService(service);
         finish();
+        Constant.isDeviceBind = true;
+        Constant.isShowIntroduce = true;
     }
 
     private void uploadDeviceData(final String D0, final String DEVICE_ID, final String X, final String Y, final String Z, final String AD, final String D4, final String D5, final String D6) {

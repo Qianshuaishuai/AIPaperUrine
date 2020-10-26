@@ -248,7 +248,7 @@ public class CallSettingActivity extends BaseActivity {
     }
 
     private void saveParam(DeviceParamInfoMyParamBean bean) {
-        ((PaperUrineApplication)getApplication()).saveMyParamInfo(bean);
+        ((PaperUrineApplication) getApplication()).saveMyParamInfo(bean);
     }
 
     private void unbindDevice() {
@@ -264,6 +264,7 @@ public class CallSettingActivity extends BaseActivity {
                 switch (response.getResult()) {
                     case 0:
                         T.s("解绑成功");
+                        Constant.isDeviceBind = false;
                         finish();
                         break;
 

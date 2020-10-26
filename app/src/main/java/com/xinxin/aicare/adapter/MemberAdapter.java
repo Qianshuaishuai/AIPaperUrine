@@ -37,11 +37,12 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
     private HomeFragment context;
     private BluetoothReceiveBean bluetoothReceiveBean;
     private List<MemberDeviceParamListBean> deviceParamList;
-    private int isConnect;
+    private int isConnect = 0;
+    private int iSConnectStatus = 0;
 
     static class ViewHolder extends RecyclerView.ViewHolder {
         ImageView cardIcon, cardMessage, cardSetting, cardData;
-        ImageView mainTipIv, postureIv, brandLogo;
+        ImageView mainTipIv, postureIv, brandLogo, connectIcon;
 
         TextView cardName, cardTime, cardMessageCount, postureTv;
         TextView mainTipTv, mainPercentTv, mainTempTv, mainSleepTv, mainSize, mainBrand;
@@ -52,6 +53,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
         public ViewHolder(View view) {
             super(view);
             cardIcon = (ImageView) view.findViewById(R.id.card_icon);
+            connectIcon = (ImageView) view.findViewById(R.id.connect_icon);
             postureIv = (ImageView) view.findViewById(R.id.posture_iv);
             postureTv = (TextView) view.findViewById(R.id.posture_tv);
             cardMessage = (ImageView) view.findViewById(R.id.card_message);
@@ -90,6 +92,10 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
 
     public void setIsConnect(int isConnect) {
         this.isConnect = isConnect;
+    }
+
+    public void setIsConnectStatus(int isConnectStatus) {
+        this.iSConnectStatus = isConnectStatus;
     }
 
     public void setMemberDeviceParamListBean(List<MemberDeviceParamListBean> deviceParamList) {
@@ -352,12 +358,18 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_none));
         } else {
             if (isConnect == 1) {
-                holder.cardTime.setText("设备接收中");
+                holder.cardTime.setText("已连接");
                 holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_success));
             } else {
-                holder.cardTime.setText("未连接设备");
+                holder.cardTime.setText("未连接");
                 holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_default));
             }
+        }
+
+        if (iSConnectStatus == 1) {
+            holder.connectIcon.setImageResource(R.mipmap.btn_lanya_clicked);
+        } else {
+            holder.connectIcon.setImageResource(R.mipmap.btn_lanya);
         }
 
         holder.babyLayout.setOnClickListener(new View.OnClickListener() {

@@ -92,6 +92,9 @@ public class BluetoothBindService extends Service {
                 public void onScanResult(int callbackType, ScanResult result) {
                     super.onScanResult(callbackType, result);
                     System.out.println("bindResult");
+                    if (!TextUtils.isEmpty(result.getDevice().getName())) {
+                        System.out.println("deviceName:" + result.getDevice().getName());
+                    }
                     if (result.getDevice().getName() != null && result.getDevice().getName().contains(Constant.DEVICE_NAME)) {
                         byte[] datas = result.getScanRecord().getBytes();
                         String DEVICE_ID = result.getDevice().getAddress().replace(":", "").toLowerCase();

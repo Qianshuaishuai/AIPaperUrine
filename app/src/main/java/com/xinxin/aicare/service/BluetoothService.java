@@ -103,6 +103,10 @@ public class BluetoothService extends Service {
 //                    System.out.println("updateZeroData");
                 }
 
+//                if (!Constant.isDeviceBind) {
+//                    return;
+//                }
+
                 if (isStart == false) {
                     if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
                         blueadapter = BluetoothAdapter.getDefaultAdapter();
@@ -356,7 +360,6 @@ public class BluetoothService extends Service {
     };
 
     private void startScan() {
-        System.out.println("isConnect123:" + isConnect);
         if (isConnect) {
             return;
         }
@@ -397,6 +400,7 @@ public class BluetoothService extends Service {
                         if (D0.equals("0")) {
                             isDataConnect = false;
                             EventBus.getDefault().post(new BluetoothConnectEvent(0));
+                            isConnect = false;
                         }
 
                         if (!D0.equals("0")) {
