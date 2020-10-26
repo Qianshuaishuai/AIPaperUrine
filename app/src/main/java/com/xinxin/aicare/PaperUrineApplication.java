@@ -60,7 +60,7 @@ public class PaperUrineApplication extends Application {
 
             }
         });
-        JPushInterface.setDebugMode(true);//设置调试模式
+        JPushInterface.setDebugMode(false);//设置调试模式
         JPushInterface.init(getApplicationContext());
 
         //获取RegistrationID唯一标识
