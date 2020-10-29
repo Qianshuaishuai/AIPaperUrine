@@ -357,12 +357,17 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             holder.cardTime.setText("设备未绑定");
             holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_none));
         } else {
-            if (isConnect == 1) {
-                holder.cardTime.setText("接收中");
+            if (Constant.isNetworkReceipt && !TextUtils.isEmpty(mList.get(position).getSLEEP_POSTURE())) {
+                holder.cardTime.setText("远程接收中");
                 holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_success));
             } else {
-                holder.cardTime.setText("未连接");
-                holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_default));
+                if (isConnect == 1) {
+                    holder.cardTime.setText("接收中");
+                    holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_success));
+                } else {
+                    holder.cardTime.setText("未连接");
+                    holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_default));
+                }
             }
         }
 
