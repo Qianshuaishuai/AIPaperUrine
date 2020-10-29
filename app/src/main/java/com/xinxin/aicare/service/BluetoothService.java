@@ -41,8 +41,11 @@ import com.xinxin.aicare.PaperUrineApplication;
 import com.xinxin.aicare.R;
 import com.xinxin.aicare.bean.BluetoothReceiveBean;
 import com.xinxin.aicare.bean.DeviceParamInfoMyParamBean;
+import com.xinxin.aicare.event.BindBabyConnectEvent;
+import com.xinxin.aicare.event.BindSuccessEvent;
 import com.xinxin.aicare.event.BluetoothConnectEvent;
 import com.xinxin.aicare.event.BluetoothReceiveEvent;
+import com.xinxin.aicare.event.ReplaceEvent;
 import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.util.DataUtil;
 import com.xinxin.aicare.util.T;
@@ -86,6 +89,10 @@ public class BluetoothService extends Service {
     private String SERVICES_UUID = "0000fff0-0000-1000-8000-00805f9b34fb";   //服务UUID
     private String NOTIFY_UUID = "0000fff1-0000-1000-8000-00805f9b34fb";      //写入特征UUID
     private String DEVICE_ID = "";
+
+    private String userId = "";
+    private String onlineId = "";
+    private String memberId = "";
 
     /**
      * 初始化蓝牙
@@ -513,13 +520,16 @@ public class BluetoothService extends Service {
                     if (!D0.equals("0")) {
                         isDataConnect = true;
                     }
+
+                    if (Constant.isBindConnect) {
+                        EventBus.getDefault().post(new BindBabyConnectEvent(DEVICE_ID));
+                    }
                 }
 
 
                 @Override
                 public void onServicesDiscovered(BluetoothGatt gatt, int status) {
                     super.onServicesDiscovered(gatt, status);
-
                     if (status == BluetoothGatt.GATT_SUCCESS) { // 发现蓝牙服务成功
                         List<BluetoothGattService> gattServicesList = gatt.getServices();
                         for (int i = 0; i < gattServicesList.size(); i++) {
@@ -589,6 +599,7 @@ public class BluetoothService extends Service {
 //        tipDialog.show();
     }
 
+
     private final BroadcastReceiver mReceiver = new BroadcastReceiver() {
         public void onReceive(Context context, Intent intent) {
             String action = intent.getAction();
@@ -623,5 +634,6 @@ public class BluetoothService extends Service {
         }
         return stringBuilder.toString();
     }
+
 
 }

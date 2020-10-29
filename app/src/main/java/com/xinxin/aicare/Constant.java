@@ -5,6 +5,7 @@ public class Constant {
     public static final String RID = "TEST_RID";
     public static boolean isShowIntroduce = false;
     public static boolean isDeviceBind = false;
+    public static boolean isBindConnect = false;
 
 
     public static final String BASE_URL = "http://wechatshare.xinxinchoice.com/api/";

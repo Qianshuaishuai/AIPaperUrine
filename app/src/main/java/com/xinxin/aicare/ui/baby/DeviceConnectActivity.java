@@ -36,8 +36,10 @@ import com.xinxin.aicare.base.BaseActivity;
 import com.xinxin.aicare.bean.UserBean;
 import com.xinxin.aicare.ble.BleWrapper;
 import com.xinxin.aicare.ble.BleWrapperUiCallbacks;
+import com.xinxin.aicare.event.BindBabyConnectEvent;
 import com.xinxin.aicare.event.BindSuccessEvent;
 import com.xinxin.aicare.event.PayResultEvent;
+import com.xinxin.aicare.event.ReplaceEvent;
 import com.xinxin.aicare.response.CommonResponse;
 import com.xinxin.aicare.service.BluetoothBindService;
 import com.xinxin.aicare.service.BluetoothService;
@@ -69,6 +71,7 @@ public class DeviceConnectActivity extends BaseActivity {
     private BluetoothAdapter blueadapter;
     private AlertDialog boothDialog;
 
+
     @Event(R.id.layout_back)
     private void back(View view) {
         tipDialog.show();
@@ -95,6 +98,15 @@ public class DeviceConnectActivity extends BaseActivity {
     private Timer timer1;
     private TimerTask timerTask1;
 
+    private TextView replaceTitleTextView;
+    private TextView tipTextView;
+
+    private AlertDialog replaceDialog;
+    private String REPLACE_APPUSER_ID = "";
+    private String REPLACE_ONLINE_ID = "";
+    private String REPLACE_MEMBER_ID = "";
+    private String REPLACE_DEVICE_CODE = "";
+
     private BleWrapper mBleWrapper = null;
 
     private int mode = 1;
@@ -112,6 +124,9 @@ public class DeviceConnectActivity extends BaseActivity {
         initBooth();
         EventBus.getDefault().register(this);
 //        initBluetooth();
+        initReplaceDialog();
+
+        Constant.isBindConnect = true;
     }
 
     private void initBooth() {
@@ -237,6 +252,7 @@ public class DeviceConnectActivity extends BaseActivity {
 //        blueadapter.cancelDiscovery();
 //        unregisterReceiver(bluetoothReceiver);
         stopService(service);
+        Constant.isBindConnect = false;
     }
 
     @Subscribe(threadMode = ThreadMode.MAIN)
@@ -246,6 +262,141 @@ public class DeviceConnectActivity extends BaseActivity {
         finish();
         Constant.isDeviceBind = true;
         Constant.isShowIntroduce = true;
+    }
+
+    private void initReplaceDialog() {
+        AlertDialog.Builder builder = new AlertDialog.Builder(this);
+
+        // 创建一个view，并且将布局加入view中
+        View view = LayoutInflater.from(this).inflate(
+                R.layout.dialog_pay_tip, null, false);
+        // 将view添加到builder中
+        builder.setView(view);
+        // 创建dialog
+        replaceDialog = builder.create();
+        // 初始化控件，注意这里是通过view.findViewById
+        replaceTitleTextView = (TextView) view.findViewById(R.id.title);
+        tipTextView = (TextView) view.findViewById(R.id.tip);
+        Button sureButton = (Button) view.findViewById(R.id.sure);
+        Button cancelButton = (Button) view.findViewById(R.id.cancel);
+
+        sureButton.setText("确认");
+        cancelButton.setText("取消");
+
+        sureButton.setOnClickListener(new android.view.View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                replaceDialog.cancel();
+                replaceDevice();
+
+            }
+        });
+
+        cancelButton.setOnClickListener(new android.view.View.OnClickListener() {
+
+            @Override
+            public void onClick(View arg0) {
+                // TODO Auto-generated method stub
+                replaceDialog.cancel();
+            }
+        });
+
+        replaceDialog.setCancelable(false);
+//        tipDialog.show();
+    }
+
+    private void replaceDevice() {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_BINDDEVICE);
+        params.addQueryStringParameter("APPUSER_ID", REPLACE_APPUSER_ID);
+        params.addQueryStringParameter("ONLINE_ID", REPLACE_ONLINE_ID);
+        params.addQueryStringParameter("MEMBER_ID", REPLACE_MEMBER_ID);
+        params.addQueryStringParameter("DEVICE_CODE", REPLACE_DEVICE_CODE);
+        params.addQueryStringParameter("REPLACEABLE", "1");
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        T.s("更换绑定成功");
+                        EventBus.getDefault().post(new BindSuccessEvent());
+                        finish();
+                        break;
+
+                    default:
+                        T.s(response.getMsg());
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
+    }
+
+    private void bindDevice(final String DEVICE_ID) {
+        RequestParams params = new RequestParams(Constant.BASE_URL + Constant.URL_BINDDEVICE);
+        params.addQueryStringParameter("APPUSER_ID", userBean.getAPPUSER_ID());
+        params.addQueryStringParameter("ONLINE_ID", userBean.getONLINE_ID());
+        params.addQueryStringParameter("MEMBER_ID", memberId);
+        params.addQueryStringParameter("DEVICE_CODE", DEVICE_ID);
+        params.addQueryStringParameter("REPLACEABLE", "0");
+        x.http().post(params, new Callback.CommonCallback<String>() {
+            @Override
+            public void onSuccess(String result) {
+                Gson gson = new Gson();
+                CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                switch (response.getResult()) {
+                    case 0:
+                        T.s("绑定设备成功");
+                        EventBus.getDefault().post(new BindSuccessEvent());
+                        break;
+
+                    case 5:
+                        replaceTitleTextView.setText("该传感器与" + response.getMsg() + "绑定，是否替换？");
+                        REPLACE_APPUSER_ID = userBean.getAPPUSER_ID();
+                        REPLACE_DEVICE_CODE = DEVICE_ID;
+                        REPLACE_MEMBER_ID = memberId;
+                        REPLACE_ONLINE_ID = userBean.getONLINE_ID();
+                        replaceDialog.show();
+                        break;
+
+                    default:
+                        T.s(response.getMsg());
+                        break;
+                }
+            }
+
+            @Override
+            public void onError(Throwable ex, boolean isOnCallback) {
+                System.out.println("错误处理:" + ex);
+            }
+
+            @Override
+            public void onCancelled(CancelledException cex) {
+
+            }
+
+            @Override
+            public void onFinished() {
+
+            }
+        });
     }
 
     private void uploadDeviceData(final String D0, final String DEVICE_ID, final String X, final String Y, final String Z, final String AD, final String D4, final String D5, final String D6) {
@@ -640,5 +791,22 @@ public class DeviceConnectActivity extends BaseActivity {
 
     private void bleMissing() {
         Toast.makeText(this, "BLE Hardware is required but not available!", Toast.LENGTH_LONG).show();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onReplaceEvent(ReplaceEvent event) {
+        replaceTitleTextView.setText("该传感器与" + event.getName() + "绑定，是否替换？");
+        REPLACE_APPUSER_ID = event.getAPPUSER_ID();
+        REPLACE_DEVICE_CODE = event.getDEVICE_CODE();
+        REPLACE_MEMBER_ID = event.getMEMBER_ID();
+        REPLACE_ONLINE_ID = event.getONLINE_ID();
+        replaceDialog.show();
+    }
+
+    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
+    public void onBindBabyConnectEvent(BindBabyConnectEvent event) {
+        System.out.println("onBindBabyConnectEvent");
+        bindDevice(event.getDEVICE_CODE());
+        Constant.isBindConnect = false;
     }
 }

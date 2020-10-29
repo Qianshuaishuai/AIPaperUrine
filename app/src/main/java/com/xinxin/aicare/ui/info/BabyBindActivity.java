@@ -101,6 +101,11 @@ public class BabyBindActivity extends BaseActivity {
         startActivity(intent);
     }
 
+    @Event(R.id.sure)
+    private void sureClick(View view) {
+        addMember();
+    }
+
     @Event(R.id.layout_header)
     private void layoutHeader(View view) {
         photoLayout.setVisibility(View.VISIBLE);
@@ -246,7 +251,7 @@ public class BabyBindActivity extends BaseActivity {
                 switch (response.getResult()) {
                     case 0:
                         T.s("添加成功");
-
+                        finish();
                         break;
                     default:
                         T.s("添加失败");
@@ -287,7 +292,7 @@ public class BabyBindActivity extends BaseActivity {
                 new DatePickerDialog.OnDateSetListener() {
                     @Override
                     public void onDateSet(android.widget.DatePicker view, int year, int month, int dayOfMonth) {
-                        String result = year + "-" + (month+1) + "-" + dayOfMonth;
+                        String result = year + "-" + (month + 1) + "-" + dayOfMonth;
                         babyDate.setText(result);
                     }
                 },

@@ -358,7 +358,7 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_none));
         } else {
             if (isConnect == 1) {
-                holder.cardTime.setText("已连接");
+                holder.cardTime.setText("接收中");
                 holder.cardTime.setTextColor(ContextCompat.getColor(context.getActivity(), R.color.connect_success));
             } else {
                 holder.cardTime.setText("未连接");
@@ -366,10 +366,14 @@ public class MemberAdapter extends RecyclerView.Adapter<MemberAdapter.ViewHolder
             }
         }
 
-        if (iSConnectStatus == 1) {
-            holder.connectIcon.setImageResource(R.mipmap.btn_lanya_clicked);
-        } else {
+        if (holder.cardTime.getText().toString().equals("设备未绑定")) {
             holder.connectIcon.setImageResource(R.mipmap.btn_lanya);
+        } else {
+            if (iSConnectStatus == 1) {
+                holder.connectIcon.setImageResource(R.mipmap.btn_lanya_clicked);
+            } else {
+                holder.connectIcon.setImageResource(R.mipmap.btn_lanya);
+            }
         }
 
         holder.babyLayout.setOnClickListener(new View.OnClickListener() {

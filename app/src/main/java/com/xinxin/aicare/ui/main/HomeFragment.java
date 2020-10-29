@@ -856,13 +856,4 @@ public class HomeFragment extends BaseFragment {
         adapter.setIsConnectStatus(event.getStatus());
         adapter.notifyDataSetChanged();
     }
-
-    @Subscribe(threadMode = ThreadMode.MAIN, sticky = true)
-    public void onReplaceEvent(ReplaceEvent event) {
-        replaceTitleTextView.setText("该传感器与" + event.getName() + "绑定，是否替换？");
-        REPLACE_APPUSER_ID = event.getAPPUSER_ID();
-        REPLACE_DEVICE_CODE = event.getDEVICE_CODE();
-        REPLACE_MEMBER_ID = event.getMEMBER_ID();
-        REPLACE_ONLINE_ID = event.getONLINE_ID();
-    }
 }
