@@ -6,6 +6,7 @@ public class Constant {
     public static boolean isShowIntroduce = false;
     public static boolean isDeviceBind = false;
     public static boolean isBindConnect = false;
+    public static boolean isNetworkReceipt = true;
 
 
     public static final String BASE_URL = "http://wechatshare.xinxinchoice.com/api/";

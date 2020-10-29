@@ -54,6 +54,7 @@ public class BabyIdActivity extends BaseActivity {
     }
 
     private void addMember() {
+        System.out.println("addMember");
         if (babyId.getText().toString().length() == 0) {
             T.s("宝宝id不能为空");
             return;

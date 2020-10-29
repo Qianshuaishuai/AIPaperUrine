@@ -151,11 +151,11 @@ public class UrineDetailActivity extends BaseActivity {
     }
 
     @Event(R.id.share)
-    private void share(View view){
-        Intent intent = new Intent(this,DataShareActivity.class);
-        intent.putExtra("memberId",MEMBER_ID);
-        intent.putExtra("startdate",START_DATE);
-        intent.putExtra("enddate",END_DATE);
+    private void share(View view) {
+        Intent intent = new Intent(this, DataShareActivity.class);
+        intent.putExtra("memberId", MEMBER_ID);
+        intent.putExtra("startdate", START_DATE);
+        intent.putExtra("enddate", END_DATE);
         startActivity(intent);
     }
 
@@ -379,57 +379,54 @@ public class UrineDetailActivity extends BaseActivity {
         ArrayList<ArrayList<Float>> yList = new ArrayList<>();
 
         ArrayList<Float> smallYList = new ArrayList<>();
-        switch (dateType) {
-            case 1:
-                for (int i = 0; i < 24; i++) {
-                    xList.add(i + "点");
-                    smallYList.add((float) 0.0);
-                }
-                break;
-            case 2:
-                xList = getDateList(7);
-                for (int i = 0; i < xList.size(); i++) {
-                    smallYList.add((float) 0.0);
-                }
-                break;
-            case 3:
-                xList = getDateList(15);
-                for (int i = 0; i < xList.size(); i++) {
-                    smallYList.add((float) 0.0);
-                }
-                break;
-            case 4:
-                xList = getDateList(30);
-                for (int i = 0; i < xList.size(); i++) {
-                    smallYList.add((float) 0.0);
-                }
-                break;
-        }
+//        switch (dateType) {
+//            case 1:
+//                for (int i = 0; i < 24; i++) {
+//                    xList.add(i + "点");
+//                    smallYList.add((float) 0.0);
+//                }
+//                break;
+//            case 2:
+//                xList = getDateList(7);
+//                for (int i = 0; i < xList.size(); i++) {
+//                    smallYList.add((float) 0.0);
+//                }
+//                break;
+//            case 3:
+//                xList = getDateList(15);
+//                for (int i = 0; i < xList.size(); i++) {
+//                    smallYList.add((float) 0.0);
+//                }
+//                break;
+//            case 4:
+//                xList = getDateList(30);
+//                for (int i = 0; i < xList.size(); i++) {
+//                    smallYList.add((float) 0.0);
+//                }
+//                break;
+//        }
 
         yList.add(smallYList);
 
         if (list.size() > 0) {
             for (int l = 0; l < list.size(); l++) {
-                for (int x = 0; x < xList.size(); x++) {
-                    if (xList.get(x).contains(list.get(l).getTIME())) {
-                        smallYList.set(x, Float.valueOf(list.get(l).getCNT()));
-                    }
-                }
+//                for (int x = 0; x < xList.size(); x++) {
+//                    if (xList.get(x).contains(list.get(l).getTIME())) {
+//                        smallYList.set(x, Float.valueOf(list.get(l).getCNT()));
+//                    }
+//                }
+                xList.add(list.get(l).getTIME());
+                smallYList.add(Float.valueOf(list.get(l).getCNT()));
             }
+            xList = getSortXList(xList);
 
 
+            lineChart.setDrawDotLine(false); //optional
+            lineChart.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
+            lineChart.setBottomTextList(xList);
+            lineChart.setColorArray(new int[]{Color.RED, Color.GREEN, Color.GRAY, Color.CYAN});
+            lineChart.setFloatDataList(yList); //or lineView.setFloatDataList(floatDataLists)
         }
-
-        xList = getSortXList(xList);
-
-
-        lineChart.setDrawDotLine(false); //optional
-        lineChart.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
-        lineChart.setBottomTextList(xList);
-        lineChart.setColorArray(new int[]{Color.RED, Color.GREEN, Color.GRAY, Color.CYAN});
-        lineChart.setFloatDataList(yList); //or lineView.setFloatDataList(floatDataLists)
-
-
     }
 
     private ArrayList<String> getSortXList(ArrayList<String> xList) {
@@ -447,55 +444,54 @@ public class UrineDetailActivity extends BaseActivity {
 
         ArrayList<Float> smallYList = new ArrayList<>();
         System.out.println(dateType);
-        switch (dateType) {
-            case 1:
-                for (int i = 0; i < 24; i++) {
-                    xList.add(i + "点");
-                    smallYList.add((float) 0.0);
-                }
-                break;
-            case 2:
-                xList = getDateList(7);
-                for (int i = 0; i < xList.size(); i++) {
-                    smallYList.add((float) 0.0);
-                }
-                break;
-            case 3:
-                xList = getDateList(15);
-                for (int i = 0; i < xList.size(); i++) {
-                    smallYList.add((float) 0.0);
-                }
-                break;
-            case 4:
-                xList = getDateList(30);
-                for (int i = 0; i < xList.size(); i++) {
-                    smallYList.add((float) 0.0);
-                }
-                break;
-        }
+//        switch (dateType) {
+//            case 1:
+//                for (int i = 0; i < 24; i++) {
+//                    xList.add(i + "点");
+//                    smallYList.add((float) 0.0);
+//                }
+//                break;
+//            case 2:
+//                xList = getDateList(7);
+//                for (int i = 0; i < xList.size(); i++) {
+//                    smallYList.add((float) 0.0);
+//                }
+//                break;
+//            case 3:
+//                xList = getDateList(15);
+//                for (int i = 0; i < xList.size(); i++) {
+//                    smallYList.add((float) 0.0);
+//                }
+//                break;
+//            case 4:
+//                xList = getDateList(30);
+//                for (int i = 0; i < xList.size(); i++) {
+//                    smallYList.add((float) 0.0);
+//                }
+//                break;
+//        }
 
         yList.add(smallYList);
 
         if (list.size() > 0) {
             for (int l = 0; l < list.size(); l++) {
-                for (int x = 0; x < xList.size(); x++) {
-                    if (xList.get(x).contains(list.get(l).getTIME())) {
-                        smallYList.set(x, Float.valueOf(list.get(l).getVOLUME()));
-                    }
-                }
+//                for (int x = 0; x < xList.size(); x++) {
+//                    if (xList.get(x).contains(list.get(l).getTIME())) {
+//                        smallYList.set(x, Float.valueOf(list.get(l).getCNT()));
+//                    }
+//                }
+                xList.add(list.get(l).getTIME());
+                smallYList.add(Float.valueOf(list.get(l).getVOLUME()));
             }
+            xList = getSortXList(xList);
 
 
+            lineChart2.setDrawDotLine(false); //optional
+            lineChart2.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
+            lineChart2.setBottomTextList(xList);
+            lineChart2.setColorArray(new int[]{Color.RED, Color.GREEN, Color.GRAY, Color.CYAN});
+            lineChart2.setFloatDataList(yList); //or lineView.setFloatDataList(floatDataLists)
         }
-
-
-        xList = getSortXList(xList);
-
-        lineChart2.setDrawDotLine(false); //optional
-        lineChart2.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
-        lineChart2.setBottomTextList(xList);
-        lineChart2.setColorArray(new int[]{Color.RED, Color.GREEN, Color.GRAY, Color.CYAN});
-        lineChart2.setFloatDataList(yList); //or lineView.setFloatDataList(floatDataLists)
 
 
     }
@@ -505,54 +501,54 @@ public class UrineDetailActivity extends BaseActivity {
         ArrayList<ArrayList<Float>> yList = new ArrayList<>();
 
         ArrayList<Float> smallYList = new ArrayList<>();
-        switch (dateType) {
-            case 1:
-                for (int i = 0; i < 24; i++) {
-                    xList.add(i + "点");
-                    smallYList.add((float) 0.0);
-                }
-                break;
-            case 2:
-                xList = getDateList(7);
-                for (int i = 0; i < xList.size(); i++) {
-                    smallYList.add((float) 0.0);
-                }
-                break;
-            case 3:
-                xList = getDateList(15);
-                for (int i = 0; i < xList.size(); i++) {
-                    smallYList.add((float) 0.0);
-                }
-                break;
-            case 4:
-                xList = getDateList(30);
-                for (int i = 0; i < xList.size(); i++) {
-                    smallYList.add((float) 0.0);
-                }
-                break;
-        }
+//        switch (dateType) {
+//            case 1:
+//                for (int i = 0; i < 24; i++) {
+//                    xList.add(i + "点");
+//                    smallYList.add((float) 0.0);
+//                }
+//                break;
+//            case 2:
+//                xList = getDateList(7);
+//                for (int i = 0; i < xList.size(); i++) {
+//                    smallYList.add((float) 0.0);
+//                }
+//                break;
+//            case 3:
+//                xList = getDateList(15);
+//                for (int i = 0; i < xList.size(); i++) {
+//                    smallYList.add((float) 0.0);
+//                }
+//                break;
+//            case 4:
+//                xList = getDateList(30);
+//                for (int i = 0; i < xList.size(); i++) {
+//                    smallYList.add((float) 0.0);
+//                }
+//                break;
+//        }
 
         yList.add(smallYList);
 
         if (list.size() > 0) {
             for (int l = 0; l < list.size(); l++) {
-                for (int x = 0; x < xList.size(); x++) {
-                    if (xList.get(x).contains(list.get(l).getTIME())) {
-                        smallYList.set(x, Float.valueOf(list.get(l).getCNT()));
-                    }
-                }
+//                for (int x = 0; x < xList.size(); x++) {
+//                    if (xList.get(x).contains(list.get(l).getTIME())) {
+//                        smallYList.set(x, Float.valueOf(list.get(l).getCNT()));
+//                    }
+//                }
+                xList.add(list.get(l).getTIME());
+                smallYList.add(Float.valueOf(list.get(l).getCNT()));
             }
+            xList = getSortXList(xList);
 
 
+            lineChart3.setDrawDotLine(false); //optional
+            lineChart3.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
+            lineChart3.setBottomTextList(xList);
+            lineChart3.setColorArray(new int[]{Color.RED, Color.GREEN, Color.GRAY, Color.CYAN});
+            lineChart3.setFloatDataList(yList); //or lineView.setFloatDataList(floatDataLists)
         }
-
-        xList = getSortXList(xList);
-        lineChart3.setDrawDotLine(false); //optional
-        lineChart3.setShowPopup(LineView.SHOW_POPUPS_MAXMIN_ONLY); //optional
-        lineChart3.setBottomTextList(xList);
-        lineChart3.setColorArray(new int[]{Color.RED, Color.GREEN, Color.GRAY, Color.CYAN});
-        lineChart3.setFloatDataList(yList); //or lineView.setFloatDataList(floatDataLists)
-
 
     }
 

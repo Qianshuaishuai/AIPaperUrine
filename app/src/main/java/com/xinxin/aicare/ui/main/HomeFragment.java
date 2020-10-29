@@ -112,6 +112,8 @@ public class HomeFragment extends BaseFragment {
     private TimerTask updateConnectTask;
     private Timer updateMemberListTimer;
     private TimerTask updateMemberListTimerTask;
+    private Timer networkStatusTimer;
+    private TimerTask networkStatusTimerTask;
     private boolean isFailed = false;
 
     private boolean isFirstClear = true;
@@ -263,6 +265,7 @@ public class HomeFragment extends BaseFragment {
     public void onDestroy() {
         super.onDestroy();
         timer1.cancel();
+        networkStatusTimer.cancel();
         destoryClearDeviceData();
         EventBus.getDefault().unregister(this);
     }
@@ -355,7 +358,17 @@ public class HomeFragment extends BaseFragment {
                 updateStatushandler.sendMessage(msg);
             }
         };
-        timer1.schedule(timerTask1, 0, 4000);
+        timer1.schedule(timerTask1, 0, 1000);
+
+        networkStatusTimer = new Timer();
+        networkStatusTimerTask = new TimerTask() {
+            @Override
+            public void run() {
+                Constant.isNetworkReceipt = true;
+            }
+        };
+        networkStatusTimer.schedule(networkStatusTimerTask, 0, 5000);
+
         getMemberList();
     }
 
@@ -366,6 +379,9 @@ public class HomeFragment extends BaseFragment {
             super.handleMessage(msg);
 //            adapter.setIsConnect(isConnect);
 //            adapter.notifyDataSetChanged();
+            if (Constant.isNetworkReceipt) {
+                getMemberList();
+            }
         }
     };
 
@@ -400,11 +416,12 @@ public class HomeFragment extends BaseFragment {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 MemberListResponse response = gson.fromJson(result, MemberListResponse.class);
+                System.out.println("远程接收数据中:" + result);
                 switch (response.getResult()) {
                     case 0:
                         if (response.getData().size() == 0) {
                             rvMember.setVisibility(View.GONE);
-                            babyLayout.setVisibility(View.VISIBLE);
+                            babyLayout.setVisibility(View.GONE);
                         } else {
                             rvMember.setVisibility(View.VISIBLE);
                             babyLayout.setVisibility(View.GONE);
@@ -833,18 +850,28 @@ public class HomeFragment extends BaseFragment {
         adapter.setIsConnect(isConnect);
         adapter.notifyDataSetChanged();
         //重新启动计时器
-        timer1.cancel();
-        timer1 = new Timer();
-        timerTask1 = new TimerTask() {
+//        timer1.cancel();
+//        timer1 = new Timer();
+//        timerTask1 = new TimerTask() {
+//            @Override
+//            public void run() {
+//                isConnect = 0;
+//                Message msg = Message.obtain();
+//                msg.obj = 0;
+//                updateStatushandler.sendMessage(msg);
+//            }
+//        };
+//        timer1.schedule(timerTask1, 4000, 4000);
+
+        networkStatusTimer.cancel();
+        networkStatusTimer = new Timer();
+        networkStatusTimerTask = new TimerTask() {
             @Override
             public void run() {
-                isConnect = 0;
-                Message msg = Message.obtain();
-                msg.obj = 0;
-                updateStatushandler.sendMessage(msg);
+                Constant.isNetworkReceipt = true;
             }
         };
-        timer1.schedule(timerTask1, 4000, 4000);
+        networkStatusTimer.schedule(networkStatusTimerTask, 5000, 5000);
     }
 
     private void showIntroduce() {
