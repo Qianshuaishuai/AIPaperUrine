@@ -285,6 +285,18 @@ public class BluetoothService extends Service {
             public void onSuccess(String result) {
                 Gson gson = new Gson();
                 CommonResponse response = gson.fromJson(result, CommonResponse.class);
+                if (D0.equals("0")) {
+                    System.out.println("DEVICE_ID:" + DEVICE_ID);
+                    System.out.println("D0:" + D0);
+                    System.out.println("X:" + X);
+                    System.out.println("Y:" + Y);
+                    System.out.println("Z:" + Z);
+                    System.out.println("AD:" + AD);
+                    System.out.println("D4:" + D4);
+                    System.out.println("D5:" + D5);
+                    System.out.println("D6:" + D6);
+                    System.out.println("result:" + result);
+                }
                 switch (response.getResult()) {
                     case 0:
                         if (D0.equals("0")) {
@@ -421,6 +433,8 @@ public class BluetoothService extends Service {
                         if (isConnect) {
                             scanner.stopScan(mScanCallback);
                         }
+
+                        Constant.isNetworkReceipt = false;
                     }
                 }
 
@@ -512,6 +526,7 @@ public class BluetoothService extends Service {
                     receiveBean.setD5(D5);
                     receiveBean.setD6(D6);
                     EventBus.getDefault().post(new BluetoothReceiveEvent(receiveBean));
+                    System.out.println("链接时接收DO:" + D0);
                     if (D0.equals("0")) {
                         isDataConnect = false;
                         EventBus.getDefault().post(new BluetoothConnectEvent(0));
@@ -524,6 +539,8 @@ public class BluetoothService extends Service {
                     if (Constant.isBindConnect) {
                         EventBus.getDefault().post(new BindBabyConnectEvent(DEVICE_ID));
                     }
+
+                    Constant.isNetworkReceipt = false;
                 }
 
 
