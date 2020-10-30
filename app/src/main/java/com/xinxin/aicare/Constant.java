@@ -8,6 +8,11 @@ public class Constant {
     public static boolean isBindConnect = false;
     public static boolean isNetworkReceipt = true;
 
+    public static final int STATUS_CODE_PERMISSION_REQUEST = 100000;
+
+    //微信支付AppID
+    public static final int REQUEST_PERMISSION_CODE = 101;
+
 
     public static final String BASE_URL = "http://wechatshare.xinxinchoice.com/api/";
     public static final int PAY_FOR_ORDER = 10001;

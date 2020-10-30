@@ -1,5 +1,6 @@
 package com.xinxin.aicare.ui.main;
 
+import android.Manifest;
 import android.annotation.SuppressLint;
 import android.app.AlertDialog;
 import android.bluetooth.BluetoothAdapter;
@@ -7,6 +8,7 @@ import android.bluetooth.le.BluetoothLeScanner;
 import android.bluetooth.le.ScanCallback;
 import android.bluetooth.le.ScanResult;
 import android.bluetooth.le.ScanSettings;
+import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.content.res.ColorStateList;
@@ -20,6 +22,7 @@ import android.support.design.widget.BottomNavigationView;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentTransaction;
 import android.os.Bundle;
+import android.support.v4.content.ContextCompat;
 import android.text.TextUtils;
 import android.view.LayoutInflater;
 import android.view.MenuItem;
@@ -50,8 +53,10 @@ import org.xutils.x;
 import java.lang.reflect.Field;
 import java.util.List;
 
+import pub.devrel.easypermissions.EasyPermissions;
+
 @ContentView(R.layout.activity_main)
-public class MainActivity extends BaseActivity implements HomeFragment.OnFragmentInteractionListener, FindFragment.OnFragmentInteractionListener, StoreFragment.OnFragmentInteractionListener, PersonFragment.OnFragmentInteractionListener {
+public class MainActivity extends BaseActivity implements EasyPermissions.PermissionCallbacks, HomeFragment.OnFragmentInteractionListener, FindFragment.OnFragmentInteractionListener, StoreFragment.OnFragmentInteractionListener, PersonFragment.OnFragmentInteractionListener {
 
     @ViewInject(R.id.navigation)
     private BottomNavigationView navigation;
@@ -70,14 +75,90 @@ public class MainActivity extends BaseActivity implements HomeFragment.OnFragmen
     private BluetoothAdapter blueadapter;
     private AlertDialog boothDialog;
 
+    private String[] permissions = {Manifest.permission.WRITE_EXTERNAL_STORAGE, Manifest.permission.ACCESS_COARSE_LOCATION, Manifest.permission.ACCESS_FINE_LOCATION,
+            Manifest.permission.CHANGE_WIFI_STATE,
+            Manifest.permission.ACCESS_NETWORK_STATE,
+            Manifest.permission.ACCESS_WIFI_STATE,
+            Manifest.permission.READ_PHONE_STATE,
+            Manifest.permission.CAMERA,
+            Manifest.permission.ACCESS_LOCATION_EXTRA_COMMANDS,
+            Manifest.permission.CALL_PHONE};
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
         initBoothDialog();
         initNavigationBar();
+        initPermission();
     }
 
+    private void initPermission() {
+        if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.M) {
+            int i = ContextCompat.checkSelfPermission(this, permissions[1]);
+            if (i != PackageManager.PERMISSION_GRANTED) {
+//                showWaringDialog();
+
+//                EasyPermissions.requestPermissions(
+//                        new PermissionRequest.Builder(this, RC_CAMERA_AND_LOCATION, perms)
+//                                .setRationale(R.string.camera_and_location_rationale)
+//                                .setPositiveButtonText(R.string.rationale_ask_ok)
+//                                .setNegativeButtonText(R.string.rationale_ask_cancel)
+//                                .setTheme(R.style.my_fancy_style)
+//                                .build());
+
+                EasyPermissions.requestPermissions(this, "您需要允许以下权限，才可以正常使用应用",
+                        Constant.REQUEST_PERMISSION_CODE, permissions);
+            }
+        }
+    }
+
+    private void showWaringDialog() {
+        AlertDialog dialog = new AlertDialog.Builder(this)
+                .setTitle("警告！")
+                .setMessage("请前往设置->应用->黑果会员->权限中打开相关权限，否则功能无法正常运行！")
+                .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+                        // 一般情况下如果用户不授权的话，功能是无法运行的，做退出处理
+                        finish();
+                    }
+                }).show();
+    }
+
+    @Override
+    public void onPermissionsGranted(int requestCode, @NonNull List<String> perms) {
+
+    }
+
+    @Override
+    public void onPermissionsDenied(int requestCode, @NonNull List<String> perms) {
+        if (requestCode == Constant.REQUEST_PERMISSION_CODE) {
+            AlertDialog dialog = new AlertDialog.Builder(this)
+                    .setTitle("警告！")
+                    .setMessage("如拒绝权限将无法正常使用应用！")
+                    .setPositiveButton("确定", new DialogInterface.OnClickListener() {
+                        @Override
+                        public void onClick(DialogInterface dialog, int which) {
+                            // 一般情况下如果用户不授权的话，功能是无法运行的，做退出处理
+                            finish();
+                        }
+                    }).show();
+        }
+    }
+
+    @Override
+    public void onPointerCaptureChanged(boolean hasCapture) {
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, @NonNull String[] permissions, @NonNull int[] grantResults) {
+        super.onRequestPermissionsResult(requestCode, permissions, grantResults);
+
+        // Forward results to EasyPermissions
+        EasyPermissions.onRequestPermissionsResult(requestCode, permissions, grantResults, this);
+    }
 
     @Override
     protected void onDestroy() {

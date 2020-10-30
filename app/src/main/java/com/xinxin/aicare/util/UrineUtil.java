@@ -1,5 +1,7 @@
 package com.xinxin.aicare.util;
 
+import android.text.TextUtils;
+
 public class UrineUtil {
     //提醒模板
     //尿湿，开状态，且未提醒，才弹框
@@ -22,6 +24,10 @@ public class UrineUtil {
     //根据参数计算尿量
     public static int getUrineVolume(String AD, String THERMOMETER, String NUMERICAL_TABLE) {
         int c = Integer.parseInt(AD);
+
+        if (TextUtils.isEmpty(THERMOMETER)) {
+            return 0;
+        }
 
         int[] a = StringUtil.StringToInt(THERMOMETER.replace(" ", ""));//50, 80, 120,160,200,240,280,320,501
         int[] v = StringUtil.StringToInt(NUMERICAL_TABLE.replace(" ", ""));//525,480,413,348,310,275,238,213,100

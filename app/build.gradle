@@ -47,6 +47,7 @@ dependencies {
     implementation 'com.github.PhilJay:MPAndroidChart:v3.1.0'
     implementation 'com.github.lecho:hellocharts-android:v1.5.8'
     implementation 'im.dacer:AndroidCharts:1.0.4'
+    implementation 'pub.devrel:easypermissions:1.3.0'
     testImplementation 'junit:junit:4.12'
     androidTestImplementation 'com.android.support.test:runner:1.0.2'
     androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.2'
